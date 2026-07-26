@@ -1,0 +1,43 @@
+# Example nginx server block for dedicated / VPS (not REG.RU shared panel).
+# Domains: акап.рф / xn--80aa3av.xn--p1ai
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name xn--80aa3av.xn--p1ai www.xn--80aa3av.xn--p1ai акап.рф www.акап.рф;
+    return 301 https://xn--80aa3av.xn--p1ai$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.xn--80aa3av.xn--p1ai www.акап.рф;
+    ssl_certificate     /etc/letsencrypt/live/xn--80aa3av.xn--p1ai/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/xn--80aa3av.xn--p1ai/privkey.pem;
+    return 301 https://xn--80aa3av.xn--p1ai$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name xn--80aa3av.xn--p1ai акап.рф;
+
+    ssl_certificate     /etc/letsencrypt/live/xn--80aa3av.xn--p1ai/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/xn--80aa3av.xn--p1ai/privkey.pem;
+
+    root /var/www/akap;
+    index index.html;
+
+    # Security
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~* \.(css|js|png|jpg|jpeg|gif|svg|webp|woff2)$ {
+        expires 7d;
+        add_header Cache-Control "public, immutable";
+    }
+}

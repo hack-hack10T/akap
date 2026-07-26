@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AKAP — маркетплейс редкого кофе</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&amp;display=swap');
+    
+    :root {
+      --bg: #050403;
+      --surface: #120d09;
+      --accent: #c9a26b;
+      --accent-light: #d4b48a;
+      --text: #f5f0e6;
+      --muted: #8a7c6b;
+      --card: #1a150f;
+    }
+    
+    body {
+      font-family: 'Inter', system_ui, sans-serif;
+      background: #050403;
+      color: #f5f0e6;
+    }
+    
+    .display {
+      font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+      font-feature-settings: "ss02";
+    }
+    
+    .serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .cinematic {
+      letter-spacing: -0.04em;
+    }
+
+    .nav-glass {
+      background: rgba(5, 4, 3, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(201, 162, 107, 0.08);
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #c9a26b;
+    }
+
+    .product-card {
+      background: #1a150f;
+      transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), 
+                  box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+                  border-color 0.3s ease;
+      border: 1px solid #2a2219;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 40px 90px -20px rgb(0 0 0 / 0.6);
+      border-color: #3f3223;
+    }
+
+    .product-card:hover .coffee-visual {
+      transform: scale(1.04);
+    }
+
+    .coffee-visual {
+      transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .steam {
+      position: absolute;
+      top: 18%;
+      left: 50%;
+      width: 18px;
+      height: 60px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    
+    .product-card:hover .steam {
+      opacity: 0.65;
+    }
+
+    .steam-line {
+      position: absolute;
+      width: 1.5px;
+      background: linear-gradient(to top, transparent, #c9a26b33, transparent);
+      animation: steam-rise 2.4s infinite ease-in-out;
+      border-radius: 999px;
+    }
+
+    @keyframes steam-rise {
+      0% { transform: translateY(18px) scaleY(0.6); opacity: 0.2; }
+      40% { opacity: 0.7; }
+      100% { transform: translateY(-28px) scaleY(1.1); opacity: 0; }
+    }
+
+    .gold {
+      color: #c9a26b;
+    }
+
+    .taste-note {
+      font-size: 0.68rem;
+      letter-spacing: 0.5px;
+      background: #2a2219;
+      color: #c9a26b;
+      padding: 1px 9px;
+      border-radius: 999px;
+      border: 1px solid #3f3223;
+    }
+
+    .market-grid {
+      background-image: 
+        linear-gradient(#2a2219 1px, transparent 1px),
+        linear-gradient(90deg, #2a2219 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.25;
+    }
+
+    .elegant-line {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #c9a26b22, transparent);
+    }
+
+    .modal {
+      animation: modal-enter 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @keyframes modal-enter {
+      from { opacity: 0; transform: translateY(30px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #c9a26b;
+      transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .nav-link:hover:after { width: 100%; }
+
+    .filter-chip {
+      transition: all 0.2s ease;
+      border: 1px solid #3f3223;
+    }
+    .filter-chip.active {
+      background: #c9a26b;
+      color: #050403;
+      border-color: #c9a26b;
+    }
+
+    .coffee-bag {
+      background: linear-gradient(145deg, #1f1913, #120d09);
+      box-shadow: inset 0 0 0 1px #3f3223,
+                  0 10px 30px -10px rgb(0 0 0 / 0.5);
+    }
+
+    .flavor-cloud {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(18px);
+      opacity: 0.25;
+      pointer-events: none;
+      transition: all 0.6s ease;
+    }
+
+    .cart-drawer {
+      box-shadow: -30px 0 80px -20px rgb(0 0 0 / 0.7);
+      transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .hypnotic {
+      filter: contrast(1.04) saturate(0.95);
+    }
+
+    .bean {
+      position: absolute;
+      background: #3c2f2f;
+      border-radius: 50%;
+      box-shadow: inset -3px -3px 6px #2a2219, inset 2px 3px 4px #5c4a3c;
+    }
+
+    .premium-text {
+      font-weight: 500;
+      letter-spacing: -0.015em;
+    }
+  </style>
+</head>
+<body class="bg-[#050403] text-[#f5f0e6] overflow-x-hidden">
+  <!-- NAV -->
+  <nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-screen-2xl mx-auto px-8 md:px-12">
+      <div class="h-20 flex items-center justify-between">
+        <div class="flex items-center gap-x-3">
+          <div class="flex items-center gap-x-2.5">
+            <div class="w-5 h-px bg-[#c9a26b]"></div>
+            <span class="font-semibold tracking-[-3px] text-[32px] display">AKAP</span>
+          </div>
+          <div class="text-[10px] text-[#c9a26b] tracking-[3px] font-medium pt-1.5">COFFEE</div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+          <a href="#catalog" class="nav-link text-[#d1c9b8] hover:text-[#f5f0e6]">Каталог</a>
+          <a href="#origins" class="nav-link text-[#d1c9b8] hover:text-[#f5f0e6]">Происхождение</a>
+          <a href="#lab" class="nav-link text-[#d1c9b8] hover:text-[#f5f0e6]">Лаборатория</a>
+          <a href="#club" class="nav-link text-[#d1c9b8] hover:text-[#f5f0e6]">Клуб</a>
+        </div>
+
+        <div class="flex items-center gap-x-4">
+          <div onclick="showCart()" class="flex items-center gap-x-2 px-4 py-2 rounded-2xl border border-[#3f3223] hover:border-[#c9a26b]/60 cursor-pointer transition-all group">
+            <i class="fa-solid fa-shopping-bag text-[#c9a26b]"></i>
+            <span class="text-sm font-medium tabular-nums" id="cart-count">0</span>
+          </div>
+          <button onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})" 
+                  class="hidden md:block px-7 py-[9px] text-xs tracking-[2px] border border-[#c9a26b] hover:bg-[#c9a26b] hover:text-[#050403] transition-all font-medium">
+            КАТАЛОГ
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="relative min-h-[100dvh] flex items-center justify-center pt-16">
+    <div class="absolute inset-0 z-0">
+      <canvas id="hero-canvas" class="w-full h-full hypnotic"></canvas>
+      <div class="absolute inset-0 bg-gradient-to-b from-[#050403]/80 via-[#050403]/40 to-[#050403]"></div>
+      <div class="absolute inset-0 market-grid"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-screen-2xl mx-auto px-8 md:px-12 text-center">
+      <div class="inline-flex items-center gap-x-2 px-4 py-1 rounded-full border border-[#c9a26b]/30 text-xs tracking-[3px] text-[#c9a26b] mb-6">
+        ПРЯМЫЕ ПОСТАВКИ • 2026
+      </div>
+      
+      <h1 class="text-[88px] md:text-[118px] lg:text-[132px] leading-[0.82] font-semibold tracking-[-7.2px] display mb-3">
+        AKAP
+      </h1>
+      
+      <p class="max-w-md mx-auto text-2xl md:text-[26px] tracking-[-0.5px] text-[#d1c9b8] mb-9">
+        Редкий кофе.<br>Прямые истории.<br>Медленный глоток.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})" 
+                class="group px-9 h-14 bg-[#c9a26b] hover:bg-[#d4b48a] active:bg-[#a67c52] text-[#050403] font-medium tracking-[1.5px] flex items-center justify-center gap-x-3 transition-all text-sm">
+          ИССЛЕДОВАТЬ КАТАЛОГ
+          <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition"></i>
+        </button>
+        <button onclick="document.getElementById('lab').scrollIntoView({behavior:'smooth'})" 
+                class="px-8 h-14 border border-[#c9a26b]/60 hover:bg-[#1a150f] text-sm tracking-[1.5px] transition-all">
+          ОТКРЫТЬ ЛАБОРАТОРИЮ
+        </button>
+      </div>
+    </div>
+
+    <div class="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center z-10">
+      <div class="text-[10px] tracking-[3px] text-[#c9a26b]/60 mb-1">ПРОКРУТИТЕ, ЧТОБЫ ВОЙТИ</div>
+      <i class="fa-solid fa-chevron-down text-[#c9a26b]/60 animate-bounce"></i>
+    </div>
+  </header>
+
+  <!-- TRUST / STATS -->
+  <div class="max-w-screen-2xl mx-auto px-8 md:px-12 py-6 border-b border-[#2a2219]">
+    <div class="flex flex-wrap justify-between items-center gap-x-8 gap-y-3 text-xs tracking-[1.5px] text-[#8a7c6b]">
+      <div>47 лотов в этом сезоне</div>
+      <div>Прямые контракты с 19 фермами</div>
+      <div>Обжарка в день отправки</div>
+      <div class="text-[#c9a26b]">4,8 / 5 от 3120 ценителей</div>
+    </div>
+  </div>
+
+  <!-- CATALOG -->
+  <section id="catalog" class="max-w-screen-2xl mx-auto px-8 md:px-12 pt-14 pb-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-y-4">
+      <div>
+        <div class="section-label mb-1">01 — КАТАЛОГ</div>
+        <h2 class="text-6xl md:text-7xl tracking-[-3.8px] display">Редкие лоты</h2>
+      </div>
+      
+      <div class="flex items-center gap-3 text-sm">
+        <!-- Search -->
+        <div class="relative w-72">
+          <input id="search-input" type="text" placeholder="Поиск по названию или нотам..." 
+                 oninput="filterProducts()"
+                 class="w-full bg-[#120d09] border border-[#2a2219] focus:border-[#c9a26b]/70 pl-10 py-2.5 text-sm rounded-2xl placeholder:text-[#8a7c6b] outline-none">
+          <i class="fa-solid fa-search absolute left-4 top-3.5 text-[#8a7c6b]"></i>
+        </div>
+        
+        <select id="sort-select" onchange="filterProducts()" 
+                class="bg-[#120d09] border border-[#2a2219] text-sm px-4 py-2.5 rounded-2xl text-[#d1c9b8] outline-none cursor-pointer">
+          <option value="popular">По популярности</option>
+          <option value="price-low">Цена: низкая → высокая</option>
+          <option value="price-high">Цена: высокая → низкая</option>
+          <option value="newest">Сначала новые</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap items-center gap-2 mb-8" id="filters">
+      <div class="text-xs text-[#8a7c6b] mr-1">Регион:</div>
+      <div onclick="toggleFilter(this, 'region', 'all')" class="filter-chip active px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="all">Все</div>
+      <div onclick="toggleFilter(this, 'region', 'ethiopia')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="ethiopia">Эфиопия</div>
+      <div onclick="toggleFilter(this, 'region', 'panama')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="panama">Панама</div>
+      <div onclick="toggleFilter(this, 'region', 'colombia')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="colombia">Колумбия</div>
+      <div onclick="toggleFilter(this, 'region', 'kenya')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="kenya">Кения</div>
+      <div onclick="toggleFilter(this, 'region', 'brazil')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="brazil">Бразилия</div>
+      
+      <div class="w-px h-3 bg-[#2a2219] mx-2"></div>
+      
+      <div class="text-xs text-[#8a7c6b] mr-1">Вкус:</div>
+      <div onclick="toggleFilter(this, 'profile', 'all')" class="filter-chip active px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="all">Все</div>
+      <div onclick="toggleFilter(this, 'profile', 'fruity')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="fruity">Фруктовый</div>
+      <div onclick="toggleFilter(this, 'profile', 'floral')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="floral">Цветочный</div>
+      <div onclick="toggleFilter(this, 'profile', 'chocolate')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="chocolate">Шоколадный</div>
+      <div onclick="toggleFilter(this, 'profile', 'bright')" class="filter-chip px-4 py-1 text-xs rounded-3xl cursor-pointer" data-value="bright">Яркий</div>
+    </div>
+
+    <!-- Products Grid -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5"></div>
+  </section>
+
+  <!-- ORIGINS -->
+  <section id="origins" class="max-w-screen-2xl mx-auto px-8 md:px-12 py-16 border-y border-[#2a2219]">
+    <div class="mb-9">
+      <div class="section-label mb-1">02 — ПРОИСХОЖДЕНИЕ</div>
+      <h3 class="text-6xl tracking-[-3.5px] display">Земля, которая дарит</h3>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="group p-7 bg-[#120d09] border border-[#2a2219] hover:border-[#c9a26b]/40 transition-all">
+        <div class="text-[#c9a26b] text-sm mb-1">Эфиопия • Гуджи</div>
+        <div class="text-3xl display tracking-tight mb-3">Высокогорные сады</div>
+        <div class="text-sm text-[#d1c9b8] leading-snug">Древние кофейные деревья на высоте 1900–2200 м. Дикие ягоды, жасмин и чайный куст.</div>
+        <div class="mt-5 text-xs text-[#c9a26b]/70 group-hover:text-[#c9a26b] transition">12 лотов в этом году →</div>
+      </div>
+      <div class="group p-7 bg-[#120d09] border border-[#2a2219] hover:border-[#c9a26b]/40 transition-all">
+        <div class="text-[#c9a26b] text-sm mb-1">Панама • Бокете</div>
+        <div class="text-3xl display tracking-tight mb-3">Гейша-терруар</div>
+        <div class="text-sm text-[#d1c9b8] leading-snug">Легендарные деревья. Жасмин, бергамот и персиковый нектар. Самый изысканный сорт в мире.</div>
+        <div class="mt-5 text-xs text-[#c9a26b]/70 group-hover:text-[#c9a26b] transition">Только 3 лота в сезоне →</div>
+      </div>
+      <div class="group p-7 bg-[#120d09] border border-[#2a2219] hover:border-[#c9a26b]/40 transition-all">
+        <div class="text-[#c9a26b] text-sm mb-1">Кения • Киамбу</div>
+        <div class="text-3xl display tracking-tight mb-3">Чёрная смородина и томат</div>
+        <div class="text-sm text-[#d1c9b8] leading-snug">Яркая кислотность, сочная ягода и винная структура. Кофе, который заставляет замереть.</div>
+        <div class="mt-5 text-xs text-[#c9a26b]/70 group-hover:text-[#c9a26b] transition">8 лотов →</div>
+      </div>
+      <div class="group p-7 bg-[#120d09] border border-[#2a2219] hover:border-[#c9a26b]/40 transition-all">
+        <div class="text-[#c9a26b] text-sm mb-1">Колумбия • Уила</div>
+        <div class="text-3xl display tracking-tight mb-3">Сладость и тело</div>
+        <div class="text-sm text-[#d1c9b8] leading-snug">Карамель, тёмный шоколад, красное яблоко. Идеальный баланс для эспрессо и фильтра.</div>
+        <div class="mt-5 text-xs text-[#c9a26b]/70 group-hover:text-[#c9a26b] transition">15 лотов →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AROMA LAB / VISUALIZER -->
+  <section id="lab" class="max-w-screen-2xl mx-auto px-8 md:px-12 py-16">
+    <div class="flex flex-col lg:flex-row gap-12">
+      <div class="lg:w-5/12">
+        <div class="sticky top-24">
+          <div class="section-label mb-2">03 — ЛАБОРАТОРИЯ</div>
+          <h3 class="text-6xl md:text-7xl tracking-[-3.8px] display leading-none mb-5">Визуализатор<br>аромата</h3>
+          <p class="max-w-md text-[#d1c9b8] text-[15px] mb-8">Выберите ноты — и посмотрите, как они оживают в чашке. Это не просто игра. Это способ понять, почему один лот может изменить ваше представление о кофе.</p>
+          
+          <div class="flex flex-wrap gap-2" id="flavor-buttons">
+            <!-- JS populated -->
+          </div>
+          
+          <div class="mt-6 text-xs text-[#8a7c6b]">
+            Кликните по нотам. Смешивайте. Наблюдайте.
+          </div>
+        </div>
+      </div>
+      
+      <div class="lg:w-7/12">
+        <div class="relative rounded-3xl overflow-hidden border border-[#2a2219] bg-[#0a0704] shadow-2xl" style="aspect-ratio: 16 / 10.5;">
+          <canvas id="lab-canvas" class="w-full h-full block cursor-crosshair"></canvas>
+          
+          <div class="absolute bottom-4 left-4 px-4 py-1.5 bg-black/50 text-xs tracking-widest rounded-2xl border border-[#c9a26b]/20">ЧАШКА В РЕАЛЬНОМ ВРЕМЕНИ</div>
+          <div onclick="resetLab()" class="absolute bottom-4 right-4 px-4 py-1.5 text-xs border border-[#c9a26b]/30 hover:bg-[#c9a26b] hover:text-[#050403] cursor-pointer rounded-2xl transition">СБРОСИТЬ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLUB / SUBSCRIPTION -->
+  <section id="club" class="max-w-screen-2xl mx-auto px-8 md:px-12 py-16 border-t border-[#2a2219]">
+    <div class="max-w-2xl">
+      <div class="section-label mb-2">04 — КЛУБ АКАП</div>
+      <h3 class="text-6xl tracking-[-3.6px] display mb-6">Каждый месяц — новый мир</h3>
+      <p class="text-lg text-[#d1c9b8]">Подписка на редкие лоты. 3–4 пакета в месяц. Истории фермеров. Доступ к закрытым аукционам. Мы выбираем то, что сами готовы пить.</p>
+    </div>
+    
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="p-8 border border-[#2a2219] hover:border-[#c9a26b]/40 transition group">
+        <div class="uppercase tracking-widest text-xs text-[#c9a26b]">Explorer</div>
+        <div class="text-5xl display tracking-tighter mt-3 mb-1">4 200 ₽</div>
+        <div class="text-sm text-[#8a7c6b]">в месяц</div>
+        <ul class="mt-7 space-y-2 text-sm">
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> 3 пакета (250 г)</li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> Журнал с историями</li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> Доступ к клубным лотам</li>
+        </ul>
+        <button onclick="joinClub('explorer')" class="mt-8 w-full border border-[#c9a26b] hover:bg-[#c9a26b] hover:text-[#050403] py-3 text-sm tracking-widest transition">ВЫБРАТЬ</button>
+      </div>
+      
+      <div class="p-8 border border-[#c9a26b] bg-[#120d09] relative">
+        <div class="absolute -top-3 right-8 bg-[#c9a26b] text-[#050403] text-[10px] px-4 py-px tracking-[1.5px]">РЕКОМЕНДУЕМ</div>
+        <div class="uppercase tracking-widest text-xs text-[#c9a26b]">Connoisseur</div>
+        <div class="text-5xl display tracking-tighter mt-3 mb-1">8 900 ₽</div>
+        <div class="text-sm text-[#8a7c6b]">в месяц</div>
+        <ul class="mt-7 space-y-2 text-sm">
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> 4 пакета (250 г) + 1 редкий лот</li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> Приоритет на аукционах</li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> Персональные рекомендации</li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> Приглашение на каппинги</li>
+        </ul>
+        <button onclick="joinClub('connoisseur')" class="mt-8 w-full bg-[#c9a26b] text-[#050403] hover:bg-[#d4b48a] py-3 text-sm tracking-widest transition font-medium">ПРИСОЕДИНИТЬСЯ</button>
+      </div>
+      
+      <div class="p-8 border border-[#2a2219] hover:border-[#c9a26b]/40 transition">
+        <div class="uppercase tracking-widest text-xs text-[#c9a26b]">Archive</div>
+        <div class="text-5xl display tracking-tighter mt-3 mb-1">14 500 ₽</div>
+        <div class="text-sm text-[#8a7c6b]">в месяц</div>
+        <ul class="mt-7 space-y-2 text-sm">
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> 5 пакетов + 2 эксклюзивных</li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> Полный доступ к архиву</li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-[#c9a26b] mt-1"></i> Личный бариста-куратор</li>
+        </ul>
+        <button onclick="joinClub('archive')" class="mt-8 w-full border border-[#c9a26b] hover:bg-[#c9a26b] hover:text-[#050403] py-3 text-sm tracking-widest transition">ВЫБРАТЬ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL POETIC -->
+  <div class="max-w-screen-2xl mx-auto px-8 md:px-12 py-12 text-center border-t border-[#2a2219]">
+    <div class="max-w-lg mx-auto">
+      <p class="text-xl leading-tight tracking-tight">Кофе не должен быть быстрым.<br>Он должен оставаться.</p>
+      <div class="mt-6 text-[#c9a26b] text-xs tracking-[3px]">AKAP • 2026</div>
+    </div>
+  </div>
+
+  <!-- Product Modal -->
+  <div id="product-modal" onclick="if (event.target.id === 'product-modal') hideProductModal()" class="hidden fixed inset-0 z-[70] bg-black/95 items-center justify-center p-4 md:p-8">
+    <div onclick="event.stopImmediatePropagation()" class="modal w-full max-w-[980px] bg-[#120d09] border border-[#2a2219] rounded-3xl overflow-hidden">
+      <div class="flex flex-col lg:flex-row">
+        <!-- Visual -->
+        <div class="lg:w-5/12 p-9 flex items-center justify-center bg-[#0a0704]" id="modal-visual">
+        </div>
+        
+        <div class="lg:w-7/12 p-9 md:p-11">
+          <div class="flex justify-between">
+            <div>
+              <div id="modal-origin" class="text-[#c9a26b] text-xs tracking-[2px]"></div>
+              <div id="modal-name" class="text-4xl display tracking-tighter mt-1"></div>
+            </div>
+            <button onclick="hideProductModal()" class="text-4xl leading-none text-[#8a7c6b] hover:text-[#f5f0e6] transition">×</button>
+          </div>
+          
+          <div id="modal-price" class="mt-4 text-2xl font-medium"></div>
+          
+          <div id="modal-notes" class="flex flex-wrap gap-1.5 mt-5"></div>
+          
+          <div id="modal-desc" class="mt-6 text-[#d1c9b8] leading-relaxed"></div>
+          
+          <div class="mt-8">
+            <div class="text-xs tracking-widest text-[#8a7c6b] mb-2">ПОМОЛ</div>
+            <div class="flex gap-2 flex-wrap" id="grind-options"></div>
+          </div>
+          
+          <div class="mt-5">
+            <div class="text-xs tracking-widest text-[#8a7c6b] mb-2">УПАКОВКА</div>
+            <div class="flex gap-2" id="size-options"></div>
+          </div>
+          
+          <div class="mt-9 flex gap-3">
+            <button onclick="addCurrentToCart()" 
+                    class="flex-1 h-14 bg-[#c9a26b] text-[#050403] font-medium tracking-widest text-sm hover:bg-[#d4b48a] transition">ДОБАВИТЬ В КОРЗИНУ</button>
+            <button onclick="hideProductModal()" 
+                    class="px-9 border border-[#3f3223] hover:bg-[#1a150f] tracking-widest text-sm transition">ЗАКРЫТЬ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div id="cart-drawer" onclick="if (event.target.id === 'cart-drawer') hideCart()" class="hidden fixed inset-0 z-[80] bg-black/70">
+    <div onclick="event.stopImmediatePropagation()" class="cart-drawer absolute right-0 top-0 bottom-0 w-full max-w-md bg-[#120d09] border-l border-[#2a2219] p-8 overflow-auto">
+      <div class="flex justify-between items-center mb-8">
+        <div class="text-2xl display tracking-tight">Корзина</div>
+        <button onclick="hideCart()" class="text-3xl text-[#8a7c6b] hover:text-white">×</button>
+      </div>
+      
+      <div id="cart-items" class="space-y-5"></div>
+      
+      <div class="mt-9 pt-7 border-t border-[#2a2219]">
+        <div class="flex justify-between text-lg">
+          <div>Итого</div>
+          <div id="cart-total" class="font-medium tabular-nums"></div>
+        </div>
+        
+        <button onclick="checkout()" 
+                class="mt-6 w-full h-14 bg-[#c9a26b] text-[#050403] font-medium tracking-[1.5px] hover:bg-[#d4b48a] transition">
+          ОФОРМИТЬ ЗАКАЗ
+        </button>
+        
+        <div class="text-center text-xs text-[#8a7c6b] mt-3">Доставка по России 2–4 дня • Обжарка в день отправки</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success-modal" onclick="hideSuccessModal()" class="hidden fixed inset-0 z-[90] bg-black/90 items-center justify-center p-6">
+    <div onclick="event.stopImmediatePropagation()" class="max-w-md w-full text-center bg-[#120d09] border border-[#c9a26b]/30 p-10 rounded-3xl">
+      <i class="fa-solid fa-check-circle text-[#c9a26b] text-5xl mb-5"></i>
+      <div class="text-3xl display tracking-tight">Заказ принят</div>
+      <p class="mt-3 text-[#d1c9b8]">Ваш кофе уже обжаривается. Мы отправим его в течение 24 часов.</p>
+      <button onclick="hideSuccessModal()" class="mt-8 px-10 py-3 text-sm tracking-[2px] border border-[#c9a26b] hover:bg-[#c9a26b] hover:text-[#050403]">ЗАКРЫТЬ</button>
+    </div>
+  </div>
+
+  <script>
+    // Tailwind config
+    function initTailwind() {
+      // already good
+    }
+    
+    // Nav scroll
+    function initNav() {
+      const nav = document.getElementById('nav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 60) {
+          nav.classList.add('nav-glass');
+        } else {
+          nav.classList.remove('nav-glass');
+        }
+      });
+    }
+    
+    // Hero canvas — steam + floating beans (hypnotic)
+    let heroCanvas, heroCtx, heroParticles = [];
+    
+    function initHeroCanvas() {
+      heroCanvas = document.getElementById('hero-canvas');
+      heroCtx = heroCanvas.getContext('2d');
+      
+      function resize() {
+        heroCanvas.width = window.innerWidth;
+        heroCanvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      
+      const count = 38;
+      heroParticles = [];
+      for (let i = 0; i < count; i++) {
+        heroParticles.push({
+          x: Math.random() * heroCanvas.width,
+          y: Math.random() * heroCanvas.height * 0.7 + heroCanvas.height * 0.1,
+          vx: (Math.random() - 0.5) * 0.08,
+          vy: -0.35 - Math.random() * 0.45,
+          size: Math.random() * 2.6 + 1.8,
+          type: Math.random() > 0.7 ? 'bean' : 'steam',
+          life: Math.random() * 60 + 80
+        });
+      }
+      
+      let mouseX = heroCanvas.width / 2;
+      heroCanvas.addEventListener('mousemove', e => { mouseX = e.clientX; });
+      
+      function draw() {
+        heroCtx.fillStyle = 'rgba(5,4,3,0.72)';
+        heroCtx.fillRect(0, 0, heroCanvas.width, heroCanvas.height);
+        
+        for (let p of heroParticles) {
+          p.y += p.vy;
+          p.x += p.vx + Math.sin(p.y / 40) * 0.12;
+          
+          if (p.y < -20) {
+            p.y = heroCanvas.height * 0.75 + Math.random() * 120;
+            p.x = Math.random() * heroCanvas.width;
+          }
+          
+          // mouse influence
+          const dx = mouseX - p.x;
+          p.x += dx * 0.0006;
+          
+          if (p.type === 'steam') {
+            heroCtx.fillStyle = '#c9a26b22';
+            heroCtx.beginPath();
+            heroCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            heroCtx.fill();
+            
+            heroCtx.fillStyle = '#c9a26b11';
+            heroCtx.beginPath();
+            heroCtx.arc(p.x - 4, p.y + 6, p.size * 0.6, 0, Math.PI * 2);
+            heroCtx.fill();
+          } else {
+            // bean
+            heroCtx.save();
+            heroCtx.translate(p.x, p.y);
+            heroCtx.rotate(0.6);
+            heroCtx.fillStyle = '#3c2f2f';
+            heroCtx.fillRect(-p.size * 0.7, -p.size * 0.35, p.size * 1.4, p.size * 0.7);
+            heroCtx.restore();
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+    
+    // Products data
+    let products = [
+      {
+        id: 1, name: "Эфиопия Гуджи", region: "ethiopia", profile: "fruity",
+        price: 1850, unit: "250 г", roast: "Светлая", process: "Натуральный",
+        notes: ["Ягоды", "Жасмин", "Чай"], 
+        desc: "Дикие деревья на высоте 2050 м. Нежный, как утренний туман над кофейными садами. Одна из самых чистых и ароматных партий этого сезона.",
+        story: "Ферма семьи Тесфайе. Мы работаем с ними уже четвёртый год.",
+        popularity: 94
+      },
+      {
+        id: 2, name: "Панама Гейша", region: "panama", profile: "floral",
+        price: 4200, unit: "250 г", roast: "Светлая", process: "Вымытый",
+        notes: ["Жасмин", "Персик", "Бергамот"], 
+        desc: "Легендарный сорт. Аромат, который невозможно забыть. Самый изысканный кофе в мире в этом году.",
+        story: "Финка Эсмеральда. Только 120 кг на весь мир.",
+        popularity: 98
+      },
+      {
+        id: 3, name: "Колумбия Уила", region: "colombia", profile: "chocolate",
+        price: 1650, unit: "250 г", roast: "Средняя", process: "Вымытый",
+        notes: ["Карамель", "Тёмный шоколад", "Яблоко"], 
+        desc: "Плотный, сладкий, с долгим послевкусием. Идеальный баланс для эспрессо и фильтра.",
+        story: "Ферма Эль Параисо, семья Рамирес.",
+        popularity: 87
+      },
+      {
+        id: 4, name: "Кения Киамбу АА", region: "kenya", profile: "bright",
+        price: 1790, unit: "250 г", roast: "Средняя", process: "Вымытый",
+        notes: ["Чёрная смородина", "Томат", "Виноград"], 
+        desc: "Яркая, сочная, с винной структурой. Кофе, который просит внимания.",
+        story: "Кооператив в Киамбу. Высота 1750 м.",
+        popularity: 91
+      },
+      {
+        id: 5, name: "Бразилия Серрадо", region: "brazil", profile: "chocolate",
+        price: 1350, unit: "250 г", roast: "Средняя+", process: "Натуральный",
+        notes: ["Молочный шоколад", "Миндаль", "Карамель"], 
+        desc: "Классика. Плотное тело, низкая кислотность, глубокая сладость. Лучший выбор для ежедневного кофе.",
+        story: "Фазенда в Серрадо. 40 лет стабильного качества.",
+        popularity: 82
+      },
+      {
+        id: 6, name: "Руанда Гиконгоро", region: "kenya", profile: "fruity",
+        price: 1580, unit: "250 г", roast: "Светлая", process: "Вымытый",
+        notes: ["Чай", "Цитрус", "Мёд"], 
+        desc: "Лёгкий, прозрачный, с прекрасной кислотностью. Один из самых недооценённых лотов сезона.",
+        story: "Небольшие фермы на склонах вулкана.",
+        popularity: 76
+      },
+      {
+        id: 7, name: "Коста-Рика Тарацу", region: "colombia", profile: "floral",
+        price: 1480, unit: "250 г", roast: "Средняя", process: "Хани",
+        notes: ["Ваниль", "Мёд", "Жёлтые фрукты"], 
+        desc: "Сладкий, как мёд, с бархатистым телом. Отлично раскрывается в фильтре.",
+        story: "Маленькая семейная ферма в Тарацу.",
+        popularity: 79
+      },
+      {
+        id: 8, name: "Индонезия Суматра", region: "brazil", profile: "chocolate",
+        price: 1620, unit: "250 г", roast: "Средняя+", process: "Влажный халл",
+        notes: ["Земля", "Тёмный шоколад", "Пряности"], 
+        desc: "Глубокий, тяжёлый, с узнаваемой суматранской ферментацией. Для тех, кто любит характер.",
+        story: "Остров Суматра, регион Гайо.",
+        popularity: 71
+      }
+    ];
+    
+    let currentFilters = { region: 'all', profile: 'all' };
+    let currentProduct = null;
+    let cart = [];
+    
+    function renderProducts(filteredProducts) {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+      
+      filteredProducts.forEach(prod => {
+        const card = document.createElement('div');
+        card.className = `product-card rounded-3xl overflow-hidden cursor-pointer group`;
+        
+        const noteHTML = prod.notes.map(n => `<span class="taste-note">${n}</span>`).join('');
+        
+        card.innerHTML = `
+          <div class="relative h-52 coffee-visual coffee-bag flex items-center justify-center">
+            <!-- Beautiful CSS coffee bag / cup visual -->
+            <div class="relative w-28 h-28">
+              <!-- Bag shape -->
+              <div class="absolute inset-x-2 bottom-1 h-20 rounded-2xl" style="background: linear-gradient(160deg, #2a2219, #1a150f); box-shadow: inset 0 0 0 1px #3f3223;"></div>
+              <div class="absolute inset-x-4 bottom-4 h-12 rounded-xl" style="background: linear-gradient(#3f3223, #2a2219);"></div>
+              
+              <!-- Origin color stripe -->
+              <div class="absolute top-6 left-1/2 -translate-x-1/2 w-16 h-1.5 rounded" style="background: ${getRegionColor(prod.region)}"></div>
+              
+              <!-- Steam -->
+              <div class="steam">
+                <div class="steam-line" style="left: 3px; height: 42px; animation-delay: 0ms"></div>
+                <div class="steam-line" style="left: 8px; height: 55px; animation-delay: 420ms"></div>
+                <div class="steam-line" style="left: 14px; height: 38px; animation-delay: 820ms"></div>
+              </div>
+            </div>
+            
+            <div class="absolute bottom-4 right-4 text-right">
+              <div class="text-xs text-[#c9a26b] tracking-widest">${prod.unit}</div>
+              <div class="text-xl font-medium tabular-nums">${prod.price}</div>
+            </div>
+          </div>
+          
+          <div class="p-5">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="font-medium text-lg tracking-tight">${prod.name}</div>
+                <div class="text-xs text-[#8a7c6b]">${prod.region.toUpperCase()} • ${prod.roast}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-[#c9a26b]">★ ${prod.popularity}</div>
+              </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-1 mt-4">
+              ${noteHTML}
+            </div>
+            
+            <div class="flex items-center justify-between mt-5 text-xs">
+              <div class="text-[#c9a26b] group-hover:underline">ПОДРОБНЕЕ</div>
+              <div onclick="event.stopImmediatePropagation(); quickAddToCart(${prod.id});" 
+                   class="px-5 py-1 border border-[#c9a26b]/60 hover:bg-[#c9a26b] hover:text-[#050403] rounded-2xl text-[10px] tracking-widest transition">В КОРЗИНУ</div>
+            </div>
+          </div>
+        `;
+        
+        card.onclick = () => showProductModal(prod);
+        grid.appendChild(card);
+      });
+    }
+    
+    function getRegionColor(region) {
+      const colors = {
+        ethiopia: '#c9a26b',
+        panama: '#b38b5e',
+        colombia: '#8d6642',
+        kenya: '#a67c52',
+        brazil: '#6b523a'
+      };
+      return colors[region] || '#c9a26b';
+    }
+    
+    function filterProducts() {
+      const search = document.getElementById('search-input').value.toLowerCase().trim();
+      const sort = document.getElementById('sort-select').value;
+      
+      let result = products.filter(p => {
+        const matchesSearch = !search || 
+          p.name.toLowerCase().includes(search) || 
+          p.notes.some(n => n.toLowerCase().includes(search));
+        
+        const matchesRegion = currentFilters.region === 'all' || p.region === currentFilters.region;
+        const matchesProfile = currentFilters.profile === 'all' || p.profile === currentFilters.profile;
+        
+        return matchesSearch && matchesRegion && matchesProfile;
+      });
+      
+      // Sorting
+      if (sort === 'price-low') result.sort((a,b) => a.price - b.price);
+      else if (sort === 'price-high') result.sort((a,b) => b.price - a.price);
+      else if (sort === 'newest') result.sort((a,b) => b.id - a.id); // fake "new"
+      else result.sort((a,b) => b.popularity - a.popularity);
+      
+      renderProducts(result);
+    }
+    
+    function toggleFilter(el, type, value) {
+      // deactivate siblings
+      document.querySelectorAll(`#filters .filter-chip[data-value]`).forEach(chip => {
+        if (chip.dataset.value && chip.parentElement.previousElementSibling?.innerText.includes(type === 'region' ? 'Регион' : 'Вкус') || 
+            (type === 'region' && chip.parentElement.previousElementSibling?.innerText.includes('Регион')) ||
+            (type === 'profile' && chip.parentElement.previousElementSibling?.innerText.includes('Вкус'))) {
+          // rough way
+        }
+      });
+      
+      // Better: clear active in group
+      const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('filter-chip'));
+      siblings.forEach(s => s.classList.remove('active'));
+      el.classList.add('active');
+      
+      currentFilters[type] = value;
+      filterProducts();
+    }
+    
+    function initFilters() {
+      // Set initial active states already in HTML
+      // Add listeners if needed (already inline onclick)
+      // Also wire search & sort already have oninput/onchange
+    }
+    
+    // Product modal
+    function showProductModal(prod) {
+      currentProduct = prod;
+      const modal = document.getElementById('product-modal');
+      const visual = document.getElementById('modal-visual');
+      
+      document.getElementById('modal-name').innerText = prod.name;
+      document.getElementById('modal-origin').innerText = `${prod.region.toUpperCase()} • ${prod.process}`;
+      document.getElementById('modal-price').innerHTML = `${prod.price} ₽ <span class="text-sm text-[#8a7c6b]">/ ${prod.unit}</span>`;
+      document.getElementById('modal-desc').innerHTML = `${prod.desc}<br><span class="text-xs text-[#8a7c6b] mt-3 block">${prod.story}</span>`;
+      
+      // Notes
+      const notesEl = document.getElementById('modal-notes');
+      notesEl.innerHTML = prod.notes.map(n => `<span class="taste-note text-sm px-3 py-px">${n}</span>`).join('');
+      
+      // Visual - rich CSS coffee representation
+      visual.innerHTML = `
+        <div class="relative w-[220px] h-[220px]">
+          <div class="coffee-bag w-48 h-52 mx-auto rounded-3xl flex items-center justify-center" style="background: linear-gradient(145deg, #2a2219, #1a150f);">
+            <div class="relative w-32 h-32">
+              <div class="absolute inset-x-3 bottom-6 h-20 rounded-2xl" style="background: linear-gradient(#3f3223, #2a2219); box-shadow: inset 0 0 0 1px #3f3223;"></div>
+              <div class="absolute top-9 left-1/2 -translate-x-1/2 w-20 h-1.5 rounded" style="background: ${getRegionColor(prod.region)}"></div>
+              
+              <!-- Steam animated -->
+              <div class="steam" style="opacity: 0.6; top: 22%;">
+                <div class="steam-line" style="left:4px; height:54px; animation-delay:120ms"></div>
+                <div class="steam-line" style="left:10px; height:68px; animation-delay:680ms"></div>
+                <div class="steam-line" style="left:16px; height:48px; animation-delay:240ms"></div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-3 text-xs text-[#c9a26b] tracking-widest">${prod.roast} ОБЖАРКА</div>
+        </div>
+      `;
+      
+      // Grind options
+      const grindContainer = document.getElementById('grind-options');
+      grindContainer.innerHTML = `
+        <div onclick="selectOption(this, 'grind')" class="px-4 py-1.5 text-xs border border-[#c9a26b] bg-[#c9a26b] text-[#050403] rounded-2xl cursor-pointer">ЗЕРНО</div>
+        <div onclick="selectOption(this, 'grind')" class="px-4 py-1.5 text-xs border border-[#3f3223] hover:border-[#c9a26b]/70 rounded-2xl cursor-pointer">ЭСПРЕССО</div>
+        <div onclick="selectOption(this, 'grind')" class="px-4 py-1.5 text-xs border border-[#3f3223] hover:border-[#c9a26b]/70 rounded-2xl cursor-pointer">ФИЛЬТР</div>
+        <div onclick="selectOption(this, 'grind')" class="px-4 py-1.5 text-xs border border-[#3f3223] hover:border-[#c9a26b]/70 rounded-2xl cursor-pointer">ФРЕНЧ-ПРЕСС</div>
+      `;
+      
+      // Size options
+      const sizeContainer = document.getElementById('size-options');
+      sizeContainer.innerHTML = `
+        <div onclick="selectOption(this, 'size')" data-price="${prod.price}" class="px-5 py-1.5 text-xs border border-[#c9a26b] bg-[#c9a26b] text-[#050403] rounded-2xl cursor-pointer">${prod.unit}</div>
+        <div onclick="selectOption(this, 'size')" data-price="${Math.round(prod.price * 3.6)}" class="px-5 py-1.5 text-xs border border-[#3f3223] hover:border-[#c9a26b]/70 rounded-2xl cursor-pointer">1 кг (+270%)</div>
+      `;
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    
+    function selectOption(el, group) {
+      const container = el.parentElement;
+      Array.from(container.children).forEach(c => {
+        c.classList.remove('bg-[#c9a26b]', 'text-[#050403]', 'border-[#c9a26b]');
+        c.classList.add('border-[#3f3223]');
+      });
+      el.classList.add('bg-[#c9a26b]', 'text-[#050403]', 'border-[#c9a26b]');
+      el.classList.remove('border-[#3f3223]');
+    }
+    
+    function hideProductModal() {
+      const modal = document.getElementById('product-modal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+    
+    function addCurrentToCart() {
+      if (!currentProduct) return;
+      addToCart(currentProduct.id);
+      hideProductModal();
+    }
+    
+    function quickAddToCart(id) {
+      addToCart(id);
+      // small visual feedback
+      const countEl = document.getElementById('cart-count');
+      countEl.style.transform = 'scale(1.4)';
+      setTimeout(() => countEl.style.transform = 'scale(1)', 160);
+    }
+    
+    // Cart logic
+    function addToCart(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      
+      cart.push({ ...prod, cartId: Date.now() + Math.random() });
+      updateCartCount();
+      
+      // Nice toast
+      const toast = document.createElement('div');
+      toast.className = `fixed bottom-6 right-6 bg-[#120d09] border border-[#c9a26b] text-xs px-6 py-3 rounded-2xl flex items-center gap-x-3 z-[90]`;
+      toast.innerHTML = `Добавлено: <span class="font-medium">${prod.name}</span>`;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.transition = 'all 0.3s ease';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 200);
+      }, 1400);
+    }
+    
+    function updateCartCount() {
+      document.getElementById('cart-count').innerText = cart.length;
+    }
+    
+    function showCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const itemsContainer = document.getElementById('cart-items');
+      drawer.classList.remove('hidden');
+      drawer.classList.add('flex');
+      
+      itemsContainer.innerHTML = '';
+      
+      if (cart.length === 0) {
+        itemsContainer.innerHTML = `<div class="text-[#8a7c6b] text-center py-9">Корзина пуста.<br>Добавьте лоты из каталога.</div>`;
+        document.getElementById('cart-total').innerText = '0 ₽';
+        return;
+      }
+      
+      let total = 0;
+      
+      cart.forEach((item, index) => {
+        total += item.price;
+        const el = document.createElement('div');
+        el.className = 'flex justify-between gap-4 items-start border-b border-[#2a2219] pb-4';
+        el.innerHTML = `
+          <div>
+            <div class="font-medium">${item.name}</div>
+            <div class="text-xs text-[#8a7c6b]">${item.unit} • ${item.roast}</div>
+          </div>
+          <div class="text-right">
+            <div class="tabular-nums">${item.price} ₽</div>
+            <div onclick="removeFromCart(${index}); showCart()" class="text-xs text-[#c9a26b]/70 hover:text-red-400 cursor-pointer mt-1">УДАЛИТЬ</div>
+          </div>
+        `;
+        itemsContainer.appendChild(el);
+      });
+      
+      document.getElementById('cart-total').innerText = `${total} ₽`;
+    }
+    
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartCount();
+    }
+    
+    function hideCart() {
+      const drawer = document.getElementById('cart-drawer');
+      drawer.classList.remove('flex');
+      drawer.classList.add('hidden');
+    }
+    
+    function checkout() {
+      hideCart();
+      const modal = document.getElementById('success-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      // Clear cart on successful "order"
+      setTimeout(() => {
+        cart = [];
+        updateCartCount();
+      }, 600);
+    }
+    
+    function hideSuccessModal() {
+      const modal = document.getElementById('success-modal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+    
+    // Aroma Lab Canvas
+    let labCanvas, labCtx, labParticles = [], activeNotes = [];
+    
+    const flavorOptions = [
+      { name: 'Ягоды', color: '#c45d5d' },
+      { name: 'Жасмин', color: '#b8a77e' },
+      { name: 'Шоколад', color: '#5c4635' },
+      { name: 'Цитрус', color: '#d4b15f' },
+      { name: 'Чай', color: '#8a9e7e' },
+      { name: 'Карамель', color: '#a67c52' }
+    ];
+    
+    function initAromaLab() {
+      labCanvas = document.getElementById('lab-canvas');
+      labCtx = labCanvas.getContext('2d', { alpha: true });
+      
+      function resize() {
+        const rect = labCanvas.getBoundingClientRect();
+        labCanvas.width = rect.width * 1.6;
+        labCanvas.height = rect.height * 1.6;
+      }
+      new ResizeObserver(resize).observe(labCanvas);
+      setTimeout(resize, 30);
+      
+      // Create initial soft particles
+      labParticles = [];
+      for (let i = 0; i < 26; i++) {
+        labParticles.push(createLabParticle());
+      }
+      
+      // Flavor buttons
+      const btnContainer = document.getElementById('flavor-buttons');
+      flavorOptions.forEach((fl, idx) => {
+        const btn = document.createElement('div');
+        btn.className = `cursor-pointer px-5 py-1.5 text-xs border border-[#3f3223] hover:border-[#c9a26b]/70 rounded-3xl flex items-center gap-x-2 transition`;
+        btn.innerHTML = `<span class="inline-block w-2 h-2 rounded-full" style="background:${fl.color}"></span> ${fl.name}`;
+        btn.onclick = () => toggleFlavor(fl, btn);
+        btnContainer.appendChild(btn);
+      });
+      
+      labCanvas.addEventListener('mousemove', (e) => {
+        if (activeNotes.length === 0) return;
+        const rect = labCanvas.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) * (labCanvas.width / rect.width);
+        const my = (e.clientY - rect.top) * (labCanvas.height / rect.height);
+        
+        for (let i = 0; i < 2; i++) {
+          const p = createLabParticle();
+          p.x = mx + (Math.random() - 0.5) * 60;
+          p.y = my + (Math.random() - 0.5) * 30;
+          p.vx = (Math.random() - 0.5) * 0.6;
+          p.vy = -0.9 - Math.random() * 0.7;
+          labParticles.push(p);
+        }
+      });
+      
+      requestAnimationFrame(labLoop);
+    }
+    
+    function createLabParticle() {
+      const col = activeNotes.length > 0 
+        ? activeNotes[Math.floor(Math.random() * activeNotes.length)].color 
+        : '#c9a26b33';
+      
+      return {
+        x: Math.random() * 900 + 100,
+        y: 340 + Math.random() * 80,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: -0.6 - Math.random() * 0.8,
+        size: Math.random() * 3.5 + 2.4,
+        color: col,
+        life: 55 + Math.random() * 55,
+        alpha: 0.4 + Math.random() * 0.35
+      };
+    }
+    
+    function toggleFlavor(flavor, btnEl) {
+      const existing = activeNotes.findIndex(n => n.name === flavor.name);
+      if (existing !== -1) {
+        activeNotes.splice(existing, 1);
+        btnEl.style.borderColor = '#3f3223';
+        btnEl.style.background = 'transparent';
+      } else {
+        activeNotes.push(flavor);
+        btnEl.style.borderColor = '#c9a26b';
+        btnEl.style.background = '#c9a26b11';
+      }
+    }
+    
+    function labLoop() {
+      if (!labCtx || !labCanvas) return requestAnimationFrame(labLoop);
+      
+      const w = labCanvas.width;
+      const h = labCanvas.height;
+      
+      labCtx.fillStyle = 'rgba(10,7,4,0.78)';
+      labCtx.fillRect(0, 0, w, h);
+      
+      // Draw beautiful cup silhouette
+      labCtx.strokeStyle = '#3f3223';
+      labCtx.lineWidth = 5;
+      labCtx.beginPath();
+      labCtx.ellipse(w/2, h * 0.72, 148, 52, 0, 0, Math.PI * 2);
+      labCtx.stroke();
+      
+      labCtx.strokeStyle = '#2a2219';
+      labCtx.lineWidth = 18;
+      labCtx.beginPath();
+      labCtx.arc(w/2, h * 0.64, 92, Math.PI * 0.1, Math.PI * 0.9);
+      labCtx.stroke();
+      
+      // Cup body
+      labCtx.fillStyle = '#1a150f';
+      labCtx.beginPath();
+      labCtx.ellipse(w/2, h * 0.68, 108, 78, 0, 0, Math.PI * 2);
+      labCtx.fill();
+      
+      // Liquid surface
+      labCtx.fillStyle = '#2a2219';
+      labCtx.beginPath();
+      labCtx.ellipse(w/2, h * 0.59, 78, 22, 0, 0, Math.PI * 2);
+      labCtx.fill();
+      
+      // Update & draw particles
+      for (let i = labParticles.length - 1; i >= 0; i--) {
+        const p = labParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy *= 0.985;
+        p.vx *= 0.985;
+        p.life -= 1;
+        p.alpha *= 0.985;
+        
+        if (p.life <= 0 || p.alpha < 0.02) {
+          labParticles.splice(i, 1);
+          continue;
+        }
+        
+        labCtx.globalAlpha = p.alpha;
+        labCtx.fillStyle = p.color;
+        labCtx.beginPath();
+        labCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        labCtx.fill();
+        
+        // soft glow
+        labCtx.fillStyle = '#ffffff11';
+        labCtx.beginPath();
+        labCtx.arc(p.x - 1, p.y - 2, p.size * 0.5, 0, Math.PI * 2);
+        labCtx.fill();
+      }
+      labCtx.globalAlpha = 1;
+      
+      // Continuously spawn new aroma if notes active
+      if (activeNotes.length > 0 && Math.random() < 0.85) {
+        const np = createLabParticle();
+        np.x = w/2 + (Math.random() - 0.5) * 120;
+        np.y = h * 0.58 + Math.random() * 18;
+        np.vy = -0.8 - Math.random() * 1.1;
+        labParticles.push(np);
+      }
+      
+      // Keep particle count reasonable
+      if (labParticles.length > 110) labParticles.splice(0, 30);
+      
+      requestAnimationFrame(labLoop);
+    }
+    
+    function resetLab() {
+      labParticles = [];
+      activeNotes = [];
+      document.querySelectorAll('#flavor-buttons > div').forEach(el => {
+        el.style.borderColor = '#3f3223';
+        el.style.background = 'transparent';
+      });
+      for (let i = 0; i < 32; i++) {
+        labParticles.push(createLabParticle());
+      }
+    }
+    
+    function initLabButtons() {
+      // already done in initAromaLab
+    }
+    
+    // Club join (fake)
+    function joinClub(type) {
+      const msg = type === 'connoisseur' ? 'Добро пожаловать в клуб Connoisseur. Первый ящик уже в пути.' : 
+                  'Спасибо. Ваша подписка активирована.';
+      
+      const toast = document.createElement('div');
+      toast.className = `fixed bottom-7 left-1/2 -translate-x-1/2 glass border border-[#c9a26b] px-7 py-4 rounded-3xl text-sm z-[90]`;
+      toast.innerHTML = msg;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.transition = 'all .35s ease';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 220);
+      }, 2400);
+    }
+    
+    // Init everything
+    function bootAKAP() {
+      initTailwind();
+      initNav();
+      initHeroCanvas();
+      
+      // Render initial products
+      renderProducts([...products]);
+      initFilters();
+      
+      // Aroma lab
+      initAromaLab();
+      
+      // Keyboard niceties
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement.tagName === 'BODY') {
+          e.preventDefault();
+          document.getElementById('search-input').focus();
+        }
+        if (e.key.toLowerCase() === 'c' && document.activeElement.tagName === 'BODY') {
+          showCart();
+        }
+      });
+      
+      // Initial cart count
+      updateCartCount();
+      
+      // Make sure first filter chips look active
+      setTimeout(() => {
+        const allRegion = document.querySelector('#filters .filter-chip[data-value="all"]');
+        if (allRegion) allRegion.classList.add('active');
+      }, 30);
+      
+      // Subtle: occasionally add a floating bean in hero (already in canvas)
+      console.log('%c[AKAP] Добро пожаловать в маркетплейс редкого кофе.', 'color:#554e3f; font-size:9px');
+    }
+    
+    window.onload = bootAKAP;
+    
+    // Global helpers
+    window.AKAP = { addToCart: (id) => addToCart(id), resetLab };
+  </script>
+</body>
+</html>

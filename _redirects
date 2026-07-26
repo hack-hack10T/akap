@@ -1,0 +1,6 @@
+# Cloudflare Pages / Netlify
+# Force apex (optional — enable after custom domain is attached)
+# https://www.акап.рф/*  https://акап.рф/:splat  301
+# http://акап.рф/*       https://акап.рф/:splat  301
+
+/*    /index.html   200
