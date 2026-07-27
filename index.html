@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="A CUP COFFEESHOP — Specialty Coffee" />
   <meta name="twitter:description" content="Specialty coffee, drip и espresso. Заказ через Telegram." />
   <meta name="twitter:image" content="https://acupcoffee.ru/og-image.jpg" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"A CUP COFFEESHOP","url":"https://acupcoffee.ru/","logo":"https://acupcoffee.ru/logo.png","image":"https://acupcoffee.ru/og-image.jpg","description":"Specialty coffee: drip и espresso. Каппинг, сезонные лоты.","address":{"@type":"PostalAddress","addressLocality":"Москва","addressCountry":"RU"},"priceRange":"$$","sameAs":["https://t.me/acupcoffeeshop","https://www.instagram.com/acupcoffeeshop","https://t.me/Arcadycoffee"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"A CUP COFFEESHOP","url":"https://acupcoffee.ru/","logo":"https://acupcoffee.ru/logo.png","image":"https://acupcoffee.ru/og-image.jpg","description":"Specialty coffee: drip и espresso. Каппинг, сезонные лоты.","address":{"@type":"PostalAddress","addressLocality":"Москва","addressCountry":"RU"},"priceRange":"$$","sameAs":["https://t.me/Arcady_ya","https://www.instagram.com/acupcoffeeshop"]}</script>
 
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1533,13 +1533,13 @@ var gameState = {
         </div>
 
         <div class="support">
-          <a href="https://t.me/Arcady_coffee" target="_blank" rel="noopener" aria-label="Поддержка @Arcady_coffee">
-            Поддержка и любые вопросы, заказы • @Arcady_coffee
+          <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener" aria-label="Поддержка @Arcady_ya">
+            Поддержка и любые вопросы, заказы • @Arcady_ya
           </a>
         </div>
 
         <div class="social">
-          <a class="soc" href="https://t.me/acupcoffeeshop" target="_blank" rel="noopener" aria-label="Telegram">
+          <a class="soc" href="https://t.me/Arcady_ya" target="_blank" rel="noopener" aria-label="Telegram">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.5 4.9 3.8 11.3c-1.1.4-1.1 1.9.1 2.3l4.3 1.4 1.7 5.1c.3 1 .1 1.4 1 1.4.6 0 .9-.3 1.3-.7l2.5-2.4 4.9 3.6c.9.5 2 .1 2.2-1l2.9-14.6c.3-1.4-1-2.5-2.2-2z" fill="rgba(11,13,16,.86)"/></svg>
           </a>
           <a class="soc" href="https://www.instagram.com/acupcoffeeshop" target="_blank" rel="noopener" aria-label="Instagram">
@@ -1874,7 +1874,7 @@ var gameState = {
 
     function sendTelegram(){
       const txt = encodeURIComponent(buildOrderText());
-      const url = 'https://t.me/share/url?url=' + encodeURIComponent(location.origin) + '&text=' + txt;
+      const url = 'https://t.me/Arcady_ya?text=' + txt;
       window.open(url, '_blank', 'noopener');
     }
 
@@ -1933,7 +1933,7 @@ var gameState = {
         toast('Заявка отправлена');
 
         const shareText = buildOrderText();
-        const shareUrl = 'https://t.me/share/url?url=' + encodeURIComponent(location.origin) + '&text=' + encodeURIComponent(shareText);
+        const shareUrl = 'https://t.me/Arcady_ya?text=' + encodeURIComponent(shareText);
         if(tgWin){ tgWin.location.href = shareUrl; }
         else { window.open(shareUrl, '_blank', 'noopener'); }
 
