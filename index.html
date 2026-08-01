@@ -8,18 +8,18 @@
   <meta name="keywords" content="specialty coffee, кофе москва, drip coffee, espresso, каппинг, кофейня, a cup coffeeshop" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#D03020" />
-  <link rel="canonical" href="https://acupcoffee.ru/" />
+  <link rel="canonical" href="https://акап.рф/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="A CUP COFFEESHOP — Specialty Coffee Москва" />
   <meta property="og:description" content="Specialty coffee, drip и espresso. Заказ через Telegram. Каппинг и сезонные лоты." />
-  <meta property="og:url" content="https://acupcoffee.ru/" />
-  <meta property="og:image" content="https://acupcoffee.ru/og-image.jpg" />
+  <meta property="og:url" content="https://акап.рф/" />
+  <meta property="og:image" content="https://акап.рф/og-image.jpg" />
   <meta property="og:locale" content="ru_RU" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="A CUP COFFEESHOP — Specialty Coffee" />
   <meta name="twitter:description" content="Specialty coffee, drip и espresso. Заказ через Telegram." />
-  <meta name="twitter:image" content="https://acupcoffee.ru/og-image.jpg" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"A CUP COFFEESHOP","url":"https://acupcoffee.ru/","logo":"https://acupcoffee.ru/logo.png","image":"https://acupcoffee.ru/og-image.jpg","description":"Specialty coffee: drip и espresso. Каппинг, сезонные лоты.","address":{"@type":"PostalAddress","addressLocality":"Москва","addressCountry":"RU"},"priceRange":"$$","sameAs":["https://t.me/Arcady_ya","https://www.instagram.com/acupcoffeeshop"]}</script>
+  <meta name="twitter:image" content="https://акап.рф/og-image.jpg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"A CUP COFFEESHOP","url":"https://акап.рф/","logo":"https://акап.рф/logo.png","image":"https://акап.рф/og-image.jpg","description":"Specialty coffee: drip и espresso. Каппинг, сезонные лоты.","address":{"@type":"PostalAddress","addressLocality":"Москва","addressCountry":"RU"},"priceRange":"$$","sameAs":["https://t.me/Arcady_ya","https://www.instagram.com/acupcoffeeshop"]}</script>
 
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -312,6 +312,51 @@
       *{scroll-behavior:auto !important;transition:none !important;animation:none !important;}
     }
   </style>
+
+  <!-- Yandex.Metrika counter (акап.рф) -->
+  <script>
+    window.AKAP_METRIKA = {
+      // Счётчик Яндекс.Метрики для акап.рф (кабинет: https://metrika.yandex.ru/)
+      // После выпуска HTTPS создайте счётчик на домен https://акап.рф/ и вставьте id ниже.
+      enabled: true,
+      id: 0
+    };
+  </script>
+  <script>
+  (function () {
+    var M = window.AKAP_METRIKA || {};
+    if (M.enabled === false) return;
+    var id = Number(M.id || 0);
+    if (!id) {
+      console.info('[AKAP] Яндекс.Метрика: укажите window.AKAP_METRIKA.id (счётчик на metrika.yandex.ru)');
+      return;
+    }
+    (function (m, e, t, r, i, k, a) {
+      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+      m[i].l = 1 * new Date();
+      for (var j = 0; j < document.scripts.length; j++) {
+        if (document.scripts[j].src === r) return;
+      }
+      k = e.createElement(t); a = e.getElementsByTagName(t)[0];
+      k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+    })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+    window.ym(id, 'init', {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true
+    });
+    window.AKAPMetrika = {
+      id: id,
+      reach: function (goal, params) {
+        try { if (typeof window.ym === 'function') window.ym(id, 'reachGoal', goal, params || {}); } catch (_) {}
+      }
+    };
+  })();
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/0" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
 </head>
 
 <body>

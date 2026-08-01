@@ -1,8 +1,53 @@
 # AKAP (акап.рф) — диагностика и восстановление
 
-**Дата проверки:** 2026-07-26  
+**Дата проверки:** 2026-08-01  
 **Домен:** акап.рф → punycode `xn--80aa3av.xn--p1ai`  
-**IP (сейчас):** `37.140.192.64` (server110.hosting.reg.ru)
+**Хостинг:** GitHub Pages (`hack-hack10T/akap`)  
+**DNS A:** `185.199.108–111.153` (GitHub Pages)  
+**NS:** `ns1.reg.ru` / `ns2.reg.ru`
+
+## SSL / HTTPS (актуально 2026-08-01)
+
+| Проверка | Результат |
+|----------|-----------|
+| HTTP `http://акап.рф/` | **200** (GitHub Pages) |
+| HTTPS cert CN | сейчас `*.github.io` — **не** для `xn--80aa3av.xn--p1ai` |
+| `https_certificate.state` | **`authorization_created`** (завис) |
+| `https_enforced` | `false` (нельзя включить без своего серта) |
+| DNS A / www CNAME | корректны для GitHub Pages |
+| ACME path HTTP | доходит до GitHub (404 на фейковый challenge — ок) |
+
+**Вывод:** сайт отдаётся, но браузеры и Яндекс.Метрика видят **невалидный HTTPS** (несовпадение имени в сертификате). Это известный затык GitHub Pages на выдаче Let's Encrypt (`authorization_created` не переходит в `approved`). У соседнего `поздравка.рф` на том же аккаунте сертификат **approved**.
+
+### Что уже сделано
+- Pages переведён на `build_type: workflow` (как у поздравки)
+- Custom domain сброшен и привязан заново (`xn--80aa3av.xn--p1ai`)
+- Workflow Deploy to GitHub Pages перезапущен
+
+### Что сделать дальше (по приоритету)
+1. **Подождать 30–90 мин / до 24 ч** и проверить:
+   ```bash
+   gh api repos/hack-hack10T/akap/pages --jq .https_certificate
+   curl -sI https://xn--80aa3av.xn--p1ai/ | head -5
+   ```
+   Когда `state: approved` — включить:
+   ```bash
+   gh api -X PUT repos/hack-hack10T/akap/pages --input - <<'EOF'
+   {"https_enforced": true, "cname": "xn--80aa3av.xn--p1ai", "build_type": "workflow", "source": {"branch": "main", "path": "/"}}
+   EOF
+   ```
+2. Если >24 ч — **GitHub Support** (Pages TLS stuck `authorization_created` for `xn--80aa3av.xn--p1ai`).
+3. **Обходной путь — Cloudflare** (быстрый валидный SSL): добавить домен в CF → NS в REG.RU на CF → proxy (оранжевое облако) на GitHub IPs → SSL Full. Метрика заработает сразу.
+
+### Яндекс.Метрика
+Код счётчика встроен в `index.html` (`window.AKAP_METRIKA.id`).  
+Пока `id: 0` — тег не грузится (нужен реальный номер счётчика).  
+После рабочего HTTPS: [metrika.yandex.ru](https://metrika.yandex.ru/) → создать счётчик на `https://акап.рф/` → вписать id в `window.AKAP_METRIKA.id` → commit/push.
+
+---
+
+**Историческая диагностика (2026-07-26, REG.RU hosting):**  
+**IP тогда:** `37.140.192.64` (server110.hosting.reg.ru)
 
 ---
 
