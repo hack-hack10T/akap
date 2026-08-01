@@ -40,9 +40,11 @@
 3. **Обходной путь — Cloudflare** (быстрый валидный SSL): добавить домен в CF → NS в REG.RU на CF → proxy (оранжевое облако) на GitHub IPs → SSL Full. Метрика заработает сразу.
 
 ### Яндекс.Метрика
-Код счётчика встроен в `index.html` (`window.AKAP_METRIKA.id`).  
-Пока `id: 0` — тег не грузится (нужен реальный номер счётчика).  
-После рабочего HTTPS: [metrika.yandex.ru](https://metrika.yandex.ru/) → создать счётчик на `https://акап.рф/` → вписать id в `window.AKAP_METRIKA.id` → commit/push.
+- **Счётчик:** `111214147` (АКАП — A CUP COFFEESHOP, сайт `акап.рф`)
+- **Аккаунт:** mikhsan
+- Код вшит в `index.html` (webvisor, clickmap, trackLinks, ecommerce dataLayer)
+- Кабинет: https://metrika.yandex.ru/overview?id=111214147
+- Пока HTTPS GitHub Pages не выпущен, браузер ругается на сертификат; сам тег Метрики с `mc.yandex.ru` грузится по HTTPS. Для полной проверки «код установлен» в кабинете желателен валидный SSL на акап.рф.
 
 ---
 

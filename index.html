@@ -313,48 +313,37 @@
     }
   </style>
 
-  <!-- Yandex.Metrika counter (акап.рф) -->
-  <script>
-    window.AKAP_METRIKA = {
-      // Счётчик Яндекс.Метрики для акап.рф (кабинет: https://metrika.yandex.ru/)
-      // После выпуска HTTPS создайте счётчик на домен https://акап.рф/ и вставьте id ниже.
-      enabled: true,
-      id: 0
-    };
-  </script>
-  <script>
-  (function () {
-    var M = window.AKAP_METRIKA || {};
-    if (M.enabled === false) return;
-    var id = Number(M.id || 0);
-    if (!id) {
-      console.info('[AKAP] Яндекс.Метрика: укажите window.AKAP_METRIKA.id (счётчик на metrika.yandex.ru)');
-      return;
-    }
-    (function (m, e, t, r, i, k, a) {
-      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
-      m[i].l = 1 * new Date();
-      for (var j = 0; j < document.scripts.length; j++) {
-        if (document.scripts[j].src === r) return;
-      }
-      k = e.createElement(t); a = e.getElementsByTagName(t)[0];
-      k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
-    })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
-    window.ym(id, 'init', {
+  <!-- Yandex.Metrika counter: АКАП — A CUP COFFEESHOP (акап.рф) id=111214147 -->
+  <script type="text/javascript">
+    window.AKAP_METRIKA = { enabled: true, id: 111214147 };
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111214147', 'ym');
+
+    ym(111214147, 'init', {
+      ssr: true,
+      webvisor: true,
       clickmap: true,
-      trackLinks: true,
+      ecommerce: "dataLayer",
       accurateTrackBounce: true,
-      webvisor: true
+      trackLinks: true
     });
+
     window.AKAPMetrika = {
-      id: id,
+      id: 111214147,
       reach: function (goal, params) {
-        try { if (typeof window.ym === 'function') window.ym(id, 'reachGoal', goal, params || {}); } catch (_) {}
+        try {
+          if (typeof window.ym === 'function') {
+            window.ym(111214147, 'reachGoal', goal, params || {});
+          }
+        } catch (_) {}
       }
     };
-  })();
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/0" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <noscript><div><img src="https://mc.yandex.ru/watch/111214147" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
 
 </head>
