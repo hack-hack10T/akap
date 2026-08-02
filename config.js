@@ -25,8 +25,8 @@ window.ACUP = {
     priceOld: 999,
     currency: 'RUB',
     description: 'Цифровой гайд «От нуля до specialty» — доступ к HTML-материалу автора',
-    // Публичный API (cloudflared / worker). Обновлять при смене туннеля.
-    apiBase: 'https://pour-oxygen-presently-watched.trycloudflare.com',
+    // Публичный API (cloudflared quick tunnel → guide-api :8788). Обновлять при смене туннеля.
+    apiBase: 'https://cohen-determining-certificates-constantly.trycloudflare.com',
   },
 
   // ЮKassa (самозанятый, ShopID 1298699) — карта / СБП / ЮMoney

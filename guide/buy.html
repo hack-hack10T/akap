@@ -943,6 +943,26 @@
       var prev = btn.textContent;
       btn.textContent = 'Создаём оплату…';
       try {
+        // быстрая проверка, что API жив (туннель trycloudflare иногда падает)
+        try {
+          var healthCtrl = new AbortController();
+          var healthTimer = setTimeout(function () { healthCtrl.abort(); }, 8000);
+          var healthRes = await fetch(apiBase + '/api/guide/health', {
+            cache: 'no-store',
+            signal: healthCtrl.signal,
+          });
+          clearTimeout(healthTimer);
+          if (!healthRes.ok) throw new Error('health ' + healthRes.status);
+        } catch (healthErr) {
+          console.error('API health', healthErr);
+          throw new Error(
+            'Сервер оплаты временно недоступен (API offline). Обновите страницу через минуту или напишите ' +
+              ((S && S.telegramHandle) || '@Arcady_ya') +
+              ' / ' +
+              ((S && S.email) || 'mikhsan@yandex.ru')
+          );
+        }
+
         var res = await fetch(apiBase + '/api/guide/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -953,6 +973,7 @@
             acceptPrivacy: true,
             acceptDigital: true,
             acceptIp: true,
+            consent: true,
           }),
         });
         var data = await res.json().catch(function () { return {}; });
@@ -971,7 +992,13 @@
       } catch (err) {
         console.error(err);
         statusEl.className = 'status err';
-        statusEl.textContent = err.message || String(err);
+        var msg = (err && err.message) || String(err);
+        if (/Failed to fetch|NetworkError|Load failed|abort/i.test(msg)) {
+          msg =
+            'Не удалось связаться с сервером оплаты. Проверьте интернет, отключите блокировщик и обновите страницу. Если не помогло — напишите в Telegram ' +
+            ((S && S.telegramHandle) || '@Arcady_ya');
+        }
+        statusEl.textContent = msg;
         btn.disabled = false;
         btn.textContent = prev;
       }
