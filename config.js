@@ -25,8 +25,14 @@ window.ACUP = {
     priceOld: 999,
     currency: 'RUB',
     description: 'Цифровой гайд «От нуля до specialty» — доступ к HTML-материалу автора',
-    // Публичный API (cloudflared quick tunnel → guide-api :8788). Обновлять при смене туннеля.
+    // Публичный API (cloudflared → guide-api :8788). ensure-tunnel.sh держит URL живым и пушит сюда.
     apiBase: 'https://cohen-determining-certificates-constantly.trycloudflare.com',
+    // Запасные базы (js/api.js пробует по порядку + api-base.json с сайта)
+    apiBases: [
+      'https://cohen-determining-certificates-constantly.trycloudflare.com',
+    ],
+    // Фиксированный токен доступа (не меняется). Промо «аркадий» → ACUP-PROMO-ARKADIY.
+    fixedToken: 'ACUP-PERM-GUIDE-01',
   },
 
   // ЮKassa (самозанятый, ShopID 1298699) — карта / СБП / ЮMoney

@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="../config.js"></script>
+  <script src="../js/api.js"></script>
   <script src="../js/metrika.js"></script>
   <style>
     :root {
@@ -902,7 +903,6 @@
       // keep relative ../index.html for local/gh-pages; absolute only if needed
     }
 
-    const apiBase = String(G.apiBase || '').replace(/\/$/, '');
     const statusEl = document.getElementById('status');
     const promoInput = document.getElementById('promo');
 
@@ -917,11 +917,6 @@
       e.preventDefault();
       statusEl.className = 'status';
       statusEl.textContent = '';
-      if (!apiBase) {
-        statusEl.className = 'status err';
-        statusEl.textContent = 'API не настроен. Обновите страницу или напишите в поддержку.';
-        return;
-      }
       var cAll = document.getElementById('cAll');
       if (cAll && !cAll.checked) {
         statusEl.className = 'status err';
@@ -941,28 +936,21 @@
 
       btn.disabled = true;
       var prev = btn.textContent;
-      btn.textContent = 'Создаём оплату…';
+      btn.textContent = 'Подключаем оплату…';
       try {
-        // быстрая проверка, что API жив (туннель trycloudflare иногда падает)
-        try {
-          var healthCtrl = new AbortController();
-          var healthTimer = setTimeout(function () { healthCtrl.abort(); }, 8000);
-          var healthRes = await fetch(apiBase + '/api/guide/health', {
-            cache: 'no-store',
-            signal: healthCtrl.signal,
-          });
-          clearTimeout(healthTimer);
-          if (!healthRes.ok) throw new Error('health ' + healthRes.status);
-        } catch (healthErr) {
-          console.error('API health', healthErr);
+        var resolve = window.ACUPResolveApiBase
+          ? window.ACUPResolveApiBase()
+          : Promise.resolve(String(G.apiBase || '').replace(/\/$/, ''));
+        var apiBase = await resolve;
+        if (!apiBase) {
           throw new Error(
-            'Сервер оплаты временно недоступен (API offline). Обновите страницу через минуту или напишите ' +
+            'Сервер оплаты не найден. Напишите ' +
               ((S && S.telegramHandle) || '@Arcady_ya') +
-              ' / ' +
-              ((S && S.email) || 'mikhsan@yandex.ru')
+              ' — выдадим доступ вручную.'
           );
         }
 
+        btn.textContent = 'Создаём оплату…';
         var res = await fetch(apiBase + '/api/guide/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -993,9 +981,9 @@
         console.error(err);
         statusEl.className = 'status err';
         var msg = (err && err.message) || String(err);
-        if (/Failed to fetch|NetworkError|Load failed|abort/i.test(msg)) {
+        if (/Failed to fetch|NetworkError|Load failed|abort|offline|API/i.test(msg) && msg.length < 40) {
           msg =
-            'Не удалось связаться с сервером оплаты. Проверьте интернет, отключите блокировщик и обновите страницу. Если не помогло — напишите в Telegram ' +
+            'Не удалось связаться с сервером оплаты. Обновите страницу (Ctrl+F5). Если снова ошибка — Telegram ' +
             ((S && S.telegramHandle) || '@Arcady_ya');
         }
         statusEl.textContent = msg;

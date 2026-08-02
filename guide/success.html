@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/guide-legal.css" />
   <script src="../config.js"></script>
+  <script src="../js/api.js"></script>
 <script src="../js/metrika.js"></script>
 
 </head>
@@ -44,7 +45,6 @@
   <script>
   (function () {
     const CFG = window.ACUP || {};
-    const apiBase = String((CFG.guide && CFG.guide.apiBase) || '').replace(/\/$/, '');
     const params = new URLSearchParams(location.search);
     let orderId = params.get('order') || params.get('label') || '';
     try {
@@ -58,6 +58,7 @@
     const title = document.getElementById('title');
     let timer = null;
     let tries = 0;
+    let apiBase = '';
 
     function showPaid(data) {
       clearInterval(timer);
@@ -74,15 +75,24 @@
       } catch (_) {}
     }
 
+    async function ensureApi() {
+      if (apiBase) return apiBase;
+      if (window.ACUPResolveApiBase) apiBase = await window.ACUPResolveApiBase();
+      else apiBase = String((CFG.guide && CFG.guide.apiBase) || '').replace(/\/$/, '');
+      return apiBase;
+    }
+
     async function check() {
-      if (!orderId || !apiBase) {
+      if (!orderId) {
         statusEl.className = 'status err';
-        statusEl.textContent = !orderId ? 'Нет номера заказа в ссылке' : 'API не настроен';
+        statusEl.textContent = 'Нет номера заказа в ссылке';
         return;
       }
       tries++;
       try {
-        const res = await fetch(apiBase + '/api/guide/order-status?order=' + encodeURIComponent(orderId), {
+        const base = await ensureApi();
+        if (!base) throw new Error('API не настроен');
+        const res = await fetch(base + '/api/guide/order-status?order=' + encodeURIComponent(orderId), {
           cache: 'no-store',
         });
         const data = await res.json().catch(() => ({}));

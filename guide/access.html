@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/guide-legal.css" />
   <script src="../config.js"></script>
+  <script src="../js/api.js"></script>
 <script src="../js/metrika.js"></script>
 
 </head>
@@ -35,7 +36,6 @@
   <script>
   (function () {
     const CFG = window.ACUP || {};
-    const apiBase = String((CFG.guide && CFG.guide.apiBase) || '').replace(/\/$/, '');
     const params = new URLSearchParams(location.search);
     const input = document.getElementById('token');
     const statusEl = document.getElementById('status');
@@ -45,6 +45,8 @@
     try {
       if (!initial) initial = localStorage.getItem('acup_guide_token') || '';
     } catch (_) {}
+    // fallback: fixed permanent token from config
+    if (!initial && CFG.guide && CFG.guide.fixedToken) initial = CFG.guide.fixedToken;
     if (initial) input.value = initial;
 
     async function openGuide() {
@@ -56,14 +58,14 @@
         statusEl.textContent = 'Введите токен';
         return;
       }
-      if (!apiBase) {
-        statusEl.className = 'status err';
-        statusEl.textContent = 'API не настроен';
-        return;
-      }
       btn.disabled = true;
-      statusEl.textContent = 'Проверяем токен…';
+      statusEl.textContent = 'Подключаем API…';
       try {
+        const apiBase = window.ACUPResolveApiBase
+          ? await window.ACUPResolveApiBase()
+          : String((CFG.guide && CFG.guide.apiBase) || '').replace(/\/$/, '');
+        if (!apiBase) throw new Error('API не настроен');
+        statusEl.textContent = 'Проверяем токен…';
         const v = await fetch(apiBase + '/api/guide/validate?token=' + encodeURIComponent(token), { cache: 'no-store' });
         const j = await v.json().catch(() => ({}));
         if (!v.ok || !j.ok) throw new Error(j.message || j.error || 'Токен недействителен или оплата не подтверждена');

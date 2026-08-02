@@ -33,6 +33,13 @@ const FREE_PROMOS = String(process.env.GUIDE_PROMO_FREE || 'аркадий,arkad
   .map((s) => s.trim().toLowerCase())
   .filter(Boolean);
 
+/** Фиксированные токены доступа (не генерируются заново). */
+const FIXED_TOKEN_PERM = String(process.env.GUIDE_FIXED_TOKEN || 'ACUP-PERM-GUIDE-01').toUpperCase();
+const FIXED_PROMO_TOKENS = {
+  аркадий: 'ACUP-PROMO-ARKADIY',
+  arkadiy: 'ACUP-PROMO-ARKADIY',
+};
+
 if (!SECRET || !SHOP_ID) {
   console.error('YOOKASSA_SHOP_ID / YOOKASSA_SECRET_KEY required in .env');
   process.exit(1);
@@ -67,6 +74,36 @@ function saveStore() {
   }
 }
 loadStore();
+
+function seedFixedTokens() {
+  const now = Date.now();
+  const seed = [
+    { token: FIXED_TOKEN_PERM, orderId: 'fixed_perm', note: 'permanent' },
+    { token: 'ACUP-PROMO-ARKADIY', orderId: 'fixed_promo_arkadiy', note: 'promo:аркадий' },
+  ];
+  let changed = false;
+  for (const row of seed) {
+    const t = row.token.toUpperCase();
+    if (!store.tokens[t] || !store.tokens[t].paid) {
+      store.tokens[t] = {
+        token: t,
+        orderId: row.orderId,
+        paid: true,
+        email: '',
+        createdAt: store.tokens[t]?.createdAt || now,
+        paidAt: store.tokens[t]?.paidAt || now,
+        fixed: true,
+        note: row.note,
+      };
+      changed = true;
+    } else {
+      store.tokens[t].paid = true;
+      store.tokens[t].fixed = true;
+    }
+  }
+  if (changed) saveStore();
+}
+seedFixedTokens();
 
 function cors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -123,7 +160,34 @@ async function yk(path, { method = 'GET', body, idempotenceKey } = {}) {
   return { ok: r.ok, status: r.status, data };
 }
 
+function fixedTokenForPromo(promo) {
+  const n = normalizePromo(promo);
+  if (!n) return null;
+  const t = FIXED_PROMO_TOKENS[n];
+  return t ? String(t).toUpperCase() : null;
+}
+
 function ensureTokenForOrder(order) {
+  // Промо → всегда один и тот же токен
+  const fixed = fixedTokenForPromo(order.promo);
+  if (fixed) {
+    order.token = fixed;
+    store.tokens[fixed] = {
+      ...(store.tokens[fixed] || {}),
+      token: fixed,
+      orderId: order.id,
+      paid: order.status === 'paid' || !!(store.tokens[fixed] && store.tokens[fixed].paid),
+      email: order.email || (store.tokens[fixed] && store.tokens[fixed].email) || '',
+      createdAt: (store.tokens[fixed] && store.tokens[fixed].createdAt) || order.createdAt || Date.now(),
+      promo: order.promo || null,
+      fixed: true,
+    };
+    if (order.status === 'paid') {
+      store.tokens[fixed].paid = true;
+      store.tokens[fixed].paidAt = order.paidAt || Date.now();
+    }
+    return fixed;
+  }
   if (order.token && store.tokens[order.token]) return order.token;
   let token = genToken();
   while (store.tokens[token]) token = genToken();
@@ -205,10 +269,11 @@ const server = http.createServer(async (req, res) => {
       const body = await readBody(req);
       const email = String(body.email || '').trim().toLowerCase();
       const promo = normalizePromo(body.promo || body.promoCode || '');
-      const acceptOffer = !!body.acceptOffer;
-      const acceptPrivacy = !!body.acceptPrivacy;
-      const acceptDigital = !!body.acceptDigital;
-      const acceptIp = !!body.acceptIp;
+      const allConsent = !!(body.consent || body.acceptAll || body.cAll);
+      const acceptOffer = !!(body.acceptOffer || allConsent);
+      const acceptPrivacy = !!(body.acceptPrivacy || allConsent);
+      const acceptDigital = !!(body.acceptDigital || allConsent);
+      const acceptIp = !!(body.acceptIp || allConsent);
 
       if (!acceptOffer || !acceptPrivacy || !acceptDigital || !acceptIp) {
         return json(res, 400, {
