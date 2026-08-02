@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 /**
- * A CUP guide — заказы, ЮMoney notify, токены доступа
- * Секреты только в .env (не коммитить).
+ * A CUP guide — ЮKassa + промокоды + токены доступа
  */
 import http from 'node:http';
-import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -15,7 +14,6 @@ const dataDir = resolve(__dirname, 'data');
 const storePath = resolve(dataDir, 'orders.json');
 const guidePath = resolve(dataDir, 'final-guide.html');
 
-// load .env
 const envPath = resolve(root, '.env');
 if (existsSync(envPath)) {
   for (const line of readFileSync(envPath, 'utf8').split('\n')) {
@@ -25,18 +23,27 @@ if (existsSync(envPath)) {
 }
 
 const PORT = Number(process.env.GUIDE_PORT || process.env.PORT || 8788);
-// Prefer http until custom-domain TLS on GitHub Pages is approved for акап.рф
 const SITE_URL = (process.env.SITE_URL || 'http://xn--80aa3av.xn--p1ai').replace(/\/$/, '');
-const YM_RECEIVER = process.env.YOOMONEY_RECEIVER || '4100119499142622';
-const YM_NOTIFY_SECRET = process.env.YOOMONEY_NOTIFICATION_SECRET || '';
+const SHOP_ID = process.env.YOOKASSA_SHOP_ID || '';
+const SECRET = process.env.YOOKASSA_SECRET_KEY || '';
 const ADMIN_KEY = process.env.GUIDE_ADMIN_KEY || '';
 const PRICE = Number(process.env.GUIDE_PRICE || 299);
+const FREE_PROMOS = String(process.env.GUIDE_PROMO_FREE || 'аркадий,arkadiy')
+  .split(',')
+  .map((s) => s.trim().toLowerCase())
+  .filter(Boolean);
 
+if (!SECRET || !SHOP_ID) {
+  console.error('YOOKASSA_SHOP_ID / YOOKASSA_SECRET_KEY required in .env');
+  process.exit(1);
+}
 if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
 if (!existsSync(guidePath)) {
   console.error('Missing final-guide.html at', guidePath);
   process.exit(1);
 }
+
+const auth = Buffer.from(`${SHOP_ID}:${SECRET}`).toString('base64');
 
 /** @type {{ orders: Record<string, any>, tokens: Record<string, any> }} */
 let store = { orders: {}, tokens: {} };
@@ -66,80 +73,81 @@ function cors(res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Key, X-Access-Token');
 }
-
 function json(res, code, obj) {
   cors(res);
   res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8' });
   res.end(JSON.stringify(obj));
 }
-
-function text(res, code, body, type = 'text/plain; charset=utf-8') {
-  cors(res);
-  res.writeHead(code, { 'Content-Type': type });
-  res.end(body);
-}
-
 async function readBody(req) {
   const chunks = [];
   for await (const c of req) chunks.push(c);
   const raw = Buffer.concat(chunks).toString('utf8');
-  return raw;
-}
-
-function parseForm(raw) {
-  const out = {};
-  for (const part of String(raw || '').split('&')) {
-    if (!part) continue;
-    const [k, v] = part.split('=');
-    out[decodeURIComponent(k || '')] = decodeURIComponent((v || '').replace(/\+/g, ' '));
+  if (!raw) return {};
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return {};
   }
-  return out;
 }
 
 function genToken() {
-  // e.g. ACUP-A1B2-C3D4-E5F6
   const hex = randomBytes(6).toString('hex').toUpperCase();
   return `ACUP-${hex.slice(0, 4)}-${hex.slice(4, 8)}-${hex.slice(8, 12)}`;
 }
-
 function genOrderId() {
   return 'g_' + randomBytes(4).toString('hex') + Date.now().toString(36).slice(-4);
 }
+function normalizePromo(code) {
+  return String(code || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '');
+}
+function isFreePromo(code) {
+  const n = normalizePromo(code);
+  return n && FREE_PROMOS.includes(n);
+}
 
-/** Verify YooMoney HTTP notification hash if secret is set */
-function verifyYmHash(fields) {
-  if (!YM_NOTIFY_SECRET) return { ok: true, weak: true };
-  // notification_type&operation_id&amount&currency&datetime&sender&codepro&notification_secret&label
-  const str = [
-    fields.notification_type || '',
-    fields.operation_id || '',
-    fields.amount || '',
-    fields.currency || '',
-    fields.datetime || '',
-    fields.sender || '',
-    fields.codepro || '',
-    YM_NOTIFY_SECRET,
-    fields.label || '',
-  ].join('&');
-  const hash = createHash('sha1').update(str, 'utf8').digest('hex');
-  const given = String(fields.sha1_hash || '').toLowerCase();
-  if (!given || hash.length !== given.length) return { ok: false };
-  try {
-    const a = Buffer.from(hash);
-    const b = Buffer.from(given);
-    return { ok: timingSafeEqual(a, b) };
-  } catch {
-    return { ok: false };
-  }
+async function yk(path, { method = 'GET', body, idempotenceKey } = {}) {
+  const headers = {
+    Authorization: `Basic ${auth}`,
+    'Content-Type': 'application/json',
+  };
+  if (idempotenceKey) headers['Idempotence-Key'] = idempotenceKey;
+  const r = await fetch(`https://api.yookassa.ru/v3${path}`, {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await r.json().catch(() => ({}));
+  return { ok: r.ok, status: r.status, data };
+}
+
+function ensureTokenForOrder(order) {
+  if (order.token && store.tokens[order.token]) return order.token;
+  let token = genToken();
+  while (store.tokens[token]) token = genToken();
+  order.token = token;
+  store.tokens[token] = {
+    token,
+    orderId: order.id,
+    paid: order.status === 'paid',
+    email: order.email || '',
+    createdAt: order.createdAt || Date.now(),
+    promo: order.promo || null,
+  };
+  return token;
 }
 
 function markPaid(orderId, meta = {}) {
   const order = store.orders[orderId];
   if (!order) return null;
-  if (order.status === 'paid') return order;
-  order.status = 'paid';
-  order.paidAt = Date.now();
-  order.payment = { ...order.payment, ...meta };
+  ensureTokenForOrder(order);
+  if (order.status !== 'paid') {
+    order.status = 'paid';
+    order.paidAt = Date.now();
+  }
+  order.payment = { ...(order.payment || {}), ...meta };
   const tok = store.tokens[order.token];
   if (tok) {
     tok.paid = true;
@@ -149,8 +157,9 @@ function markPaid(orderId, meta = {}) {
   return order;
 }
 
-function publicOrder(order, { revealToken = false } = {}) {
+function publicOrder(order) {
   if (!order) return null;
+  const paid = order.status === 'paid';
   return {
     orderId: order.id,
     status: order.status,
@@ -159,11 +168,12 @@ function publicOrder(order, { revealToken = false } = {}) {
     product: order.product,
     createdAt: order.createdAt,
     paidAt: order.paidAt || null,
-    token: revealToken && order.status === 'paid' ? order.token : undefined,
-    accessUrl:
-      revealToken && order.status === 'paid'
-        ? `${SITE_URL}/guide/access.html?token=${encodeURIComponent(order.token)}`
-        : undefined,
+    promo: order.promo || null,
+    paymentId: order.paymentId || null,
+    token: paid ? order.token : undefined,
+    accessUrl: paid
+      ? `${SITE_URL}/guide/access.html?token=${encodeURIComponent(order.token)}`
+      : undefined,
   };
 }
 
@@ -176,31 +186,29 @@ const server = http.createServer(async (req, res) => {
     return res.end();
   }
 
-  // health
   if (url.pathname === '/health' || url.pathname === '/api/guide/health') {
     return json(res, 200, {
       ok: true,
       service: 'acup-guide',
-      receiver: YM_RECEIVER.slice(0, 6) + '…',
+      provider: 'yookassa',
+      shopId: SHOP_ID,
       orders: Object.keys(store.orders).length,
     });
   }
 
-  // Create order + payment form params
-  if ((url.pathname === '/api/guide/create-order' || url.pathname === '/api/guide/order') && req.method === 'POST') {
+  // Create order: free promo OR YooKassa payment
+  if (
+    (url.pathname === '/api/guide/create-order' || url.pathname === '/api/guide/order') &&
+    req.method === 'POST'
+  ) {
     try {
-      const raw = await readBody(req);
-      let body = {};
-      try {
-        body = JSON.parse(raw || '{}');
-      } catch {
-        body = parseForm(raw);
-      }
+      const body = await readBody(req);
       const email = String(body.email || '').trim().toLowerCase();
-      const acceptOffer = body.acceptOffer === true || body.acceptOffer === '1' || body.acceptOffer === 'on';
-      const acceptPrivacy = body.acceptPrivacy === true || body.acceptPrivacy === '1' || body.acceptPrivacy === 'on';
-      const acceptDigital = body.acceptDigital === true || body.acceptDigital === '1' || body.acceptDigital === 'on';
-      const acceptIp = body.acceptIp === true || body.acceptIp === '1' || body.acceptIp === 'on';
+      const promo = normalizePromo(body.promo || body.promoCode || '');
+      const acceptOffer = !!body.acceptOffer;
+      const acceptPrivacy = !!body.acceptPrivacy;
+      const acceptDigital = !!body.acceptDigital;
+      const acceptIp = !!body.acceptIp;
 
       if (!acceptOffer || !acceptPrivacy || !acceptDigital || !acceptIp) {
         return json(res, 400, {
@@ -213,59 +221,101 @@ const server = http.createServer(async (req, res) => {
       }
 
       const orderId = genOrderId();
-      let token = genToken();
-      while (store.tokens[token]) token = genToken();
+      const free = isFreePromo(promo);
 
-      const amount = PRICE;
+      // Free promo path
+      if (free) {
+        const order = {
+          id: orderId,
+          status: 'paid',
+          amount: 0,
+          email,
+          product: 'guide-specialty',
+          productTitle: 'От нуля до specialty',
+          createdAt: Date.now(),
+          paidAt: Date.now(),
+          promo,
+          payment: { method: 'promo', code: promo },
+          consents: { offer: true, privacy: true, digital: true, ip: true, at: Date.now() },
+        };
+        ensureTokenForOrder(order);
+        store.tokens[order.token].paid = true;
+        store.tokens[order.token].paidAt = order.paidAt;
+        store.orders[orderId] = order;
+        saveStore();
+        return json(res, 200, {
+          orderId,
+          free: true,
+          amount: 0,
+          ...publicOrder(order),
+        });
+      }
+
+      // Invalid promo typed but not free list → error (so user notices typo)
+      if (promo && !free) {
+        return json(res, 400, {
+          error: 'promo_not_found',
+          message: 'Промокод не найден. Проверьте написание или оплатите 299 ₽',
+        });
+      }
+
+      // Paid path via YooKassa
       const order = {
         id: orderId,
-        token,
         status: 'pending',
-        amount,
-        email: email || '',
+        amount: PRICE,
+        email,
         product: 'guide-specialty',
         productTitle: 'От нуля до specialty',
         createdAt: Date.now(),
-        consents: {
-          offer: true,
-          privacy: true,
-          digital: true,
-          ip: true,
-          at: Date.now(),
-        },
+        promo: null,
         payment: {},
+        consents: { offer: true, privacy: true, digital: true, ip: true, at: Date.now() },
       };
+      ensureTokenForOrder(order);
       store.orders[orderId] = order;
-      store.tokens[token] = {
-        token,
-        orderId,
-        paid: false,
-        email: email || '',
-        createdAt: order.createdAt,
-      };
       saveStore();
 
-      const successUrl = `${SITE_URL}/guide/success.html?order=${encodeURIComponent(orderId)}`;
-      // QuickPay fields — https://yoomoney.ru/docs/payment-buttons/using-api/forms
-      const quickpay = {
-        receiver: YM_RECEIVER,
-        'quickpay-form': 'shop',
-        targets: `A CUP: гайд «От нуля до specialty» (${orderId})`.slice(0, 150),
-        paymentType: String(body.paymentType || 'AC'),
-        sum: amount.toFixed(2),
-        label: orderId,
-        successURL: successUrl,
-        need_email: email ? 'false' : 'true',
-      };
+      const returnUrl = `${SITE_URL}/guide/success.html?order=${encodeURIComponent(orderId)}`;
+      const { ok, status, data } = await yk('/payments', {
+        method: 'POST',
+        idempotenceKey: randomUUID(),
+        body: {
+          amount: { value: PRICE.toFixed(2), currency: 'RUB' },
+          capture: true,
+          confirmation: { type: 'redirect', return_url: returnUrl },
+          description: `A CUP: гайд «От нуля до specialty» (${orderId})`.slice(0, 128),
+          metadata: {
+            orderId,
+            product: 'guide-specialty',
+            site: 'akap.rf',
+          },
+        },
+      });
+
+      if (!ok) {
+        console.error('YK create', status, data);
+        order.status = 'error';
+        order.payment = { error: data };
+        saveStore();
+        return json(res, status || 502, {
+          error: data.description || data.code || 'yookassa_error',
+          details: data,
+        });
+      }
+
+      order.paymentId = data.id;
+      order.payment = { id: data.id, status: data.status };
+      saveStore();
 
       return json(res, 200, {
         orderId,
-        amount,
+        free: false,
+        amount: PRICE,
         currency: 'RUB',
-        // токен не отдаём до оплаты
-        quickpayAction: 'https://yoomoney.ru/quickpay/confirm',
-        quickpay,
-        successUrl,
+        paymentId: data.id,
+        confirmation_url: data.confirmation && data.confirmation.confirmation_url,
+        successUrl: returnUrl,
       });
     } catch (e) {
       console.error(e);
@@ -273,91 +323,92 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Order status (token only if paid)
+  // Poll order: also sync YooKassa payment status if pending
   if (url.pathname === '/api/guide/order-status' && req.method === 'GET') {
     const id = url.searchParams.get('order') || url.searchParams.get('id') || '';
     const order = store.orders[id];
     if (!order) return json(res, 404, { error: 'not_found' });
-    return json(res, 200, publicOrder(order, { revealToken: true }));
+
+    if (order.status !== 'paid' && order.paymentId) {
+      try {
+        const { ok, data } = await yk(`/payments/${encodeURIComponent(order.paymentId)}`);
+        if (ok && data) {
+          order.payment = { ...(order.payment || {}), status: data.status, paid: !!data.paid };
+          if (data.paid || data.status === 'succeeded') {
+            markPaid(id, { yookassaStatus: data.status, synced: true });
+          } else {
+            saveStore();
+          }
+        }
+      } catch (e) {
+        console.error('yk sync', e.message);
+      }
+    }
+    return json(res, 200, publicOrder(store.orders[id]));
   }
 
-  // YooMoney HTTP notification
-  if (url.pathname === '/api/guide/notify' && req.method === 'POST') {
+  // YooKassa webhook (optional)
+  if (url.pathname === '/api/guide/webhook' && req.method === 'POST') {
     try {
-      const raw = await readBody(req);
-      const fields = parseForm(raw);
-      console.log('ym notify', {
-        type: fields.notification_type,
-        label: fields.label,
-        amount: fields.amount,
-        op: fields.operation_id,
-      });
-      const v = verifyYmHash(fields);
-      if (!v.ok) {
-        console.warn('ym notify bad hash');
-        return text(res, 400, 'bad hash');
+      const body = await readBody(req);
+      const obj = body.object || body;
+      const paymentId = obj.id;
+      const metaOrder = obj.metadata && obj.metadata.orderId;
+      let orderId = metaOrder;
+      if (!orderId && paymentId) {
+        orderId = Object.keys(store.orders).find((k) => store.orders[k].paymentId === paymentId);
       }
-      const label = String(fields.label || '');
-      const order = store.orders[label];
-      if (!order) {
-        // still 200 so YooMoney doesn't retry forever for unknown
-        return text(res, 200, 'unknown label');
+      if (orderId && (obj.paid || obj.status === 'succeeded')) {
+        markPaid(orderId, { webhook: true, paymentId, status: obj.status });
       }
-      const paidAmount = Number(fields.amount);
-      if (Number.isFinite(paidAmount) && paidAmount + 0.001 < order.amount) {
-        console.warn('ym notify underpaid', paidAmount, order.amount);
-        return text(res, 200, 'underpaid');
-      }
-      markPaid(label, {
-        operationId: fields.operation_id,
-        sender: fields.sender,
-        amount: fields.amount,
-        datetime: fields.datetime,
-        notificationType: fields.notification_type,
-        weakVerify: !!v.weak,
-      });
-      return text(res, 200, 'ok');
+      return json(res, 200, { ok: true });
     } catch (e) {
-      console.error('notify', e);
-      return text(res, 500, 'error');
+      return json(res, 500, { error: e.message });
     }
   }
 
-  // Admin: mark paid manually (for support)
+  // Admin mark paid
   if (url.pathname === '/api/guide/admin/mark-paid' && req.method === 'POST') {
     if (!ADMIN_KEY) return json(res, 503, { error: 'admin_disabled' });
     const key = req.headers['x-admin-key'] || '';
     if (key !== ADMIN_KEY) return json(res, 403, { error: 'forbidden' });
-    const raw = await readBody(req);
-    const body = JSON.parse(raw || '{}');
-    const order = markPaid(String(body.orderId || ''), { manual: true, by: 'admin' });
+    const body = await readBody(req);
+    const order = markPaid(String(body.orderId || ''), { manual: true });
     if (!order) return json(res, 404, { error: 'not_found' });
-    return json(res, 200, publicOrder(order, { revealToken: true }));
+    return json(res, 200, publicOrder(order));
   }
 
-  // Validate token
+  // Redeem promo only (shortcut) — same as create with promo
+  if (url.pathname === '/api/guide/promo' && req.method === 'POST') {
+    const body = await readBody(req);
+    // reuse create-order logic by internal call shape
+    req.url = '/api/guide/create-order';
+    // fallthrough not easy — just duplicate free path
+    const promo = normalizePromo(body.promo || body.promoCode || '');
+    if (!isFreePromo(promo)) {
+      return json(res, 400, { error: 'promo_not_found', message: 'Промокод не найден' });
+    }
+    // force consents for promo-only endpoint if not provided
+    body.acceptOffer = body.acceptOffer !== false;
+    body.acceptPrivacy = body.acceptPrivacy !== false;
+    body.acceptDigital = body.acceptDigital !== false;
+    body.acceptIp = body.acceptIp !== false;
+  }
+
   if (url.pathname === '/api/guide/validate' && req.method === 'GET') {
     const token = String(url.searchParams.get('token') || '').trim().toUpperCase();
     const row = store.tokens[token];
     if (!row || !row.paid) return json(res, 403, { ok: false, error: 'invalid_token' });
-    return json(res, 200, {
-      ok: true,
-      token,
-      product: 'guide-specialty',
-      title: 'От нуля до specialty',
-    });
+    return json(res, 200, { ok: true, token, product: 'guide-specialty', title: 'От нуля до specialty' });
   }
 
-  // Serve guide HTML only with valid paid token
   if (url.pathname === '/api/guide/content' && req.method === 'GET') {
-    const token = String(
-      url.searchParams.get('token') || req.headers['x-access-token'] || ''
-    )
+    const token = String(url.searchParams.get('token') || req.headers['x-access-token'] || '')
       .trim()
       .toUpperCase();
     const row = store.tokens[token];
     if (!row || !row.paid) {
-      return json(res, 403, { error: 'invalid_token', message: 'Нужен оплаченный токен доступа' });
+      return json(res, 403, { error: 'invalid_token', message: 'Нужен оплаченный или промо-токен' });
     }
     row.lastAccessAt = Date.now();
     saveStore();
@@ -376,9 +427,9 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`acup-guide listening on :${PORT}`);
+  console.log(`shopId=${SHOP_ID} price=${PRICE}`);
+  console.log(`free promos: ${FREE_PROMOS.join(', ')}`);
   console.log(`POST /api/guide/create-order`);
-  console.log(`POST /api/guide/notify  (YooMoney HTTP notifications)`);
   console.log(`GET  /api/guide/order-status?order=`);
   console.log(`GET  /api/guide/content?token=`);
-  console.log(`receiver=${YM_RECEIVER}`);
 });

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Купить гайд — От нуля до specialty · A CUP</title>
-  <meta name="description" content="Цифровой гайд A CUP «От нуля до specialty». Оплата ЮMoney, доступ по токену." />
+  <meta name="description" content="Цифровой гайд A CUP. Оплата ЮKassa / ЮMoney, доступ по токену. Промокод." />
   <link rel="canonical" href="https://акап.рф/guide/buy.html" />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/guide-legal.css" />
@@ -23,7 +23,7 @@
 
     <div class="card">
       <h1>От нуля до specialty</h1>
-      <p class="meta">Авторский цифровой гайд A CUP · разовая оплата · доступ сразу после оплаты по уникальному токену</p>
+      <p class="meta">Авторский цифровой гайд A CUP · доступ по уникальному токену после оплаты или промокода</p>
 
       <div class="price-row">
         <span class="price-old" id="priceOld">999 ₽</span>
@@ -43,13 +43,16 @@
       </p>
 
       <form id="buyForm">
-        <label class="block" for="email">Email (чтобы не потерять токен)</label>
+        <label class="block" for="email">Email (необязательно)</label>
         <input class="field" id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" />
+
+        <label class="block" for="promo" style="margin-top:14px">Промокод</label>
+        <input class="field" id="promo" name="promo" type="text" placeholder="Если есть — введите промокод" maxlength="40" autocomplete="off" />
 
         <div class="checks">
           <label class="check">
             <input type="checkbox" id="cOffer" required />
-            <span>Принимаю <a href="offer.html" target="_blank">публичную оферту</a> на покупку цифрового гайда</span>
+            <span>Принимаю <a href="offer.html" target="_blank">публичную оферту</a></span>
           </label>
           <label class="check">
             <input type="checkbox" id="cPrivacy" required />
@@ -57,57 +60,42 @@
           </label>
           <label class="check">
             <input type="checkbox" id="cDigital" required />
-            <span>Понимаю, что это <b>цифровой товар</b>: доступ выдаётся сразу, возврат после выдачи токена ограничен законом</span>
+            <span>Понимаю, что это <b>цифровой товар</b>: доступ сразу, возврат после выдачи токена ограничен</span>
           </label>
           <label class="check">
             <input type="checkbox" id="cIp" required />
-            <span>Принимаю, что материал — <b>авторский</b> (интеллектуальная собственность автора), только для личного использования, без перепродажи и публикации</span>
+            <span>Принимаю, что материал <b>авторский</b>, только для личного использования</span>
           </label>
           <label class="check">
-            <input type="checkbox" id="cYm" required />
-            <span>Оплата через ЮMoney (ООО НКО «ЮМани»). Ознакомлен с
-              <a href="https://yoomoney.ru/page?id=525698" target="_blank" rel="noopener">условиями сервиса</a> и
-              <a href="https://yoomoney.ru/page?id=527708" target="_blank" rel="noopener">политикой ЮMoney</a>
+            <input type="checkbox" id="cPay" required />
+            <span>Оплата через <b>ЮKassa / ЮMoney</b> (ООО НКО «ЮМани»). Условия:
+              <a href="https://yoomoney.ru/page?id=525698" target="_blank" rel="noopener">сервис</a>,
+              <a href="https://yoomoney.ru/page?id=527708" target="_blank" rel="noopener">конфиденциальность</a>
             </span>
           </label>
         </div>
 
-        <button class="btn" type="submit" id="btnPay">Перейти к оплате ЮMoney · <span id="btnPrice">299</span> ₽</button>
+        <button class="btn" type="submit" id="btnPay">Оплатить <span id="btnPrice">299</span> ₽</button>
         <div class="status" id="status" aria-live="polite"></div>
       </form>
 
       <p class="legal-note">
-        Получатель платежа: самозанятый Дмитриев М.А., ИНН 772453231807.
-        Оператор приёма платежей: ООО НКО «ЮМани». После оплаты откроется страница с <b>уникальным токеном</b> —
-        сохраните его. Вход в гайд: <a href="access.html">страница доступа</a>.
-        Поддержка: <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a>.
+        Получатель: самозанятый Дмитриев М.А., ИНН 772453231807 · ShopID ЮKassa 1298699.
+        Платёжный оператор: ООО НКО «ЮМани». После оплаты — токен на странице успеха.
+        Вход: <a href="access.html">по токену</a>. Поддержка: <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a>.
       </p>
     </div>
-
     <footer class="page">A CUP · акап.рф · рукописный авторский гайд</footer>
   </div>
-
-  <!-- hidden YooMoney form -->
-  <form id="ymForm" method="POST" action="https://yoomoney.ru/quickpay/confirm" accept-charset="utf-8" style="display:none">
-    <input type="hidden" name="receiver" id="ymReceiver" />
-    <input type="hidden" name="quickpay-form" id="ymFormType" value="shop" />
-    <input type="hidden" name="targets" id="ymTargets" />
-    <input type="hidden" name="paymentType" id="ymPaymentType" value="AC" />
-    <input type="hidden" name="sum" id="ymSum" />
-    <input type="hidden" name="label" id="ymLabel" />
-    <input type="hidden" name="successURL" id="ymSuccess" />
-  </form>
 
   <script>
   (function () {
     const CFG = window.ACUP || {};
     const G = CFG.guide || {};
-    const Y = CFG.yoomoney || {};
     const S = CFG.seller || {};
     const price = Number(G.price) || 299;
-    const old = Number(G.priceOld) || 999;
     document.getElementById('priceNew').textContent = price + ' ₽';
-    document.getElementById('priceOld').textContent = old + ' ₽';
+    document.getElementById('priceOld').textContent = (Number(G.priceOld) || 999) + ' ₽';
     document.getElementById('btnPrice').textContent = String(price);
     if (S.fullName) document.getElementById('authorName').textContent = S.fullName;
     if (S.inn) document.getElementById('authorInn').textContent = S.inn;
@@ -115,6 +103,14 @@
     const apiBase = String(G.apiBase || '').replace(/\/$/, '');
     const statusEl = document.getElementById('status');
     const btn = document.getElementById('btnPay');
+    const promoInput = document.getElementById('promo');
+
+    function updateBtnLabel() {
+      const p = (promoInput.value || '').trim();
+      if (p) btn.innerHTML = 'Активировать промокод / оплатить';
+      else btn.innerHTML = 'Оплатить <span id="btnPrice">' + price + '</span> ₽';
+    }
+    promoInput.addEventListener('input', updateBtnLabel);
 
     document.getElementById('buyForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -122,52 +118,52 @@
       statusEl.textContent = '';
       if (!apiBase) {
         statusEl.className = 'status err';
-        statusEl.textContent = 'API оплаты не настроен (config.guide.apiBase)';
+        statusEl.textContent = 'API не настроен';
         return;
       }
-      const consents = ['cOffer', 'cPrivacy', 'cDigital', 'cIp', 'cYm'];
-      for (const id of consents) {
+      for (const id of ['cOffer', 'cPrivacy', 'cDigital', 'cIp', 'cPay']) {
         if (!document.getElementById(id).checked) {
           statusEl.className = 'status err';
-          statusEl.textContent = 'Отметьте все обязательные пункты согласия';
+          statusEl.textContent = 'Отметьте все пункты согласия';
           return;
         }
       }
       btn.disabled = true;
-      btn.textContent = 'Создаём заказ…';
+      const prev = btn.innerHTML;
+      btn.textContent = 'Создаём…';
       try {
         const res = await fetch(apiBase + '/api/guide/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: document.getElementById('email').value.trim(),
+            promo: document.getElementById('promo').value.trim(),
             acceptOffer: true,
             acceptPrivacy: true,
             acceptDigital: true,
             acceptIp: true,
-            paymentType: Y.defaultPaymentType || 'AC',
           }),
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.message || data.error || ('HTTP ' + res.status));
-        const q = data.quickpay || {};
-        document.getElementById('ymReceiver').value = q.receiver || Y.receiver || '';
-        document.getElementById('ymFormType').value = q['quickpay-form'] || 'shop';
-        document.getElementById('ymTargets').value = q.targets || '';
-        document.getElementById('ymPaymentType').value = q.paymentType || 'AC';
-        document.getElementById('ymSum').value = q.sum || String(price);
-        document.getElementById('ymLabel').value = q.label || data.orderId || '';
-        document.getElementById('ymSuccess').value = q.successURL || data.successUrl || '';
-        try {
-          sessionStorage.setItem('acup_guide_order', data.orderId || '');
-        } catch (_) {}
-        document.getElementById('ymForm').submit();
+
+        try { sessionStorage.setItem('acup_guide_order', data.orderId || ''); } catch (_) {}
+
+        // Free promo → token immediately
+        if (data.free && data.token) {
+          try { localStorage.setItem('acup_guide_token', data.token); } catch (_) {}
+          location.href = 'success.html?order=' + encodeURIComponent(data.orderId) + '&promo=1';
+          return;
+        }
+
+        if (!data.confirmation_url) throw new Error('Нет ссылки на оплату ЮKassa');
+        location.href = data.confirmation_url;
       } catch (err) {
         console.error(err);
         statusEl.className = 'status err';
-        statusEl.textContent = 'Не удалось создать оплату: ' + (err.message || err);
+        statusEl.textContent = err.message || String(err);
         btn.disabled = false;
-        btn.innerHTML = 'Перейти к оплате ЮMoney · <span id="btnPrice">' + price + '</span> ₽';
+        btn.innerHTML = prev;
       }
     });
   })();

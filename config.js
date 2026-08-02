@@ -29,18 +29,14 @@ window.ACUP = {
     apiBase: 'https://pour-oxygen-presently-watched.trycloudflare.com',
   },
 
-  // ЮMoney QuickPay — кошелёк самозанятого (идентифицированный)
-  // Настройка уведомлений: ЮMoney → настройки → HTTP-уведомления
-  // URL: {apiBase}/api/guide/notify
-  yoomoney: {
+  // ЮKassa (самозанятый, ShopID 1298699) — карта / СБП / ЮMoney
+  yookassa: {
     enabled: true,
-    // Номер кошелька ЮMoney (из кабинета / как в Поздравке)
-    receiver: '4100119499142622',
-    // AC = банковская карта, PC = кошелёк, SB = СБП
-    defaultPaymentType: 'AC',
-    // quickpay-form: shop | button | small
-    form: 'shop',
+    shopId: '1298699',
   },
+
+  // Промокоды бесплатного доступа (дублируются на сервере GUIDE_PROMO_FREE)
+  promoFree: ['аркадий', 'arkadiy'],
 
   yoomoneyLegal: {
     operator: 'ООО НКО «ЮМани»',
