@@ -412,7 +412,15 @@ const server = http.createServer(async (req, res) => {
     }
     row.lastAccessAt = Date.now();
     saveStore();
-    const html = readFileSync(guidePath, 'utf8');
+    let html = readFileSync(guidePath, 'utf8');
+    // Fallback: .reveal starts at opacity:0 until JS adds .vis — ensure text visible if scripts lag
+    const inject = `<style id="acup-access-fix">
+.reveal{opacity:1!important;transform:none!important;transition:none!important}
+.hero-bottom{opacity:1!important;transform:none!important}
+.letter{opacity:1!important}
+</style>`;
+    if (html.includes('</head>')) html = html.replace('</head>', inject + '</head>');
+    else html = inject + html;
     cors(res);
     res.writeHead(200, {
       'Content-Type': 'text/html; charset=utf-8',

@@ -9,25 +9,74 @@
   <link rel="stylesheet" href="../css/guide-legal.css" />
   <script src="../config.js"></script>
   <style>
-    .frame-wrap {
-      margin-top: 16px;
-      border-radius: 16px;
+    html, body { height: 100%; }
+    body.reader-mode {
+      margin: 0;
+      padding: 0;
       overflow: hidden;
-      border: 1px solid var(--line);
-      background: #111;
-      min-height: 70vh;
+      background: #090807;
     }
-    .frame-wrap iframe {
+    body.reader-mode .wrap-gate { display: none !important; }
+
+    #reader {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: #090807;
+      flex-direction: column;
+    }
+    body.reader-mode #reader {
+      display: flex;
+    }
+    .reader-bar {
+      flex: 0 0 auto;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 12px 0 16px;
+      background: rgba(9, 8, 7, 0.96);
+      border-bottom: 1px solid rgba(242, 237, 229, 0.08);
+      color: #f2ede5;
+      font-size: 13px;
+    }
+    .reader-bar b { font-weight: 800; letter-spacing: 0.04em; }
+    .reader-bar a, .reader-bar button {
+      appearance: none;
+      border: 0;
+      background: rgba(242, 237, 229, 0.08);
+      color: #f2ede5;
+      text-decoration: none;
+      font: inherit;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .reader-bar a:hover, .reader-bar button:hover {
+      background: rgba(196, 30, 58, 0.35);
+    }
+    .reader-frame-wrap {
+      flex: 1 1 auto;
+      min-height: 0;
+      position: relative;
+    }
+    #guideFrame {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: min(85vh, 1200px);
+      height: 100%;
       border: 0;
       display: block;
-      background: #fff;
+      background: #090807;
     }
   </style>
 </head>
 <body>
-  <div class="wrap" style="max-width: 960px">
+  <div class="wrap wrap-gate">
     <div class="nav">
       <a class="logo" href="../index.html">A CUP</a>
       <div class="links">
@@ -45,20 +94,27 @@
       <div class="status" id="status" aria-live="polite"></div>
       <p class="legal-note">Нет токена? <a href="buy.html">Оплатить гайд</a>. Проблемы с доступом — <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a>.</p>
     </div>
+  </div>
 
-    <div id="reader" class="hidden">
-      <div class="card" style="padding:14px 18px;margin-bottom:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
-        <div>
-          <b>От нуля до specialty</b>
-          <div class="meta" style="margin:0">Личный доступ · не распространяйте токен</div>
-        </div>
-        <a class="btn btn-ghost" href="../index.html" style="width:auto;padding:10px 16px;margin:0">На сайт</a>
-      </div>
-      <div class="frame-wrap">
-        <iframe id="guideFrame" title="Гайд A CUP" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
-      </div>
+  <div id="reader" aria-live="polite">
+    <div class="reader-bar">
+      <b>A CUP · От нуля до specialty</b>
+      <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button type="button" id="btnNewTab">В отдельной вкладке</button>
+        <a href="../index.html">На сайт</a>
+      </span>
+    </div>
+    <div class="reader-frame-wrap">
+      <!-- allow-scripts: в гайде анимации .reveal / canvas; без JS текст остаётся opacity:0 -->
+      <iframe
+        id="guideFrame"
+        title="Гайд A CUP"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
   </div>
+
   <script>
   (function () {
     const CFG = window.ACUP || {};
@@ -66,11 +122,21 @@
     const params = new URLSearchParams(location.search);
     const input = document.getElementById('token');
     const statusEl = document.getElementById('status');
+    const frame = document.getElementById('guideFrame');
+    let contentUrl = '';
+
     let initial = params.get('token') || '';
     try {
       if (!initial) initial = localStorage.getItem('acup_guide_token') || '';
     } catch (_) {}
     if (initial) input.value = initial;
+
+    function enterReader(url) {
+      contentUrl = url;
+      document.body.classList.add('reader-mode');
+      frame.src = url;
+      document.title = 'Гайд — От нуля до specialty · A CUP';
+    }
 
     async function openGuide() {
       const token = String(input.value || '').trim().toUpperCase();
@@ -87,24 +153,22 @@
         return;
       }
       document.getElementById('btnGo').disabled = true;
+      statusEl.textContent = 'Загружаем гайд…';
       try {
         const v = await fetch(apiBase + '/api/guide/validate?token=' + encodeURIComponent(token), { cache: 'no-store' });
         const j = await v.json().catch(() => ({}));
         if (!v.ok || !j.ok) throw new Error(j.message || j.error || 'Токен недействителен или оплата не подтверждена');
         try { localStorage.setItem('acup_guide_token', token); } catch (_) {}
-        // Load HTML via fetch (so we can send token) and blob URL into iframe
-        const res = await fetch(apiBase + '/api/guide/content?token=' + encodeURIComponent(token), { cache: 'no-store' });
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
+
+        // Прямой URL в iframe (не blob): работают скрипты, шрифты и анимации reveal
+        const url = apiBase + '/api/guide/content?token=' + encodeURIComponent(token);
+        // прогрев — убедиться, что контент отдаётся
+        const head = await fetch(url, { cache: 'no-store', method: 'GET' });
+        if (!head.ok) {
+          const err = await head.json().catch(() => ({}));
           throw new Error(err.message || err.error || 'Нет доступа к материалу');
         }
-        const html = await res.text();
-        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        document.getElementById('gateCard').classList.add('hidden');
-        document.getElementById('reader').classList.remove('hidden');
-        document.getElementById('guideFrame').src = url;
-        document.title = 'Гайд — От нуля до specialty · A CUP';
+        enterReader(url);
       } catch (e) {
         statusEl.className = 'status err';
         statusEl.textContent = e.message || String(e);
@@ -113,6 +177,9 @@
     }
 
     document.getElementById('btnGo').onclick = openGuide;
+    document.getElementById('btnNewTab').onclick = () => {
+      if (contentUrl) window.open(contentUrl, '_blank', 'noopener');
+    };
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); openGuide(); }
     });
