@@ -8,6 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/guide-legal.css" />
   <script src="../config.js"></script>
+<script src="../js/metrika.js"></script>
+
 </head>
 <body>
   <div class="wrap">
@@ -113,5 +115,23 @@
     setTimeout(() => clearInterval(timer), 5 * 60 * 1000);
   })();
   </script>
+
+<script>
+(function () {
+  var fired = false;
+  var _orig = null;
+  // hook after success page marks paid
+  var obs = setInterval(function () {
+    var paid = document.getElementById('paidBox');
+    if (paid && !paid.classList.contains('hidden') && !fired) {
+      fired = true;
+      if (window.ACUPMetrika) window.ACUPMetrika.reach('purchase');
+      clearInterval(obs);
+    }
+  }, 500);
+  setTimeout(function () { clearInterval(obs); }, 300000);
+})();
+</script>
+
 </body>
 </html>

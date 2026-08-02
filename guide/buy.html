@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/guide-legal.css" />
   <script src="../config.js"></script>
+<script src="../js/metrika.js"></script>
+
 </head>
 <body>
   <div class="wrap">
@@ -168,5 +170,16 @@
     });
   })();
   </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.ACUPMetrika) window.ACUPMetrika.reach('view_buy');
+  var form = document.getElementById('buyForm');
+  if (form) form.addEventListener('submit', function () {
+    if (window.ACUPMetrika) window.ACUPMetrika.reach('click_buy');
+  });
+});
+</script>
+
 </body>
 </html>

@@ -2366,5 +2366,18 @@ var gameState = {
   })();
   </script>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var b = document.getElementById('acupGuideBuyBtn');
+  if (b) b.addEventListener('click', function(){
+    try {
+      if (window.AKAPMetrika && window.AKAPMetrika.reach) window.AKAPMetrika.reach('click_buy');
+      else if (typeof ym === 'function') ym(111214147, 'reachGoal', 'click_buy');
+    } catch(e){}
+  });
+});
+</script>
+
 </body>
 </html>
