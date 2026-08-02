@@ -49,7 +49,7 @@ fi
 CURRENT=""
 if [ -f "$STATE" ]; then CURRENT=$(tr -d '[:space:]' <"$STATE" || true); fi
 if [ -z "$CURRENT" ] && [ -f "$ROOT/config.js" ]; then
-  CURRENT=$(grep -oE "https://[a-z0-9-]+\.trycloudflare\.com" "$ROOT/config.js" | head -1 || true)
+  CURRENT=$(grep -oE "https://[a-z0-9-]+\.trycloudflare\.com" "$ROOT/config.js" | grep -v 'api\.trycloudflare' | head -1 || true)
 fi
 
 public_ok=0
@@ -67,18 +67,29 @@ if [ "$public_ok" = 1 ]; then
   exit 0
 fi
 
-log "Public API down (current=${CURRENT:-none}) — restarting cloudflared tunnel"
+log "Public API down (current=${CURRENT:-none}) — restarting cloudflared via systemd (or nohup fallback)"
 
-# Kill only the guide tunnel (8788), not pozdravka 8787
-pkill -f "cloudflared tunnel --url http://127.0.0.1:${PORT}" 2>/dev/null || true
-sleep 1
-: >"$LOG_CF"
-nohup "$CF" tunnel --url "http://127.0.0.1:${PORT}" --no-autoupdate >"$LOG_CF" 2>&1 &
+# Prefer systemd-managed cloudflared (Restart=always)
+if systemctl --user cat acup-guide-cloudflared.service >/dev/null 2>&1; then
+  systemctl --user restart acup-guide-cloudflared.service || true
+else
+  # Fallback: kill only guide tunnel (8788), not pozdravka 8787
+  pkill -f "cloudflared tunnel --url http://127.0.0.1:${PORT}" 2>/dev/null || true
+  sleep 1
+  : >"$LOG_CF"
+  nohup "$CF" tunnel --url "http://127.0.0.1:${PORT}" --no-autoupdate >"$LOG_CF" 2>&1 &
+fi
 
 URL=""
-for i in $(seq 1 45); do
+for i in $(seq 1 50); do
   sleep 1
-  URL=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' "$LOG_CF" | tail -1 || true)
+  # Prefer STATE file written by run-tunnel.sh
+  if [ -f "$STATE" ]; then
+    URL=$(tr -d '[:space:]' <"$STATE" || true)
+  fi
+  if [ -z "$URL" ] || echo "$URL" | grep -q 'api\.trycloudflare'; then
+    URL=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' "$LOG_CF" 2>/dev/null | grep -v 'api\.trycloudflare' | tail -1 || true)
+  fi
   if [ -n "$URL" ]; then
     if curl -sf -m 10 "$URL/api/guide/health" | grep -q '"ok"'; then
       break
@@ -88,7 +99,7 @@ for i in $(seq 1 45); do
 done
 
 if [ -z "$URL" ]; then
-  log "ERROR: could not establish public tunnel (see $LOG_CF)"
+  log "ERROR: could not establish public tunnel (see $LOG_CF / journalctl --user -u acup-guide-cloudflared)"
   exit 1
 fi
 
