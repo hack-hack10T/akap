@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Оплата гайда — A CUP</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/guide-legal.css" />
+  <script src="../config.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <a class="logo" href="../index.html">A CUP</a>
+      <div class="links">
+        <a href="access.html">Ввести токен</a>
+        <a href="buy.html">Купить снова</a>
+      </div>
+    </div>
+    <div class="card">
+      <h1 id="title">Проверяем оплату…</h1>
+      <p class="meta" id="sub">Заказ <b id="orderId">—</b>. Обычно подтверждение приходит за несколько секунд.</p>
+
+      <div id="pendingBox">
+        <p>Если вы только что оплатили в ЮMoney — не закрывайте страницу. Мы ждём уведомление об оплате.</p>
+        <p class="meta">Не пришло за 1–2 минуты? Напишите в <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a> со скрином оплаты и номером заказа.</p>
+        <div class="status" id="status" aria-live="polite">Ожидание подтверждения…</div>
+        <button class="btn btn-ghost" type="button" id="btnRefresh">Проверить ещё раз</button>
+      </div>
+
+      <div id="paidBox" class="hidden">
+        <p class="status ok">✓ Оплата получена. Ваш персональный токен доступа:</p>
+        <div class="token-box" id="tokenBox">—</div>
+        <button class="btn" type="button" id="btnCopy" style="margin-top:14px">Скопировать токен</button>
+        <a class="btn btn-ghost" id="btnOpen" href="access.html">Открыть гайд по токену</a>
+        <p class="legal-note">Сохраните токен. Ссылка доступа: можно открыть с телефона и компьютера. Не передавайте токен третьим лицам.</p>
+      </div>
+    </div>
+    <footer class="page">A CUP · поддержка @Arcady_ya</footer>
+  </div>
+  <script>
+  (function () {
+    const CFG = window.ACUP || {};
+    const apiBase = String((CFG.guide && CFG.guide.apiBase) || '').replace(/\/$/, '');
+    const params = new URLSearchParams(location.search);
+    let orderId = params.get('order') || params.get('label') || '';
+    try {
+      if (!orderId) orderId = sessionStorage.getItem('acup_guide_order') || '';
+    } catch (_) {}
+    document.getElementById('orderId').textContent = orderId || 'не указан';
+
+    const pendingBox = document.getElementById('pendingBox');
+    const paidBox = document.getElementById('paidBox');
+    const statusEl = document.getElementById('status');
+    const title = document.getElementById('title');
+    let timer = null;
+    let tries = 0;
+
+    function showPaid(data) {
+      clearInterval(timer);
+      pendingBox.classList.add('hidden');
+      paidBox.classList.remove('hidden');
+      title.textContent = 'Гайд оплачен';
+      document.getElementById('sub').textContent = 'Заказ ' + (data.orderId || orderId);
+      const tok = data.token || '';
+      document.getElementById('tokenBox').textContent = tok;
+      const open = document.getElementById('btnOpen');
+      open.href = 'access.html?token=' + encodeURIComponent(tok);
+      try {
+        localStorage.setItem('acup_guide_token', tok);
+      } catch (_) {}
+    }
+
+    async function check() {
+      if (!orderId || !apiBase) {
+        statusEl.className = 'status err';
+        statusEl.textContent = !orderId ? 'Нет номера заказа в ссылке' : 'API не настроен';
+        return;
+      }
+      tries++;
+      try {
+        const res = await fetch(apiBase + '/api/guide/order-status?order=' + encodeURIComponent(orderId), {
+          cache: 'no-store',
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+        if (data.status === 'paid' && data.token) {
+          showPaid(data);
+          return;
+        }
+        statusEl.className = 'status';
+        statusEl.textContent = 'Статус: ' + (data.status || 'pending') + ' · проверка ' + tries;
+      } catch (e) {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'Ошибка проверки: ' + (e.message || e);
+      }
+    }
+
+    document.getElementById('btnRefresh').onclick = check;
+    document.getElementById('btnCopy').onclick = async () => {
+      const t = document.getElementById('tokenBox').textContent;
+      try {
+        await navigator.clipboard.writeText(t);
+        document.getElementById('btnCopy').textContent = 'Скопировано';
+      } catch (_) {
+        prompt('Скопируйте токен:', t);
+      }
+    };
+
+    check();
+    timer = setInterval(check, 3000);
+    setTimeout(() => clearInterval(timer), 5 * 60 * 1000);
+  })();
+  </script>
+</body>
+</html>

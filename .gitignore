@@ -1,5 +1,4 @@
-*.png
-device_page.html
-AUTH_NEEDED.txt
-gh_*.png
-public/
+.env
+.env.*
+server/data/orders.json
+*.log

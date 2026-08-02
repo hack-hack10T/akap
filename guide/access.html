@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Доступ к гайду — A CUP</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/guide-legal.css" />
+  <script src="../config.js"></script>
+  <style>
+    .frame-wrap {
+      margin-top: 16px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #111;
+      min-height: 70vh;
+    }
+    .frame-wrap iframe {
+      width: 100%;
+      height: min(85vh, 1200px);
+      border: 0;
+      display: block;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" style="max-width: 960px">
+    <div class="nav">
+      <a class="logo" href="../index.html">A CUP</a>
+      <div class="links">
+        <a href="buy.html">Купить</a>
+        <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">Поддержка</a>
+      </div>
+    </div>
+
+    <div class="card" id="gateCard">
+      <h1>Вход по токену</h1>
+      <p class="meta">Введите уникальный токен, который вы получили после оплаты гайда «От нуля до specialty».</p>
+      <label class="block" for="token">Токен</label>
+      <input class="field" id="token" placeholder="ACUP-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" />
+      <button class="btn" type="button" id="btnGo" style="margin-top:14px">Открыть гайд</button>
+      <div class="status" id="status" aria-live="polite"></div>
+      <p class="legal-note">Нет токена? <a href="buy.html">Оплатить гайд</a>. Проблемы с доступом — <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a>.</p>
+    </div>
+
+    <div id="reader" class="hidden">
+      <div class="card" style="padding:14px 18px;margin-bottom:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+        <div>
+          <b>От нуля до specialty</b>
+          <div class="meta" style="margin:0">Личный доступ · не распространяйте токен</div>
+        </div>
+        <a class="btn btn-ghost" href="../index.html" style="width:auto;padding:10px 16px;margin:0">На сайт</a>
+      </div>
+      <div class="frame-wrap">
+        <iframe id="guideFrame" title="Гайд A CUP" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    const CFG = window.ACUP || {};
+    const apiBase = String((CFG.guide && CFG.guide.apiBase) || '').replace(/\/$/, '');
+    const params = new URLSearchParams(location.search);
+    const input = document.getElementById('token');
+    const statusEl = document.getElementById('status');
+    let initial = params.get('token') || '';
+    try {
+      if (!initial) initial = localStorage.getItem('acup_guide_token') || '';
+    } catch (_) {}
+    if (initial) input.value = initial;
+
+    async function openGuide() {
+      const token = String(input.value || '').trim().toUpperCase();
+      statusEl.className = 'status';
+      statusEl.textContent = '';
+      if (!token) {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'Введите токен';
+        return;
+      }
+      if (!apiBase) {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'API не настроен';
+        return;
+      }
+      document.getElementById('btnGo').disabled = true;
+      try {
+        const v = await fetch(apiBase + '/api/guide/validate?token=' + encodeURIComponent(token), { cache: 'no-store' });
+        const j = await v.json().catch(() => ({}));
+        if (!v.ok || !j.ok) throw new Error(j.message || j.error || 'Токен недействителен или оплата не подтверждена');
+        try { localStorage.setItem('acup_guide_token', token); } catch (_) {}
+        // Load HTML via fetch (so we can send token) and blob URL into iframe
+        const res = await fetch(apiBase + '/api/guide/content?token=' + encodeURIComponent(token), { cache: 'no-store' });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || err.error || 'Нет доступа к материалу');
+        }
+        const html = await res.text();
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        document.getElementById('gateCard').classList.add('hidden');
+        document.getElementById('reader').classList.remove('hidden');
+        document.getElementById('guideFrame').src = url;
+        document.title = 'Гайд — От нуля до specialty · A CUP';
+      } catch (e) {
+        statusEl.className = 'status err';
+        statusEl.textContent = e.message || String(e);
+        document.getElementById('btnGo').disabled = false;
+      }
+    }
+
+    document.getElementById('btnGo').onclick = openGuide;
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); openGuide(); }
+    });
+    if (params.get('token')) openGuide();
+  })();
+  </script>
+</body>
+</html>

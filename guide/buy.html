@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Купить гайд — От нуля до specialty · A CUP</title>
+  <meta name="description" content="Цифровой гайд A CUP «От нуля до specialty». Оплата ЮMoney, доступ по токену." />
+  <link rel="canonical" href="https://акап.рф/guide/buy.html" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/guide-legal.css" />
+  <script src="../config.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <a class="logo" href="../index.html">A CUP</a>
+      <div class="links">
+        <a href="offer.html">Оферта</a>
+        <a href="privacy.html">Конфиденциальность</a>
+        <a href="access.html">У меня есть токен</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h1>От нуля до specialty</h1>
+      <p class="meta">Авторский цифровой гайд A CUP · разовая оплата · доступ сразу после оплаты по уникальному токену</p>
+
+      <div class="price-row">
+        <span class="price-old" id="priceOld">999 ₽</span>
+        <span class="price-new" id="priceNew">299 ₽</span>
+      </div>
+
+      <ul>
+        <li>История, экстракция, биохимия и как кофе действует на организм</li>
+        <li>Как читать пачку и выбирать лот</li>
+        <li>Рецепты: V60, аэропресс, френч, эспрессо</li>
+        <li>Сенсорика без снобизма · ~10&nbsp;000 слов</li>
+      </ul>
+
+      <p class="meta" style="margin-top:14px">
+        <b>Автор:</b> <span id="authorName">Дмитриев Михаил Александрович</span>, самозанятый (НПД),
+        ИНН <span id="authorInn">772453231807</span>. Гайд — результат собственной интеллектуальной деятельности автора.
+      </p>
+
+      <form id="buyForm">
+        <label class="block" for="email">Email (чтобы не потерять токен)</label>
+        <input class="field" id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" />
+
+        <div class="checks">
+          <label class="check">
+            <input type="checkbox" id="cOffer" required />
+            <span>Принимаю <a href="offer.html" target="_blank">публичную оферту</a> на покупку цифрового гайда</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="cPrivacy" required />
+            <span>Согласен с <a href="privacy.html" target="_blank">политикой конфиденциальности</a></span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="cDigital" required />
+            <span>Понимаю, что это <b>цифровой товар</b>: доступ выдаётся сразу, возврат после выдачи токена ограничен законом</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="cIp" required />
+            <span>Принимаю, что материал — <b>авторский</b> (интеллектуальная собственность автора), только для личного использования, без перепродажи и публикации</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="cYm" required />
+            <span>Оплата через ЮMoney (ООО НКО «ЮМани»). Ознакомлен с
+              <a href="https://yoomoney.ru/page?id=525698" target="_blank" rel="noopener">условиями сервиса</a> и
+              <a href="https://yoomoney.ru/page?id=527708" target="_blank" rel="noopener">политикой ЮMoney</a>
+            </span>
+          </label>
+        </div>
+
+        <button class="btn" type="submit" id="btnPay">Перейти к оплате ЮMoney · <span id="btnPrice">299</span> ₽</button>
+        <div class="status" id="status" aria-live="polite"></div>
+      </form>
+
+      <p class="legal-note">
+        Получатель платежа: самозанятый Дмитриев М.А., ИНН 772453231807.
+        Оператор приёма платежей: ООО НКО «ЮМани». После оплаты откроется страница с <b>уникальным токеном</b> —
+        сохраните его. Вход в гайд: <a href="access.html">страница доступа</a>.
+        Поддержка: <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a>.
+      </p>
+    </div>
+
+    <footer class="page">A CUP · акап.рф · рукописный авторский гайд</footer>
+  </div>
+
+  <!-- hidden YooMoney form -->
+  <form id="ymForm" method="POST" action="https://yoomoney.ru/quickpay/confirm" accept-charset="utf-8" style="display:none">
+    <input type="hidden" name="receiver" id="ymReceiver" />
+    <input type="hidden" name="quickpay-form" id="ymFormType" value="shop" />
+    <input type="hidden" name="targets" id="ymTargets" />
+    <input type="hidden" name="paymentType" id="ymPaymentType" value="AC" />
+    <input type="hidden" name="sum" id="ymSum" />
+    <input type="hidden" name="label" id="ymLabel" />
+    <input type="hidden" name="successURL" id="ymSuccess" />
+  </form>
+
+  <script>
+  (function () {
+    const CFG = window.ACUP || {};
+    const G = CFG.guide || {};
+    const Y = CFG.yoomoney || {};
+    const S = CFG.seller || {};
+    const price = Number(G.price) || 299;
+    const old = Number(G.priceOld) || 999;
+    document.getElementById('priceNew').textContent = price + ' ₽';
+    document.getElementById('priceOld').textContent = old + ' ₽';
+    document.getElementById('btnPrice').textContent = String(price);
+    if (S.fullName) document.getElementById('authorName').textContent = S.fullName;
+    if (S.inn) document.getElementById('authorInn').textContent = S.inn;
+
+    const apiBase = String(G.apiBase || '').replace(/\/$/, '');
+    const statusEl = document.getElementById('status');
+    const btn = document.getElementById('btnPay');
+
+    document.getElementById('buyForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.className = 'status';
+      statusEl.textContent = '';
+      if (!apiBase) {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'API оплаты не настроен (config.guide.apiBase)';
+        return;
+      }
+      const consents = ['cOffer', 'cPrivacy', 'cDigital', 'cIp', 'cYm'];
+      for (const id of consents) {
+        if (!document.getElementById(id).checked) {
+          statusEl.className = 'status err';
+          statusEl.textContent = 'Отметьте все обязательные пункты согласия';
+          return;
+        }
+      }
+      btn.disabled = true;
+      btn.textContent = 'Создаём заказ…';
+      try {
+        const res = await fetch(apiBase + '/api/guide/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('email').value.trim(),
+            acceptOffer: true,
+            acceptPrivacy: true,
+            acceptDigital: true,
+            acceptIp: true,
+            paymentType: Y.defaultPaymentType || 'AC',
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.message || data.error || ('HTTP ' + res.status));
+        const q = data.quickpay || {};
+        document.getElementById('ymReceiver').value = q.receiver || Y.receiver || '';
+        document.getElementById('ymFormType').value = q['quickpay-form'] || 'shop';
+        document.getElementById('ymTargets').value = q.targets || '';
+        document.getElementById('ymPaymentType').value = q.paymentType || 'AC';
+        document.getElementById('ymSum').value = q.sum || String(price);
+        document.getElementById('ymLabel').value = q.label || data.orderId || '';
+        document.getElementById('ymSuccess').value = q.successURL || data.successUrl || '';
+        try {
+          sessionStorage.setItem('acup_guide_order', data.orderId || '');
+        } catch (_) {}
+        document.getElementById('ymForm').submit();
+      } catch (err) {
+        console.error(err);
+        statusEl.className = 'status err';
+        statusEl.textContent = 'Не удалось создать оплату: ' + (err.message || err);
+        btn.disabled = false;
+        btn.innerHTML = 'Перейти к оплате ЮMoney · <span id="btnPrice">' + price + '</span> ₽';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
