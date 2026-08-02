@@ -529,6 +529,22 @@
       margin-bottom: 10px;
     }
 
+
+    .toc-list {
+      margin: 0;
+      padding-left: 1.2em;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.65;
+    }
+    .toc-list li { margin: 4px 0; }
+    .toc-list li::marker { color: var(--accent); font-weight: 700; }
+    .soft-proof {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
     /* sticky mobile CTA strip — optional, only when form not in view */
     .sticky-cta {
       display: none;
@@ -586,6 +602,26 @@
 
       <a class="btn" href="#checkout" id="heroCta">Купить доступ — 299 ₽</a>
       <p class="cta-hint">Ссылка на гайд придёт на почту <strong>сразу после оплаты</strong></p>
+      <p class="soft-proof">Разовая оплата · ЮKassa · самозанятый с ИНН на сайте · не подписка</p>
+    </section>
+
+
+    <!-- Product preview / TOC -->
+    <section class="section" aria-labelledby="toc-title">
+      <h2 id="toc-title">Как выглядит гайд</h2>
+      <p class="section-lead">HTML на телефоне и компьютере. ~10&nbsp;000 слов. Не PDF на 3 страницы.</p>
+      <div class="card" style="padding:18px 16px">
+        <div class="badge" style="margin-bottom:12px">Оглавление</div>
+        <ol class="toc-list">
+          <li>Как читать пачку и не вестись на маркетинг</li>
+          <li>Обработка, обжарка, свежесть — без мифов</li>
+          <li>Вода, помол, соотношение — что крутить первым</li>
+          <li>Рецепты: V60, аэропресс, френч, эспрессо</li>
+          <li>Шпаргалка: кисло / горько / плоско</li>
+          <li>Сенсорика и мини-каппинг дома</li>
+        </ol>
+        <p class="muted" style="margin:12px 0 0;font-size:13px">После оплаты — персональная ссылка на почту. Повторный вход по токену.</p>
+      </div>
     </section>
 
     <!-- 3. What's inside -->
@@ -755,28 +791,19 @@
 
           <div class="checks">
             <label class="check">
-              <input type="checkbox" id="cOffer" required />
-              <span>Принимаю <a href="offer.html" target="_blank" rel="noopener">публичную оферту</a></span>
+              <input type="checkbox" id="cAll" required />
+              <span>Принимаю <a href="offer.html" target="_blank" rel="noopener">оферту</a>,
+              <a href="privacy.html" target="_blank" rel="noopener">политику</a>,
+              что это <b style="color:var(--text)">цифровой товар</b> (доступ сразу, возврат ограничен),
+              авторский материал для личного использования и оплату через
+              <b style="color:var(--text)">ЮKassa</b>
+              (<a href="https://yoomoney.ru/page?id=525698" target="_blank" rel="noopener">условия</a>)</span>
             </label>
-            <label class="check">
-              <input type="checkbox" id="cPrivacy" required />
-              <span>Согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a></span>
-            </label>
-            <label class="check">
-              <input type="checkbox" id="cDigital" required />
-              <span>Понимаю: это <b style="color:var(--text)">цифровой товар</b> — доступ сразу, возврат после выдачи ограничен</span>
-            </label>
-            <label class="check">
-              <input type="checkbox" id="cIp" required />
-              <span>Материал <b style="color:var(--text)">авторский</b>, только для личного использования</span>
-            </label>
-            <label class="check">
-              <input type="checkbox" id="cPay" required />
-              <span>Оплата через <b style="color:var(--text)">ЮKassa / ЮMoney</b>
-                (<a href="https://yoomoney.ru/page?id=525698" target="_blank" rel="noopener">условия</a>,
-                <a href="https://yoomoney.ru/page?id=527708" target="_blank" rel="noopener">конфиденциальность</a>)
-              </span>
-            </label>
+            <input type="checkbox" id="cOffer" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
+            <input type="checkbox" id="cPrivacy" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
+            <input type="checkbox" id="cDigital" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
+            <input type="checkbox" id="cIp" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
+            <input type="checkbox" id="cPay" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
           </div>
 
           <button class="btn" type="submit" id="btnPay">Купить доступ — 299 ₽</button>
@@ -895,14 +922,15 @@
         statusEl.textContent = 'API не настроен. Обновите страницу или напишите в поддержку.';
         return;
       }
-      var ids = ['cOffer', 'cPrivacy', 'cDigital', 'cIp', 'cPay'];
-      for (var i = 0; i < ids.length; i++) {
-        if (!document.getElementById(ids[i]).checked) {
-          statusEl.className = 'status err';
-          statusEl.textContent = 'Отметьте все пункты согласия — без них оплата недоступна';
-          return;
-        }
+      var cAll = document.getElementById('cAll');
+      if (cAll && !cAll.checked) {
+        statusEl.className = 'status err';
+        statusEl.textContent = 'Отметьте согласие с условиями — без него оплата недоступна';
+        return;
       }
+      ['cOffer','cPrivacy','cDigital','cIp','cPay'].forEach(function(id){
+        var el = document.getElementById(id); if (el) el.checked = true;
+      });
       var email = document.getElementById('email').value.trim();
       if (!email) {
         statusEl.className = 'status err';
