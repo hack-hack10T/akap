@@ -208,6 +208,9 @@ const server = http.createServer(async (req, res) => {
       provider: 'yookassa',
       shopId: SHOP_ID,
       orders: Object.keys(store.orders).length,
+      purchases: Object.values(store.orders).filter((order) =>
+        order.status === 'paid' && Number(order.amount) === PRICE
+      ).length,
     });
   }
 

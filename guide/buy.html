@@ -37,6 +37,7 @@
       min-height: 100vh;
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     a { color: var(--accent);
  text-decoration: none;
@@ -46,6 +47,7 @@
     .page {      max-width: var(--max);
       margin: 0 auto;
       padding: 0 20px 96px;
+      overflow: hidden;
     }
     /* —— Header —— */    .site-header {      display: flex;
       align-items: center;
@@ -497,11 +499,26 @@
       body.sticky-pad { padding-bottom: 88px;
  }
     }
+    .social-proof { margin-top:18px; display:flex; align-items:center; justify-content:center; gap:8px; color:var(--muted); font-size:13px; }
+    .social-proof[hidden] { display:none; }
+    .social-proof span:first-child { color:var(--ok); }
+    .author-facts { border-color:var(--line); }
+    .video-shell { margin-top:12px; aspect-ratio:16/9; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--bg-elev); }
+    .video-shell iframe { width:100%; height:100%; border:0; display:block; }
+    .video-consent { width:100%; height:100%; border:0; padding:24px; display:flex; align-items:center; justify-content:center; gap:16px; color:var(--text); background:transparent; cursor:pointer; font:inherit; text-align:left; }
+    .video-consent small { display:block; margin-top:4px; color:var(--muted); line-height:1.45; }
+    .video-play { width:46px; height:46px; border:1px solid var(--line); border-radius:50%; display:grid; place-items:center; flex:0 0 auto; }
+    .interview-copy { margin-top:20px; }
+    .qa { padding:16px 0; border-bottom:1px solid var(--line); }
+    .qa p { margin:6px 0 0; color:var(--muted); font-size:14px; }
+    .interview-link { display:inline-block; margin-top:16px; color:var(--muted); text-decoration:underline; text-underline-offset:4px; }
+     (max-width:520px) { .video-consent { padding:16px; } .video-play { width:40px; height:40px; } }
   </style>
 </head>
 <body>  <div class="page">    <!-- 1. Header -->    <header class="site-header">      <a class="brand" href="../index.html" id="brandHome">        <span class="brand-mark">A CUP</span>        <span class="brand-sub">specialty-кофе · гайды</span>      </a>      <nav class="header-links" aria-label="Навигация">        <a href="access.html">Уже купил</a>      </nav>    </header>    <!-- 2. Hero -->    <section class="hero" aria-labelledby="hero-title">      <svg class="hero-bean" viewBox="0 0 120 120" fill="none" aria-hidden="true">        <ellipse cx="60" cy="62" rx="38" ry="48" stroke="#C41E3A" stroke-width="2"/>        <path d="M60 20c-4 18-4 36 0 54s4 28 0 34" stroke="#C41E3A" stroke-width="2" stroke-linecap="round"/>      </svg>      <div class="badge">Цифровой гайд</div>      <h1 id="hero-title">Перестань покупать кофе вслепую</h1>      <p class="hero-sub">Практический гайд, который поможет выбирать зерно, понимать упаковку и исправлять вкус кофе дома — без сложных терминов.</p>      <div class="card" style="margin:0 0 24px;
 padding:18px 16px">        <strong>После чтения ты сможешь:</strong>        <ul class="toc-list" style="margin-top:10px">          <li>выбирать зерно без маркетинговых уловок</li>          <li>понимать, что написано на упаковке</li>          <li>исправлять кислый или горький вкус</li>          <li>готовить вкуснее дома</li>          <li>не тратить деньги на случайные пачки</li>        </ul>      </div>      <div class="price-block">        <span class="price-new" id="priceNew">299 ₽</span>        <span class="price-note">Цена гайда меньше одной пачки хорошего зерна. Знания остаются навсегда.</span>      </div>      <a class="btn" href="#checkout" id="heroCta">Купить доступ — 299 ₽</a>      <p class="cta-hint">Ссылка на гайд придёт на почту <strong>сразу после оплаты</strong>
-</p>      <p class="soft-proof">Разовая оплата · ЮKassa · самозанятый с ИНН на сайте · не подписка</p>    </section>    <!-- Для кого -->    <section class="section" aria-labelledby="for-title">      <h2 id="for-title">Этот гайд для тебя, если</h2>      <ul class="list">        <li>
+</p>      <p class="soft-proof">Разовая оплата · ЮKassa · самозанятый с ИНН на сайте · не подписка</p>
+      <div class="social-proof" id="socialProof" hidden><span aria-hidden="true">✓</span><span id="socialProofText"></span></div>    </section>    <!-- Для кого -->    <section class="section" aria-labelledby="for-title">      <h2 id="for-title">Этот гайд для тебя, если</h2>      <ul class="list">        <li>
 <span class="ico">✓</span>
 <div>
 <strong>Любишь кофе, но выбираешь пачку наугад</strong>
@@ -525,7 +542,20 @@ padding:18px 16px">        <strong>После чтения ты сможешь:<
 <strong>Хочешь готовить вкуснее дома</strong>
 <span class="d">Без дорогого курса, профессионального языка и бесконечных роликов.</span>
 </div>
-</li>      </ul>    </section>    <section class="section" aria-labelledby="emotion-title">      <div class="card">        <h2 id="emotion-title">Если ты хоть раз разочаровался в дорогом кофе</h2>        <p class="section-lead" style="margin:0">Не понял надписи на пачке, менял рецепт десять раз или снова получил слишком кислую чашку — этот гайд написан именно для тебя.</p>      </div>    </section>    <!-- 3. What's inside -->    <section class="section" aria-labelledby="inside-title">      <h2 id="inside-title">Что изменится после чтения</h2>      <p class="section-lead">Не просто темы и главы — конкретные решения для следующей покупки и следующей чашки.</p>      <ul class="list">        <li>          <span class="ico" aria-hidden="true">1</span>          <div>            <strong>Перестанешь выбирать кофе по красивой пачке</strong>            <span class="d">За минуту поймёшь, подходит ли тебе зерно и за что действительно стоит платить.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">2</span>          <div>            <strong>Будешь понимать вкус ещё до покупки</strong>            <span class="d">Простыми словами разберёшься, какие надписи обещают более яркий, спокойный или насыщенный кофе.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">3</span>          <div>            <strong>Получишь рабочую точку старта</strong>            <span class="d">Возьмёшь готовый рецепт для своего способа приготовления и не будешь собирать его по разным видео.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">4</span>          <div>            <strong>Сможешь исправить неудачную чашку</strong>            <span class="d">Поймёшь, что поменять первым: помол, воду, время или количество кофе.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">5</span>          <div>            <strong>Начнёшь лучше понимать собственный вкус</strong>            <span class="d">Научишься сравнивать кофе дома и выбирать то, что нравится тебе, а не эксперту из ролика.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">6</span>          <div>            <strong>Сохранишь понятную систему под рукой</strong>            <span class="d">Гайд работает на телефоне и компьютере: можно быстро вернуться к рецепту или подсказке.</span>          </div>        </li>      </ul>    </section>    <section class="section" aria-labelledby="preview-title">
+</li>      </ul>    </section>    <section class="section" aria-labelledby="emotion-title">      <div class="card">        <h2 id="emotion-title">Если ты хоть раз разочаровался в дорогом кофе</h2>        <p class="section-lead" style="margin:0">Не понял надписи на пачке, менял рецепт десять раз или снова получил слишком кислую чашку — этот гайд написан именно для тебя.</p>      </div>    </section>    <section class="section author-section" aria-labelledby="author-profile-title">
+      <h2 id="author-profile-title">Познакомьтесь с автором</h2>
+      <p class="section-lead">За гайдом стоит Михаил Дмитриев и действующий кофейный проект A CUP.</p>
+      <div class="card author-facts"><h3>Практика, а не пересказ теории</h3><p class="muted">Более 9 лет в кофейной индустрии: международные выставки, судейство WCE, сертификации SCA и поездки в страны происхождения кофе. A CUP работает с зерном, обжаркой, контролем качества и дегустациями.</p></div>
+      <div class="video-shell" id="authorVideo" data-src="https://vk.com/video_ext.php?oid=-148357406&amp;id=456239122&amp;hd=2&amp;t=146"><button type="button" class="video-consent" id="loadAuthorVideo" aria-label="Воспроизвести интервью с автором"><span class="video-play" aria-hidden="true">▶</span><span><strong>Интервью с автором гайда</strong><small>Посмотрите, чтобы лучше понять подход A CUP к кофе</small></span></button></div>
+      <div class="interview-copy"><h3>Несколько вопросов и ответов</h3>
+        <div class="qa"><strong>Зачем разбираться в кофе?</strong><p>Чтобы выбирать вкус осознанно, сравнивать разные сорта и не зависеть от случайных советов.</p></div>
+        <div class="qa"><strong>Что помогает новичку быстрее всего?</strong><p>Дегустация и сравнение: когда пробуешь несколько вариантов рядом, различия становятся понятными без сложных терминов.</p></div>
+        <div class="qa"><strong>Почему появился этот гайд?</strong><p>Чтобы перенести практический подход A CUP в понятную домашнюю систему: выбрать зерно, приготовить и исправить вкус.</p></div>
+        <a class="interview-link" href="https://aim2flourish.com/innovations/consume-consciously-choose-your-perfect-drink-with-cupping" target="_blank" rel="noopener">Читать полное интервью →</a>
+      </div>
+    </section>
+
+    <!-- 3. What's inside -->    <section class="section" aria-labelledby="inside-title">      <h2 id="inside-title">Что изменится после чтения</h2>      <p class="section-lead">Не просто темы и главы — конкретные решения для следующей покупки и следующей чашки.</p>      <ul class="list">        <li>          <span class="ico" aria-hidden="true">1</span>          <div>            <strong>Перестанешь выбирать кофе по красивой пачке</strong>            <span class="d">За минуту поймёшь, подходит ли тебе зерно и за что действительно стоит платить.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">2</span>          <div>            <strong>Будешь понимать вкус ещё до покупки</strong>            <span class="d">Простыми словами разберёшься, какие надписи обещают более яркий, спокойный или насыщенный кофе.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">3</span>          <div>            <strong>Получишь рабочую точку старта</strong>            <span class="d">Возьмёшь готовый рецепт для своего способа приготовления и не будешь собирать его по разным видео.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">4</span>          <div>            <strong>Сможешь исправить неудачную чашку</strong>            <span class="d">Поймёшь, что поменять первым: помол, воду, время или количество кофе.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">5</span>          <div>            <strong>Начнёшь лучше понимать собственный вкус</strong>            <span class="d">Научишься сравнивать кофе дома и выбирать то, что нравится тебе, а не эксперту из ролика.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">6</span>          <div>            <strong>Сохранишь понятную систему под рукой</strong>            <span class="d">Гайд работает на телефоне и компьютере: можно быстро вернуться к рецепту или подсказке.</span>          </div>        </li>      </ul>    </section>    <section class="section" aria-labelledby="preview-title">
       <h2 id="preview-title">Посмотри на реальные материалы</h2>
       <p class="section-lead">Это фрагменты из гайда, а не рекламный пересказ.</p>
       <div class="card">
@@ -715,7 +745,36 @@ pointer-events:none" />          </div>          <button class="btn" type="submi
 );
   }
 )();
-  </script>  <script>  document.addEventListener('DOMContentLoaded', function () {    if (window.ACUPMetrika) window.ACUPMetrika.reach('view_buy');
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var videoButton = document.getElementById('loadAuthorVideo');
+    if (videoButton) videoButton.addEventListener('click', function () {
+      var shell = document.getElementById('authorVideo');
+      var frame = document.createElement('iframe');
+      frame.src = shell.getAttribute('data-src');
+      frame.title = 'Интервью с автором гайда';
+      frame.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+      frame.allowFullscreen = true;
+      shell.replaceChildren(frame);
+    }, { once: true });
+    var proof = document.getElementById('socialProof');
+    var proofText = document.getElementById('socialProofText');
+    if (proof && proofText && window.ACUPResolveApiBase) {
+      window.ACUPResolveApiBase().then(function (base) { return fetch(base + '/api/guide/health', { cache: 'no-store' }); })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          var count = Number(data.purchases) || 0;
+          if (!count) return;
+          proofText.textContent = count >= 400 ? 'Уже более ' + Math.floor(count / 50) * 50 + ' покупателей'
+            : count >= 350 ? 'Более ' + Math.floor(count / 10) * 10 + ' человек уже приобрели этот гайд'
+            : count === 1 ? 'Первый покупатель уже получил гайд' : count + ' подтверждённые покупки гайда';
+          proof.hidden = false;
+        }).catch(function () {});
+    }
+  });
+  </script>
+  <script>  document.addEventListener('DOMContentLoaded', function () {    if (window.ACUPMetrika) window.ACUPMetrika.reach('view_buy');
     var form = document.getElementById('buyForm');
     if (form) form.addEventListener('submit', function () {      if (window.ACUPMetrika) window.ACUPMetrika.reach('click_buy');
     }
