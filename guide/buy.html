@@ -634,7 +634,7 @@ pointer-events:none" />          </div>          <button class="btn" type="submi
     if (S.inn) setText('authorInn', S.inn);
     if (Y.shopId) setText('shopId', Y.shopId);
     if (S.fullName && S.inn) {      setText('footerSeller', 'самозанятый ' + S.fullName.replace(/^(\S+)\s+(\S)\S*\s+(\S)\S*$/, '$1 $2.$3.') + ', ИНН ' + S.inn);
-      // simpler short form      setText('footerSeller', (S.status || 'самозанятый') + ' · ' + S.fullName + ', ИНН ' + S.inn);
+      setText('footerSeller', (S.status || 'самозанятый') + ' · ' + S.fullName + ', ИНН ' + S.inn);
     }
     if (S.telegram) {      var tg = document.getElementById('supportTg');
       if (tg) {        tg.href = S.telegram;
@@ -648,9 +648,6 @@ pointer-events:none" />          </div>          <button class="btn" type="submi
         em.textContent = S.email;
       }
     }
-    if (CFG.siteUrl || CFG.siteUrlAscii) {      var home = document.getElementById('brandHome');
-      // keep relative ../index.html for local/gh-pages;
- absolute only if needed    }
     const statusEl = document.getElementById('status');
     const promoInput = document.getElementById('promo');
     function updateBtnLabel() {      const p = (promoInput.value || '').trim();
@@ -716,16 +713,6 @@ pointer-events:none" />          </div>          <button class="btn" type="submi
       }
     }
 );
-    // Sticky CTA: show when checkout form is not in view    var sticky = document.getElementById('stickyCta');
-    var checkout = document.getElementById('checkout');
-    if (sticky && checkout && 'IntersectionObserver' in window) {      var io = new IntersectionObserver(function (entries) {        var visible = entries[0] && entries[0].isIntersecting;
-        sticky.classList.toggle('show', !visible);
-        sticky.setAttribute('aria-hidden', visible ? 'true' : 'false');
-      }
-, { threshold: 0.15 }
-);
-      io.observe(checkout);
-    }
   }
 )();
   </script>  <script>  document.addEventListener('DOMContentLoaded', function () {    if (window.ACUPMetrika) window.ACUPMetrika.reach('view_buy');
