@@ -32,14 +32,14 @@
     var ctrl = new AbortController();
     var t = setTimeout(function () { ctrl.abort(); }, ms);
     try {
-      var res = await fetch(base.replace(/\/$/, '') + '/api/guide/health', {
+      var res = await fetch(base.replace(/\/$/, '') + '/health', {
         cache: 'no-store',
         signal: ctrl.signal,
       });
       clearTimeout(t);
       if (!res.ok) return false;
       var j = await res.json().catch(function () { return {}; });
-      return !!(j && j.ok);
+      return !!(j && (j.ok || j.status === 'ok'));
     } catch (_) {
       clearTimeout(t);
       return false;
