@@ -39,7 +39,7 @@
         <button class="btn" type="button" id="btnCopy" style="margin-top:14px">Скопировать токен</button>
         <div class="copy-feedback" id="copyFeedback" role="status" aria-live="polite"></div>
         <a class="btn btn-ghost" id="btnOpen" href="access.html">Открыть гайд по токену</a>
-        <p class="legal-note">Токен также сохранён в этом браузере. Не передавайте его третьим лицам.</p>
+        <p class="legal-note">Токен также сохранён в этом браузере. Не передавайте его третьим лицам.</p><p class="meta">Номер платежа: <b id="paymentId">—</b>. По нему поддержка поможет восстановить доступ и получить чек, оформленный продавцом через «Мой налог».</p><div class="contact-box"><h2>Сохранить токен и чек на email</h2><p class="meta">Необязательно. Email нужен только как резервный контакт после покупки.</p><div class="contact-row"><input class="field" id="reserveEmail" type="email" placeholder="you@email.com" inputmode="email"><button class="btn btn-ghost" id="saveContact" type="button">Сохранить email</button></div><div id="contactStatus" class="copy-feedback" aria-live="polite"></div></div>
       </div>
     </div>
     <footer class="page">A CUP · поддержка @Arcady_ya</footer>
@@ -68,7 +68,8 @@
       pendingBox.classList.add('hidden');
       paidBox.classList.remove('hidden');
       title.textContent = '✅ Оплата прошла успешно';
-      document.getElementById('sub').textContent = 'Заказ ' + (data.orderId || orderId);
+      document.getElementById('sub').textContent = 'Справочник уже доступен. Сохраните персональный токен — он понадобится на другом устройстве или после очистки браузера.';
+      document.getElementById('paymentId').textContent = data.paymentId || 'уточните у поддержки по заказу ' + (data.orderId || orderId);
       const tok = data.token || '';
       document.getElementById('tokenBox').textContent = tok;
       const open = document.getElementById('btnOpen');
@@ -105,8 +106,16 @@
           showPaid(data);
           return;
         }
+        if (data.status === 'canceled' || data.status === 'error') {
+          clearInterval(timer);
+          title.textContent = 'Оплата не завершена';
+          document.getElementById('sub').textContent = 'Деньги не списаны.';
+          statusEl.className = 'status err';
+          statusEl.innerHTML = 'Оплата отменена или не состоялась. <a href="buy.html">Попробовать оплатить ещё раз</a>';
+          return;
+        }
         statusEl.className = 'status';
-        statusEl.textContent = 'Статус: ' + (data.status || 'pending') + ' · проверка ' + tries;
+        statusEl.textContent = 'Проверяем оплату. Обычно это занимает несколько секунд.';
       } catch (e) {
         statusEl.className = 'status err';
         statusEl.textContent = 'Ошибка проверки: ' + (e.message || e);
@@ -137,6 +146,8 @@
         document.getElementById("copyFeedback").textContent = "Не удалось скопировать автоматически. Выделите токен выше и сохраните его вручную.";
       }
     };
+
+    document.getElementById('saveContact').onclick = async function () { const email=document.getElementById('reserveEmail').value.trim(), out=document.getElementById('contactStatus'); try { const base=await ensureApi(); const res=await fetch(base+'/api/guide/order-contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderId,email,token:document.getElementById('tokenBox').textContent})}); const data=await res.json(); if(!res.ok)throw new Error(data.message||data.error); out.textContent='Email сохранён как резервный контакт.'; } catch(e){ out.textContent=e.message||'Проверьте email'; } };
 
     window.addEventListener('beforeunload', function (event) {
       if (!paidBox.classList.contains('hidden') && !tokenSecured) {

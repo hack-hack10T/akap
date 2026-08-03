@@ -291,7 +291,6 @@ const server = http.createServer(async (req, res) => {
         payment: {},
         consents: { offer: true, privacy: true, digital: true, ip: true, at: Date.now() },
       };
-      ensureTokenForOrder(order);
       store.orders[orderId] = order;
       saveStore();
 
@@ -355,6 +354,10 @@ const server = http.createServer(async (req, res) => {
           order.payment = { ...(order.payment || {}), status: data.status, paid: !!data.paid };
           if (data.paid || data.status === 'succeeded') {
             markPaid(id, { yookassaStatus: data.status, synced: true });
+          } else if (data.status === 'canceled') {
+            order.status = 'canceled';
+            order.canceledAt = Date.now();
+            saveStore();
           } else {
             saveStore();
           }
@@ -364,6 +367,20 @@ const server = http.createServer(async (req, res) => {
       }
     }
     return json(res, 200, publicOrder(store.orders[id]));
+  }
+
+
+  if (url.pathname === '/api/guide/order-contact' && req.method === 'POST') {
+    const body = await readBody(req);
+    const order = store.orders[String(body.orderId || '')];
+    const email = String(body.email || '').trim().toLowerCase();
+    if (!order || order.status !== 'paid' || !order.token || String(body.token || '').toUpperCase() !== order.token) return json(res, 403, { error: 'forbidden' });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json(res, 400, { error: 'bad_email', message: 'Проверьте email' });
+    order.email = email;
+    order.contactSavedAt = Date.now();
+    if (store.tokens[order.token]) store.tokens[order.token].email = email;
+    saveStore();
+    return json(res, 200, { ok: true });
   }
 
   // YooKassa webhook (optional)
