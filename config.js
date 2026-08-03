@@ -26,10 +26,10 @@ window.ACUP = {
     currency: 'RUB',
     description: 'Цифровой гайд «От нуля до specialty» — доступ к HTML-материалу автора',
     // Публичный API (cloudflared → guide-api :8788). ensure-tunnel.sh держит URL живым и пушит сюда.
-    apiBase: 'https://opponents-withdrawal-smooth-nursing.trycloudflare.com',
+    apiBase: 'https://moon-perfectly-craig-cottages.trycloudflare.com',
     // Запасные базы (js/api.js пробует по порядку + api-base.json с сайта)
     apiBases: [
-      'https://opponents-withdrawal-smooth-nursing.trycloudflare.com',
+      'https://moon-perfectly-craig-cottages.trycloudflare.com',
     ],
     // Фиксированный токен доступа (не меняется). Промо «аркадий» → ACUP-PROMO-ARKADIY.
     fixedToken: 'ACUP-PERM-GUIDE-01',
