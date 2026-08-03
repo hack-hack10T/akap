@@ -28,17 +28,13 @@ const SHOP_ID = process.env.YOOKASSA_SHOP_ID || '';
 const SECRET = process.env.YOOKASSA_SECRET_KEY || '';
 const ADMIN_KEY = process.env.GUIDE_ADMIN_KEY || '';
 const PRICE = Number(process.env.GUIDE_PRICE || 299);
-const FREE_PROMOS = String(process.env.GUIDE_PROMO_FREE || 'аркадий,arkadiy')
+const FREE_PROMOS = String(process.env.GUIDE_PROMO_FREE || '')
   .split(',')
   .map((s) => s.trim().toLowerCase())
   .filter(Boolean);
 
-/** Фиксированные токены доступа (не генерируются заново). */
-const FIXED_TOKEN_PERM = String(process.env.GUIDE_FIXED_TOKEN || 'ACUP-PERM-GUIDE-01').toUpperCase();
-const FIXED_PROMO_TOKENS = {
-  аркадий: 'ACUP-PROMO-ARKADIY',
-  arkadiy: 'ACUP-PROMO-ARKADIY',
-};
+// Tokens previously shipped in public frontend code are revoked.
+const REVOKED_PUBLIC_TOKENS = new Set(['ACUP-PERM-GUIDE-01', 'ACUP-PROMO-ARKADIY']);
 
 if (!SECRET || !SHOP_ID) {
   console.error('YOOKASSA_SHOP_ID / YOOKASSA_SECRET_KEY required in .env');
@@ -75,35 +71,17 @@ function saveStore() {
 }
 loadStore();
 
-function seedFixedTokens() {
-  const now = Date.now();
-  const seed = [
-    { token: FIXED_TOKEN_PERM, orderId: 'fixed_perm', note: 'permanent' },
-    { token: 'ACUP-PROMO-ARKADIY', orderId: 'fixed_promo_arkadiy', note: 'promo:аркадий' },
-  ];
+function revokePublicTokens() {
   let changed = false;
-  for (const row of seed) {
-    const t = row.token.toUpperCase();
-    if (!store.tokens[t] || !store.tokens[t].paid) {
-      store.tokens[t] = {
-        token: t,
-        orderId: row.orderId,
-        paid: true,
-        email: '',
-        createdAt: store.tokens[t]?.createdAt || now,
-        paidAt: store.tokens[t]?.paidAt || now,
-        fixed: true,
-        note: row.note,
-      };
+  for (const token of REVOKED_PUBLIC_TOKENS) {
+    if (store.tokens[token]) {
+      delete store.tokens[token];
       changed = true;
-    } else {
-      store.tokens[t].paid = true;
-      store.tokens[t].fixed = true;
     }
   }
   if (changed) saveStore();
 }
-seedFixedTokens();
+revokePublicTokens();
 
 function cors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -160,34 +138,7 @@ async function yk(path, { method = 'GET', body, idempotenceKey } = {}) {
   return { ok: r.ok, status: r.status, data };
 }
 
-function fixedTokenForPromo(promo) {
-  const n = normalizePromo(promo);
-  if (!n) return null;
-  const t = FIXED_PROMO_TOKENS[n];
-  return t ? String(t).toUpperCase() : null;
-}
-
 function ensureTokenForOrder(order) {
-  // Промо → всегда один и тот же токен
-  const fixed = fixedTokenForPromo(order.promo);
-  if (fixed) {
-    order.token = fixed;
-    store.tokens[fixed] = {
-      ...(store.tokens[fixed] || {}),
-      token: fixed,
-      orderId: order.id,
-      paid: order.status === 'paid' || !!(store.tokens[fixed] && store.tokens[fixed].paid),
-      email: order.email || (store.tokens[fixed] && store.tokens[fixed].email) || '',
-      createdAt: (store.tokens[fixed] && store.tokens[fixed].createdAt) || order.createdAt || Date.now(),
-      promo: order.promo || null,
-      fixed: true,
-    };
-    if (order.status === 'paid') {
-      store.tokens[fixed].paid = true;
-      store.tokens[fixed].paidAt = order.paidAt || Date.now();
-    }
-    return fixed;
-  }
   if (order.token && store.tokens[order.token]) return order.token;
   let token = genToken();
   while (store.tokens[token]) token = genToken();

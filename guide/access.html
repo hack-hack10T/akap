@@ -44,9 +44,11 @@
     let initial = params.get('token') || '';
     try {
       if (!initial) initial = localStorage.getItem('acup_guide_token') || '';
+      if (/^(ACUP-PERM-GUIDE-01|ACUP-PROMO-ARKADIY)/i.test(initial)) {
+        localStorage.removeItem('acup_guide_token');
+        initial = '';
+      }
     } catch (_) {}
-    // fallback: fixed permanent token from config
-    if (!initial && CFG.guide && CFG.guide.fixedToken) initial = CFG.guide.fixedToken;
     if (initial) input.value = initial;
 
     async function openGuide() {

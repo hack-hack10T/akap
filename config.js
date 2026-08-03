@@ -31,8 +31,6 @@ window.ACUP = {
     apiBases: [
       'https://moon-perfectly-craig-cottages.trycloudflare.com',
     ],
-    // Фиксированный токен доступа (не меняется). Промо «аркадий» → ACUP-PROMO-ARKADIY.
-    fixedToken: 'ACUP-PERM-GUIDE-01',
   },
 
   // ЮKassa (самозанятый, ShopID 1298699) — карта / СБП / ЮMoney
@@ -40,9 +38,6 @@ window.ACUP = {
     enabled: true,
     shopId: '1298699',
   },
-
-  // Промокоды бесплатного доступа (дублируются на сервере GUIDE_PROMO_FREE)
-  promoFree: ['аркадий', 'arkadiy'],
 
   yoomoneyLegal: {
     operator: 'ООО НКО «ЮМани»',

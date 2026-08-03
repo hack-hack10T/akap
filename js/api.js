@@ -85,6 +85,4 @@
     return list[0] || '';
   };
 
-  /** Fixed permanent access token (always works when API is up). */
-  w.ACUP_FIXED_TOKEN = 'ACUP-PERM-GUIDE-01';
 })(window);

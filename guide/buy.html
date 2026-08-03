@@ -1,21 +1,14 @@
 <!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Купить гайд — От нуля до specialty · A CUP</title>
-  <meta name="description" content="Цифровой гайд A CUP «От нуля до specialty»: как выбирать зерно, читать пачку, варить V60 и понимать вкус. 299 ₽, доступ на email сразу после оплаты." />
-  <meta name="theme-color" content="#0a0908" />
-  <link rel="canonical" href="https://акап.рф/guide/buy.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <script src="../config.js"></script>
-  <script src="../js/api.js"></script>
-  <script src="../js/metrika.js"></script>
-  <style>
-    :root {
-      --bg: #0a0908;
+<head>  <meta charset="utf-8" />  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />  <title>Купить гайд — От нуля до specialty · A CUP</title>  <meta name="description" content="Научитесь выбирать хорошее зерно, понимать упаковку и исправлять кислый или горький вкус кофе дома. Практический гайд A CUP — 299 ₽." />  <meta name="theme-color" content="#0a0908" />  <link rel="canonical" href="https://акап.рф/guide/buy.html" />  <link rel="preconnect" href="https://fonts.googleapis.com" />  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;
+500;
+600;
+700&family=Space+Grotesk:wght@500;
+600;
+700&display=swap" rel="stylesheet" />  <script src="../config.js">
+</script>  <script src="../js/api.js">
+</script>  <script src="../js/metrika.js">
+</script>  <style>    :root {      --bg: #0a0908;
       --bg-elev: #100e0c;
       --bg-card: #14110f;
       --text: #f2ede5;
@@ -33,11 +26,11 @@
       --font: "Inter", system-ui, -apple-system, sans-serif;
       --display: "Space Grotesk", "Inter", system-ui, sans-serif;
     }
-
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
+    *, *::before, *::after { box-sizing: border-box;
+ }
+    html { scroll-behavior: smooth;
+ }
+    body {      margin: 0;
       font-family: var(--font);
       color: var(--text);
       background: var(--bg);
@@ -45,18 +38,16 @@
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: var(--accent-hover); }
-
-    .page {
-      max-width: var(--max);
+    a { color: var(--accent);
+ text-decoration: none;
+ }
+    a:hover { color: var(--accent-hover);
+ }
+    .page {      max-width: var(--max);
       margin: 0 auto;
       padding: 0 20px 96px;
     }
-
-    /* —— Header —— */
-    .site-header {
-      display: flex;
+    /* —— Header —— */    .site-header {      display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
@@ -67,39 +58,32 @@
       background: linear-gradient(180deg, rgba(10,9,8,.96) 60%, rgba(10,9,8,0));
       backdrop-filter: blur(8px);
     }
-    .brand {
-      display: flex;
+    .brand {      display: flex;
       flex-direction: column;
       gap: 2px;
       text-decoration: none;
       color: var(--text);
     }
-    .brand-mark {
-      font-family: var(--display);
+    .brand-mark {      font-family: var(--display);
       font-weight: 700;
       font-size: 15px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
-    .brand-sub {
-      font-size: 12px;
+    .brand-sub {      font-size: 12px;
       color: var(--muted);
       letter-spacing: 0.02em;
     }
-    .header-links {
-      display: flex;
+    .header-links {      display: flex;
       gap: 14px;
       flex-wrap: wrap;
       font-size: 13px;
     }
-    .header-links a {
-      color: var(--muted);
+    .header-links a {      color: var(--muted);
     }
-    .header-links a:hover { color: var(--text); }
-
-    /* —— Shared —— */
-    .badge {
-      display: inline-flex;
+    .header-links a:hover { color: var(--text);
+ }
+    /* —— Shared —— */    .badge {      display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 6px 12px;
@@ -112,63 +96,56 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-    .badge::before {
-      content: "";
-      width: 6px; height: 6px;
+    .badge::before {      content: "";
+      width: 6px;
+ height: 6px;
       border-radius: 50%;
       background: var(--accent);
       box-shadow: 0 0 10px var(--accent);
     }
-
-    h1, h2, h3 {
-      font-family: var(--display);
+    h1, h2, h3 {      font-family: var(--display);
       font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.15;
       margin: 0;
     }
-    h1 { font-size: clamp(2rem, 7vw, 3.1rem); }
-    h2 { font-size: clamp(1.35rem, 4vw, 1.75rem); margin-bottom: 18px; }
-    h3 { font-size: 1.05rem; margin-bottom: 6px; }
-
-    .muted { color: var(--muted); }
-    .section {
-      margin-top: 56px;
+    h1 { font-size: clamp(2rem, 7vw, 3.1rem);
+ }
+    h2 { font-size: clamp(1.35rem, 4vw, 1.75rem);
+ margin-bottom: 18px;
+ }
+    h3 { font-size: 1.05rem;
+ margin-bottom: 6px;
+ }
+    .muted { color: var(--muted);
+ }
+    .section {      margin-top: 56px;
     }
-    .section-lead {
-      color: var(--muted);
+    .section-lead {      color: var(--muted);
       font-size: 15px;
       margin: 0 0 22px;
       max-width: 36em;
     }
-
-    .card {
-      background: var(--bg-card);
+    .card {      background: var(--bg-card);
       border: 1px solid var(--accent-soft);
       border-radius: var(--radius);
       padding: 22px 20px;
       position: relative;
     }
-    .card + .card { margin-top: 12px; }
-
-    /* —— Hero —— */
-    .hero {
-      padding: 28px 0 8px;
+    .card + .card { margin-top: 12px;
+ }
+    /* —— Hero —— */    .hero {      padding: 28px 0 8px;
       position: relative;
     }
-    .hero::before {
-      content: "";
+    .hero::before {      content: "";
       position: absolute;
       inset: -40px -60px auto;
       height: 280px;
-      background:
-        radial-gradient(ellipse 60% 70% at 20% 30%, var(--accent-glow), transparent 70%),
-        radial-gradient(ellipse 50% 60% at 85% 10%, rgba(196,30,58,.12), transparent 65%);
+      background:        radial-gradient(ellipse 60% 70% at 20% 30%, var(--accent-glow), transparent 70%),        radial-gradient(ellipse 50% 60% at 85% 10%, rgba(196,30,58,.12), transparent 65%);
       pointer-events: none;
       z-index: -1;
     }
-    .hero-bean {
-      position: absolute;
+    .hero-bean {      position: absolute;
       right: 0;
       top: 12px;
       opacity: 0.18;
@@ -176,46 +153,40 @@
       height: 120px;
       pointer-events: none;
     }
-    .hero .badge { margin-bottom: 16px; }
-    .hero h1 { margin-bottom: 14px; }
-    .hero-sub {
-      font-size: clamp(1rem, 2.8vw, 1.15rem);
+    .hero .badge { margin-bottom: 16px;
+ }
+    .hero h1 { margin-bottom: 14px;
+ }
+    .hero-sub {      font-size: clamp(1rem, 2.8vw, 1.15rem);
       color: var(--muted);
       max-width: 28em;
       margin: 0 0 28px;
       line-height: 1.55;
     }
-    .price-block {
-      display: flex;
+    .price-block {      display: flex;
       align-items: baseline;
       gap: 14px;
       flex-wrap: wrap;
       margin-bottom: 22px;
     }
-    .price-old {
-      font-size: 1.25rem;
+    .price-old {      font-size: 1.25rem;
       color: var(--muted-2);
       text-decoration: line-through;
       text-decoration-thickness: 2px;
     }
-    .price-new {
-      font-family: var(--display);
+    .price-new {      font-family: var(--display);
       font-size: clamp(2.4rem, 8vw, 3.2rem);
       font-weight: 700;
       color: var(--accent);
       letter-spacing: -0.03em;
       text-shadow: 0 0 40px var(--accent-glow);
     }
-    .price-note {
-      font-size: 13px;
+    .price-note {      font-size: 13px;
       color: var(--muted);
       width: 100%;
       margin-top: -8px;
     }
-
-    /* —— CTA —— */
-    .btn {
-      appearance: none;
+    /* —— CTA —— */    .btn {      appearance: none;
       border: 0;
       cursor: pointer;
       display: inline-flex;
@@ -233,55 +204,47 @@
       font-size: 1.05rem;
       letter-spacing: -0.01em;
       text-decoration: none;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.06) inset,
-        0 12px 36px var(--accent-glow);
+      box-shadow:        0 0 0 1px rgba(255,255,255,.06) inset,        0 12px 36px var(--accent-glow);
       transition: background .15s ease, transform .15s ease, box-shadow .15s ease;
     }
-    .btn:hover {
-      background: var(--accent-hover);
+    .btn:hover {      background: var(--accent-hover);
       transform: translateY(-1px);
       box-shadow: 0 16px 40px rgba(196, 30, 58, 0.35);
       color: #fff;
     }
-    .btn:active { transform: translateY(0); }
-    .btn:disabled {
-      opacity: 0.55;
+    .btn:active { transform: translateY(0);
+ }
+    .btn:disabled {      opacity: 0.55;
       cursor: not-allowed;
       transform: none;
     }
-    .btn-ghost {
-      background: transparent;
+    .btn-ghost {      background: transparent;
       color: var(--text);
       border: 1px solid var(--line);
       box-shadow: none;
       margin-top: 10px;
     }
-    .btn-ghost:hover {
-      background: rgba(242,237,229,.04);
+    .btn-ghost:hover {      background: rgba(242,237,229,.04);
       border-color: rgba(242,237,229,.16);
       color: var(--text);
       box-shadow: none;
     }
-    .cta-hint {
-      margin: 12px 0 0;
+    .cta-hint {      margin: 12px 0 0;
       text-align: center;
       font-size: 13px;
       color: var(--muted);
       line-height: 1.45;
     }
-    .cta-hint strong { color: var(--text); font-weight: 600; }
-
-    /* —— What's inside —— */
-    .list {
-      list-style: none;
+    .cta-hint strong { color: var(--text);
+ font-weight: 600;
+ }
+    /* —— What's inside —— */    .list {      list-style: none;
       padding: 0;
       margin: 0;
       display: grid;
       gap: 10px;
     }
-    .list li {
-      display: grid;
+    .list li {      display: grid;
       grid-template-columns: 28px 1fr;
       gap: 12px;
       align-items: start;
@@ -291,11 +254,9 @@
       border-radius: var(--radius-sm);
       font-size: 15px;
     }
-    .list li:hover {
-      border-color: var(--accent-soft);
+    .list li:hover {      border-color: var(--accent-soft);
     }
-    .list .ico {
-      width: 28px;
+    .list .ico {      width: 28px;
       height: 28px;
       border-radius: 8px;
       display: grid;
@@ -307,27 +268,21 @@
       font-family: var(--display);
       flex-shrink: 0;
     }
-    .list strong {
-      display: block;
+    .list strong {      display: block;
       color: var(--text);
       font-weight: 600;
       margin-bottom: 2px;
     }
-    .list span.d {
-      display: block;
+    .list span.d {      display: block;
       color: var(--muted);
       font-size: 13.5px;
       line-height: 1.45;
     }
-
-    /* —— Steps —— */
-    .steps {
-      display: grid;
+    /* —— Steps —— */    .steps {      display: grid;
       gap: 12px;
       counter-reset: step;
     }
-    .step {
-      display: grid;
+    .step {      display: grid;
       grid-template-columns: 40px 1fr;
       gap: 14px;
       align-items: start;
@@ -336,8 +291,7 @@
       border: 1px solid var(--accent-soft);
       border-radius: var(--radius);
     }
-    .step-num {
-      width: 40px;
+    .step-num {      width: 40px;
       height: 40px;
       border-radius: 50%;
       display: grid;
@@ -349,13 +303,11 @@
       background: var(--accent);
       box-shadow: 0 0 20px var(--accent-glow);
     }
-    .step p {
-      margin: 4px 0 0;
+    .step p {      margin: 4px 0 0;
       color: var(--muted);
       font-size: 14px;
     }
-    .access-note {
-      margin-top: 14px;
+    .access-note {      margin-top: 14px;
       padding: 14px 16px;
       border-radius: var(--radius-sm);
       background: rgba(107, 196, 166, 0.08);
@@ -364,39 +316,31 @@
       font-size: 14px;
       line-height: 1.45;
     }
-
-    /* —— Trust —— */
-    .trust-grid {
-      display: grid;
+    /* —— Trust —— */    .trust-grid {      display: grid;
       gap: 12px;
     }
-    @media (min-width: 560px) {
-      .trust-grid { grid-template-columns: 1fr 1fr; }
+    @media (min-width: 560px) {      .trust-grid { grid-template-columns: 1fr 1fr;
+ }
     }
-    .trust-item {
-      padding: 16px;
+    .trust-item {      padding: 16px;
       background: var(--bg-elev);
       border: 1px solid var(--line);
       border-radius: var(--radius-sm);
       font-size: 14px;
     }
-    .trust-item .label {
-      font-size: 11px;
+    .trust-item .label {      font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted-2);
       margin-bottom: 6px;
     }
-    .trust-item .val {
-      color: var(--text);
+    .trust-item .val {      color: var(--text);
       line-height: 1.45;
     }
-    .trust-full {
-      grid-column: 1 / -1;
+    .trust-full {      grid-column: 1 / -1;
     }
-    .trust-alert {
-      margin-top: 14px;
+    .trust-alert {      margin-top: 14px;
       padding: 14px 16px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--accent-soft);
@@ -405,40 +349,37 @@
       color: var(--muted);
       line-height: 1.5;
     }
-    .trust-alert strong { color: var(--text); }
-
-    /* —— Objections —— */
-    .obj-grid {
-      display: grid;
+    .trust-alert strong { color: var(--text);
+ }
+    /* —— Objections —— */    .obj-grid {      display: grid;
       gap: 10px;
     }
-    .obj {
-      padding: 16px 16px 16px 18px;
+    .obj {      padding: 16px 16px 16px 18px;
       border-left: 3px solid var(--accent);
       background: var(--bg-elev);
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     }
-    .obj h3 { font-size: 1rem; margin-bottom: 4px; }
-    .obj p { margin: 0; color: var(--muted); font-size: 14px; }
-
-    /* —— Checkout form —— */
-    .checkout {
-      margin-top: 56px;
+    .obj h3 { font-size: 1rem;
+ margin-bottom: 4px;
+ }
+    .obj p { margin: 0;
+ color: var(--muted);
+ font-size: 14px;
+ }
+    /* —— Checkout form —— */    .checkout {      margin-top: 56px;
       scroll-margin-top: 24px;
     }
-    .checkout .card {
-      padding: 24px 20px 22px;
+    .checkout .card {      padding: 24px 20px 22px;
       box-shadow: 0 0 60px var(--accent-glow);
     }
-    .checkout .price-row-mini {
-      display: flex;
+    .checkout .price-row-mini {      display: flex;
       align-items: baseline;
       gap: 12px;
       margin: 8px 0 20px;
     }
-    .field-wrap { margin-bottom: 14px; }
-    .field-wrap label {
-      display: block;
+    .field-wrap { margin-bottom: 14px;
+ }
+    .field-wrap label {      display: block;
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.06em;
@@ -446,30 +387,27 @@
       color: var(--muted);
       margin-bottom: 6px;
     }
-    .field {
-      width: 100%;
+    .field {      width: 100%;
       padding: 14px 16px;
       border-radius: 12px;
       border: 1px solid var(--line);
       background: var(--bg);
       color: var(--text);
       font: inherit;
-      font-size: 16px; /* no zoom on iOS */
-      outline: none;
+      font-size: 16px;
+ /* no zoom on iOS */      outline: none;
       transition: border-color .15s ease, box-shadow .15s ease;
     }
-    .field::placeholder { color: var(--muted-2); }
-    .field:focus {
-      border-color: var(--accent-soft);
+    .field::placeholder { color: var(--muted-2);
+ }
+    .field:focus {      border-color: var(--accent-soft);
       box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.15);
     }
-    .checks {
-      display: grid;
+    .checks {      display: grid;
       gap: 12px;
       margin: 18px 0 20px;
     }
-    .check {
-      display: flex;
+    .check {      display: flex;
       gap: 12px;
       align-items: flex-start;
       font-size: 13.5px;
@@ -477,43 +415,39 @@
       color: var(--muted);
       cursor: pointer;
     }
-    .check input {
-      margin-top: 3px;
+    .check input {      margin-top: 3px;
       width: 18px;
       height: 18px;
       accent-color: var(--accent);
       flex-shrink: 0;
     }
-    .check a { text-decoration: underline; text-underline-offset: 2px; }
-    .status {
-      margin-top: 12px;
+    .check a { text-decoration: underline;
+ text-underline-offset: 2px;
+ }
+    .status {      margin-top: 12px;
       font-size: 14px;
       min-height: 1.3em;
       text-align: center;
     }
-    .status.err { color: #f07178; font-weight: 600; }
-    .status.ok { color: var(--ok); font-weight: 600; }
-
-    /* —— Final CTA —— */
-    .final {
-      margin-top: 48px;
+    .status.err { color: #f07178;
+ font-weight: 600;
+ }
+    .status.ok { color: var(--ok);
+ font-weight: 600;
+ }
+    /* —— Final CTA —— */    .final {      margin-top: 48px;
       text-align: center;
       padding: 32px 20px;
-      background:
-        radial-gradient(ellipse 80% 80% at 50% 0%, var(--accent-glow), transparent 70%),
-        var(--bg-card);
+      background:        radial-gradient(ellipse 80% 80% at 50% 0%, var(--accent-glow), transparent 70%),        var(--bg-card);
       border: 1px solid var(--accent-soft);
       border-radius: var(--radius);
     }
-    .final h2 { margin-bottom: 8px; }
-    .final .price-block {
-      justify-content: center;
+    .final h2 { margin-bottom: 8px;
+ }
+    .final .price-block {      justify-content: center;
       margin: 16px 0 20px;
     }
-
-    /* —— Footer —— */
-    .site-footer {
-      margin-top: 48px;
+    /* —— Footer —— */    .site-footer {      margin-top: 48px;
       padding-top: 24px;
       border-top: 1px solid var(--line);
       font-size: 12px;
@@ -521,499 +455,246 @@
       text-align: center;
       line-height: 1.6;
     }
-    .site-footer a { color: var(--muted); }
-    .site-footer .row {
-      display: flex;
+    .site-footer a { color: var(--muted);
+ }
+    .site-footer .row {      display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px 16px;
       margin-bottom: 10px;
     }
-
-
-    .toc-list {
-      margin: 0;
+    .toc-list {      margin: 0;
       padding-left: 1.2em;
       color: var(--muted);
       font-size: 14.5px;
       line-height: 1.65;
     }
-    .toc-list li { margin: 4px 0; }
-    .toc-list li::marker { color: var(--accent); font-weight: 700; }
-    .soft-proof {
-      margin-top: 14px;
+    .toc-list li { margin: 4px 0;
+ }
+    .toc-list li::marker { color: var(--accent);
+ font-weight: 700;
+ }
+    .soft-proof {      margin-top: 14px;
       font-size: 13px;
       color: var(--muted);
       text-align: center;
     }
-    /* sticky mobile CTA strip — optional, only when form not in view */
-    .sticky-cta {
-      display: none;
+    /* sticky mobile CTA strip — optional, only when form not in view */    .sticky-cta {      display: none;
       position: fixed;
-      left: 0; right: 0; bottom: 0;
+      left: 0;
+ right: 0;
+ bottom: 0;
       z-index: 30;
       padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
       background: linear-gradient(180deg, transparent, rgba(10,9,8,.95) 28%);
       pointer-events: none;
     }
-    .sticky-cta .btn {
-      pointer-events: auto;
+    .sticky-cta .btn {      pointer-events: auto;
       box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 12px 36px var(--accent-glow);
     }
-    @media (max-width: 720px) {
-      .sticky-cta.show { display: block; }
-      body.sticky-pad { padding-bottom: 88px; }
+    @media (max-width: 720px) {      .sticky-cta.show { display: block;
+ }
+      body.sticky-pad { padding-bottom: 88px;
+ }
     }
   </style>
 </head>
-<body class="sticky-pad">
-  <div class="page">
-
-    <!-- 1. Header -->
-    <header class="site-header">
-      <a class="brand" href="../index.html" id="brandHome">
-        <span class="brand-mark">A CUP</span>
-        <span class="brand-sub">specialty-кофе · гайды</span>
-      </a>
-      <nav class="header-links" aria-label="Навигация">
-        <a href="access.html">Уже купил</a>
-        <a href="#checkout">Купить</a>
-      </nav>
-    </header>
-
-    <!-- 2. Hero -->
-    <section class="hero" aria-labelledby="hero-title">
-      <svg class="hero-bean" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-        <ellipse cx="60" cy="62" rx="38" ry="48" stroke="#C41E3A" stroke-width="2"/>
-        <path d="M60 20c-4 18-4 36 0 54s4 28 0 34" stroke="#C41E3A" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-
-      <div class="badge">Цифровой гайд</div>
-      <h1 id="hero-title">От нуля до specialty</h1>
-      <p class="hero-sub">
-        Путь от «просто пью кофе» до человека, который <strong style="color:var(--text);font-weight:600">выбирает зерно</strong>
-        и <strong style="color:var(--text);font-weight:600">понимает, что в чашке</strong> — без снобизма и лишней теории.
-      </p>
-
-      <div class="price-block">
-        <span class="price-old" id="priceOld">999 ₽</span>
-        <span class="price-new" id="priceNew">299 ₽</span>
-        <span class="price-note">разовая оплата · не подписка</span>
-      </div>
-
-      <a class="btn" href="#checkout" id="heroCta">Купить доступ — 299 ₽</a>
-      <p class="cta-hint">Ссылка на гайд придёт на почту <strong>сразу после оплаты</strong></p>
-      <p class="soft-proof">Разовая оплата · ЮKassa · самозанятый с ИНН на сайте · не подписка</p>
-    </section>
-
-
-    <!-- Product preview / TOC -->
-    <section class="section" aria-labelledby="toc-title">
-      <h2 id="toc-title">Как выглядит гайд</h2>
-      <p class="section-lead">HTML на телефоне и компьютере. ~10&nbsp;000 слов. Не PDF на 3 страницы.</p>
-      <div class="card" style="padding:18px 16px">
-        <div class="badge" style="margin-bottom:12px">Оглавление</div>
-        <ol class="toc-list">
-          <li>Как читать пачку и не вестись на маркетинг</li>
-          <li>Обработка, обжарка, свежесть — без мифов</li>
-          <li>Вода, помол, соотношение — что крутить первым</li>
-          <li>Рецепты: V60, аэропресс, френч, эспрессо</li>
-          <li>Шпаргалка: кисло / горько / плоско</li>
-          <li>Сенсорика и мини-каппинг дома</li>
-        </ol>
-        <p class="muted" style="margin:12px 0 0;font-size:13px">После оплаты — персональная ссылка на почту. Повторный вход по токену.</p>
-      </div>
-    </section>
-
-    <!-- 3. What's inside -->
-    <section class="section" aria-labelledby="inside-title">
-      <h2 id="inside-title">Что внутри</h2>
-      <p class="section-lead">Конкретика, которой пользуешься за чашкой — не «история кофе на 200 страниц».</p>
-      <ul class="list">
-        <li>
-          <span class="ico" aria-hidden="true">1</span>
-          <div>
-            <strong>Как читать пачку и выбирать лот</strong>
-            <span class="d">Обработка, высота, дата обжарки — что реально влияет на вкус и на что можно забить.</span>
-          </div>
-        </li>
-        <li>
-          <span class="ico" aria-hidden="true">2</span>
-          <div>
-            <strong>Обработка, обжарка, свежесть — без мифов</strong>
-            <span class="d">Почему «свежее» ≠ лучше, и когда зерно раскрывается, а когда уже «мёртвое».</span>
-          </div>
-        </li>
-        <li>
-          <span class="ico" aria-hidden="true">3</span>
-          <div>
-            <strong>Рецепты: V60, аэропресс, френч, эспрессо</strong>
-            <span class="d">Рабочие стартовые параметры + как править вкус, если ушло в кислоту или горечь.</span>
-          </div>
-        </li>
-        <li>
-          <span class="ico" aria-hidden="true">4</span>
-          <div>
-            <strong>Шпаргалки «кисло / горько / плоско»</strong>
-            <span class="d">Что крутить первым: помол, вода, время, соотношение. Одна таблица — меньше паники.</span>
-          </div>
-        </li>
-        <li>
-          <span class="ico" aria-hidden="true">5</span>
-          <div>
-            <strong>Сенсорика и базовый каппинг дома</strong>
-            <span class="d">Как учиться различать вкус без дегустационных курсов и без стыда за «просто нравится».</span>
-          </div>
-        </li>
-        <li>
-          <span class="ico" aria-hidden="true">6</span>
-          <div>
-            <strong>~10 000 слов, без снобизма</strong>
-            <span class="d">Читается с телефона. Без культа «правильного» кофе и без давления «ты ещё не specialty».</span>
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <!-- 4. How access works -->
-    <section class="section" aria-labelledby="access-title">
-      <h2 id="access-title">Как получить доступ</h2>
-      <p class="section-lead">Три шага. Никаких «менеджер свяжется» и ожидания сутками.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div>
-            <h3>Нажимаешь «Купить»</h3>
-            <p>Указываешь email — на него придёт ссылка. Можно сразу ввести промокод, если есть.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div>
-            <h3>Оплачиваешь картой через ЮKassa</h3>
-            <p>Безопасная оплата: карта, СБП или ЮMoney. На стороне банка / ЮKassa может отображаться <strong style="color:var(--text)">lektara.ru</strong> — это наш платёжный профиль, продавец тот же.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div>
-            <h3>На email — персональная ссылка на гайд</h3>
-            <p>Сразу после успешной оплаты. Открой письмо, перейди по ссылке — гайд у тебя.</p>
-          </div>
-        </div>
-      </div>
-      <div class="access-note">
-        Доступ без срока · с телефона и компьютера · повторный вход по токену или ссылке
-      </div>
-    </section>
-
-    <!-- 5. Trust / seller -->
-    <section class="section" aria-labelledby="trust-title">
-      <h2 id="trust-title">Кто продаёт и как платить</h2>
-      <p class="section-lead">Чтобы не было ощущения «сайт с рекламы — развод».</p>
-      <div class="trust-grid">
-        <div class="trust-item">
-          <div class="label">Продавец</div>
-          <div class="val">
-            <span id="authorName">Дмитриев Михаил Александрович</span><br />
-            <span id="authorStatus">Самозанятый (НПД)</span><br />
-            ИНН <span id="authorInn">772453231807</span>
-          </div>
-        </div>
-        <div class="trust-item">
-          <div class="label">Оплата</div>
-          <div class="val">
-            Через <strong>ЮKassa / ЮMoney</strong><br />
-            (ООО НКО «ЮМани»)<br />
-            ShopID <span id="shopId">1298699</span>
-          </div>
-        </div>
-        <div class="trust-item">
-          <div class="label">Вопросы</div>
-          <div class="val">
-            Telegram: <a id="supportTg" href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a><br />
-            Email: <a id="supportEmail" href="mailto:mikhsan@yandex.ru">mikhsan@yandex.ru</a>
-          </div>
-        </div>
-        <div class="trust-item">
-          <div class="label">Документы</div>
-          <div class="val">
-            <a href="offer.html">Публичная оферта</a><br />
-            <a href="privacy.html">Политика конфиденциальности</a><br />
-            <a href="access.html">Вход по токену</a>
-          </div>
-        </div>
-      </div>
-      <div class="trust-alert">
-        <strong>Если на странице банка видно lektara.ru</strong> — это нормально: это наш платёжный профиль ЮKassa.
-        Получатель платежа — тот же продавец (самозанятый, ИНН выше). Не отдельный «левый» магазин.
-      </div>
-    </section>
-
-    <!-- 6. Objections -->
-    <section class="section" aria-labelledby="obj-title">
-      <h2 id="obj-title">Коротко по возражениям</h2>
-      <div class="obj-grid">
-        <div class="obj">
-          <h3>Не подписка</h3>
-          <p>Разовая оплата 299 ₽. Никаких списаний «через месяц».</p>
-        </div>
-        <div class="obj">
-          <h3>Не курс на месяцы</h3>
-          <p>Гайд в своём темпе: открыл, прочитал главу, сварил — без вебинаров и дедлайнов.</p>
-        </div>
-        <div class="obj">
-          <h3>Не нужно быть бариста</h3>
-          <p>Писано для домашнего заваривания. Если варишь в воронке, турке или кофемашине — этого достаточно.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Checkout form -->
-    <section class="checkout section" id="checkout" aria-labelledby="checkout-title">
-      <div class="card">
-        <div class="badge">Оплата</div>
-        <h2 id="checkout-title" style="margin-top:14px">Купить доступ</h2>
-        <div class="price-row-mini">
-          <span class="price-old" id="priceOld2" style="font-size:1.1rem">999 ₽</span>
-          <span class="price-new" id="priceNew2" style="font-size:2rem">299 ₽</span>
-        </div>
-
-        <form id="buyForm" novalidate>
-          <div class="field-wrap">
-            <label for="email">Email — сюда придёт ссылка</label>
-            <input class="field" id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" />
-          </div>
-
-          <div class="field-wrap">
-            <label for="promo">Промокод <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted-2)">(если есть)</span></label>
-            <input class="field" id="promo" name="promo" type="text" placeholder="Введите промокод" maxlength="40" autocomplete="off" />
-          </div>
-
-          <div class="checks">
-            <label class="check">
-              <input type="checkbox" id="cAll" required />
-              <span>Принимаю <a href="offer.html" target="_blank" rel="noopener">оферту</a>,
-              <a href="privacy.html" target="_blank" rel="noopener">политику</a>,
-              что это <b style="color:var(--text)">цифровой товар</b> (доступ сразу, возврат ограничен),
-              авторский материал для личного использования и оплату через
-              <b style="color:var(--text)">ЮKassa</b>
-              (<a href="https://yoomoney.ru/page?id=525698" target="_blank" rel="noopener">условия</a>)</span>
-            </label>
-            <input type="checkbox" id="cOffer" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
-            <input type="checkbox" id="cPrivacy" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
-            <input type="checkbox" id="cDigital" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
-            <input type="checkbox" id="cIp" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
-            <input type="checkbox" id="cPay" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none" />
-          </div>
-
-          <button class="btn" type="submit" id="btnPay">Купить доступ — 299 ₽</button>
-          <p class="cta-hint">Ссылка на гайд на почту сразу после оплаты · ЮKassa</p>
-          <div class="status" id="status" aria-live="polite"></div>
-        </form>
-      </div>
-    </section>
-
-    <!-- 7. Final CTA -->
-    <section class="final" aria-labelledby="final-title">
-      <h2 id="final-title">Готов варить осознаннее?</h2>
-      <p class="muted" style="margin:0;font-size:15px">От «просто пью» — к зерну, которое выбираешь сам.</p>
-      <div class="price-block">
-        <span class="price-old" id="priceOld3">999 ₽</span>
-        <span class="price-new" id="priceNew3">299 ₽</span>
-      </div>
-      <a class="btn" href="#checkout" id="finalCta">Купить доступ — 299 ₽</a>
-      <p class="cta-hint">Ссылка на гайд придёт на почту сразу после оплаты</p>
-    </section>
-
-    <footer class="site-footer">
-      <div class="row">
-        <a href="../index.html">акап.рф</a>
-        <a href="offer.html">Оферта</a>
-        <a href="privacy.html">Конфиденциальность</a>
-        <a href="access.html">Вход по токену</a>
-        <a id="footerTg" href="https://t.me/Arcady_ya" target="_blank" rel="noopener">Telegram</a>
-      </div>
-      <div>
-        A CUP · <span id="footerSeller">самозанятый Дмитриев М.А., ИНН 772453231807</span><br />
-        Платёжный оператор: ООО НКО «ЮМани» · гайд «От нуля до specialty»
-      </div>
-    </footer>
-  </div>
-
-  <!-- Sticky mobile CTA -->
-  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-    <a class="btn" href="#checkout" id="stickyBtn">Купить доступ — 299 ₽</a>
-  </div>
-
-  <script>
-  (function () {
-    const CFG = window.ACUP || {};
-    const G = CFG.guide || {};
-    const S = CFG.seller || {};
-    const Y = CFG.yookassa || {};
+<body>  <div class="page">    <!-- 1. Header -->    <header class="site-header">      <a class="brand" href="../index.html" id="brandHome">        <span class="brand-mark">A CUP</span>        <span class="brand-sub">specialty-кофе · гайды</span>      </a>      <nav class="header-links" aria-label="Навигация">        <a href="access.html">Уже купил</a>      </nav>    </header>    <!-- 2. Hero -->    <section class="hero" aria-labelledby="hero-title">      <svg class="hero-bean" viewBox="0 0 120 120" fill="none" aria-hidden="true">        <ellipse cx="60" cy="62" rx="38" ry="48" stroke="#C41E3A" stroke-width="2"/>        <path d="M60 20c-4 18-4 36 0 54s4 28 0 34" stroke="#C41E3A" stroke-width="2" stroke-linecap="round"/>      </svg>      <div class="badge">Цифровой гайд</div>      <h1 id="hero-title">Перестань покупать кофе вслепую</h1>      <p class="hero-sub">Практический гайд, который поможет выбирать зерно, понимать упаковку и исправлять вкус кофе дома — без сложных терминов.</p>      <div class="card" style="margin:0 0 24px;
+padding:18px 16px">        <strong>После чтения ты сможешь:</strong>        <ul class="toc-list" style="margin-top:10px">          <li>выбирать зерно без маркетинговых уловок</li>          <li>понимать, что написано на упаковке</li>          <li>исправлять кислый или горький вкус</li>          <li>готовить вкуснее дома</li>          <li>не тратить деньги на случайные пачки</li>        </ul>      </div>      <div class="price-block">        <span class="price-new" id="priceNew">299 ₽</span>        <span class="price-note">Цена гайда меньше одной пачки хорошего зерна. Знания остаются навсегда.</span>      </div>      <a class="btn" href="#checkout" id="heroCta">Купить доступ — 299 ₽</a>      <p class="cta-hint">Ссылка на гайд придёт на почту <strong>сразу после оплаты</strong>
+</p>      <p class="soft-proof">Разовая оплата · ЮKassa · самозанятый с ИНН на сайте · не подписка</p>    </section>    <!-- Для кого -->    <section class="section" aria-labelledby="for-title">      <h2 id="for-title">Этот гайд для тебя, если</h2>      <ul class="list">        <li>
+<span class="ico">✓</span>
+<div>
+<strong>Любишь кофе, но выбираешь пачку наугад</strong>
+<span class="d">Хочешь быстро понимать, какое зерно подойдёт именно тебе.</span>
+</div>
+</li>        <li>
+<span class="ico">✓</span>
+<div>
+<strong>Не понимаешь надписи на упаковке</strong>
+<span class="d">Регион, обработка и обжарка перестанут быть набором непонятных слов.</span>
+</div>
+</li>        <li>
+<span class="ico">✓</span>
+<div>
+<strong>Устал от кислого или горького кофе</strong>
+<span class="d">Поймёшь, что изменить в рецепте первым, вместо десяти случайных попыток.</span>
+</div>
+</li>        <li>
+<span class="ico">✓</span>
+<div>
+<strong>Хочешь готовить вкуснее дома</strong>
+<span class="d">Без дорогого курса, профессионального языка и бесконечных роликов.</span>
+</div>
+</li>      </ul>    </section>    <section class="section" aria-labelledby="emotion-title">      <div class="card">        <h2 id="emotion-title">Если ты хоть раз разочаровался в дорогом кофе</h2>        <p class="section-lead" style="margin:0">Не понял надписи на пачке, менял рецепт десять раз или снова получил слишком кислую чашку — этот гайд написан именно для тебя.</p>      </div>    </section>    <!-- 3. What's inside -->    <section class="section" aria-labelledby="inside-title">      <h2 id="inside-title">Что изменится после чтения</h2>      <p class="section-lead">Не просто темы и главы — конкретные решения для следующей покупки и следующей чашки.</p>      <ul class="list">        <li>          <span class="ico" aria-hidden="true">1</span>          <div>            <strong>Перестанешь выбирать кофе по красивой пачке</strong>            <span class="d">За минуту поймёшь, подходит ли тебе зерно и за что действительно стоит платить.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">2</span>          <div>            <strong>Будешь понимать вкус ещё до покупки</strong>            <span class="d">Простыми словами разберёшься, какие надписи обещают более яркий, спокойный или насыщенный кофе.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">3</span>          <div>            <strong>Получишь рабочую точку старта</strong>            <span class="d">Возьмёшь готовый рецепт для своего способа приготовления и не будешь собирать его по разным видео.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">4</span>          <div>            <strong>Сможешь исправить неудачную чашку</strong>            <span class="d">Поймёшь, что поменять первым: помол, воду, время или количество кофе.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">5</span>          <div>            <strong>Начнёшь лучше понимать собственный вкус</strong>            <span class="d">Научишься сравнивать кофе дома и выбирать то, что нравится тебе, а не эксперту из ролика.</span>          </div>        </li>        <li>          <span class="ico" aria-hidden="true">6</span>          <div>            <strong>Сохранишь понятную систему под рукой</strong>            <span class="d">Гайд работает на телефоне и компьютере: можно быстро вернуться к рецепту или подсказке.</span>          </div>        </li>      </ul>    </section>    <div style="margin-top:28px">      <a class="btn" href="#checkout" id="insideCta">Купить доступ — 299 ₽</a>      <p class="cta-hint">Одна удачная покупка зерна может окупить стоимость гайда</p>    </div>    <!-- 4. How access works -->    <section class="section" aria-labelledby="access-title">      <h2 id="access-title">Как получить доступ</h2>      <p class="section-lead">Три шага. Никаких «менеджер свяжется» и ожидания сутками.</p>      <div class="steps">        <div class="step">          <div class="step-num">1</div>          <div>            <h3>Нажимаешь «Купить»</h3>            <p>Указываешь email — на него придёт ссылка. Можно сразу ввести промокод, если есть.</p>          </div>        </div>        <div class="step">          <div class="step-num">2</div>          <div>            <h3>Оплачиваешь картой через ЮKassa</h3>            <p>Безопасная оплата: карта, СБП или ЮMoney. На стороне банка / ЮKassa может отображаться <strong style="color:var(--text)">lektara.ru</strong> — это наш платёжный профиль, продавец тот же.</p>          </div>        </div>        <div class="step">          <div class="step-num">3</div>          <div>            <h3>На email — персональная ссылка на гайд</h3>            <p>Сразу после успешной оплаты. Открой письмо, перейди по ссылке — гайд у тебя.</p>          </div>        </div>      </div>      <div class="access-note">        Доступ без срока · с телефона и компьютера · повторный вход по токену или ссылке      </div>    </section>    <section class="section" aria-labelledby="author-title">      <h2 id="author-title">Почему появился этот гайд</h2>      <div class="card">        <p style="margin:0 0 12px">
+<strong>A CUP — проект Михаила Дмитриева о понятном кофе без снобизма.</strong>
+</p>        <p class="muted" style="margin:0">Гайд появился, чтобы собрать в одном месте практическую систему для новичка: как выбрать зерно, приготовить его и исправить вкус. Без биографии на полстраницы, сложного языка и необходимости становиться бариста.</p>      </div>    </section>    <!-- 5. Trust / seller -->    <section class="section" aria-labelledby="trust-title">      <h2 id="trust-title">Кто продаёт и как платить</h2>      <p class="section-lead">Реальные данные продавца, платёжного оператора и прямые контакты поддержки.</p>      <div class="trust-grid">        <div class="trust-item">          <div class="label">Продавец</div>          <div class="val">            <span id="authorName">Дмитриев Михаил Александрович</span>
+<br />            <span id="authorStatus">Самозанятый (НПД)</span>
+<br />            ИНН <span id="authorInn">772453231807</span>          </div>        </div>        <div class="trust-item">          <div class="label">Оплата</div>          <div class="val">            Через <strong>ЮKassa / ЮMoney</strong>
+<br />            (ООО НКО «ЮМани»)<br />            ShopID <span id="shopId">1298699</span>          </div>        </div>        <div class="trust-item">          <div class="label">Вопросы</div>          <div class="val">            Telegram: <a id="supportTg" href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a>
+<br />            Email: <a id="supportEmail" href="mailto:mikhsan@yandex.ru">mikhsan@yandex.ru</a>          </div>        </div>        <div class="trust-item">          <div class="label">Документы</div>          <div class="val">            <a href="offer.html">Публичная оферта</a>
+<br />            <a href="privacy.html">Политика конфиденциальности</a>
+<br />            <a href="access.html">Вход по токену</a>          </div>        </div>      </div>      <div class="trust-alert">        <strong>Если на странице банка видно lektara.ru</strong> — это нормально: это наш платёжный профиль ЮKassa.        Получатель платежа — тот же продавец (самозанятый, ИНН выше). Платёж относится к этому же продукту A CUP.      </div>    </section>    <section class="section" aria-labelledby="compare-title">      <h2 id="compare-title">До и после</h2>      <div class="obj-grid">        <div class="obj">
+<h3>До: покупаю кофе случайно</h3>
+<p>
+<strong style="color:var(--text)">После:</strong> за минуту понимаю, подходит пачка или нет.</p>
+</div>        <div class="obj">
+<h3>До: не понимаю, почему кофе кислый</h3>
+<p>
+<strong style="color:var(--text)">После:</strong> знаю, что изменить в рецепте первым.</p>
+</div>        <div class="obj">
+<h3>До: каждый раз ищу новый рецепт</h3>
+<p>
+<strong style="color:var(--text)">После:</strong> использую готовую систему и корректирую вкус осознанно.</p>
+</div>      </div>    </section>    <!-- 6. Objections -->    <section class="section" aria-labelledby="obj-title">      <h2 id="obj-title">Остались вопросы?</h2>      <div class="obj-grid">        <div class="obj">          <h3>Это разовая оплата?</h3>          <p>Да. Один платёж 299 ₽, без регулярных списаний.</p>        </div>        <div class="obj">          <h3>Сколько времени понадобится?</h3>          <p>Можно прочитать за вечер или открывать нужную подсказку прямо во время приготовления.</p>        </div>        <div class="obj">          <h3>Подойдёт ли новичку?</h3>          <p>Да. Все важные понятия объясняются простым языком и применяются к домашнему кофе.</p>        </div>      </div>    </section>    <!-- Checkout form -->    <section class="checkout section" id="checkout" aria-labelledby="checkout-title">      <div class="card">        <div class="badge">Оплата</div>        <h2 id="checkout-title" style="margin-top:14px">Купить доступ</h2>        <div class="price-row-mini">          <span class="price-new" id="priceNew2" style="font-size:2rem">299 ₽</span>        </div>        <form id="buyForm" novalidate>          <div class="field-wrap">            <label for="email">Email — сюда придёт ссылка</label>            <input class="field" id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" />          </div>          <div class="field-wrap">            <label for="promo">Промокод <span style="font-weight:500;
+text-transform:none;
+letter-spacing:0;
+color:var(--muted-2)">(если есть)</span>
+</label>            <input class="field" id="promo" name="promo" type="text" placeholder="Введите промокод" maxlength="40" autocomplete="off" />          </div>          <div class="checks">            <label class="check">              <input type="checkbox" id="cAll" required />              <span>Принимаю <a href="offer.html" target="_blank" rel="noopener">оферту</a>,              <a href="privacy.html" target="_blank" rel="noopener">политику</a>,              что это <b style="color:var(--text)">цифровой товар</b> (доступ сразу, возврат ограничен),              авторский материал для личного использования и оплату через              <b style="color:var(--text)">ЮKassa</b>              (<a href="https://yoomoney.ru/page?id=525698" target="_blank" rel="noopener">условия</a>)</span>            </label>            <input type="checkbox" id="cOffer" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;
+opacity:0;
+pointer-events:none" />            <input type="checkbox" id="cPrivacy" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;
+opacity:0;
+pointer-events:none" />            <input type="checkbox" id="cDigital" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;
+opacity:0;
+pointer-events:none" />            <input type="checkbox" id="cIp" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;
+opacity:0;
+pointer-events:none" />            <input type="checkbox" id="cPay" checked class="hidden-legal" tabindex="-1" aria-hidden="true" style="position:absolute;
+opacity:0;
+pointer-events:none" />          </div>          <button class="btn" type="submit" id="btnPay">Купить доступ — 299 ₽</button>          <p class="cta-hint">Ссылка на гайд на почту сразу после оплаты · ЮKassa</p>          <div class="status" id="status" aria-live="polite">
+</div>        </form>      </div>    </section>    <footer class="site-footer">      <div class="row">        <a href="../index.html">акап.рф</a>        <a href="offer.html">Оферта</a>        <a href="privacy.html">Конфиденциальность</a>        <a href="access.html">Вход по токену</a>        <a id="footerTg" href="https://t.me/Arcady_ya" target="_blank" rel="noopener">Telegram</a>      </div>      <div>        A CUP · <span id="footerSeller">самозанятый Дмитриев М.А., ИНН 772453231807</span>
+<br />        Платёжный оператор: ООО НКО «ЮМани» · гайд «От нуля до specialty»      </div>    </footer>  </div>  <script>  (function () {    const CFG = window.ACUP || {}
+;
+    const G = CFG.guide || {}
+;
+    const S = CFG.seller || {}
+;
+    const Y = CFG.yookassa || {}
+;
     const price = Number(G.price) || 299;
     const priceOld = Number(G.priceOld) || 999;
     const priceStr = price + ' ₽';
     const priceOldStr = priceOld + ' ₽';
     const ctaLabel = 'Купить доступ — ' + price + ' ₽';
-
-    function setText(id, v) {
-      const el = document.getElementById(id);
+    function setText(id, v) {      const el = document.getElementById(id);
       if (el) el.textContent = v;
     }
-
-    ['priceOld', 'priceOld2', 'priceOld3'].forEach(function (id) { setText(id, priceOldStr); });
-    ['priceNew', 'priceNew2', 'priceNew3'].forEach(function (id) { setText(id, priceStr); });
-
+    ['priceOld', 'priceOld2', 'priceOld3'].forEach(function (id) { setText(id, priceOldStr);
+ }
+);
+    ['priceNew', 'priceNew2', 'priceNew3'].forEach(function (id) { setText(id, priceStr);
+ }
+);
     var btn = document.getElementById('btnPay');
     if (btn) btn.textContent = ctaLabel;
-    ['heroCta', 'finalCta', 'stickyBtn'].forEach(function (id) {
-      var el = document.getElementById(id);
+    ['heroCta', 'insideCta'].forEach(function (id) {      var el = document.getElementById(id);
       if (el) el.textContent = ctaLabel;
-    });
-
+    }
+);
     if (S.fullName) setText('authorName', S.fullName);
     if (S.status) setText('authorStatus', S.status);
     if (S.inn) setText('authorInn', S.inn);
     if (Y.shopId) setText('shopId', Y.shopId);
-    if (S.fullName && S.inn) {
-      setText('footerSeller', 'самозанятый ' + S.fullName.replace(/^(\S+)\s+(\S)\S*\s+(\S)\S*$/, '$1 $2.$3.') + ', ИНН ' + S.inn);
-      // simpler short form
-      setText('footerSeller', (S.status || 'самозанятый') + ' · ' + S.fullName + ', ИНН ' + S.inn);
+    if (S.fullName && S.inn) {      setText('footerSeller', 'самозанятый ' + S.fullName.replace(/^(\S+)\s+(\S)\S*\s+(\S)\S*$/, '$1 $2.$3.') + ', ИНН ' + S.inn);
+      // simpler short form      setText('footerSeller', (S.status || 'самозанятый') + ' · ' + S.fullName + ', ИНН ' + S.inn);
     }
-    if (S.telegram) {
-      var tg = document.getElementById('supportTg');
-      if (tg) {
-        tg.href = S.telegram;
+    if (S.telegram) {      var tg = document.getElementById('supportTg');
+      if (tg) {        tg.href = S.telegram;
         tg.textContent = S.telegramHandle || S.telegram.replace(/^https?:\/\/t\.me\//, '@');
       }
       var ft = document.getElementById('footerTg');
       if (ft) ft.href = S.telegram;
     }
-    if (S.email) {
-      var em = document.getElementById('supportEmail');
-      if (em) {
-        em.href = 'mailto:' + S.email;
+    if (S.email) {      var em = document.getElementById('supportEmail');
+      if (em) {        em.href = 'mailto:' + S.email;
         em.textContent = S.email;
       }
     }
-    if (CFG.siteUrl || CFG.siteUrlAscii) {
-      var home = document.getElementById('brandHome');
-      // keep relative ../index.html for local/gh-pages; absolute only if needed
-    }
-
+    if (CFG.siteUrl || CFG.siteUrlAscii) {      var home = document.getElementById('brandHome');
+      // keep relative ../index.html for local/gh-pages;
+ absolute only if needed    }
     const statusEl = document.getElementById('status');
     const promoInput = document.getElementById('promo');
-
-    function updateBtnLabel() {
-      const p = (promoInput.value || '').trim();
+    function updateBtnLabel() {      const p = (promoInput.value || '').trim();
       if (p) btn.textContent = 'Активировать промокод / оплатить';
       else btn.textContent = ctaLabel;
     }
     if (promoInput) promoInput.addEventListener('input', updateBtnLabel);
-
-    document.getElementById('buyForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+    document.getElementById('buyForm').addEventListener('submit', async function (e) {      e.preventDefault();
       statusEl.className = 'status';
       statusEl.textContent = '';
       var cAll = document.getElementById('cAll');
-      if (cAll && !cAll.checked) {
-        statusEl.className = 'status err';
+      if (cAll && !cAll.checked) {        statusEl.className = 'status err';
         statusEl.textContent = 'Отметьте согласие с условиями — без него оплата недоступна';
         return;
       }
-      ['cOffer','cPrivacy','cDigital','cIp','cPay'].forEach(function(id){
-        var el = document.getElementById(id); if (el) el.checked = true;
-      });
+      ['cOffer','cPrivacy','cDigital','cIp','cPay'].forEach(function(id){        var el = document.getElementById(id);
+ if (el) el.checked = true;
+      }
+);
       var email = document.getElementById('email').value.trim();
-      if (!email) {
-        statusEl.className = 'status err';
+      if (!email) {        statusEl.className = 'status err';
         statusEl.textContent = 'Укажите email — на него придёт ссылка на гайд';
         document.getElementById('email').focus();
         return;
       }
-
       btn.disabled = true;
       var prev = btn.textContent;
       btn.textContent = 'Подключаем оплату…';
-      try {
-        var resolve = window.ACUPResolveApiBase
-          ? window.ACUPResolveApiBase()
-          : Promise.resolve(String(G.apiBase || '').replace(/\/$/, ''));
+      try {        var resolve = window.ACUPResolveApiBase          ? window.ACUPResolveApiBase()          : Promise.resolve(String(G.apiBase || '').replace(/\/$/, ''));
         var apiBase = await resolve;
-        if (!apiBase) {
-          throw new Error(
-            'Сервер оплаты не найден. Напишите ' +
-              ((S && S.telegramHandle) || '@Arcady_ya') +
-              ' — выдадим доступ вручную.'
-          );
+        if (!apiBase) {          throw new Error(            'Сервер оплаты не найден. Напишите ' +              ((S && S.telegramHandle) || '@Arcady_ya') +              ' — выдадим доступ вручную.'          );
         }
-
         btn.textContent = 'Создаём оплату…';
-        var res = await fetch(apiBase + '/api/guide/create-order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: email,
-            promo: document.getElementById('promo').value.trim(),
-            acceptOffer: true,
-            acceptPrivacy: true,
-            acceptDigital: true,
-            acceptIp: true,
-            consent: true,
-          }),
-        });
-        var data = await res.json().catch(function () { return {}; });
+        var res = await fetch(apiBase + '/api/guide/create-order', {          method: 'POST',          headers: { 'Content-Type': 'application/json' }
+,          body: JSON.stringify({            email: email,            promo: document.getElementById('promo').value.trim(),            acceptOffer: true,            acceptPrivacy: true,            acceptDigital: true,            acceptIp: true,            consent: true,          }
+),        }
+);
+        var data = await res.json().catch(function () { return {}
+;
+ }
+);
         if (!res.ok) throw new Error(data.message || data.error || ('HTTP ' + res.status));
-
-        try { sessionStorage.setItem('acup_guide_order', data.orderId || ''); } catch (_) {}
-
-        if (data.free && data.token) {
-          try { localStorage.setItem('acup_guide_token', data.token); } catch (_) {}
+        try { sessionStorage.setItem('acup_guide_order', data.orderId || '');
+ }
+ catch (_) {}
+        if (data.free && data.token) {          try { localStorage.setItem('acup_guide_token', data.token);
+ }
+ catch (_) {}
           location.href = 'success.html?order=' + encodeURIComponent(data.orderId) + '&promo=1';
           return;
         }
-
         if (!data.confirmation_url) throw new Error('Нет ссылки на оплату ЮKassa');
         location.href = data.confirmation_url;
-      } catch (err) {
-        console.error(err);
+      }
+ catch (err) {        console.error(err);
         statusEl.className = 'status err';
         var msg = (err && err.message) || String(err);
-        if (/Failed to fetch|NetworkError|Load failed|abort|offline|API/i.test(msg) && msg.length < 40) {
-          msg =
-            'Не удалось связаться с сервером оплаты. Обновите страницу (Ctrl+F5). Если снова ошибка — Telegram ' +
-            ((S && S.telegramHandle) || '@Arcady_ya');
+        if (/Failed to fetch|NetworkError|Load failed|abort|offline|API/i.test(msg) && msg.length < 40) {          msg =            'Не удалось связаться с сервером оплаты. Обновите страницу (Ctrl+F5). Если снова ошибка — Telegram ' +            ((S && S.telegramHandle) || '@Arcady_ya');
         }
         statusEl.textContent = msg;
         btn.disabled = false;
         btn.textContent = prev;
       }
-    });
-
-    // Sticky CTA: show when checkout form is not in view
-    var sticky = document.getElementById('stickyCta');
+    }
+);
+    // Sticky CTA: show when checkout form is not in view    var sticky = document.getElementById('stickyCta');
     var checkout = document.getElementById('checkout');
-    if (sticky && checkout && 'IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        var visible = entries[0] && entries[0].isIntersecting;
+    if (sticky && checkout && 'IntersectionObserver' in window) {      var io = new IntersectionObserver(function (entries) {        var visible = entries[0] && entries[0].isIntersecting;
         sticky.classList.toggle('show', !visible);
         sticky.setAttribute('aria-hidden', visible ? 'true' : 'false');
-      }, { threshold: 0.15 });
+      }
+, { threshold: 0.15 }
+);
       io.observe(checkout);
     }
-  })();
-  </script>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    if (window.ACUPMetrika) window.ACUPMetrika.reach('view_buy');
+  }
+)();
+  </script>  <script>  document.addEventListener('DOMContentLoaded', function () {    if (window.ACUPMetrika) window.ACUPMetrika.reach('view_buy');
     var form = document.getElementById('buyForm');
-    if (form) form.addEventListener('submit', function () {
-      if (window.ACUPMetrika) window.ACUPMetrika.reach('click_buy');
-    });
-  });
+    if (form) form.addEventListener('submit', function () {      if (window.ACUPMetrika) window.ACUPMetrika.reach('click_buy');
+    }
+);
+  }
+);
   </script>
 </body>
 </html>
