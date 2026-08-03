@@ -2,3 +2,5 @@
 .env.*
 server/data/orders.json
 *.log
+
+.wrangler/
