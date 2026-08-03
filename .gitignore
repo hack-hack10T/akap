@@ -1,6 +1,7 @@
 .env
 .env.*
 server/data/orders.json
+server/data/final-guide.html
 *.log
 
 .wrangler/
