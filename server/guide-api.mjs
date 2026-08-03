@@ -374,8 +374,15 @@ const server = http.createServer(async (req, res) => {
       if (!orderId && paymentId) {
         orderId = Object.keys(store.orders).find((k) => store.orders[k].paymentId === paymentId);
       }
-      if (orderId && (obj.paid || obj.status === 'succeeded')) {
-        markPaid(orderId, { webhook: true, paymentId, status: obj.status });
+      if (orderId && paymentId && (obj.paid || obj.status === 'succeeded')) {
+        // Never trust webhook fields alone: verify the payment with YooKassa.
+        const verified = await yk('/payments/' + encodeURIComponent(paymentId));
+        const payment = verified.data || {};
+        const metadataOrder = payment.metadata && payment.metadata.orderId;
+        if (verified.ok && metadataOrder === orderId &&
+            (payment.paid || payment.status === 'succeeded')) {
+          markPaid(orderId, { webhook: true, paymentId, status: payment.status, verified: true });
+        }
       }
       return json(res, 200, { ok: true });
     } catch (e) {

@@ -73,6 +73,10 @@
       try {
         localStorage.setItem('acup_guide_token', tok);
       } catch (_) {}
+      // Показываем токен и автоматически открываем гайд.
+      setTimeout(function () {
+        location.replace(open.href);
+      }, 1200);
     }
 
     async function ensureApi() {
