@@ -33,11 +33,13 @@
       </div>
 
       <div id="paidBox" class="hidden">
-        <p class="status ok">✓ Оплата получена. Ваш персональный токен доступа:</p>
+        <p class="status ok">Оплата подтверждена. Ваш персональный токен:</p>
         <div class="token-box" id="tokenBox">—</div>
+        <div class="token-warning"><strong>Важно!</strong><span>Сохраните этот токен. Он потребуется для повторного входа в гайд, особенно на другом устройстве.</span></div>
         <button class="btn" type="button" id="btnCopy" style="margin-top:14px">Скопировать токен</button>
+        <div class="copy-feedback" id="copyFeedback" role="status" aria-live="polite"></div>
         <a class="btn btn-ghost" id="btnOpen" href="access.html">Открыть гайд по токену</a>
-        <p class="legal-note">Сохраните токен. Ссылка доступа: можно открыть с телефона и компьютера. Не передавайте токен третьим лицам.</p>
+        <p class="legal-note">Токен также сохранён в этом браузере. Не передавайте его третьим лицам.</p>
       </div>
     </div>
     <footer class="page">A CUP · поддержка @Arcady_ya</footer>
@@ -59,12 +61,13 @@
     let timer = null;
     let tries = 0;
     let apiBase = '';
+    let tokenSecured = false;
 
     function showPaid(data) {
       clearInterval(timer);
       pendingBox.classList.add('hidden');
       paidBox.classList.remove('hidden');
-      title.textContent = 'Гайд оплачен';
+      title.textContent = '✅ Оплата прошла успешно';
       document.getElementById('sub').textContent = 'Заказ ' + (data.orderId || orderId);
       const tok = data.token || '';
       document.getElementById('tokenBox').textContent = tok;
@@ -73,10 +76,7 @@
       try {
         localStorage.setItem('acup_guide_token', tok);
       } catch (_) {}
-      // Показываем токен и автоматически открываем гайд.
-      setTimeout(function () {
-        location.replace(open.href);
-      }, 1200);
+      open.addEventListener('click', function () { tokenSecured = true; }, { once: true });
     }
 
     async function ensureApi() {
@@ -118,11 +118,20 @@
       const t = document.getElementById('tokenBox').textContent;
       try {
         await navigator.clipboard.writeText(t);
-        document.getElementById('btnCopy').textContent = 'Скопировано';
+        document.getElementById('btnCopy').textContent = 'Скопировано ✓';
+        document.getElementById('copyFeedback').textContent = 'Токен успешно скопирован.';
+        tokenSecured = true;
       } catch (_) {
         prompt('Скопируйте токен:', t);
       }
     };
+
+    window.addEventListener('beforeunload', function (event) {
+      if (!paidBox.classList.contains('hidden') && !tokenSecured) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    });
 
     check();
     timer = setInterval(check, 3000);

@@ -75,10 +75,18 @@ label.block { display: block; font-size: 12px; font-weight: 800; letter-spacing:
 .status.err { color: #b91c1c; font-weight: 700; }
 .status.ok { color: var(--good); font-weight: 700; }
 .token-box {
-  margin-top: 16px; padding: 16px; border-radius: 16px;
+  margin-top: 16px; padding: 20px 14px; border-radius: 16px;
   background: #0a0908; color: #f2ede5; font-family: ui-monospace, monospace;
-  font-size: 20px; letter-spacing: 0.08em; text-align: center; word-break: break-all;
+  font-size: clamp(18px, 5vw, 28px); font-weight: 800; letter-spacing: 0.06em;
+  text-align: center; overflow-wrap: anywhere;
 }
+.token-warning {
+  margin-top: 16px; padding: 14px 16px; border-radius: 14px;
+  background: rgba(15,118,110,.07); border: 1px solid rgba(15,118,110,.18);
+  display: grid; gap: 4px; font-size: 14px; line-height: 1.5;
+}
+.token-warning strong { color: var(--good); }
+.copy-feedback { min-height: 1.4em; margin-top: 9px; color: var(--good); font-size: 13px; text-align: center; }
 .legal-note {
   font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.5;
 }
