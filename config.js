@@ -26,10 +26,10 @@ window.ACUP = {
     currency: 'RUB',
     description: 'Цифровой гайд «От нуля до specialty» — доступ к HTML-материалу автора',
     // Публичный API (cloudflared → guide-api :8788). ensure-tunnel.sh держит URL живым и пушит сюда.
-    apiBase: 'https://moon-perfectly-craig-cottages.trycloudflare.com',
+    apiBase: 'https://acup-access.acup-access.workers.dev',
     // Запасные базы (js/api.js пробует по порядку + api-base.json с сайта)
     apiBases: [
-      'https://moon-perfectly-craig-cottages.trycloudflare.com',
+      'https://acup-access.acup-access.workers.dev',
     ],
   },
 
