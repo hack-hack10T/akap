@@ -117,12 +117,24 @@
     document.getElementById('btnCopy').onclick = async () => {
       const t = document.getElementById('tokenBox').textContent;
       try {
-        await navigator.clipboard.writeText(t);
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(t);
+        } else {
+          const field = document.createElement("textarea");
+          field.value = t;
+          field.setAttribute("readonly", "");
+          field.style.position = "fixed";
+          field.style.opacity = "0";
+          document.body.appendChild(field);
+          field.select();
+          if (!document.execCommand("copy")) throw new Error("copy unavailable");
+          field.remove();
+        }
         document.getElementById('btnCopy').textContent = 'Скопировано ✓';
         document.getElementById('copyFeedback').textContent = 'Токен успешно скопирован.';
         tokenSecured = true;
       } catch (_) {
-        prompt('Скопируйте токен:', t);
+        document.getElementById("copyFeedback").textContent = "Не удалось скопировать автоматически. Выделите токен выше и сохраните его вручную.";
       }
     };
 
