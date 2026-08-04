@@ -1,4 +1,4 @@
-import {botFetch, successText, createCardPayment, userLabel} from './bot.js';
+import {botFetch, successText, createCardPayment, userLabel, notify} from './bot.js';
 const enc=new TextEncoder(), A='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
 async function hash(s){return hex(await crypto.subtle.digest('SHA-256',enc.encode(s)))}
@@ -11,19 +11,6 @@ const json=(x,s=200,h={})=>new Response(JSON.stringify(x),{status:s,headers:{'co
 const page=x=>new Response(`<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><title>A CUP</title><style>body{font:16px system-ui;background:#0a0908;color:#eee;max-width:720px;margin:60px auto;padding:20px}button,input,a{font:inherit;padding:14px;margin:8px 0}code{display:block;padding:20px;background:#211;font-size:22px;overflow-wrap:anywhere}</style>${x}`,{headers:{'content-type':'text/html;charset=utf-8','x-robots-tag':'noindex,nofollow,noarchive','cache-control':'private,no-store'}});
 const metrika=`<script>window.dataLayer=window.dataLayer||[];window.ym=window.ym||function(){(ym.a=ym.a||[]).push(arguments)};ym.l=Date.now();ym(111214147,'init',{clickmap:false,trackLinks:true,accurateTrackBounce:true,webvisor:false,ecommerce:'dataLayer'});let ms=document.createElement('script');ms.async=true;ms.src='https://mc.yandex.ru/metrika/tag.js?id=111214147';document.head.appendChild(ms);function acupGoal(name,params){try{ym(111214147,'reachGoal',name,params||{})}catch(_){}}</script>`;
 async function yk(e,path,opt={}){let h={'authorization':'Basic '+btoa(e.YOOKASSA_SHOP_ID+':'+e.YOOKASSA_SECRET_KEY),'content-type':'application/json'};if(opt.key)h['Idempotence-Key']=opt.key;return fetch('https://api.yookassa.ru/v3'+path,{method:opt.method||'GET',headers:h,body:opt.body&&JSON.stringify(opt.body)}).then(async r=>({ok:r.ok,data:await r.json()}))}
-async function notify(e,text){
-  console.log('NOTIFY called:', String(text).slice(0,80), '| BOT:', !!e.TELEGRAM_BOT_TOKEN, '| CHAT:', e.TELEGRAM_CHAT_ID);
-  if(!e.TELEGRAM_BOT_TOKEN||!e.TELEGRAM_CHAT_ID){
-    try{await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),'error','notify','skip_no_secrets','BOT='+!!e.TELEGRAM_BOT_TOKEN+' CHAT='+!!e.TELEGRAM_CHAT_ID,'{}',Date.now()).run()}catch(_){}
-    return;
-  }
-  try{
-    const r=await fetch('https://api.telegram.org/bot'+e.TELEGRAM_BOT_TOKEN+'/sendMessage',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({chat_id:e.TELEGRAM_CHAT_ID,text})});
-    const j=await r.json().catch(()=>({}));
-    if(!j.ok){try{await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),'error','notify','tg_error',String(j.description||r.status).slice(0,300),'{}',Date.now()).run()}catch(_){}}
-    else{try{await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),'info','notify','ok','chat='+e.TELEGRAM_CHAT_ID+' txt='+String(text).slice(0,60).replace(/\n/g,' '),'{}',Date.now()).run()}catch(_){}}
-  }catch(err){try{await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),'error','notify','fetch_error',String(err?.message||err).slice(0,300),'{}',Date.now()).run()}catch(_){}}
-}
 async function activate(e,o,p){if(p.status!=='succeeded'||!p.paid||p.amount.value!=='299.00'||p.amount.currency!=='RUB'||p.metadata?.order_id!==o.id)return false;let t=await token(e,o.id),th=await hash(t);await e.DB.prepare("UPDATE orders SET status='access_created',paid_at=?,updated_at=?,token_key_version=1,token_hash=?,receipt_status='receipt_pending' WHERE id=? AND status NOT IN ('access_created','refunded')").bind(Date.now(),Date.now(),th,o.id).run();await notify(e,'A CUP: успешная оплата '+o.public_id+'. Требуется зарегистрировать чек в «Мой налог».');return t}
 async function session(e,o){let raw=crypto.randomUUID()+crypto.randomUUID(),sh=await hash(raw),now=Date.now();await e.DB.prepare('INSERT INTO sessions VALUES(?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),sh,o.id,now,now+2592e6,now).run();return {raw,sh}}
 export default{async fetch(req,e){let u=new URL(req.url);if(req.method==='OPTIONS')return new Response(null,{status:204,headers:{'access-control-allow-origin':'http://xn--80aa3av.xn--p1ai','access-control-allow-methods':'POST,GET,OPTIONS','access-control-allow-headers':'content-type'}});

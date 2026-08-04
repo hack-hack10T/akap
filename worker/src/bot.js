@@ -68,6 +68,51 @@ async function logEv(e, event, message, data = '{}') {
   } catch (_) {}
 }
 
+// Единая функция уведомлений владельцу: зовётся и из бота, и из роутов напрямую.
+// Каждый вызов пишется в system_events (called/ok/error) — видно всё, что отправлено.
+export async function notify(e, text) {
+  try {
+    await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
+      .bind(crypto.randomUUID(), 'info', 'notify', 'called', 'chat=' + String(e.TELEGRAM_CHAT_ID || '') + ' txt=' + String(text).slice(0, 60).replace(/\n/g, ' '), '{}', Date.now())
+      .run();
+  } catch (_) {}
+  if (!e.TELEGRAM_BOT_TOKEN || !e.TELEGRAM_CHAT_ID) {
+    try {
+      await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
+        .bind(crypto.randomUUID(), 'error', 'notify', 'skip_no_secrets', 'BOT=' + !!e.TELEGRAM_BOT_TOKEN + ' CHAT=' + !!e.TELEGRAM_CHAT_ID, '{}', Date.now())
+        .run();
+    } catch (_) {}
+    return;
+  }
+  try {
+    const r = await fetch('https://api.telegram.org/bot' + e.TELEGRAM_BOT_TOKEN + '/sendMessage', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ chat_id: e.TELEGRAM_CHAT_ID, text }),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!j.ok) {
+      try {
+        await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
+          .bind(crypto.randomUUID(), 'error', 'notify', 'tg_error', String(j.description || r.status).slice(0, 300), '{}', Date.now())
+          .run();
+      } catch (_) {}
+    } else {
+      try {
+        await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
+          .bind(crypto.randomUUID(), 'info', 'notify', 'ok', 'chat=' + e.TELEGRAM_CHAT_ID + ' txt=' + String(text).slice(0, 60).replace(/\n/g, ' '), '{}', Date.now())
+          .run();
+      } catch (_) {}
+    }
+  } catch (err) {
+    try {
+      await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
+        .bind(crypto.randomUUID(), 'error', 'notify', 'fetch_error', String(err?.message || err).slice(0, 300), '{}', Date.now())
+        .run();
+    } catch (_) {}
+  }
+}
+
 const ACCESS_URL = 'https://acup-access.acup-access.workers.dev/login';
 const APP_URL = 'https://acup-access.acup-access.workers.dev/app?v=2';
 const PAY_URL = 'https://acup-access.acup-access.workers.dev/pay';
@@ -261,7 +306,7 @@ async function activateBotOrder(e, u, chargeId) {
     }
     throw err;
   }
-  await e.__notify(`💰 ПРОДАЖА через бота ${pub} — ${u.currency === 'XTR' ? u.amount / 100 + ' ⭐ (Stars)' : u.amount / 100 + ' ₽ (карта)'}${u.buyer ? ' — ' + userLabel(u.buyer) : ''}`);
+  await notify(e, `💰 ПРОДАЖА через бота ${pub} — ${u.currency === 'XTR' ? u.amount / 100 + ' ⭐ (Stars)' : u.amount / 100 + ' ₽ (карта)'}${u.buyer ? ' — ' + userLabel(u.buyer) : ''}`);
   await send(e, u.tgChatId, successText(pub, t, e.__origin), { reply_markup: ACCESS_KB });
   return true;
 }
@@ -283,7 +328,7 @@ async function handleUpdate(e, upd) {
     const f = upd.message.from;
     await logEv(e, 'bot_start', 'Визит: ' + userLabel(f), { id: f?.id, username: f?.username, first_name: f?.first_name });
     try {
-      await e.__notify('👤 Бот: новый визит — ' + userLabel(f));
+      await notify(e, '👤 Бот: новый визит — ' + userLabel(f));
       await logEv(e, 'notify_check', 'после __notify OK');
     } catch (err) {
       await logEv(e, 'notify_throw', String(err?.message || err).slice(0, 200));
@@ -321,7 +366,7 @@ async function handleUpdate(e, upd) {
     const chatId = cq.message?.chat?.id || cq.from.id;
     await logEv(e, 'bot_callback', 'Клик: ' + cq.data + ' — ' + userLabel(cq.from), { data: cq.data, id: cq.from?.id });
     if (cq.data === 'buy_card' || cq.data === 'buy_stars') {
-      await e.__notify('🛒 Бот: клик «' + (cq.data === 'buy_card' ? 'Купить картой' : 'Купить Stars') + '» — ' + userLabel(cq.from));
+      await notify(e, '🛒 Бот: клик «' + (cq.data === 'buy_card' ? 'Купить картой' : 'Купить Stars') + '» — ' + userLabel(cq.from));
     }
     if (cq.data === 'buy_card') {
       // Мгновенный переход на оплату — без лишних кнопок
@@ -419,7 +464,7 @@ async function revoke(e, o) {
     e.DB.prepare('UPDATE sessions SET revoked_at=? WHERE order_id=? AND revoked_at IS NULL')
       .bind(Date.now(), o.id),
   ]);
-  await e.__notify('A CUP: возврат через бота, доступ отозван ' + o.public_id);
+  await notify(e, 'A CUP: возврат через бота, доступ отозван ' + o.public_id);
 }
 
 export async function botFetch(req, e, helpers) {
@@ -434,7 +479,6 @@ export async function botFetch(req, e, helpers) {
   e.__token = helpers.token;
   e.__hash = helpers.hash;
   e.__yk = helpers.yk;
-  e.__notify = helpers.notify;
   e.__origin = helpers.origin;
   try {
     const out = await handleUpdate(e, upd);
@@ -447,7 +491,7 @@ export async function botFetch(req, e, helpers) {
         .run();
     } catch (_) {}
     try {
-      await e.__notify('A CUP bot error: ' + String(err?.message || err).slice(0, 300));
+      await notify(e, 'A CUP bot error: ' + String(err?.message || err).slice(0, 300));
     } catch {}
     return new Response('ok');
   }
