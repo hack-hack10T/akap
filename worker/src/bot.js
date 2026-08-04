@@ -97,24 +97,47 @@ async function sendInvoice(e, chatId, provider) {
   return tg(e, 'sendInvoice', body);
 }
 
-// Оплата картой без provider-токена Telegram: создаём платёж ЮKassa через Worker
-// и отдаём ссылку; после оплаты webhook сам пришлёт токен в этот чат.
+// Оплата картой без provider-токена Telegram: создаём платёж ЮKassa напрямую
+// (self-fetch Worker→Worker нестабилен) и отдаём ссылку; после оплаты webhook
+// ЮKassa сам пришлёт токен в этот чат (см. activate + tg_chat_id в index.js).
 async function cardLinkFlow(e, chatId) {
-  const r = await fetch(e.__origin + '/api/bot/payment', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      authorization: 'Bearer ' + e.BOT_WEBHOOK_SECRET,
-    },
-    body: JSON.stringify({ tg_chat_id: chatId }),
-  });
-  const d = await r.json().catch(() => ({}));
-  if (!d.confirmation_url) {
+  try {
+    const now = Date.now();
+    const id = crypto.randomUUID();
+    const pub = 'AC-' + id.replaceAll('-', '').slice(0, 16).toUpperCase();
+    const key = crypto.randomUUID();
+    const returnKey = crypto.randomUUID() + crypto.randomUUID();
+    const returnHash = await e.__hash(returnKey);
+    await e.DB.prepare(
+      `INSERT INTO orders(id,public_id,product_id,product_version,amount,currency,status,idempotency_key,created_at,updated_at,return_key_hash,tg_chat_id)
+       VALUES(?,?,?,?,29900,'RUB','created',?,?,?,?,?)`
+    )
+      .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, key, now, now, returnHash, chatId)
+      .run();
+    const ret = new URL('/payment/return', e.__origin);
+    ret.searchParams.set('order', pub);
+    ret.searchParams.set('key', returnKey);
+    const q = await e.__yk(e, '/payments', {
+      method: 'POST',
+      key,
+      body: {
+        amount: { value: '299.00', currency: 'RUB' },
+        capture: true,
+        confirmation: { type: 'redirect', return_url: ret.href },
+        description: `Справочник A CUP «От нуля до specialty», заказ №${pub}`,
+        metadata: { order_id: id, product_id: e.PRODUCT_ID, product_version: e.PRODUCT_VERSION },
+      },
+    });
+    if (!q.ok) throw new Error('payment_unavailable');
+    await e.DB.prepare("UPDATE orders SET status='payment_pending',yookassa_payment_id=?,confirmation_url=?,updated_at=? WHERE id=?")
+      .bind(q.data.id, q.data.confirmation.confirmation_url, Date.now(), id)
+      .run();
+    return send(e, chatId, '💳 Оплата картой — по кнопке ниже (ЮKassa). После оплаты персональный токен доступа придёт прямо в этот чат.', {
+      reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url: q.data.confirmation.confirmation_url }]] },
+    });
+  } catch (err) {
     return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
   }
-  return send(e, chatId, '💳 Оплата картой — по кнопке ниже (ЮKassa). После оплаты персональный токен доступа придёт прямо в этот чат.', {
-    reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url: d.confirmation_url }]] },
-  });
 }
 
 // Создаёт заказ после подтверждённой оплаты и выдаёт токен. Идемпотентно.
