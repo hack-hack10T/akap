@@ -71,8 +71,11 @@ const AUTHOR_KB = {
   ],
 };
 
+const APP_URL = 'https://acup-access.acup-access.workers.dev/app';
+
 const MENU = {
   inline_keyboard: [
+    [{ text: '🛍 Магазин', web_app: { url: APP_URL } }],
     [
       { text: '💳 Купить 299 ₽', callback_data: 'buy_card' },
       { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
@@ -162,7 +165,7 @@ async function sendInvoice(e, chatId, provider) {
 
 // Создаёт платёж ЮKassa для чата и возвращает confirmation_url (или null).
 // После оплаты webhook ЮKassa сам пришлёт токен в этот чат.
-async function createCardPayment(e, chatId) {
+export async function createCardPayment(e, chatId) {
   try {
     const now = Date.now();
     const id = crypto.randomUUID();
