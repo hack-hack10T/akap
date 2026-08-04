@@ -62,7 +62,7 @@ const ACCESS_KB = {
 const AUTHOR_KB = {
   inline_keyboard: [
     [
-      { text: '💳 Купить 299 ₽', callback_data: 'buy_card' },
+      { text: '💳 Купить 299 ₽', url: PAY_URL },
       { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
     ],
     [{ text: '📺 Видео-интервью', url: 'https://vk.com/video-148357406_456239122' }],
@@ -72,12 +72,13 @@ const AUTHOR_KB = {
 };
 
 const APP_URL = 'https://acup-access.acup-access.workers.dev/app?v=2';
+const PAY_URL = 'https://acup-access.acup-access.workers.dev/pay';
 
 const MENU = {
   inline_keyboard: [
     [{ text: '🛍 Магазин', web_app: { url: APP_URL } }],
     [
-      { text: '💳 Купить 299 ₽', callback_data: 'buy_card' },
+      { text: '💳 Купить 299 ₽', url: PAY_URL },
       { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
     ],
     [
