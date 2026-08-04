@@ -437,6 +437,11 @@ export async function botFetch(req, e, helpers) {
     return new Response('ok');
   } catch (err) {
     try {
+      await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
+        .bind(crypto.randomUUID(), 'error', 'bot', 'handler_error', String(err?.message || err).slice(0, 300), '{}', Date.now())
+        .run();
+    } catch (_) {}
+    try {
       await e.__notify('A CUP bot error: ' + String(err?.message || err).slice(0, 300));
     } catch {}
     return new Response('ok');
