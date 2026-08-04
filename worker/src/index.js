@@ -20,6 +20,7 @@ async function notify(e,text){
     const r=await fetch('https://api.telegram.org/bot'+e.TELEGRAM_BOT_TOKEN+'/sendMessage',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({chat_id:e.TELEGRAM_CHAT_ID,text})});
     const j=await r.json().catch(()=>({}));
     if(!j.ok){try{await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),'error','notify','tg_error',String(j.description||r.status).slice(0,300),'{}',Date.now()).run()}catch(_){}}
+    else{try{await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),'info','notify','ok','chat='+e.TELEGRAM_CHAT_ID+' txt='+String(text).slice(0,60).replace(/\n/g,' '),'{}',Date.now()).run()}catch(_){}}
   }catch(err){try{await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),'error','notify','fetch_error',String(err?.message||err).slice(0,300),'{}',Date.now()).run()}catch(_){}}
 }
 async function activate(e,o,p){if(p.status!=='succeeded'||!p.paid||p.amount.value!=='299.00'||p.amount.currency!=='RUB'||p.metadata?.order_id!==o.id)return false;let t=await token(e,o.id),th=await hash(t);await e.DB.prepare("UPDATE orders SET status='access_created',paid_at=?,updated_at=?,token_key_version=1,token_hash=?,receipt_status='receipt_pending' WHERE id=? AND status NOT IN ('access_created','refunded')").bind(Date.now(),Date.now(),th,o.id).run();await notify(e,'A CUP: успешная оплата '+o.public_id+'. Требуется зарегистрировать чек в «Мой налог».');return t}
