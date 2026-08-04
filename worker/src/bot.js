@@ -71,7 +71,7 @@ const AUTHOR_KB = {
   ],
 };
 
-const APP_URL = 'https://acup-access.acup-access.workers.dev/app';
+const APP_URL = 'https://acup-access.acup-access.workers.dev/app?v=2';
 
 const MENU = {
   inline_keyboard: [
