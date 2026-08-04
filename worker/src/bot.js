@@ -53,6 +53,21 @@ const AUTHOR = `
 Подход A CUP к кофе — в видео-интервью, полная версия — в статье.
 `;
 
+// ——— Слежение за посетителями ———
+export const userLabel = (u) => {
+  if (!u) return '?';
+  const name = [u.first_name, u.last_name].filter(Boolean).join(' ');
+  return (u.username ? '@' + u.username : name || String(u.id)) + ' (id ' + u.id + ')';
+};
+async function logEv(e, event, message, data = '{}') {
+  try {
+    await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
+      .bind(crypto.randomUUID(), 'info', 'bot', event, String(message).slice(0, 300),
+        typeof data === 'string' ? data : JSON.stringify(data), Date.now())
+      .run();
+  } catch (_) {}
+}
+
 const ACCESS_URL = 'https://acup-access.acup-access.workers.dev/login';
 const APP_URL = 'https://acup-access.acup-access.workers.dev/app?v=2';
 const PAY_URL = 'https://acup-access.acup-access.workers.dev/pay';
@@ -246,7 +261,7 @@ async function activateBotOrder(e, u, chargeId) {
     }
     throw err;
   }
-  await e.__notify(`A CUP: продажа через бота ${pub} — ${u.currency === 'XTR' ? u.amount / 100 + ' ⭐ (Stars)' : u.amount / 100 + ' ₽ (карта)'}`);
+  await e.__notify(`💰 ПРОДАЖА через бота ${pub} — ${u.currency === 'XTR' ? u.amount / 100 + ' ⭐ (Stars)' : u.amount / 100 + ' ₽ (карта)'}${u.buyer ? ' — ' + userLabel(u.buyer) : ''}`);
   await send(e, u.tgChatId, successText(pub, t, e.__origin), { reply_markup: ACCESS_KB });
   return true;
 }
@@ -265,6 +280,9 @@ async function accessInfo(e, chatId) {
 
 async function handleUpdate(e, upd) {
   if (upd.message?.text === '/start') {
+    const f = upd.message.from;
+    await logEv(e, 'bot_start', 'Визит: ' + userLabel(f), { id: f?.id, username: f?.username, first_name: f?.first_name });
+    await e.__notify('👤 Бот: новый визит — ' + userLabel(f));
     await sendAlbum(e, upd.message.chat.id, [COVER_PHOTO, RESULTS_PHOTO, INSIDE_PHOTO]);
     return send(e, upd.message.chat.id, WELCOME, { reply_markup: MENU });
   }
@@ -296,6 +314,10 @@ async function handleUpdate(e, upd) {
   if (upd.callback_query) {
     const cq = upd.callback_query;
     const chatId = cq.message?.chat?.id || cq.from.id;
+    await logEv(e, 'bot_callback', 'Клик: ' + cq.data + ' — ' + userLabel(cq.from), { data: cq.data, id: cq.from?.id });
+    if (cq.data === 'buy_card' || cq.data === 'buy_stars') {
+      await e.__notify('🛒 Бот: клик «' + (cq.data === 'buy_card' ? 'Купить картой' : 'Купить Stars') + '» — ' + userLabel(cq.from));
+    }
     if (cq.data === 'buy_card') {
       // Мгновенный переход на оплату — без лишних кнопок
       if (!e.YOOKASSA_PROVIDER_TOKEN) {
@@ -346,6 +368,7 @@ async function handleUpdate(e, upd) {
         provider: isStars ? 'stars' : 'card',
         amount: p.total_amount,
         currency: p.currency,
+        buyer: upd.message.from,
         providerChargeId: p.provider_payment_charge_id || p.telegram_payment_charge_id,
       },
       p.telegram_payment_charge_id
