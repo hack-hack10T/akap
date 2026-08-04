@@ -9,31 +9,71 @@ const BOT_API = 'https://api.telegram.org/bot';
 const WELCOME = `
 ☕ <b>A CUP — «От нуля до specialty»</b>
 
-Практический справочник, который поможет понимать зерно, упаковку и вкус без профессиональной терминологии.
+Кофе не должен быть лотереей. Научись понимать зерно, упаковку и вкус чашки — чтобы не гадать каждый раз, что купить, как приготовить и почему снова получилось кисло или горько.
 
-<b>После прочтения ты сможешь:</b>
-✔ выбирать зерно без маркетинговых уловок
-✔ понимать, что написано на упаковке
-✔ перестать получать кислый или горький кофе
-✔ готовить вкуснее дома
-✔ экономить деньги на неудачных покупках
+<b>После чтения ты сможешь:</b>
+✔ за минуту понимать, стоит ли покупать выбранную пачку
+✔ выбирать зерно под фильтр, молоко, эспрессо или свой домашний метод
+✔ пользоваться готовой стартовой точкой вместо случайного рецепта
+✔ понимать, почему кофе кислый, горький, плоский или водянистый
+✔ разбираться в собственном вкусе, а не повторять мнение автора ролика
 
-💰 <b>299 ₽</b> картой или <b>165 ⭐</b> — один вечер чтения вместо месяцев случайных ошибок.
+Интерактивный справочник: навигация, прогресс чтения, подбор способа приготовления и мини-тест. Не статичный PDF.
+
+💰 <b>299 ₽</b> картой или <b>165 ⭐</b> — разовая оплата, доступ остаётся у тебя.
 `;
 
 const INSIDE = `
-📖 <b>Что внутри справочника</b>
+📖 <b>Что внутри</b>
 
-Главы продают результат, а не темы:
+• <b>Разбор пачки</b> — какие надписи помогают выбрать кофе, а какие лишь ориентир.
+• <b>Рабочая точка старта</b> — V60: 15–16 г кофе, 250 г воды, 93–96 °C, 2:30–3:15 — и понятная коррекция по вкусу.
+• <b>Шпаргалка диагностики</b> — быстро найдёшь вероятную причину неудачной чашки.
+• <b>Интерактивный подбор и мини-тест</b> — выберешь способ приготовления и проверишь логику настройки вкуса.
 
-• <b>Как читать упаковку</b> — после этой главы ты перестанешь покупать зерно только потому, что упаковка красивая.
-• <b>Как выбирать зерно</b> — без маркетинговых уловок и громких слов на этикетке.
-• <b>Как готовить дома</b> — перестань получать кислый или горький кофе: понятные рецепты и шпаргалки.
-• <b>Как экономить</b> — больше никаких неудачных покупок вслепую.
+<b>Система ремонта вкуса:</b>
+🟠 Кисло и пусто → помол мельче или больше времени
+🟠 Горько и вяжет → помол крупнее или меньше времени
+🟠 Водянисто → количество кофе и помол
+🟠 Плоско → свежесть зерна и состав воды
 
-Внутри: реальные таблицы, шпаргалки и примеры рецептов. Формат — интерактивный справочник, доступ открывается по персональному токену.
+Главное правило: менять только один параметр за раз. Внутри — расширенная диагностика, домашние упражнения, дневник кофе и разбор распространённых мифов.
 `;
 
+const AUTHOR = `
+👤 <b>Михаил Дмитриев — создатель A CUP</b>
+
+Более 9 лет работает с зерном, обжаркой, контролем качества, дегустациями и домашним приготовлением. Справочник переводит профессиональные принципы на понятный домашний язык.
+
+<b>Почему появился справочник?</b>
+«Чтобы собрать практический опыт в систему, которой удобно пользоваться дома.»
+
+Подход A CUP к кофе — в видео-интервью, полная версия — в статье.
+`;
+
+const AUTHOR_KB = {
+  inline_keyboard: [
+    [{ text: '📺 Видео-интервью', url: 'https://vk.com/video-148357406_456239122' }],
+    [{ text: '📄 Полное интервью', url: 'https://aim2flourish.com/innovations/consume-consciously-choose-your-perfect-drink-with-cupping' }],
+    [{ text: '✍️ Поддержка', url: 'https://t.me/Arcady_ya' }],
+  ],
+};
+
+const MENU = {
+  inline_keyboard: [
+    [
+      { text: '💳 Купить 299 ₽', callback_data: 'buy_card' },
+      { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
+    ],
+    [
+      { text: '📖 Что внутри', callback_data: 'whats_inside' },
+      { text: '👤 Об авторе', callback_data: 'author' },
+    ],
+    [
+      { text: '🔑 Мой доступ', callback_data: 'my_access' },
+    ],
+  ],
+};
 export const successText = (order, token, url) => `
 🎉 <b>Оплата прошла успешно!</b>
 
@@ -49,19 +89,6 @@ export const successText = (order, token, url) => `
 Сохрани токен в надёжном месте. При возврате оплаты доступ будет отозван автоматически.
 `;
 
-const MENU = {
-  inline_keyboard: [
-    [
-      { text: '💳 Купить за 299 ₽', callback_data: 'buy_card' },
-      { text: '⭐ Купить за 165 ⭐', callback_data: 'buy_stars' },
-    ],
-    [
-      { text: '📖 Что внутри', callback_data: 'whats_inside' },
-      { text: '🔑 Мой доступ', callback_data: 'my_access' },
-    ],
-  ],
-};
-
 async function tg(e, method, body) {
   const r = await fetch(BOT_API + e.BOT_TOKEN + '/' + method, {
     method: 'POST',
@@ -69,6 +96,30 @@ async function tg(e, method, body) {
     body: JSON.stringify(body),
   });
   return r.json().catch(() => ({}));
+}
+
+// Multipart-загрузка (картинки из R2 → Telegram)
+async function tgForm(e, method, form) {
+  const r = await fetch(BOT_API + e.BOT_TOKEN + '/' + method, { method: 'POST', body: form });
+  return r.json().catch(() => ({}));
+}
+
+// Отправка фото из R2-хранилища (r2key). Если объекта нет — шлём текст без фото.
+async function sendPhoto(e, chatId, r2key, caption, extra = {}) {
+  try {
+    const obj = await e.GUIDE.get(r2key);
+    if (!obj) return send(e, chatId, caption, extra);
+    const buf = await obj.arrayBuffer();
+    const form = new FormData();
+    form.append('chat_id', String(chatId));
+    form.append('photo', new Blob([buf], { type: 'image/jpeg' }), r2key.split('/').pop());
+    form.append('caption', caption);
+    form.append('parse_mode', 'HTML');
+    if (extra.reply_markup) form.append('reply_markup', JSON.stringify(extra.reply_markup));
+    return tgForm(e, 'sendPhoto', form);
+  } catch (_) {
+    return send(e, chatId, caption, extra);
+  }
 }
 
 async function send(e, chatId, text, extra = {}) {
@@ -181,7 +232,7 @@ async function activateBotOrder(e, u, chargeId) {
 
 async function handleUpdate(e, upd) {
   if (upd.message?.text === '/start') {
-    return send(e, upd.message.chat.id, WELCOME, { reply_markup: MENU });
+    return sendPhoto(e, upd.message.chat.id, 'guide/v1/assets/logo.jpg', WELCOME, { reply_markup: MENU });
   }
   // Админ-команды (только владелец)
   if (upd.message?.text && String(upd.message.chat.id) === String(e.TELEGRAM_CHAT_ID)) {
@@ -220,6 +271,10 @@ async function handleUpdate(e, upd) {
     if (cq.data === 'whats_inside') {
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
       return send(e, chatId, INSIDE, { reply_markup: MENU });
+    }
+    if (cq.data === 'author') {
+      await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
+      return sendPhoto(e, chatId, 'guide/v1/assets/author.jpg', AUTHOR, { reply_markup: AUTHOR_KB });
     }
     if (cq.data === 'my_access') {
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
