@@ -282,7 +282,12 @@ async function handleUpdate(e, upd) {
   if (upd.message?.text === '/start') {
     const f = upd.message.from;
     await logEv(e, 'bot_start', 'Визит: ' + userLabel(f), { id: f?.id, username: f?.username, first_name: f?.first_name });
-    await e.__notify('👤 Бот: новый визит — ' + userLabel(f));
+    try {
+      await e.__notify('👤 Бот: новый визит — ' + userLabel(f));
+      await logEv(e, 'notify_check', 'после __notify OK');
+    } catch (err) {
+      await logEv(e, 'notify_throw', String(err?.message || err).slice(0, 200));
+    }
     await sendAlbum(e, upd.message.chat.id, [COVER_PHOTO, RESULTS_PHOTO, INSIDE_PHOTO]);
     return send(e, upd.message.chat.id, WELCOME, { reply_markup: MENU });
   }
