@@ -297,38 +297,17 @@ async function handleUpdate(e, upd) {
     const cq = upd.callback_query;
     const chatId = cq.message?.chat?.id || cq.from.id;
     if (cq.data === 'buy_card') {
-      // Создаём платёж и отвечаем ссылкой; плюс видимый фолбэк —
-      // клавиатура сообщения превращается в кнопку «Оплатить» (не все клиенты открывают url из ответа)
+      // Мгновенный переход на оплату — без лишних кнопок
       if (!e.YOOKASSA_PROVIDER_TOKEN) {
         const url = await createCardPayment(e, chatId);
-        if (url) {
-          await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
-          if (cq.message?.message_id) {
-            await tg(e, 'editMessageReplyMarkup', {
-              chat_id: chatId,
-              message_id: cq.message.message_id,
-              reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url }]] },
-            });
-          }
-          return;
-        }
+        if (url) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
         await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
         return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
       }
       const ok = await sendInvoice(e, chatId, 'card');
       if (ok?.ok) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
       const url = await createCardPayment(e, chatId);
-      if (url) {
-        await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
-        if (cq.message?.message_id) {
-          await tg(e, 'editMessageReplyMarkup', {
-            chat_id: chatId,
-            message_id: cq.message.message_id,
-            reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url }]] },
-          });
-        }
-        return;
-      }
+      if (url) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
       return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
     }
