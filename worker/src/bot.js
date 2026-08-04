@@ -136,6 +136,11 @@ async function cardLinkFlow(e, chatId) {
       reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url: q.data.confirmation.confirmation_url }]] },
     });
   } catch (err) {
+    try {
+      await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
+        .bind(crypto.randomUUID(), 'error', 'bot', 'card_payment', String(err?.message || err).slice(0, 300), '{}', Date.now())
+        .run();
+    } catch (_) {}
     return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
   }
 }
