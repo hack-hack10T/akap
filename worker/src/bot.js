@@ -53,8 +53,19 @@ const AUTHOR = `
 Подход A CUP к кофе — в видео-интервью, полная версия — в статье.
 `;
 
+const ACCESS_URL = 'https://acup-access.acup-access.workers.dev/login';
+
+const ACCESS_KB = {
+  inline_keyboard: [[{ text: '📖 Открыть справочник', url: ACCESS_URL }]],
+};
+
 const AUTHOR_KB = {
   inline_keyboard: [
+    [
+      { text: '💳 Купить 299 ₽', callback_data: 'buy_card' },
+      { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
+    ],
+    [{ text: '🔑 Войти в гайд', url: ACCESS_URL }],
     [{ text: '📺 Видео-интервью', url: 'https://vk.com/video-148357406_456239122' }],
     [{ text: '📄 Полное интервью', url: 'https://aim2flourish.com/innovations/consume-consciously-choose-your-perfect-drink-with-cupping' }],
     [{ text: '✍️ Поддержка', url: 'https://t.me/Arcady_ya' }],
@@ -72,6 +83,7 @@ const MENU = {
       { text: '👤 Об авторе', callback_data: 'author' },
     ],
     [
+      { text: '🔑 Войти в гайд', url: ACCESS_URL },
       { text: '🔑 Мой доступ', callback_data: 'my_access' },
     ],
   ],
@@ -103,6 +115,16 @@ async function tg(e, method, body) {
 // Отправка фото по file_id (надёжно, без R2/FormData)
 const LOGO_PHOTO = 'AgACAgIAAxkDAAMQanGaLtLEMt27BYGyU3QQuaZWwRQAAjgZaxtuZohLwq1A1bm8KrsBAAMCAAN4AAM9BA';
 const AUTHOR_PHOTO = 'AgACAgIAAxkDAAMRanGaMJ_HSVURqw00UWUhK6tl7s4AAjkZaxtuZohLFugwc6-YDTsBAAMCAAN4AAM9BA';
+const COVER_PHOTO = 'AgACAgIAAxUHanGdNr34uS2ZWtSu_BfibGpwpdAAAkgZaxtuZohLSoeQBwp57UwBAAMCAAN5AAM9BA';
+const RESULTS_PHOTO = 'AgACAgIAAxUHanGdNlLa5F17jG1NNg0HdR46VQsAAkcZaxtuZohLWH9I90Uwk9cBAAMCAAN5AAM9BA';
+const INSIDE_PHOTO = 'AgACAgIAAxUHanGdNmcpoccI2yn4bOCT-AY5grIAAkkZaxtuZohLMZbaeQR8hcMBAAMCAAN5AAM9BA';
+
+async function sendAlbum(e, chatId, ids) {
+  return tg(e, 'sendMediaGroup', {
+    chat_id: chatId,
+    media: ids.map((id) => ({ type: 'photo', media: id })),
+  });
+}
 
 async function sendPhoto(e, chatId, fileId, caption, extra = {}) {
   return tg(e, 'sendPhoto', {
@@ -224,7 +246,8 @@ async function activateBotOrder(e, u, chargeId) {
 
 async function handleUpdate(e, upd) {
   if (upd.message?.text === '/start') {
-    return sendPhoto(e, upd.message.chat.id, LOGO_PHOTO, WELCOME, { reply_markup: MENU });
+    await sendAlbum(e, upd.message.chat.id, [COVER_PHOTO, RESULTS_PHOTO, INSIDE_PHOTO]);
+    return send(e, upd.message.chat.id, WELCOME, { reply_markup: MENU });
   }
   // Админ-команды (только владелец)
   if (upd.message?.text && String(upd.message.chat.id) === String(e.TELEGRAM_CHAT_ID)) {
