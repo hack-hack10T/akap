@@ -526,9 +526,8 @@
 
           <div class="acup-banner__bottom">
             <div class="acup-banner__price-block">
-              <span class="acup-banner__old">999 ₽</span>
               <span class="acup-banner__new">299 ₽</span>
-              <span class="acup-banner__note">разовая оплата · доступ сразу на почту</span>
+              <span class="acup-banner__note">разовая оплата · доступ сразу</span>
             </div>
             <a class="acup-banner__btn" href="guide/buy.html" id="acupGuideBuyBtn">
               Купить гайд →
@@ -1740,6 +1739,16 @@ var gameState = {
           </a>
         </div>
       </div>
+    
+      <div class="container" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(11,13,16,.08);color:rgba(11,13,16,.62);font-size:12px;line-height:1.7;letter-spacing:.02em">
+        <div>Продавец: Дмитриев Михаил Александрович, самозанятый (налог на профессиональный доход), ИНН 772453231807 &middot; A CUP &middot; акап.рф &middot; поддержка Telegram @Arcady_ya, mikhsan@yandex.ru</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-weight:900;text-transform:uppercase;letter-spacing:.06em">
+          <a href="guide/offer.html">Публичная оферта</a>
+          <a href="guide/privacy.html">Политика конфиденциальности</a>
+          <a href="guide/access.html">Вход по токену</a>
+        </div>
+        <div style="margin-top:6px">Цифровой гайд «От нуля до specialty»: доступ сразу после оплаты; возврат — в течение 7 дней с момента оплаты по номеру заказа (обращение в поддержку). Заказ зерна — кратно 10 кг, доставка бесплатная; возврат зерна и дрипов надлежащего качества — в течение 7 дней с момента получения при сохранении упаковки и потребительских свойств. Платежи — ЮKassa (ООО НКО «ЮМани»).</div>
+      </div>
     </footer>
 
   </main>
@@ -1888,9 +1897,9 @@ var gameState = {
     const QTY_STEP = { ethiopia_1kg: 10 };
 
     const PRODUCTS = [
-      { id:'ethiopia_1kg', title:'Эфиопия, зерно 1 кг', meta:'Эспрессо • натуральная обработка • SCA 82.5 • от 10 кг', price:2200, oldPrice:2800, badge:'Выгодно', badgeType:'dark', img: IMAGES.lineup, orderNote:'Заказ кратно 10 кг • бесплатная доставка', long:`<p style="margin:8px 0 0;color:rgba(11,13,16,.66);line-height:1.7">Эфиопия, натуральная обработка SCA 82.5. Наш взгляд на современный эспрессо — яркий энзимный кофе. Сочный гладкий эспрессо с букетом из красных ягод, бергамота и лайма</p><p style="margin:10px 0 0;color:rgba(11,13,16,.66);line-height:1.7"><b>Заказ зерна — только кратно 10 кг.</b> Доставка бесплатная.</p>` },
-      { id:'ethiopia_250', title:'Эфиопия, зерно 250 г', meta:'Эспрессо • ягоды / бергамот / лайм', price:1249, oldPrice:1749, badge:'Хит', badgeType:'brand', img: IMAGES.bag, orderNote:'Заказ зерна кратно 10 кг • бесплатная доставка', long:`<p style="margin:8px 0 0;color:rgba(11,13,16,.66);line-height:1.7">Эфиопия, натуральная обработка SCA 82.5. Наш взгляд на современный эспрессо — яркий энзимный кофе. Сочный гладкий эспрессо с букетом из красных ягод, бергамота и лайма</p><p style="margin:10px 0 0;color:rgba(11,13,16,.66);line-height:1.7"><b>Заказ зерна — только кратно 10 кг.</b> Доставка бесплатная.</p>` },
-      { id:'drip_8', title:'Дрип-кофе Seasons: коллекция 8 вкусов', meta:'8 сортов • удобно в дороге • яркая дегустация', price:899, oldPrice:1000, badge:'Коллекция', badgeType:'dark', img: IMAGES.dripbox, long: DRIP_HTML }
+      { id:'ethiopia_1kg', title:'Эфиопия, зерно 1 кг', meta:'Эспрессо • натуральная обработка • SCA 82.5 • от 10 кг', price:2200, badge:'От 10 кг', badgeType:'dark', img: IMAGES.lineup, orderNote:'Заказ кратно 10 кг • бесплатная доставка', long:`<p style="margin:8px 0 0;color:rgba(11,13,16,.66);line-height:1.7">Эфиопия, натуральная обработка SCA 82.5. Наш взгляд на современный эспрессо — яркий энзимный кофе. Сочный гладкий эспрессо с букетом из красных ягод, бергамота и лайма</p><p style="margin:10px 0 0;color:rgba(11,13,16,.66);line-height:1.7"><b>Заказ зерна — только кратно 10 кг.</b> Доставка бесплатная.</p>` },
+      { id:'ethiopia_250', title:'Эфиопия, зерно 250 г', meta:'Эспрессо • ягоды / бергамот / лайм', price:1249, badge:'Хит', badgeType:'brand', img: IMAGES.bag, orderNote:'Заказ зерна кратно 10 кг • бесплатная доставка', long:`<p style="margin:8px 0 0;color:rgba(11,13,16,.66);line-height:1.7">Эфиопия, натуральная обработка SCA 82.5. Наш взгляд на современный эспрессо — яркий энзимный кофе. Сочный гладкий эспрессо с букетом из красных ягод, бергамота и лайма</p><p style="margin:10px 0 0;color:rgba(11,13,16,.66);line-height:1.7"><b>Заказ зерна — только кратно 10 кг.</b> Доставка бесплатная.</p>` },
+      { id:'drip_8', title:'Дрип-кофе Seasons: коллекция 8 вкусов', meta:'8 сортов • удобно в дороге • яркая дегустация', price:899, badge:'Коллекция', badgeType:'dark', img: IMAGES.dripbox, long: DRIP_HTML }
     ];
 
   // External order links (clients.site)
@@ -1925,7 +1934,7 @@ var gameState = {
       const roots = document.querySelectorAll('[data-products]');
       roots.forEach(root => {
         root.innerHTML = PRODUCTS.map(p => {
-          const off = Math.round((1 - p.price / p.oldPrice) * 100);
+          
           const tagClass = p.badgeType === 'brand' ? 'tag tag--brand' : 'tag';
           const note = p.orderNote ? `<div class="p__note">${p.orderNote}</div>` : '';
           return `
@@ -1939,7 +1948,7 @@ var gameState = {
                 <h3 class="p__title">${p.title}</h3>
                 <div class="p__meta">${p.meta}</div>
                 ${note}
-                <div class="price"><s>${fmt(p.oldPrice)}</s><b>${fmt(p.price)}</b><span class="off">−${off}%</span></div>
+                <div class="price"><b>${fmt(p.price)}</b></div>
                 <div class="rowbtn">
                   <button class="btn btn--brand" type="button" onclick="addToCart('${p.id}')">В корзину</button>
                   <button class="btn btn--ghost" type="button" onclick="buyNow('${p.id}')">Купить</button>
@@ -2236,12 +2245,12 @@ var gameState = {
     function quickView(id){
       const p = PRODUCTS.find(x=>x.id===id);
       if(!p) return;
-      const off = Math.round((1 - p.price / p.oldPrice) * 100);
+      
       qvImg.src = p.img;
       qvImg.alt = p.title;
       qvTitle.textContent = p.title;
       qvMeta.textContent = p.meta;
-      qvPrice.innerHTML = `<s>${fmt(p.oldPrice)}</s> <b>${fmt(p.price)}</b> <span class="off">−${off}%</span>`;
+      qvPrice.innerHTML = `<b>${fmt(p.price)}</b>`;
       qvLong.innerHTML = p.long || '';
       qvAdd.onclick = ()=>{ addToCart(p.id); closeQV(); };
       qvBuy.onclick = ()=>{ buyNow(p.id); closeQV(); };

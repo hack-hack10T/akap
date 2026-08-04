@@ -22,7 +22,6 @@ window.ACUP = {
     title: 'От нуля до specialty',
     subtitle: 'Цифровой гайд A CUP',
     price: 299,
-    priceOld: 999,
     currency: 'RUB',
     description: 'Цифровой гайд «От нуля до specialty» — доступ к HTML-материалу автора',
     // Публичный API (cloudflared → guide-api :8788). ensure-tunnel.sh держит URL живым и пушит сюда.
