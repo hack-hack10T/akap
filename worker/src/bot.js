@@ -297,17 +297,38 @@ async function handleUpdate(e, upd) {
     const cq = upd.callback_query;
     const chatId = cq.message?.chat?.id || cq.from.id;
     if (cq.data === 'buy_card') {
-      // Мгновенный переход на оплату: отвечаем на callback ссылкой ЮKassa — без лишних шагов
+      // Создаём платёж и отвечаем ссылкой; плюс видимый фолбэк —
+      // клавиатура сообщения превращается в кнопку «Оплатить» (не все клиенты открывают url из ответа)
       if (!e.YOOKASSA_PROVIDER_TOKEN) {
         const url = await createCardPayment(e, chatId);
-        if (url) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
+        if (url) {
+          await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
+          if (cq.message?.message_id) {
+            await tg(e, 'editMessageReplyMarkup', {
+              chat_id: chatId,
+              message_id: cq.message.message_id,
+              reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url }]] },
+            });
+          }
+          return;
+        }
         await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
         return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
       }
       const ok = await sendInvoice(e, chatId, 'card');
       if (ok?.ok) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
       const url = await createCardPayment(e, chatId);
-      if (url) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
+      if (url) {
+        await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
+        if (cq.message?.message_id) {
+          await tg(e, 'editMessageReplyMarkup', {
+            chat_id: chatId,
+            message_id: cq.message.message_id,
+            reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url }]] },
+          });
+        }
+        return;
+      }
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
       return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
     }
