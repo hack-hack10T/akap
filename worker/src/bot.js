@@ -65,7 +65,6 @@ const AUTHOR_KB = {
       { text: '💳 Купить 299 ₽', callback_data: 'buy_card' },
       { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
     ],
-    [{ text: '🔑 Войти в гайд', url: ACCESS_URL }],
     [{ text: '📺 Видео-интервью', url: 'https://vk.com/video-148357406_456239122' }],
     [{ text: '📄 Полное интервью', url: 'https://aim2flourish.com/innovations/consume-consciously-choose-your-perfect-drink-with-cupping' }],
     [{ text: '✍️ Поддержка', url: 'https://t.me/Arcady_ya' }],
@@ -83,7 +82,6 @@ const MENU = {
       { text: '👤 Об авторе', callback_data: 'author' },
     ],
     [
-      { text: '🔑 Войти в гайд', url: ACCESS_URL },
       { text: '🔑 Мой доступ', callback_data: 'my_access' },
     ],
   ],
@@ -162,10 +160,9 @@ async function sendInvoice(e, chatId, provider) {
   return tg(e, 'sendInvoice', body);
 }
 
-// Оплата картой без provider-токена Telegram: создаём платёж ЮKassa напрямую
-// (self-fetch Worker→Worker нестабилен) и отдаём ссылку; после оплаты webhook
-// ЮKassa сам пришлёт токен в этот чат (см. activate + tg_chat_id в index.js).
-async function cardLinkFlow(e, chatId) {
+// Создаёт платёж ЮKassa для чата и возвращает confirmation_url (или null).
+// После оплаты webhook ЮKassa сам пришлёт токен в этот чат.
+async function createCardPayment(e, chatId) {
   try {
     const now = Date.now();
     const id = crypto.randomUUID();
@@ -197,17 +194,24 @@ async function cardLinkFlow(e, chatId) {
     await e.DB.prepare("UPDATE orders SET status='payment_pending',yookassa_payment_id=?,confirmation_url=?,updated_at=? WHERE id=?")
       .bind(q.data.id, q.data.confirmation.confirmation_url, Date.now(), id)
       .run();
-    return send(e, chatId, '💳 Оплата картой — по кнопке ниже (ЮKassa). После оплаты персональный токен доступа придёт прямо в этот чат.', {
-      reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url: q.data.confirmation.confirmation_url }]] },
-    });
+    return q.data.confirmation.confirmation_url;
   } catch (err) {
     try {
       await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)')
         .bind(crypto.randomUUID(), 'error', 'bot', 'card_payment', String(err?.message || err).slice(0, 300), '{}', Date.now())
         .run();
     } catch (_) {}
-    return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
+    return null;
   }
+}
+
+// Фолбэк, если мгновенный переход не сработал: ссылка кнопкой в чате
+async function cardLinkFlow(e, chatId) {
+  const url = await createCardPayment(e, chatId);
+  if (!url) return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
+  return send(e, chatId, '💳 Оплата картой — по кнопке ниже (ЮKassa). После оплаты персональный токен доступа придёт прямо в этот чат.', {
+    reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url }]] },
+  });
 }
 
 // Создаёт заказ после подтверждённой оплаты и выдаёт токен. Идемпотентно.
@@ -234,13 +238,13 @@ async function activateBotOrder(e, u, chargeId) {
       .first();
     if (existing) {
       const tok = await e.__token(existing.id);
-      await send(e, u.tgChatId, successText(existing.public_id, tok, e.__origin));
+      await send(e, u.tgChatId, successText(existing.public_id, tok, e.__origin), { reply_markup: ACCESS_KB });
       return false;
     }
     throw err;
   }
   await e.__notify(`A CUP: продажа через бота ${pub} — ${u.currency === 'XTR' ? u.amount / 100 + ' ⭐ (Stars)' : u.amount / 100 + ' ₽ (карта)'}`);
-  await send(e, u.tgChatId, successText(pub, t, e.__origin));
+  await send(e, u.tgChatId, successText(pub, t, e.__origin), { reply_markup: ACCESS_KB });
   return true;
 }
 
@@ -253,7 +257,7 @@ async function accessInfo(e, chatId) {
     .first();
   if (!o) return send(e, chatId, 'У тебя пока нет оплаченного доступа. Нажми «Купить» — и через минуту он появится здесь. 😉', { reply_markup: MENU });
   const tok = await e.__token(o.id);
-  return send(e, chatId, successText(o.public_id, tok, e.__origin), { reply_markup: MENU });
+  return send(e, chatId, successText(o.public_id, tok, e.__origin), { reply_markup: ACCESS_KB });
 }
 
 async function handleUpdate(e, upd) {
@@ -290,11 +294,19 @@ async function handleUpdate(e, upd) {
     const cq = upd.callback_query;
     const chatId = cq.message?.chat?.id || cq.from.id;
     if (cq.data === 'buy_card') {
-      await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
-      if (!e.YOOKASSA_PROVIDER_TOKEN) return cardLinkFlow(e, chatId);
+      // Мгновенный переход на оплату: отвечаем на callback ссылкой ЮKassa — без лишних шагов
+      if (!e.YOOKASSA_PROVIDER_TOKEN) {
+        const url = await createCardPayment(e, chatId);
+        if (url) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
+        await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
+        return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
+      }
       const ok = await sendInvoice(e, chatId, 'card');
-      if (ok?.ok) return;
-      return cardLinkFlow(e, chatId);
+      if (ok?.ok) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
+      const url = await createCardPayment(e, chatId);
+      if (url) return tg(e, 'answerCallbackQuery', { callback_query_id: cq.id, url });
+      await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
+      return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
     }
     if (cq.data === 'buy_stars') {
       const ok = await sendInvoice(e, chatId, 'stars');
