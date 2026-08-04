@@ -12,6 +12,7 @@ const page=x=>new Response(`<!doctype html><meta charset=utf-8><meta name=viewpo
 const metrika=`<script>window.dataLayer=window.dataLayer||[];window.ym=window.ym||function(){(ym.a=ym.a||[]).push(arguments)};ym.l=Date.now();ym(111214147,'init',{clickmap:false,trackLinks:true,accurateTrackBounce:true,webvisor:false,ecommerce:'dataLayer'});let ms=document.createElement('script');ms.async=true;ms.src='https://mc.yandex.ru/metrika/tag.js?id=111214147';document.head.appendChild(ms);function acupGoal(name,params){try{ym(111214147,'reachGoal',name,params||{})}catch(_){}}</script>`;
 async function yk(e,path,opt={}){let h={'authorization':'Basic '+btoa(e.YOOKASSA_SHOP_ID+':'+e.YOOKASSA_SECRET_KEY),'content-type':'application/json'};if(opt.key)h['Idempotence-Key']=opt.key;return fetch('https://api.yookassa.ru/v3'+path,{method:opt.method||'GET',headers:h,body:opt.body&&JSON.stringify(opt.body)}).then(async r=>({ok:r.ok,data:await r.json()}))}
 async function notify(e,text){
+  console.log('NOTIFY called:', String(text).slice(0,80), '| BOT:', !!e.TELEGRAM_BOT_TOKEN, '| CHAT:', e.TELEGRAM_CHAT_ID);
   if(!e.TELEGRAM_BOT_TOKEN||!e.TELEGRAM_CHAT_ID){
     try{await e.DB.prepare('INSERT INTO system_events VALUES(?,?,?,?,?,?,?,NULL)').bind(crypto.randomUUID(),'error','notify','skip_no_secrets','BOT='+!!e.TELEGRAM_BOT_TOKEN+' CHAT='+!!e.TELEGRAM_CHAT_ID,'{}',Date.now()).run()}catch(_){}
     return;
