@@ -244,11 +244,32 @@ async function activateBotOrder(e, u, chargeId) {
   return true;
 }
 
+// Показывает токен последнего оплаченного доступа (или предлагает купить)
+async function accessInfo(e, chatId) {
+  const o = await e.DB.prepare(
+    "SELECT id,public_id FROM orders WHERE tg_user_id=? AND status='access_created' ORDER BY created_at DESC LIMIT 1"
+  )
+    .bind(chatId)
+    .first();
+  if (!o) return send(e, chatId, 'У тебя пока нет оплаченного доступа. Нажми «Купить» — и через минуту он появится здесь. 😉', { reply_markup: MENU });
+  const tok = await e.__token(o.id);
+  return send(e, chatId, successText(o.public_id, tok, e.__origin), { reply_markup: MENU });
+}
+
 async function handleUpdate(e, upd) {
   if (upd.message?.text === '/start') {
     await sendAlbum(e, upd.message.chat.id, [COVER_PHOTO, RESULTS_PHOTO, INSIDE_PHOTO]);
     return send(e, upd.message.chat.id, WELCOME, { reply_markup: MENU });
   }
+  const cmd = upd.message?.text?.trim();
+  if (cmd === '/inside') return send(e, upd.message.chat.id, INSIDE, { reply_markup: MENU });
+  if (cmd === '/author') return sendPhoto(e, upd.message.chat.id, AUTHOR_PHOTO, AUTHOR, { reply_markup: AUTHOR_KB });
+  if (cmd === '/buy') {
+    return send(e, upd.message.chat.id,
+      '💳 <b>Карта</b> — 299 ₽ (ЮKassa)\n⭐ <b>Stars</b> — 165 ⭐\n\nРазовая оплата, доступ остаётся у тебя. 7 дней на возврат.',
+      { reply_markup: MENU });
+  }
+  if (cmd === '/access') return accessInfo(e, upd.message.chat.id);
   // Админ-команды (только владелец)
   if (upd.message?.text && String(upd.message.chat.id) === String(e.TELEGRAM_CHAT_ID)) {
     const m = upd.message.text.trim();
@@ -293,14 +314,7 @@ async function handleUpdate(e, upd) {
     }
     if (cq.data === 'my_access') {
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
-      const o = await e.DB.prepare(
-        "SELECT id,public_id FROM orders WHERE tg_user_id=? AND status='access_created' ORDER BY created_at DESC LIMIT 1"
-      )
-        .bind(cq.from.id)
-        .first();
-      if (!o) return send(e, chatId, 'У тебя пока нет оплаченного доступа. Нажми «Купить» — и через минуту он появится здесь. 😉', { reply_markup: MENU });
-      const tok = await e.__token(o.id);
-      return send(e, chatId, successText(o.public_id, tok, e.__origin), { reply_markup: MENU });
+      return accessInfo(e, chatId);
     }
   }
   if (upd.pre_checkout_query) {
