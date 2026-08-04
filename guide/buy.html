@@ -535,4 +535,55 @@
 <section class="section hero"><h2>Перестань каждый раз начинать с нуля</h2><p class="hero-sub">Получи рабочую систему выбора и приготовления кофе для каждой новой пачки и неудачной чашки.</p><div class="price-block"><span class="price-new">299 ₽</span><span class="price-note">разовая оплата</span></div><form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments"><input type="hidden" name="flow" value="direct"><button class="btn buy-now" type="submit">Купить и открыть справочник — 299 ₽</button></form><p class="cta-hint legal">Нажимая кнопку, вы принимаете условия <a href="offer.html">публичной оферты</a> и <a href="privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p><p class="cta-hint">ЮKassa · доступ сразу после оплаты · 7 дней на возврат</p></section>
 <div class="status global-status" id="payStatus" aria-live="polite"></div></main>
 <footer class="site-footer"><div class="row"><a href="../index.html">акап.рф</a><a href="offer.html">Оферта</a><a href="privacy.html">Конфиденциальность</a><a href="access.html">Вход по токену</a><a href="https://t.me/Arcady_ya">Поддержка</a></div><div>A CUP · самозанятый Дмитриев М.А., ИНН 772453231807 · ЮKassa</div></footer></div>
-<script>(function(){let busy=false;const buttons=[...document.querySelectorAll('.buy-now')],status=document.getElementById('payStatus');document.querySelectorAll('form.direct-buy').forEach((form,index)=>form.addEventListener('submit',()=>{if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy',{cta_position:index+1,price:299,currency:'RUB'});buttons.forEach(b=>{b.disabled=true;b.textContent='Переходим к безопасной оплате…'})}));async function buy(){if(busy)return;busy=true;buttons.forEach(b=>{b.disabled=true;b.dataset.label=b.textContent;b.textContent='Переходим к безопасной оплате…'});if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy');try{const base=await window.ACUPResolveApiBase();const nonce=sessionStorage.getItem('acup_payment_nonce')||String(Date.now())+'-'+Math.random().toString(36).slice(2);sessionStorage.setItem('acup_payment_nonce',nonce);const r=await fetch(base+'/api/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_nonce:nonce,acceptOffer:true,acceptPrivacy:true,acceptDigital:true,acceptIp:true,consent:true})});const d=await r.json();if(!r.ok||!d.confirmation_url)throw new Error(d.message||d.error||'Не удалось создать платёж');sessionStorage.setItem('acup_guide_order',d.orderId);location.href=d.confirmation_url}catch(e){status.className='status err global-status';status.textContent=e.message;busy=false;buttons.forEach(b=>{b.disabled=false;b.textContent=b.dataset.label})}}document.getElementById('loadAuthorVideo').addEventListener('click',function(){const shell=document.getElementById('authorVideo'),f=document.createElement('iframe');f.src=shell.dataset.src;f.title='Интервью с автором';f.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';f.allowFullscreen=true;shell.replaceChildren(f)},{once:true});if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy')})();</script></body></html>
+<script>(function(){let busy=false;const buttons=[...document.querySelectorAll('.buy-now')],status=document.getElementById('payStatus');document.querySelectorAll('form.direct-buy').forEach((form,index)=>form.addEventListener('submit',()=>{if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy',{cta_position:index+1,price:299,currency:'RUB'});buttons.forEach(b=>{b.disabled=true;b.textContent='Переходим к безопасной оплате…'})}));async function buy(){if(busy)return;busy=true;buttons.forEach(b=>{b.disabled=true;b.dataset.label=b.textContent;b.textContent='Переходим к безопасной оплате…'});if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy');try{const base=await window.ACUPResolveApiBase();const nonce=sessionStorage.getItem('acup_payment_nonce')||String(Date.now())+'-'+Math.random().toString(36).slice(2);sessionStorage.setItem('acup_payment_nonce',nonce);const r=await fetch(base+'/api/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_nonce:nonce,acceptOffer:true,acceptPrivacy:true,acceptDigital:true,acceptIp:true,consent:true})});const d=await r.json();if(!r.ok||!d.confirmation_url)throw new Error(d.message||d.error||'Не удалось создать платёж');sessionStorage.setItem('acup_guide_order',d.orderId);location.href=d.confirmation_url}catch(e){status.className='status err global-status';status.textContent=e.message;busy=false;buttons.forEach(b=>{b.disabled=false;b.textContent=b.dataset.label})}}document.getElementById('loadAuthorVideo').addEventListener('click',function(){const shell=document.getElementById('authorVideo'),f=document.createElement('iframe');f.src=shell.dataset.src;f.title='Интервью с автором';f.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';f.allowFullscreen=true;shell.replaceChildren(f)},{once:true});if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy')})();</script><script>
+(function () {
+  function gp(n) { try { return new URLSearchParams(location.search).get(n) || ''; } catch (_) { return ''; } }
+  function ss(n) { try { return sessionStorage.getItem('acup_utm_' + n) || ''; } catch (_) { return ''; } }
+  var utm = {
+    source: gp('utm_source') || ss('source'),
+    medium: gp('utm_medium') || ss('medium'),
+    campaign: gp('utm_campaign') || ss('campaign'),
+    term: gp('utm_term') || ss('term'),
+    content: gp('utm_content') || ss('content')
+  };
+  try {
+    var q = new URLSearchParams(location.search);
+    ['source', 'medium', 'campaign', 'term', 'content'].forEach(function (k) {
+      var v = q.get('utm_' + k);
+      if (v) sessionStorage.setItem('acup_utm_' + k, v);
+    });
+  } catch (_) {}
+  var utmQ = new URLSearchParams();
+  Object.keys(utm).forEach(function (k) { if (utm[k]) utmQ.set('utm_' + k, utm[k]); });
+  var utmS = utmQ.toString();
+  var nonce = (gp('test') === '1' ? 't_' : '') + (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
+  var apiBase = '';
+  if (window.ACUPResolveApiBase) { window.ACUPResolveApiBase().then(function (b) { apiBase = b; }).catch(function () {}); }
+  document.querySelectorAll('form.direct-buy').forEach(function (f) {
+    var base = f.action.split('?')[0];
+    if (utmS) f.action = base + '?' + utmS;
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var st = document.getElementById('payStatus');
+      if (window.ACUPMetrika) window.ACUPMetrika.reach('click_buy');
+      if (!apiBase) apiBase = String((window.ACUP && window.ACUP.guide && window.ACUP.guide.apiBase) || '').replace(/\/$/, '');
+      var url = apiBase + '/api/payments' + (utmS ? '?' + utmS : '');
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ client_nonce: nonce, acceptOffer: true, acceptPrivacy: true, acceptDigital: true, acceptIp: true, consent: true })
+      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (x) {
+          if (!x.ok || !x.d.confirmation_url) throw new Error(x.d.message || x.d.error || 'Не удалось создать платёж');
+          try { sessionStorage.setItem('acup_guide_order', x.d.orderId); } catch (_) {}
+          location.href = x.d.confirmation_url;
+        })
+        .catch(function (e) {
+          if (st) { st.className = 'status err global-status'; st.textContent = e.message || String(e); }
+          document.querySelectorAll('.buy-now').forEach(function (b) { b.disabled = false; b.textContent = b.dataset.label || 'Попробовать ещё раз'; });
+        });
+    });
+  });
+})();
+</script>
+</body></html>

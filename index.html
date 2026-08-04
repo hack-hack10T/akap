@@ -2388,5 +2388,17 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+<script>
+// UTM-захват для атрибуции: сохраняем метки из URL при заходе на любую страницу сайта
+(function () {
+  try {
+    var q = new URLSearchParams(location.search);
+    ['source', 'medium', 'campaign', 'term', 'content'].forEach(function (k) {
+      var v = q.get('utm_' + k);
+      if (v) sessionStorage.setItem('acup_utm_' + k, v);
+    });
+  } catch (_) {}
+})();
+</script>
 </body>
 </html>
