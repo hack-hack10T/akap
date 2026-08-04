@@ -21,6 +21,8 @@ const WELCOME = `
 Интерактивный справочник: навигация, прогресс чтения, подбор способа приготовления и мини-тест. Не статичный PDF.
 
 💰 <b>299 ₽</b> картой или <b>165 ⭐</b> — разовая оплата, доступ остаётся у тебя.
+
+🔒 ЮKassa · доступ сразу после оплаты · 7 дней на возврат
 `;
 
 const INSIDE = `
@@ -98,28 +100,18 @@ async function tg(e, method, body) {
   return r.json().catch(() => ({}));
 }
 
-// Multipart-загрузка (картинки из R2 → Telegram)
-async function tgForm(e, method, form) {
-  const r = await fetch(BOT_API + e.BOT_TOKEN + '/' + method, { method: 'POST', body: form });
-  return r.json().catch(() => ({}));
-}
+// Отправка фото по file_id (надёжно, без R2/FormData)
+const LOGO_PHOTO = 'AgACAgIAAxkDAAMQanGaLtLEMt27BYGyU3QQuaZWwRQAAjgZaxtuZohLwq1A1bm8KrsBAAMCAAN4AAM9BA';
+const AUTHOR_PHOTO = 'AgACAgIAAxkDAAMRanGaMJ_HSVURqw00UWUhK6tl7s4AAjkZaxtuZohLFugwc6-YDTsBAAMCAAN4AAM9BA';
 
-// Отправка фото из R2-хранилища (r2key). Если объекта нет — шлём текст без фото.
-async function sendPhoto(e, chatId, r2key, caption, extra = {}) {
-  try {
-    const obj = await e.GUIDE.get(r2key);
-    if (!obj) return send(e, chatId, caption, extra);
-    const buf = await obj.arrayBuffer();
-    const form = new FormData();
-    form.append('chat_id', String(chatId));
-    form.append('photo', new Blob([buf], { type: 'image/jpeg' }), r2key.split('/').pop());
-    form.append('caption', caption);
-    form.append('parse_mode', 'HTML');
-    if (extra.reply_markup) form.append('reply_markup', JSON.stringify(extra.reply_markup));
-    return tgForm(e, 'sendPhoto', form);
-  } catch (_) {
-    return send(e, chatId, caption, extra);
-  }
+async function sendPhoto(e, chatId, fileId, caption, extra = {}) {
+  return tg(e, 'sendPhoto', {
+    chat_id: chatId,
+    photo: fileId,
+    caption,
+    parse_mode: 'HTML',
+    ...extra,
+  });
 }
 
 async function send(e, chatId, text, extra = {}) {
@@ -232,7 +224,7 @@ async function activateBotOrder(e, u, chargeId) {
 
 async function handleUpdate(e, upd) {
   if (upd.message?.text === '/start') {
-    return sendPhoto(e, upd.message.chat.id, 'guide/v1/assets/logo.jpg', WELCOME, { reply_markup: MENU });
+    return sendPhoto(e, upd.message.chat.id, LOGO_PHOTO, WELCOME, { reply_markup: MENU });
   }
   // Админ-команды (только владелец)
   if (upd.message?.text && String(upd.message.chat.id) === String(e.TELEGRAM_CHAT_ID)) {
@@ -274,7 +266,7 @@ async function handleUpdate(e, upd) {
     }
     if (cq.data === 'author') {
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
-      return sendPhoto(e, chatId, 'guide/v1/assets/author.jpg', AUTHOR, { reply_markup: AUTHOR_KB });
+      return sendPhoto(e, chatId, AUTHOR_PHOTO, AUTHOR, { reply_markup: AUTHOR_KB });
     }
     if (cq.data === 'my_access') {
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
