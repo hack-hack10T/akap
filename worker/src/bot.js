@@ -54,6 +54,8 @@ const AUTHOR = `
 `;
 
 const ACCESS_URL = 'https://acup-access.acup-access.workers.dev/login';
+const APP_URL = 'https://acup-access.acup-access.workers.dev/app?v=2';
+const PAY_URL = 'https://acup-access.acup-access.workers.dev/pay';
 
 const ACCESS_KB = {
   inline_keyboard: [[{ text: '📖 Открыть справочник', url: ACCESS_URL }]],
@@ -70,9 +72,6 @@ const AUTHOR_KB = {
     [{ text: '✍️ Поддержка', url: 'https://t.me/Arcady_ya' }],
   ],
 };
-
-const APP_URL = 'https://acup-access.acup-access.workers.dev/app?v=2';
-const PAY_URL = 'https://acup-access.acup-access.workers.dev/pay';
 
 const MENU = {
   inline_keyboard: [
