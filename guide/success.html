@@ -23,7 +23,7 @@
     </div>
     <div class="card">
       <h1 id="title">Проверяем оплату…</h1>
-      <p class="meta" id="sub">Заказ <b id="orderId">—</b>. После оплаты ЮKassa статус обновится автоматически.</p>
+      <p class="meta" id="sub">Заказ <b id="orderId">—</b>.</p>
 
       <div id="pendingBox">
         <p>Если вы только что оплатили — не закрывайте страницу. Статус подтягивается из ЮKassa.</p>
@@ -33,58 +33,41 @@
       </div>
 
       <div id="paidBox" class="hidden">
-        <p class="status ok">Оплата подтверждена. Ваш персональный токен:</p>
-        <div class="token-box" id="tokenBox">—</div>
-        <div class="token-warning"><strong>Важно!</strong><span>Сохраните этот токен. Он потребуется для повторного входа в гайд, особенно на другом устройстве.</span></div>
-        <button class="btn" type="button" id="btnCopy" style="margin-top:14px">Скопировать токен</button>
-        <div class="copy-feedback" id="copyFeedback" role="status" aria-live="polite"></div>
-        <a class="btn btn-ghost" id="btnOpen" href="access.html">Открыть гайд по токену</a>
-        <p class="legal-note">Токен также сохранён в этом браузере. Не передавайте его третьим лицам.</p><p class="meta">Номер платежа: <b id="paymentId">—</b>. По нему поддержка поможет восстановить доступ и получить чек, оформленный продавцом через «Мой налог».</p><div class="contact-box"><h2>Сохранить токен и чек на email</h2><p class="meta">Необязательно. Email нужен только как резервный контакт после покупки.</p><div class="contact-row"><input class="field" id="reserveEmail" type="email" placeholder="you@email.com" inputmode="email"><button class="btn btn-ghost" id="saveContact" type="button">Сохранить email</button></div><div id="contactStatus" class="copy-feedback" aria-live="polite"></div></div>
+        <p class="status ok">Оплата подтверждена, доступ активирован.</p>
+        <p class="meta">Токен доступа был показан на странице возврата сразу после оплаты (если покупали через бота — пришёл в чат). Вход по токену: <a href="https://acup-access.acup-access.workers.dev/login" target="_blank" rel="noopener">открыть справочник</a>.</p>
+        <p class="legal-note">Потеряли токен? Поддержка <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a> восстановит доступ по номеру заказа <b id="orderId2">—</b>.</p>
       </div>
     </div>
     <footer class="page">A CUP · поддержка @Arcady_ya</footer>
   </div>
   <script>
   (function () {
-    const CFG = window.ACUP || {};
     const params = new URLSearchParams(location.search);
     let orderId = params.get('order') || params.get('label') || '';
-    try {
-      if (!orderId) orderId = sessionStorage.getItem('acup_guide_order') || '';
-    } catch (_) {}
+    try { if (!orderId) orderId = sessionStorage.getItem('acup_guide_order') || ''; } catch (_) {}
     document.getElementById('orderId').textContent = orderId || 'не указан';
+    document.getElementById('orderId2').textContent = orderId || 'не указан';
 
     const pendingBox = document.getElementById('pendingBox');
     const paidBox = document.getElementById('paidBox');
     const statusEl = document.getElementById('status');
     const title = document.getElementById('title');
     let timer = null;
-    let tries = 0;
     let apiBase = '';
-    let tokenSecured = false;
 
-    function showPaid(data) {
+    function ensureApi() {
+      if (apiBase) return Promise.resolve(apiBase);
+      if (window.ACUPResolveApiBase) return window.ACUPResolveApiBase().then(function (b) { apiBase = b; return b; });
+      apiBase = String((window.ACUP && window.ACUP.guide && window.ACUP.guide.apiBase) || '').replace(/\/$/, '');
+      return Promise.resolve(apiBase);
+    }
+
+    function showPaid() {
       clearInterval(timer);
       pendingBox.classList.add('hidden');
       paidBox.classList.remove('hidden');
       title.textContent = '✅ Оплата прошла успешно';
-      document.getElementById('sub').textContent = 'Справочник уже доступен. Сохраните персональный токен — он понадобится на другом устройстве или после очистки браузера.';
-      document.getElementById('paymentId').textContent = data.paymentId || 'уточните у поддержки по заказу ' + (data.orderId || orderId);
-      const tok = data.token || '';
-      document.getElementById('tokenBox').textContent = tok;
-      const open = document.getElementById('btnOpen');
-      open.href = 'access.html?token=' + encodeURIComponent(tok);
-      try {
-        localStorage.setItem('acup_guide_token', tok);
-      } catch (_) {}
-      open.addEventListener('click', function () { tokenSecured = true; }, { once: true });
-    }
-
-    async function ensureApi() {
-      if (apiBase) return apiBase;
-      if (window.ACUPResolveApiBase) apiBase = await window.ACUPResolveApiBase();
-      else apiBase = String((CFG.guide && CFG.guide.apiBase) || '').replace(/\/$/, '');
-      return apiBase;
+      document.getElementById('sub').textContent = 'Доступ к справочнику активирован. Токен — на странице возврата после оплаты (или в чате, если покупали через бота).';
     }
 
     async function check() {
@@ -93,20 +76,14 @@
         statusEl.textContent = 'Нет номера заказа в ссылке';
         return;
       }
-      tries++;
       try {
         const base = await ensureApi();
         if (!base) throw new Error('API не настроен');
-        const res = await fetch(base + '/api/guide/order-status?order=' + encodeURIComponent(orderId), {
-          cache: 'no-store',
-        });
-        const data = await res.json().catch(() => ({}));
+        const res = await fetch(base + '/api/guide/order-status?order=' + encodeURIComponent(orderId), { cache: 'no-store' });
+        const data = await res.json().catch(function () { return {}; });
         if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
-        if (data.status === 'paid' && data.token) {
-          showPaid(data);
-          return;
-        }
-        if (data.status === 'canceled' || data.status === 'error') {
+        if (data.status === 'access_created') { showPaid(); return; }
+        if (data.status === 'payment_canceled' || data.status === 'canceled' || data.status === 'error') {
           clearInterval(timer);
           title.textContent = 'Оплата не завершена';
           document.getElementById('sub').textContent = 'Деньги не списаны.';
@@ -123,60 +100,16 @@
     }
 
     document.getElementById('btnRefresh').onclick = check;
-    document.getElementById('btnCopy').onclick = async () => {
-      const t = document.getElementById('tokenBox').textContent;
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(t);
-        } else {
-          const field = document.createElement("textarea");
-          field.value = t;
-          field.setAttribute("readonly", "");
-          field.style.position = "fixed";
-          field.style.opacity = "0";
-          document.body.appendChild(field);
-          field.select();
-          if (!document.execCommand("copy")) throw new Error("copy unavailable");
-          field.remove();
-        }
-        document.getElementById('btnCopy').textContent = 'Скопировано ✓';
-        document.getElementById('copyFeedback').textContent = 'Токен успешно скопирован.';
-        tokenSecured = true;
-      } catch (_) {
-        document.getElementById("copyFeedback").textContent = "Не удалось скопировать автоматически. Выделите токен выше и сохраните его вручную.";
-      }
-    };
-
-    document.getElementById('saveContact').onclick = async function () { const email=document.getElementById('reserveEmail').value.trim(), out=document.getElementById('contactStatus'); try { const base=await ensureApi(); const res=await fetch(base+'/api/guide/order-contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderId,email,token:document.getElementById('tokenBox').textContent})}); const data=await res.json(); if(!res.ok)throw new Error(data.message||data.error); out.textContent='Email сохранён как резервный контакт.'; } catch(e){ out.textContent=e.message||'Проверьте email'; } };
-
-    window.addEventListener('beforeunload', function (event) {
-      if (!paidBox.classList.contains('hidden') && !tokenSecured) {
-        event.preventDefault();
-        event.returnValue = '';
-      }
-    });
-
     check();
     timer = setInterval(check, 3000);
-    setTimeout(() => clearInterval(timer), 5 * 60 * 1000);
+    setTimeout(function () { clearInterval(timer); }, 5 * 60 * 1000);
   })();
   </script>
 
 <script>
-(function () {
-  var fired = false;
-  var _orig = null;
-  // hook after success page marks paid
-  var obs = setInterval(function () {
-    var paid = document.getElementById('paidBox');
-    if (paid && !paid.classList.contains('hidden') && !fired) {
-      fired = true;
-      // The Worker emits purchase only after server-side payment verification.
-      clearInterval(obs);
-    }
-  }, 500);
-  setTimeout(function () { clearInterval(obs); }, 300000);
-})();
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.ACUPMetrika) window.ACUPMetrika.reach('view_success');
+});
 </script>
 
 </body>

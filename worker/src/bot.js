@@ -115,29 +115,30 @@ export async function notify(e, text) {
 
 const ACCESS_URL = 'https://acup-access.acup-access.workers.dev/login';
 const APP_URL = 'https://acup-access.acup-access.workers.dev/app?v=2';
-const PAY_URL = 'https://acup-access.acup-access.workers.dev/pay';
+// Кнопка оплаты картой — персональная ссылка с tg-контекстом: после оплаты вебхук пришлёт токен прямо в чат
+const payUrl = (chatId) => 'https://acup-access.acup-access.workers.dev/pay?tg=' + encodeURIComponent(chatId);
 
 const ACCESS_KB = {
   inline_keyboard: [[{ text: '📖 Открыть справочник', url: ACCESS_URL }]],
 };
 
-const AUTHOR_KB = {
+const authorKb = (chatId) => ({
   inline_keyboard: [
     [
-      { text: '💳 Купить 299 ₽', url: PAY_URL },
+      { text: '💳 Купить 299 ₽', url: payUrl(chatId) },
       { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
     ],
     [{ text: '📺 Видео-интервью', url: 'https://vk.com/video-148357406_456239122' }],
     [{ text: '📄 Полное интервью', url: 'https://aim2flourish.com/innovations/consume-consciously-choose-your-perfect-drink-with-cupping' }],
     [{ text: '✍️ Поддержка', url: 'https://t.me/Arcady_ya' }],
   ],
-};
+});
 
-const MENU = {
+const menu = (chatId) => ({
   inline_keyboard: [
     [{ text: '🛍 Магазин', web_app: { url: APP_URL } }],
     [
-      { text: '💳 Купить 299 ₽', url: PAY_URL },
+      { text: '💳 Купить 299 ₽', url: payUrl(chatId) },
       { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
     ],
     [
@@ -148,7 +149,7 @@ const MENU = {
       { text: '🔑 Мой доступ', callback_data: 'my_access' },
     ],
   ],
-};
+});
 export const successText = (order, token, url) => `
 🎉 <b>Оплата прошла успешно!</b>
 
@@ -234,10 +235,10 @@ export async function createCardPayment(e, chatId) {
     const returnKey = crypto.randomUUID() + crypto.randomUUID();
     const returnHash = await e.__hash(returnKey);
     await e.DB.prepare(
-      `INSERT INTO orders(id,public_id,product_id,product_version,amount,currency,status,idempotency_key,created_at,updated_at,return_key_hash,tg_chat_id)
-       VALUES(?,?,?,?,29900,'RUB','created',?,?,?,?,?)`
+      `INSERT INTO orders(id,public_id,product_id,product_version,amount,currency,status,idempotency_key,created_at,updated_at,return_key_hash,tg_chat_id,tg_user_id)
+       VALUES(?,?,?,?,29900,'RUB','created',?,?,?,?,?,?)`
     )
-      .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, key, now, now, returnHash, chatId)
+      .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, key, now, now, returnHash, chatId, chatId)
       .run();
     const ret = new URL('/payment/return', e.__origin);
     ret.searchParams.set('order', pub);
@@ -318,7 +319,7 @@ async function accessInfo(e, chatId) {
   )
     .bind(chatId)
     .first();
-  if (!o) return send(e, chatId, 'У тебя пока нет оплаченного доступа. Нажми «Купить» — и через минуту он появится здесь. 😉', { reply_markup: MENU });
+  if (!o) return send(e, chatId, 'У тебя пока нет оплаченного доступа. Нажми «Купить» — и через минуту он появится здесь. 😉', { reply_markup: menu(chatId) });
   const tok = await e.__token(o.id);
   return send(e, chatId, successText(o.public_id, tok, e.__origin), { reply_markup: ACCESS_KB });
 }
@@ -334,15 +335,15 @@ async function handleUpdate(e, upd) {
       await logEv(e, 'notify_throw', String(err?.message || err).slice(0, 200));
     }
     await sendAlbum(e, upd.message.chat.id, [COVER_PHOTO, RESULTS_PHOTO, INSIDE_PHOTO]);
-    return send(e, upd.message.chat.id, WELCOME, { reply_markup: MENU });
+    return send(e, upd.message.chat.id, WELCOME, { reply_markup: menu(chatId) });
   }
   const cmd = upd.message?.text?.trim();
-  if (cmd === '/inside') return send(e, upd.message.chat.id, INSIDE, { reply_markup: MENU });
-  if (cmd === '/author') return sendPhoto(e, upd.message.chat.id, AUTHOR_PHOTO, AUTHOR, { reply_markup: AUTHOR_KB });
+  if (cmd === '/inside') return send(e, upd.message.chat.id, INSIDE, { reply_markup: menu(chatId) });
+  if (cmd === '/author') return sendPhoto(e, upd.message.chat.id, AUTHOR_PHOTO, AUTHOR, { reply_markup: authorKb(chatId) });
   if (cmd === '/buy') {
     return send(e, upd.message.chat.id,
       '💳 <b>Карта</b> — 299 ₽ (ЮKassa)\n⭐ <b>Stars</b> — 165 ⭐\n\nРазовая оплата, доступ остаётся у тебя. 7 дней на возврат.',
-      { reply_markup: MENU });
+      { reply_markup: menu(chatId) });
   }
   if (cmd === '/access') return accessInfo(e, upd.message.chat.id);
   // Админ-команды (только владелец)
@@ -393,11 +394,11 @@ async function handleUpdate(e, upd) {
     }
     if (cq.data === 'whats_inside') {
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
-      return send(e, chatId, INSIDE, { reply_markup: MENU });
+      return send(e, chatId, INSIDE, { reply_markup: menu(chatId) });
     }
     if (cq.data === 'author') {
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
-      return sendPhoto(e, chatId, AUTHOR_PHOTO, AUTHOR, { reply_markup: AUTHOR_KB });
+      return sendPhoto(e, chatId, AUTHOR_PHOTO, AUTHOR, { reply_markup: authorKb(chatId) });
     }
     if (cq.data === 'my_access') {
       await tg(e, 'answerCallbackQuery', { callback_query_id: cq.id });
