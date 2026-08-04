@@ -171,7 +171,7 @@
     var paid = document.getElementById('paidBox');
     if (paid && !paid.classList.contains('hidden') && !fired) {
       fired = true;
-      if (window.ACUPMetrika) window.ACUPMetrika.reach('purchase');
+      // The Worker emits purchase only after server-side payment verification.
       clearInterval(obs);
     }
   }, 500);
