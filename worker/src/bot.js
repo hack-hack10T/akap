@@ -335,15 +335,15 @@ async function handleUpdate(e, upd) {
       await logEv(e, 'notify_throw', String(err?.message || err).slice(0, 200));
     }
     await sendAlbum(e, upd.message.chat.id, [COVER_PHOTO, RESULTS_PHOTO, INSIDE_PHOTO]);
-    return send(e, upd.message.chat.id, WELCOME, { reply_markup: menu(chatId) });
+    return send(e, upd.message.chat.id, WELCOME, { reply_markup: menu(upd.message.chat.id) });
   }
   const cmd = upd.message?.text?.trim();
-  if (cmd === '/inside') return send(e, upd.message.chat.id, INSIDE, { reply_markup: menu(chatId) });
-  if (cmd === '/author') return sendPhoto(e, upd.message.chat.id, AUTHOR_PHOTO, AUTHOR, { reply_markup: authorKb(chatId) });
+  if (cmd === '/inside') return send(e, upd.message.chat.id, INSIDE, { reply_markup: menu(upd.message.chat.id) });
+  if (cmd === '/author') return sendPhoto(e, upd.message.chat.id, AUTHOR_PHOTO, AUTHOR, { reply_markup: authorKb(upd.message.chat.id) });
   if (cmd === '/buy') {
     return send(e, upd.message.chat.id,
       '💳 <b>Карта</b> — 299 ₽ (ЮKassa)\n⭐ <b>Stars</b> — 165 ⭐\n\nРазовая оплата, доступ остаётся у тебя. 7 дней на возврат.',
-      { reply_markup: menu(chatId) });
+      { reply_markup: menu(upd.message.chat.id) });
   }
   if (cmd === '/access') return accessInfo(e, upd.message.chat.id);
   // Админ-команды (только владелец)
