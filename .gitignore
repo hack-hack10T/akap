@@ -5,3 +5,6 @@ server/data/final-guide.html
 *.log
 
 .wrangler/
+
+# DNS setup screenshots (private)
+reg_*.png
