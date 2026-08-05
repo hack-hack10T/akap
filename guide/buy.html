@@ -555,7 +555,8 @@
   } catch (_) {}
   var utmQ = new URLSearchParams();
   Object.keys(utm).forEach(function (k) { if (utm[k]) utmQ.set('utm_' + k, utm[k]); });
-  var utmS = utmQ.toString();
+  var refParam = gp('ref') ? 'ref=' + encodeURIComponent(gp('ref').toUpperCase().trim().slice(0, 9)) : '';
+  var utmS = [utmQ.toString(), refParam].filter(Boolean).join('&');
   var nonce = (gp('test') === '1' ? 't_' : '') + (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
   var apiBase = '';
   if (window.ACUPResolveApiBase) { window.ACUPResolveApiBase().then(function (b) { apiBase = b; }).catch(function () {}); }

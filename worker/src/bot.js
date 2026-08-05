@@ -150,7 +150,7 @@ const menu = (chatId) => ({
     ],
   ],
 });
-export const successText = (order, token, url) => `
+export const successText = (order, token, url, ref) => `
 🎉 <b>Оплата прошла успешно!</b>
 
 Заказ: <code>${order}</code>
@@ -163,7 +163,7 @@ export const successText = (order, token, url) => `
 2. Введи токен (или сохрани его — он действует всё время доступа).
 
 Сохрани токен в надёжном месте. При возврате оплаты доступ будет отозван автоматически.
-`;
+` + (ref ? '\n\n🎁 <b>Подари другу −10%</b> — твой персональный код:\n<code>' + ref + '</code>\nСсылка: https://xn--80aa3av.xn--p1ai/guide/buy.html?ref=' + ref : '');
 
 async function tg(e, method, body) {
   const r = await fetch(BOT_API + e.BOT_TOKEN + '/' + method, {
@@ -235,10 +235,10 @@ export async function createCardPayment(e, chatId) {
     const returnKey = crypto.randomUUID() + crypto.randomUUID();
     const returnHash = await e.__hash(returnKey);
     await e.DB.prepare(
-      `INSERT INTO orders(id,public_id,product_id,product_version,amount,currency,status,idempotency_key,created_at,updated_at,return_key_hash,tg_chat_id,tg_user_id)
-       VALUES(?,?,?,?,29900,'RUB','created',?,?,?,?,?,?)`
+      `INSERT INTO orders(id,public_id,product_id,product_version,amount,currency,status,idempotency_key,created_at,updated_at,return_key_hash,tg_chat_id,tg_user_id,ref_code)
+       VALUES(?,?,?,?,29900,'RUB','created',?,?,?,?,?,?,?)`
     )
-      .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, key, now, now, returnHash, chatId, chatId)
+      .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, key, now, now, returnHash, chatId, chatId, refCode())
       .run();
     const ret = new URL('/payment/return', e.__origin);
     ret.searchParams.set('order', pub);
@@ -287,11 +287,12 @@ async function activateBotOrder(e, u, chargeId) {
   const t = await e.__token(id);
   const th = await e.__hash(t);
   try {
+    const rc = refCode();
     await e.DB.prepare(
-      `INSERT INTO orders(id,public_id,product_id,product_version,amount,currency,status,idempotency_key,yookassa_payment_id,created_at,updated_at,paid_at,token_key_version,token_hash,receipt_status,tg_user_id,tg_chat_id)
-       VALUES(?,?,?,?,?,?,'access_created',?,?,?,?,?,1,?,'none',?,?)`
+      `INSERT INTO orders(id,public_id,product_id,product_version,amount,currency,status,idempotency_key,yookassa_payment_id,created_at,updated_at,paid_at,token_key_version,token_hash,receipt_status,tg_user_id,tg_chat_id,ref_code)
+       VALUES(?,?,?,?,?,?,'access_created',?,?,?,?,?,1,?,'none',?,?,?)`
     )
-      .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, u.amount, u.currency, chargeId, u.providerChargeId, now, now, now, th, u.tgUserId, u.tgChatId)
+      .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, u.amount, u.currency, chargeId, u.providerChargeId, now, now, now, th, u.tgUserId, u.tgChatId, rc)
       .run();
   } catch (err) {
     // Повторная доставка successful_payment: находим существующий заказ по charge id
@@ -302,13 +303,13 @@ async function activateBotOrder(e, u, chargeId) {
       .first();
     if (existing) {
       const tok = await e.__token(existing.id);
-      await send(e, u.tgChatId, successText(existing.public_id, tok, e.__origin), { reply_markup: ACCESS_KB });
+      await send(e, u.tgChatId, successText(existing.public_id, tok, e.__origin, existing.ref_code || null), { reply_markup: ACCESS_KB });
       return false;
     }
     throw err;
   }
   await notify(e, `💰 ПРОДАЖА через бота ${pub} — ${u.currency === 'XTR' ? u.amount / 100 + ' ⭐ (Stars)' : u.amount / 100 + ' ₽ (карта)'}${u.buyer ? ' — ' + userLabel(u.buyer) : ''}`);
-  await send(e, u.tgChatId, successText(pub, t, e.__origin), { reply_markup: ACCESS_KB });
+  await send(e, u.tgChatId, successText(pub, t, e.__origin, rc), { reply_markup: ACCESS_KB });
   return true;
 }
 
