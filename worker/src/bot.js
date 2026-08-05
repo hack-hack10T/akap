@@ -455,7 +455,7 @@ async function refundOrder(e, chatId, pub) {
     const q = await e.__yk(e, '/refunds', {
       method: 'POST',
       key: crypto.randomUUID(),
-      body: { payment_id: o.yookassa_payment_id, amount: { value: '299.00', currency: 'RUB' } },
+      body: { payment_id: o.yookassa_payment_id, amount: { value: (o.amount / 100).toFixed(2), currency: 'RUB' } },
     });
     if (!q.ok) return send(e, chatId, 'Не удалось оформить возврат в ЮKassa: ' + JSON.stringify(q.data?.description || q.data));
     await revoke(e, o);
