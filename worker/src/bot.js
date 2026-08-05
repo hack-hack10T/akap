@@ -22,7 +22,7 @@ const WELCOME = `
 
 💰 <b>299 ₽</b> картой или <b>165 ⭐</b> — разовая оплата, доступ остаётся у тебя.
 
-🔒 ЮKassa · доступ сразу после оплаты · 7 дней на возврат
+🔒 ЮKassa · доступ сразу после оплаты · 🛡 14 дней на возврат — не зайдёт, вернём деньги
 `;
 
 const INSIDE = `
@@ -342,7 +342,7 @@ async function handleUpdate(e, upd) {
   if (cmd === '/author') return sendPhoto(e, upd.message.chat.id, AUTHOR_PHOTO, AUTHOR, { reply_markup: authorKb(upd.message.chat.id) });
   if (cmd === '/buy') {
     return send(e, upd.message.chat.id,
-      '💳 <b>Карта</b> — 299 ₽ (ЮKassa)\n⭐ <b>Stars</b> — 165 ⭐\n\nРазовая оплата, доступ остаётся у тебя. 7 дней на возврат.',
+      '💳 <b>Карта</b> — 299 ₽ (ЮKassa)\n⭐ <b>Stars</b> — 165 ⭐\n\nРазовая оплата, доступ остаётся у тебя. 🛡 <b>14 дней на возврат</b> — если не зайдёт, вернём деньги (поддержка @Arcady_ya, по номеру заказа).',
       { reply_markup: menu(upd.message.chat.id) });
   }
   if (cmd === '/access') return accessInfo(e, upd.message.chat.id);
