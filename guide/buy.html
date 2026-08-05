@@ -1,616 +1,150 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Справочник по кофе от нуля до specialty — A CUP</title>
-<meta name="description" content="Рецепты V60, аэропресс и эспрессо, шпаргалка «кисло/горько», разбор упаковки. ≈10 000 слов. Разовая оплата 299 ₽, доступ сразу после оплаты, 14 дней на возврат." />
-<meta name="theme-color" content="#0C0A09" />
-<link rel="canonical" href="https://акап.рф/guide/buy.html" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Справочник по кофе — от нуля до specialty · A CUP" />
-<meta property="og:description" content="Рецепты, шпаргалки, диагностика вкуса. Разовая оплата 299 ₽, доступ сразу после оплаты, 14 дней на возврат." />
-<meta property="og:image" content="https://акап.рф/guide/assets/mikhail-portrait.webp" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-<script src="../config.js"></script>
-<script src="../js/api.js"></script>
-<script src="../js/metrika.js"></script>
-<style>
-  /* ============================================================
-     A CUP · buy.html · премиальный редизайн (креативный директор)
-     Тёплый эспрессо-фон · серифная editorial-типографика ·
-     янтарно-золотой CTA · полное соблюдение юр. требований
-     ============================================================ */
-  :root{
-    --bg:#0C0A09;
-    --bg-elev:#12100D;
-    --bg-card:#17130F;
-    --text:#F4EEE2;
-    --muted:#A99B8B;
-    --muted-2:#6F6353;
-    --line:rgba(244,238,226,.09);
-    --line-2:rgba(244,238,226,.16);
-    --accent:#C83E2E;
-    --accent-hi:#D94F3D;
-    --accent-deep:#9E2F22;
-    --accent-soft:rgba(200,62,46,.25);
-    --accent-glow:rgba(200,62,46,.22);
-    --gold:#D9A962;
-    --gold-hi:#F0C987;
-    --gold-deep:#B9853F;
-    --gold-soft:rgba(217,169,98,.14);
-    --ok:#86C9A8;
-    --ok-soft:rgba(134,201,168,.12);
-    --ok-line:rgba(134,201,168,.32);
-    --radius:18px;
-    --radius-sm:12px;
-    --max:1180px;
-    --col:760px;
-    --serif:Georgia,'Times New Roman',serif;
-    --sans:'Inter',system-ui,-apple-system,sans-serif;
-    --brand:'Space Grotesk','Inter',system-ui,sans-serif;
-  }
-  *,*::before,*::after{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;
-    font-family:var(--sans);
-    color:var(--text);
-    background:var(--bg);
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  a{color:var(--gold);text-decoration:none}
-  a:hover{color:var(--gold-hi)}
-  .page{max-width:var(--max);margin:0 auto;padding:0 clamp(20px,5vw,56px) 40px}
-  .stage{position:relative}
-  .stage::before{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:
-      radial-gradient(ellipse 55% 42% at 82% 4%, rgba(217,169,98,.10), transparent 65%),
-      radial-gradient(ellipse 40% 36% at 6% 18%, rgba(217,169,98,.06), transparent 60%);
-  }
-
-  /* —— Header —— */
-  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0 8px;position:relative}
-  .brand{display:flex;flex-direction:column;gap:2px}
-  .brand b{font-family:var(--brand);font-weight:700;font-size:15px;letter-spacing:.16em;text-transform:uppercase}
-  .brand i{font-style:normal;font-size:11.5px;color:var(--muted)}
-  .top a{color:var(--muted);font-size:13px;border:1px solid var(--line-2);padding:8px 14px;border-radius:999px;transition:.2s;white-space:nowrap}
-  .top a:hover{color:var(--text);border-color:var(--gold);box-shadow:0 0 24px rgba(217,169,98,.14)}
-
-  /* —— Shared —— */
-  .kicker{display:inline-block;font:600 11px/1.2 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-  h1,h2,h3{margin:0;font-family:var(--serif);font-weight:500;letter-spacing:-.015em;line-height:1.08}
-  h1{font-size:clamp(2.5rem,5.6vw,4.05rem);margin-bottom:20px}
-  h1 em{font-style:italic;color:var(--gold)}
-  h2{font-size:clamp(1.7rem,3.6vw,2.3rem);margin-bottom:14px}
-  h3{font-size:1.05rem;margin-bottom:6px;font-family:var(--sans);font-weight:600;letter-spacing:0}
-  .lead{color:var(--muted);font-size:clamp(1rem,1.4vw,1.12rem);max-width:32em;margin:0 0 26px;line-height:1.6}
-  .section{margin-top:72px;position:relative}
-  .section-note{color:var(--muted);font-size:15px;max-width:38em;margin:0 0 24px}
-  .muted{color:var(--muted)}
-  .pill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);border:1px solid var(--line-2);border-radius:999px;padding:6px 12px;background:rgba(244,238,226,.02)}
-  .pill::before{content:"✓";color:var(--gold);font-weight:700}
-  .pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
-
-  /* —— Hero —— */
-  .hero{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(32px,5vw,64px);align-items:center;padding:44px 0 30px;position:relative}
-  .chip{display:inline-flex;align-items:center;gap:9px;font:600 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(217,169,98,.35);background:rgba(217,169,98,.07);padding:8px 14px;border-radius:999px;margin-bottom:20px}
-  .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
-  .price-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
-  .price{font-family:var(--serif);font-weight:700;font-size:clamp(2.5rem,4.4vw,3.3rem);color:var(--gold);letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-shadow:0 0 44px rgba(217,169,98,.3)}
-  .price-note{color:var(--muted);font-size:13.5px}
-  .buy-card{padding:24px;border-radius:22px;background:linear-gradient(180deg,var(--bg-card),var(--bg-elev));border:1px solid var(--line-2);box-shadow:0 30px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);max-width:460px;position:relative}
-  .buy-card::before{content:"";position:absolute;inset:-1px;border-radius:22px;box-shadow:0 0 80px rgba(217,169,98,.07);pointer-events:none}
-  .cta button,.cta .btn{
-    appearance:none;border:0;cursor:pointer;width:100%;min-height:62px;border-radius:16px;
-    background:linear-gradient(135deg,var(--gold-hi),var(--gold) 55%,var(--gold-deep));
-    color:#241607;font:700 17px/1 var(--sans);letter-spacing:-.01em;text-decoration:none;
-    display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    box-shadow:0 14px 40px rgba(217,169,98,.30), inset 0 1px 0 rgba(255,255,255,.4);
-    transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
-  }
-  .cta .btn:hover{transform:translateY(-2px);box-shadow:0 20px 52px rgba(217,169,98,.42), inset 0 1px 0 rgba(255,255,255,.45);filter:brightness(1.03)}
-  .cta .btn:active{transform:translateY(0) scale(.99)}
-  .cta .btn:disabled{opacity:.65;cursor:wait;transform:none;box-shadow:none}
-  .guar-line{display:flex;align-items:flex-start;gap:11px;margin-top:14px;padding:12px 14px;border-radius:14px;background:rgba(134,201,168,.13);border:1px solid rgba(134,201,168,.42);font-size:13.5px;line-height:1.5;color:var(--muted)}
-  .guar-line .shield{flex:0 0 auto;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(134,201,168,.18);border:1px solid rgba(134,201,168,.5);color:var(--ok)}
-  .guar-line .shield svg{width:17px;height:17px}
-  .guar-line b{color:var(--ok);font-weight:600}
-  .guar-line a{color:var(--ok);text-decoration:underline;text-underline-offset:3px}
-  .consent{margin:12px 0 0;font-size:12.5px;line-height:1.55;color:#8F8170;text-align:center}
-  .consent a{color:#C9B795;text-decoration:underline;text-underline-offset:3px}
-  .consent a:hover{color:var(--gold-hi)}
-
-  /* phone mockup */
-  .visual{position:relative;display:grid;place-items:center;padding:10px 0 30px}
-  .glow{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(217,169,98,.14),transparent 65%);filter:blur(6px)}
-  .phone{position:relative;width:258px;border-radius:36px;background:linear-gradient(160deg,#221E18,#16130F);border:1px solid rgba(244,238,226,.13);padding:11px;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.5);transform:rotate(-2deg)}
-  .phone::before{content:"";position:absolute;top:17px;left:50%;transform:translateX(-50%);width:84px;height:20px;background:#0C0A09;border-radius:999px;border:1px solid rgba(244,238,226,.11);z-index:5}
-  .screen{background:linear-gradient(180deg,#F7F0E2,#EEE4CF);border-radius:26px;overflow:hidden;padding:36px 16px 18px;color:#2B2117}
-  .app-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
-  .app-top b{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8A6C3F}
-  .app-top span{width:19px;height:19px;border:1.5px solid #C9A45C;border-radius:6px;display:grid;place-items:center;color:#C9A45C;font-size:10px}
-  .app-title{font-family:var(--serif);font-size:19px;line-height:1.16;color:#2B2117;margin-bottom:10px}
-  .app-title em{font-style:italic;color:#B0752F}
-  .progress{height:5px;border-radius:99px;background:#E3D6BC;overflow:hidden;margin-bottom:15px}
-  .progress i{display:block;height:100%;width:58%;background:linear-gradient(90deg,#C9903F,#E8A15C);border-radius:99px}
-  .rows{display:grid;gap:8px}
-  .r{display:flex;align-items:center;gap:9px;background:#FBF6EA;border:1px solid #E8DCC2;border-radius:11px;padding:8px 10px;font-size:11.5px;color:#4A3B28}
-  .r i{flex:0 0 auto;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:10px;font-style:normal}
-  .r:nth-child(1) i{background:#F3E0BE;color:#A06A20}
-  .r:nth-child(2) i{background:#E9EFE3;color:#5C8A55}
-  .r:nth-child(3) i{background:#F6DFDA;color:#B4503A}
-  .r b{flex:1;font-weight:600}
-  .r small{color:#9A8B71}
-  .floating{position:absolute;left:-10px;bottom:14px;background:rgba(18,15,12,.94);border:1px solid rgba(217,169,98,.4);border-radius:16px;padding:11px 15px;box-shadow:0 18px 44px rgba(0,0,0,.5);display:flex;align-items:center;gap:10px;backdrop-filter:blur(6px)}
-  .floating .f-ico{width:32px;height:32px;border-radius:50%;background:var(--ok-soft);border:1px solid var(--ok-line);display:grid;place-items:center;color:var(--ok)}
-  .floating .f-ico svg{width:16px;height:16px}
-  .floating b{font-size:12.5px;display:block;line-height:1.25;color:var(--text)}
-  .floating small{color:var(--muted);font-size:11px}
-  .steam{position:absolute;top:-4px;right:30px;display:flex;gap:7px;opacity:.85}
-  .steam i{width:5px;height:26px;border-radius:99px;background:linear-gradient(180deg,rgba(244,238,226,0),rgba(244,238,226,.5));animation:rise 2.6s ease-in-out infinite}
-  .steam i:nth-child(2){animation-delay:.5s;height:34px}
-  .steam i:nth-child(3){animation-delay:1.1s;height:22px}
-  @keyframes rise{0%{transform:translateY(10px);opacity:0}40%{opacity:.9}100%{transform:translateY(-16px);opacity:0}}
-  .bean{position:absolute;opacity:.5}
-  .bean.b1{width:54px;top:2%;right:0}
-  .bean.b2{width:36px;bottom:0;right:24%;opacity:.3}
-
-  /* —— Trust strip —— */
-  .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:30px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:10px;overflow:hidden}
-  .strip div{display:flex;gap:12px;align-items:center;padding:14px 16px;background:var(--bg-elev);border:1px solid var(--line);border-radius:14px;min-width:0}
-  .strip b,.strip small{overflow-wrap:anywhere}
-  .strip .s-ico{flex:0 0 auto;width:38px;height:38px;border-radius:12px;background:var(--gold-soft);border:1px solid rgba(217,169,98,.3);display:grid;place-items:center;color:var(--gold)}
-  .strip .s-ico svg{width:19px;height:19px}
-  .strip b{font-size:13.5px;display:block;line-height:1.25}
-  .strip small{font-size:11.5px;color:var(--muted)}
-
-  /* —— Feature cards —— */
-  .grid-3{display:grid;gap:14px}
-  .card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;transition:border-color .2s ease,transform .2s ease}
-  .card:hover{border-color:rgba(217,169,98,.35);transform:translateY(-2px)}
-  .card .ico{width:42px;height:42px;border-radius:13px;background:var(--gold-soft);border:1px solid rgba(217,169,98,.28);display:grid;place-items:center;color:var(--gold);margin-bottom:14px}
-  .card .ico svg{width:21px;height:21px}
-  .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
-
-  /* —— Outcomes —— */
-  .outcomes{display:grid;gap:10px}
-  .outcome{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:16px;background:var(--bg-elev);border:1px solid var(--line);border-radius:14px}
-  .outcome .num{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--gold);line-height:1}
-  .outcome strong{display:block;font-size:15px;font-weight:600;margin-bottom:2px}
-  .outcome span.d{display:block;color:var(--muted);font-size:13.5px;line-height:1.45}
-
-  /* —— Table —— */
-  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-card)}
-  .table-wrap table{width:100%;border-collapse:collapse;min-width:600px}
-  .table-wrap th,.table-wrap td{text-align:left;padding:15px 18px;border-bottom:1px solid var(--line);vertical-align:top}
-  .table-wrap th{font:600 11.5px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
-  .table-wrap td{font-size:14.5px;color:var(--muted)}
-  .table-wrap td:first-child{color:var(--text);font-family:var(--serif);font-size:16px}
-  .table-wrap tr:last-child td{border-bottom:0}
-  .table-wrap tbody tr{transition:background .15s ease}
-  .table-wrap tbody tr:hover{background:rgba(217,169,98,.04)}
-
-  /* —— Pain —— */
-  .pain-grid{display:grid;gap:10px}
-  .pain{padding:15px 16px 15px 18px;border-left:3px solid var(--accent);background:var(--bg-elev);border-radius:0 14px 14px 0}
-  .pain h3{font-size:15px;margin-bottom:3px}
-  .pain p{margin:0;color:var(--muted);font-size:13.5px}
-
-  /* —— Author —— */
-  .author{display:grid;grid-template-columns:340px 1fr;gap:clamp(32px,5vw,64px);align-items:start}
-  .author-photo img{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--line-2);filter:saturate(.85) contrast(1.05)}
-  .master-kicker{font:600 11px/1.2 var(--brand);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-  .bio-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:16px}
-  .bio-card h3{font-family:var(--serif);font-weight:500;font-size:1.15rem}
-  .bio-card p{margin:8px 0 0;color:var(--muted);font-size:14.5px;line-height:1.6}
-  .video-shell{margin-top:12px;aspect-ratio:16/9;border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:var(--bg-elev)}
-  .video-shell iframe{width:100%;height:100%;border:0;display:block}
-  .video-consent{width:100%;height:100%;border:0;padding:22px;display:flex;align-items:center;justify-content:center;gap:16px;color:var(--text);background:transparent;cursor:pointer;font:inherit;text-align:left}
-  .video-consent small{display:block;margin-top:4px;color:var(--muted);line-height:1.45}
-  .video-play{width:44px;height:44px;border:1px solid var(--line-2);border-radius:50%;display:grid;place-items:center;flex:0 0 auto;color:var(--gold);transition:.2s}
-  .video-consent:hover .video-play{border-color:var(--gold);box-shadow:0 0 24px rgba(217,169,98,.2)}
-  .qa{padding:14px 0;border-bottom:1px solid var(--line);font-size:14.5px}
-  .qa strong{font-weight:600}
-  .qa p{margin:5px 0 0;color:var(--muted);font-size:14px}
-  .interview-link{display:inline-block;margin-top:14px;color:var(--muted);text-decoration:underline;text-underline-offset:4px;font-size:14px}
-
-  /* —— Steps —— */
-  .steps{display:grid;gap:14px}
-  .step{padding:20px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);position:relative}
-  .step-num{font-family:var(--serif);font-weight:700;font-size:30px;color:var(--gold);line-height:1;margin-bottom:12px;display:block}
-  .step h3{font-size:15.5px;margin-bottom:4px}
-  .step p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
-
-  /* —— FAQ —— */
-  .faq{display:grid;gap:10px}
-  details.faq-item{background:var(--bg-card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .2s ease}
-  details.faq-item[open]{border-color:rgba(217,169,98,.35)}
-  .faq-item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 18px;font-weight:600;font-size:15px}
-  .faq-item summary::-webkit-details-marker{display:none}
-  .faq-item summary .plus{flex:0 0 auto;width:26px;height:26px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--gold);font-size:15px;transition:transform .25s ease;line-height:1}
-  .faq-item[open] summary .plus{transform:rotate(45deg)}
-  .faq-item .a{padding:0 18px 16px;margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
-  .faq-item .a a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
-
-  /* —— Final CTA —— */
-  .final{margin-top:72px;padding:48px 28px 40px;text-align:center;border-radius:24px;background:radial-gradient(ellipse 70% 90% at 50% 0%,rgba(217,169,98,.12),transparent 70%),var(--bg-elev);border:1px solid var(--line-2);position:relative}
-  .final h2{margin-bottom:10px}
-  .final .lead{margin:0 auto 26px;text-align:center}
-  .final .price-row{justify-content:center;margin:6px 0 20px}
-  .final .buy-card{max-width:460px;margin:0 auto;text-align:left}
-  .final .consent{text-align:center}
-
-  /* —— Footer —— */
-  footer{margin-top:64px;padding:28px 0 44px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--muted-2);line-height:1.75}
-  footer a{color:var(--muted)}
-  footer a:hover{color:var(--text)}
-  footer .row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-bottom:12px}
-  footer .row a{color:var(--muted)}
-
-  /* —— Status —— */
-  .status{font-size:14px;min-height:1.3em;text-align:center;margin-top:12px}
-  .status.err{color:#F07178;font-weight:600}
-  .status.ok{color:var(--ok);font-weight:600}
-  .global-status{position:sticky;bottom:18px;z-index:40;max-width:720px;margin:24px auto 0;background:rgba(12,10,9,.92);backdrop-filter:blur(6px);padding:11px 14px;border-radius:12px;border:1px solid var(--line-2)}
-
-  /* —— Sticky mobile CTA —— */
-  #stickyCta{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,transparent,rgba(12,10,9,.96) 32%);pointer-events:none;transform:translateY(115%);transition:transform .3s ease}
-  #stickyCta.show{transform:none}
-  #stickyCta .btn{pointer-events:auto;box-shadow:0 10px 30px rgba(0,0,0,.5),0 12px 36px rgba(217,169,98,.35)}
-  body.sticky-pad{padding-bottom:92px}
-  @media(min-width:761px){#stickyCta{display:none}}
-
-  /* —— Reveal on scroll —— */
-  body.anim .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.22,.61,.36,1)}
-  body.anim .reveal.in{opacity:1;transform:none}
-
-  /* —— Responsive —— */
-  @media(min-width:761px){
-    .grid-3{grid-template-columns:repeat(3,1fr)}
-    .steps{grid-template-columns:repeat(3,1fr)}
-    .pain-grid{grid-template-columns:1fr 1fr}
-  }
-  @media(max-width:900px){
-    .author{grid-template-columns:1fr}
-    .author-photo{max-width:420px}
-  }
-  @media(max-width:880px){
-    .hero{grid-template-columns:1fr;padding-top:34px}
-    .strip{grid-template-columns:1fr 1fr}
-  }
-  @media(max-width:560px){
-    .visual{display:none}
-    .hero{padding-top:28px}
-    .strip{padding:18px 0}
-    .strip div{padding:11px 12px;gap:10px}
-    .strip .s-ico{width:32px;height:32px;border-radius:10px}
-    .strip b{font-size:12.5px}
-    .strip small{font-size:11px}
-    .final{padding:38px 18px 32px}
-    .buy-card{padding:20px 16px}
-  }
-  @media(prefers-reduced-motion:reduce){
-    html{scroll-behavior:auto}
-    .steam i{animation:none}
-    body.anim .reveal{opacity:1;transform:none;transition:none}
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Кофе, который ты понимаешь — справочник A CUP</title>
+  <meta name="description" content="Рецепты, шпаргалки и диагностика вкуса в цифровом справочнике A CUP. Разовая оплата 299 ₽, доступ сразу.">
+  <meta name="theme-color" content="#0a0908">
+  <link rel="canonical" href="https://акап.рф/guide/buy.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Кофе, который ты понимаешь — A CUP">
+  <meta property="og:description" content="От случайных чашек к чашкам, которые ты контролируешь.">
+  <meta property="og:url" content="https://акап.рф/guide/buy.html">
+  <style>
+    :root{--bg:#0a0908;--panel:#12110f;--panel-2:#181613;--text:#f5f2ed;--muted:#a5a09a;--line:rgba(255,255,255,.1);--accent:#df4b39;--accent-2:#ff8a5c;--max:1180px;--ease:cubic-bezier(.22,.8,.22,1)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--bg)}
+    body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:inherit} button,input{font:inherit}.shell{width:min(calc(100% - 48px),var(--max));margin-inline:auto}
+    .block{position:relative;padding:clamp(96px,13vw,184px) 0;overflow:hidden}.block+.block{border-top:1px solid var(--line)}
+    .eyebrow{margin:0 0 22px;color:#d8d2ca;font-size:13px;font-weight:650;letter-spacing:.18em;text-transform:uppercase}
+    h1,h2,h3,p{margin-top:0}h1,h2{margin-bottom:0;font-weight:600;letter-spacing:-.058em;text-wrap:balance}
+    h1{max-width:980px;margin-inline:auto;font-size:clamp(54px,8.4vw,112px);line-height:.92}
+    h2{font-size:clamp(44px,6.7vw,86px);line-height:.96}.lead{max-width:760px;margin:30px 0 0;color:var(--muted);font-size:clamp(20px,2.3vw,29px);line-height:1.38;letter-spacing:-.025em;text-wrap:balance}
+    .center{text-align:center}.center .lead{margin-inline:auto}
+    .hero{min-height:100svh;padding-top:clamp(56px,8vh,88px);display:grid;align-items:center;text-align:center;isolation:isolate}
+    .hero-copy{position:relative;z-index:2}.hero .lead{max-width:850px;margin:30px auto 0}
+    .hero-glow{position:absolute;z-index:-1;top:-26vw;left:50%;width:min(1100px,120vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(223,75,57,.2),rgba(139,77,52,.08) 35%,transparent 68%);filter:blur(4px);transform:translateX(-50%);pointer-events:none}
+    .product{position:relative;width:min(630px,82vw);height:clamp(245px,37vw,440px);margin:54px auto 4px;perspective:1100px;will-change:transform}
+    .book{position:absolute;left:50%;top:8%;width:55%;height:78%;transform:translateX(-50%) rotateX(7deg) rotateY(-8deg);border:1px solid rgba(255,255,255,.17);border-radius:18px;background:linear-gradient(145deg,#25211d,#100f0d 58%,#080706);box-shadow:0 45px 90px rgba(0,0,0,.62),inset 1px 1px rgba(255,255,255,.08);text-align:left;padding:clamp(24px,4vw,46px)}
+    .book:after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.09) 49%,transparent 63%)}
+    .book-mark{font-size:12px;letter-spacing:.2em}.book-title{position:absolute;left:clamp(24px,4vw,46px);bottom:clamp(26px,4vw,48px);font-size:clamp(29px,4.6vw,54px);font-weight:600;line-height:.91;letter-spacing:-.055em}.book-dot{position:absolute;right:9%;top:10%;width:14px;aspect-ratio:1;border-radius:50%;background:var(--accent);box-shadow:0 0 40px rgba(223,75,57,.8)}
+    .cta-row{margin-top:30px}.buy-button{display:inline-flex;align-items:center;justify-content:center;min-width:190px;min-height:54px;padding:15px 28px;border:0;border-radius:999px;background:#f5f2ed;color:#0a0908;font-size:17px;font-weight:650;text-decoration:none;cursor:pointer;box-shadow:0 10px 35px rgba(0,0,0,.28);transition:transform .3s var(--ease),background .3s ease,box-shadow .3s ease}
+    .buy-button:hover{transform:translateY(-2px);background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.4)}.buy-button:active{transform:scale(.98)}.buy-button:disabled{opacity:.58;cursor:wait;transform:none}.micro{margin:12px 0 0;color:#85817c;font-size:13px}
+    .change-copy{max-width:920px}.change-copy .lead{max-width:660px}.orbit{position:absolute;right:-90px;top:50%;width:clamp(240px,34vw,500px);aspect-ratio:1;border:1px solid var(--line);border-radius:50%;transform:translateY(-50%)}.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid var(--line);border-radius:50%;inset:13%}.orbit:after{inset:31%;background:radial-gradient(circle,rgba(223,75,57,.28),transparent 68%);border-color:rgba(223,75,57,.25)}
+    .grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:64px}.card{min-height:270px;padding:clamp(28px,4vw,46px);border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:inset 0 1px rgba(255,255,255,.04);transition:transform .35s var(--ease),border-color .35s ease}.card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.2)}
+    .card-num{display:block;margin-bottom:72px;color:var(--accent-2);font-size:13px;font-weight:650}.card h3{margin-bottom:12px;font-size:clamp(24px,3vw,36px);letter-spacing:-.04em}.card p{max-width:440px;margin-bottom:0;color:var(--muted);font-size:17px;line-height:1.5}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:64px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:var(--line)}.step{min-height:300px;padding:38px;background:var(--panel)}.step span{display:grid;width:42px;height:42px;margin-bottom:80px;place-items:center;border:1px solid rgba(255,255,255,.17);border-radius:50%;color:var(--muted)}.step h3{max-width:270px;margin:0;font-size:clamp(23px,2.5vw,34px);line-height:1.12;letter-spacing:-.035em}
+    .promise{background:linear-gradient(145deg,#171411,#0c0b09)}.promise h2{max-width:990px}.promise .fine{max-width:640px;margin:26px 0 0;color:#77736e;font-size:13px;line-height:1.55}.promise .fine a{text-underline-offset:3px}
+    .author-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(48px,9vw,130px);align-items:center}.monogram{position:relative;display:grid;width:min(360px,76vw);aspect-ratio:1;place-items:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,#332a23,#15120f 60%,#090807);box-shadow:0 35px 90px rgba(0,0,0,.46);font-size:clamp(64px,9vw,110px);font-weight:650;letter-spacing:-.08em}.monogram:after{content:"9 лет с зерном";position:absolute;bottom:17%;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .trust-list{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:62px}.trust-item{padding-top:22px;border-top:1px solid var(--line)}.trust-item h3{margin-bottom:12px;font-size:22px;letter-spacing:-.03em}.trust-item p{margin:0;color:var(--muted);line-height:1.55}.support{margin:42px 0 0;color:var(--muted)}.support a{color:var(--text);text-underline-offset:4px}
+    .faq{max-width:920px;margin:58px auto 0}.faq details{border-top:1px solid var(--line)}.faq details:last-child{border-bottom:1px solid var(--line)}.faq summary{position:relative;padding:28px 52px 28px 0;cursor:pointer;list-style:none;font-size:clamp(20px,2.5vw,28px);font-weight:550;letter-spacing:-.025em}.faq summary::-webkit-details-marker{display:none}.faq summary:after{content:"+";position:absolute;right:2px;top:24px;color:var(--muted);font-size:30px;font-weight:300;transition:transform .3s var(--ease)}.faq details[open] summary:after{transform:rotate(45deg)}.faq details p{max-width:700px;margin:-8px 0 28px;color:var(--muted);font-size:17px;line-height:1.55}
+    .final{min-height:88svh;display:grid;align-items:center}.final h2{max-width:1000px;margin-inline:auto}.checkout{max-width:740px;margin:34px auto 0}.consents{display:grid;gap:9px;margin:26px auto 0;padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025);text-align:left}.check{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;color:#98938d;font-size:12px;line-height:1.42}.check input{width:18px;height:18px;margin:0;accent-color:var(--accent)}.check a{text-underline-offset:2px}.status{min-height:20px;margin:12px 0 0;color:#ff8577;font-size:13px}
+    footer{padding:34px 0 max(34px,env(safe-area-inset-bottom));border-top:1px solid var(--line);color:#77736e;font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:28px;align-items:flex-start}.footer-links{display:flex;flex-wrap:wrap;gap:12px 24px}.footer-links a{text-underline-offset:3px}.seller{max-width:460px;margin:0;text-align:right;line-height:1.55}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s var(--ease)}.reveal.visible{opacity:1;transform:none}:focus-visible{outline:3px solid rgba(255,138,92,.65);outline-offset:4px}
+    @media(max-width:760px){.shell{width:min(calc(100% - 32px),var(--max))}.block{padding:88px 0}h1{font-size:clamp(50px,15vw,74px)}h2{font-size:clamp(42px,12vw,64px)}.hero{padding-top:60px}.hero .lead{font-size:19px}.product{width:100%;height:300px;margin-top:42px}.book{width:68%;height:83%}.orbit{opacity:.45;right:-180px}.grid-4,.steps,.trust-list{grid-template-columns:1fr}.card{min-height:230px}.card-num{margin-bottom:50px}.steps{gap:1px}.step{min-height:220px}.step span{margin-bottom:52px}.author-layout{grid-template-columns:1fr}.monogram{margin-inline:auto}.footer-inner{display:block}.seller{margin-top:22px;text-align:left}.consents{padding:16px}.buy-button{width:100%;min-height:56px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.product,.card,.buy-button{transition:none}}
+  </style>
 </head>
 <body>
-<div class="stage">
-<div class="page">
-
-<header class="top">
-  <a class="brand" href="../index.html"><b>A CUP</b><i>кофе без снобизма</i></a>
-  <a href="access.html">Уже купил →</a>
-</header>
-
-<main>
-
-  <!-- ============ HERO ============ -->
-  <section class="hero" id="buy">
-    <div>
-      <span class="chip">Для тех, кто варит кофе дома</span>
-      <h1>Справочник по кофе — <em>от нуля до specialty</em></h1>
-      <p class="lead">Рецепты V60, аэропресс и эспрессо, шпаргалка «кисло / горько», диагностика вкуса. ≈10 000 слов. Открывается на телефоне и компьютере — доступ сразу после оплаты.</p>
-      <div class="pills">
-        <span class="pill">Разбор пачки</span>
-        <span class="pill">Рабочие рецепты</span>
-        <span class="pill">Шпаргалки</span>
-        <span class="pill">Диагностика вкуса</span>
+  <main>
+    <section class="block hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="shell hero-copy">
+        <p class="eyebrow reveal visible">A CUP</p>
+        <h1 id="hero-title" class="reveal visible">Кофе, который ты понимаешь</h1>
+        <p class="lead reveal visible">Справочник, который превращает случайные чашки в чашки, которые ты контролируешь. Рецепты, шпаргалки и диагностика вкуса — в одном месте.</p>
+        <div class="cta-row reveal visible"><a class="buy-button js-buy-link" href="#buy">Купить за 299 ₽</a><p class="micro">Оплата картой или СБП. Доступ сразу.</p></div>
+        <div class="product reveal visible" aria-label="Цифровой справочник A CUP">
+          <div class="book"><span class="book-mark">A CUP</span><span class="book-dot"></span><span class="book-title">Справочник<br>по кофе</span></div>
+        </div>
       </div>
-      <div class="price-row">
-        <span class="price">299&nbsp;₽</span>
-        <span class="price-note">разовая оплата · без подписок · доступ остаётся у тебя</span>
-      </div>
-      <div class="buy-card">
-        <form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
-          <input type="hidden" name="flow" value="direct">
-          <div class="cta">
-            <button class="btn buy-now" type="submit">Получить справочник</button>
+    </section>
+
+    <section class="block" aria-labelledby="change-title">
+      <div class="orbit" aria-hidden="true"></div><div class="shell change-copy reveal"><h2 id="change-title">От случайности — к контролю</h2><p class="lead">Больше не нужно угадывать. Справочник объясняет, что происходит в чашке и что изменить, чтобы стало вкуснее.</p></div>
+    </section>
+
+    <section class="block" aria-labelledby="skills-title">
+      <div class="shell"><h2 id="skills-title" class="reveal">Что ты получишь</h2><div class="grid-4">
+        <article class="card reveal"><span class="card-num">01</span><h3>Рецепты, которые работают</h3><p>от классики до фильтра, с весами, помолом и временем</p></article>
+        <article class="card reveal"><span class="card-num">02</span><h3>Диагностика вкуса</h3><p>почему горчит, кислит, плоская; что поменять</p></article>
+        <article class="card reveal"><span class="card-num">03</span><h3>Шпаргалки</h3><p>таблицы экстракции, помолов, соотношений</p></article>
+        <article class="card reveal"><span class="card-num">04</span><h3>Понятная теория</h3><p>без воды: как зерно, вода и рецепт влияют на вкус</p></article>
+      </div></div>
+    </section>
+
+    <section class="block" aria-labelledby="steps-title">
+      <div class="shell"><h2 id="steps-title" class="reveal">Как это работает</h2><div class="steps reveal">
+        <article class="step"><span>1</span><h3>Оплати — получи доступ сразу</h3></article><article class="step"><span>2</span><h3>Открой справочник — на телефоне или компьютере</h3></article><article class="step"><span>3</span><h3>Вари и поправляй вкус по диагностике</h3></article>
+      </div></div>
+    </section>
+
+    <section class="block promise" aria-labelledby="promise-title">
+      <div class="shell reveal"><h2 id="promise-title">14 дней, чтобы кофе стал понятным.</h2><p class="lead">Если нет — напиши нам, вернём деньги. Возврат по номеру заказа.</p><p class="fine">Способ возврата и условия — в оферте. <a href="/guide/offer.html">Оферта</a> — внизу страницы.</p></div>
+    </section>
+
+    <section class="block" aria-labelledby="author-title">
+      <div class="shell author-layout"><div class="monogram reveal" aria-hidden="true">МД</div><div class="reveal"><h2 id="author-title">Автор — Михаил Дмитриев</h2><p class="lead">Основатель A CUP, 9 лет с зерном: от розничных кофеен до обучения бариста. Написал справочник, которого не хватало: без воды, по шагам, с диагностикой вкуса.</p></div></div>
+    </section>
+
+    <section class="block" aria-labelledby="trust-title">
+      <div class="shell"><h2 id="trust-title" class="reveal">Всё прозрачно</h2><div class="trust-list reveal"><article class="trust-item"><h3>Разовая оплата</h3><p>Это не подписка: разовая оплата, доступ без срока действия.</p></article><article class="trust-item"><h3>Безопасный платёж</h3><p>Карта не сохраняется, платёж проходит через защищённую страницу ЮKassa.</p></article><article class="trust-item"><h3>Поддержка</h3><p>Если что-то не так — поддержка отвечает в течение дня.</p></article></div><p class="support reveal">Поддержка: Telegram <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a></p></div>
+    </section>
+
+    <section class="block" aria-labelledby="faq-title">
+      <div class="shell"><h2 id="faq-title" class="center reveal">Вопросы и ответы</h2><div class="faq reveal">
+        <details><summary>Что я получу после оплаты?</summary><p>Доступ к справочнику сразу.</p></details><details><summary>Это подписка?</summary><p>Нет, разовая оплата, доступ без срока.</p></details><details><summary>Как оплатить?</summary><p>Картой или через СБП на защищённой странице.</p></details><details><summary>А если не понравится?</summary><p>Гарантия 14 дней, возврат по номеру заказа.</p></details>
+      </div></div>
+    </section>
+
+    <section class="block final center" id="buy" aria-labelledby="final-title">
+      <div class="shell reveal"><p class="eyebrow">A CUP</p><h2 id="final-title">Кофе — это не магия. Это понимание.</h2>
+        <form class="checkout" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
+          <button class="buy-button" type="submit">Купить за 299 ₽</button><p class="micro">Оплата картой или СБП. Доступ сразу.</p>
+          <div class="consents" aria-label="Согласия для оплаты">
+            <label class="check"><input type="checkbox" name="acceptOffer" required checked><span>Принимаю условия <a href="/guide/offer.html">публичной оферты</a>.</span></label>
+            <label class="check"><input type="checkbox" name="acceptPrivacy" required checked><span>Ознакомлен с <a href="/guide/privacy.html">политикой конфиденциальности</a>.</span></label>
+            <label class="check"><input type="checkbox" name="acceptDigital" required checked><span>Подтверждаю покупку цифрового товара с доступом сразу после оплаты.</span></label>
+            <label class="check"><input type="checkbox" name="acceptIp" required checked><span>Согласен, что для безопасности платежа может обрабатываться IP-адрес.</span></label>
+            <label class="check"><input type="checkbox" name="consent" required checked><span>Даю согласие на обработку персональных данных в соответствии с 152-ФЗ.</span></label>
           </div>
+          <input type="hidden" name="client_nonce" value=""><p class="status" id="pay-status" aria-live="polite"></p>
         </form>
-        <div class="guar-line" id="guaranteeBlock">
-          <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.9-3.1 8.5-7 10-3.9-1.5-7-5.1-7-10V6l7-3z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></span>
-          <span><b>Гарантия возврата 14 дней</b> — попробуйте без риска: если справочник не подойдёт, вернём деньги. Возврат — через поддержку <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a> по номеру заказа.</span>
-        </div>
-        <p class="consent">Нажимая кнопку, вы принимаете условия <a href="offer.html">публичной оферты</a> и <a href="privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p>
       </div>
-    </div>
-    <div class="visual" aria-hidden="true">
-      <div class="glow"></div>
-      <svg class="bean b1" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="32" rx="26" ry="31" fill="#4A3824"/><path d="M32 3c14 14 14 44 0 58" stroke="#241607" stroke-width="3" fill="none"/></svg>
-      <svg class="bean b2" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="32" rx="26" ry="31" fill="#5A4630"/><path d="M32 3c14 14 14 44 0 58" stroke="#2E1E0E" stroke-width="3" fill="none"/></svg>
-      <div class="steam"><i></i><i></i><i></i></div>
-      <div class="phone">
-        <div class="screen">
-          <div class="app-top"><b>A CUP · Guide</b><span>☰</span></div>
-          <div class="app-title">Справочник <em>от нуля до specialty</em></div>
-          <div class="progress"><i></i></div>
-          <div class="rows">
-            <div class="r"><i>☕</i><b>Разбор пачки</b><small>2 мин</small></div>
-            <div class="r"><i>✓</i><b>Диагностика вкуса</b><small>шпаргалка</small></div>
-            <div class="r"><i>⚙</i><b>Стартовая точка V60</b><small>93–96 °C</small></div>
-          </div>
-        </div>
-      </div>
-      <div class="floating"><span class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>Доступ сразу</b><small>токен после оплаты</small></div></div>
-    </div>
-  </section>
+    </section>
+  </main>
+  <footer><div class="shell footer-inner"><nav class="footer-links" aria-label="Юридические ссылки"><a href="/guide/offer.html">Оферта</a><a href="/guide/privacy.html">Конфиденциальность</a><a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">Поддержка</a></nav><p class="seller">Самозанятый Дмитриев Михаил Александрович<br>ИНН 772453231807</p></div></footer>
 
-  <!-- ============ TRUST STRIP ============ -->
-  <section class="strip reveal">
-    <div><span class="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.9-3.1 8.5-7 10-3.9-1.5-7-5.1-7-10V6l7-3z"/></svg></span><div><b>Гарантия 14 дней</b><small>возврат по номеру заказа</small></div></div>
-    <div><span class="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18"/><path d="M7 15h4"/></svg></span><div><b>ЮKassa</b><small>карты и СБП, защищённая страница</small></div></div>
-    <div><span class="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 13h6l-1 8 8-10h-6l1-8z"/></svg></span><div><b>Доступ сразу</b><small>токен после оплаты</small></div></div>
-    <div><span class="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M21 6H8a4 4 0 0 0-4 4v1"/><path d="M7 22l-4-4 4-4"/><path d="M3 18h13a4 4 0 0 0 4-4v-1"/></svg></span><div><b>Без подписок</b><small>разовая оплата, доступ остаётся</small></div></div>
-  </section>
-
-  <!-- ============ WHAT'S INSIDE ============ -->
-  <section class="section reveal">
-    <span class="kicker">Внутри</span>
-    <h2>Что находится в справочнике</h2>
-    <div class="grid-3">
-      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v4a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V9z"/><path d="M16 10h1.8a2.7 2.7 0 0 1 0 5.4H16"/><path d="M8 6.5c-.9.8-.9 1.7 0 2.5"/><path d="M11.5 5.5c-.9.8-.9 1.7 0 2.5"/></svg></span><h3>Рецепты V60, аэропресс, эспрессо</h3><p>Стартовые точки и понятная коррекция по вкусу — не гадание, а шаги.</p></div>
-      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6 4.5 12 2.5-6H21"/></svg></span><h3>Шпаргалка «кисло / горько»</h3><p>За минуту находишь вероятную причину неудачной чашки и что проверить первым.</p></div>
-      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v11L12 21l-8-3.5v-11L12 3z"/><path d="M4 6.5l8 3.5 8-3.5"/><path d="M12 10v11"/></svg></span><h3>Разбор упаковки</h3><p>Какие надписи на пачке помогают выбрать кофе, а какие — лишь ориентир.</p></div>
-      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></span><h3>Интерактивный подбор и мини-тест</h3><p>Выбираешь способ приготовления и проверяешь логику настройки вкуса.</p></div>
-      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.2 5 7.8 4.3 4.5 4.3v14.4c3.3 0 5.7.7 7.5 2.2 1.8-1.5 4.2-2.2 7.5-2.2V4.3c-3.3 0-5.7.7-7.5 2.2z"/><path d="M12 6.5v14.4"/></svg></span><h3>≈10 000 слов материала</h3><p>Обработка, обжарка, вода, помол, извлечение вкуса, молоко и эспрессо.</p></div>
-      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><h3>Навигация и прогресс чтения</h3><p>Работает в браузере на телефоне и компьютере — не статичный PDF.</p></div>
-    </div>
-  </section>
-
-  <!-- ============ OUTCOMES ============ -->
-  <section class="section reveal">
-    <span class="kicker">Результат</span>
-    <h2>После чтения ты будешь понимать</h2>
-    <div class="outcomes">
-      <div class="outcome"><span class="num">01</span><div><strong>Будешь понимать, стоит ли покупать выбранную пачку</strong><span class="d">Оценка упаковки и описаний — за минуту, ещё в магазине.</span></div></div>
-      <div class="outcome"><span class="num">02</span><div><strong>Сможешь выбирать зерно под свой способ приготовления</strong><span class="d">Фильтр, молоко, эспрессо или привычный домашний метод.</span></div></div>
-      <div class="outcome"><span class="num">03</span><div><strong>Будешь пользоваться готовой стартовой точкой</strong><span class="d">Вместо случайного рецепта из очередного ролика.</span></div></div>
-      <div class="outcome"><span class="num">04</span><div><strong>Будешь понимать, почему кофе кислый, горький, плоский или водянистый</strong><span class="d">Шпаргалка диагностики и правило «один параметр за раз».</span></div></div>
-      <div class="outcome"><span class="num">05</span><div><strong>Будешь разбираться в собственном вкусе</strong><span class="d">А не повторять чужие выводы без понимания.</span></div></div>
-    </div>
-  </section>
-
-  <!-- ============ DIAGNOSTIC TABLE ============ -->
-  <section class="section reveal">
-    <span class="kicker">Диагностика</span>
-    <h2>Система ремонта вкуса</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>В чашке</th><th>Причина</th><th>Что проверить первым</th></tr></thead>
-        <tbody>
-          <tr><td>Кисло и пусто</td><td>Недостаточно извлечён вкус</td><td>Помол мельче или больше времени</td></tr>
-          <tr><td>Горько и вяжет</td><td>Извлечено слишком много</td><td>Помол крупнее или меньше времени</td></tr>
-          <tr><td>Водянисто</td><td>Мало концентрации</td><td>Количество кофе и помол</td></tr>
-          <tr><td>Плоско</td><td>Зерно или вода</td><td>Свежесть и состав воды</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="section-note">Внутри — расширенная диагностика и главное правило: менять только один параметр за раз.</p>
-  </section>
-
-  <!-- ============ PAIN ============ -->
-  <section class="section reveal">
-    <span class="kicker">Знакомая ситуация?</span>
-    <h2>Почему вкус не радует</h2>
-    <div class="pain-grid">
-      <div class="pain"><h3>Дорогая пачка разочаровала</h3><p>Кофе всё равно оказался невкусным.</p></div>
-      <div class="pain"><h3>Упаковка ничего не объясняет</h3><p>Регион, обработка и описания вкуса не помогают принять решение.</p></div>
-      <div class="pain"><h3>Настройка превращается в хаос</h3><p>Меняешь помол, воду и температуру одновременно.</p></div>
-      <div class="pain"><h3>Каждый ролик начинает всё заново</h3><p>Знания не складываются в рабочую систему.</p></div>
-    </div>
-    <p class="section-note">Проблема обычно не в отсутствии ещё одного рецепта. Проблема в отсутствии понятной системы.</p>
-  </section>
-
-  <!-- ============ AUTHOR ============ -->
-  <section class="section author reveal">
-    <div class="author-photo"><img src="assets/mikhail-portrait.webp" width="591" height="826" loading="lazy" alt="Михаил Дмитриев, создатель A CUP"></div>
-    <div>
-      <p class="master-kicker">Михаил Дмитриев · A CUP</p>
-      <h2>Почему я собрал этот справочник</h2>
-      <div class="bio-card">
-        <h3>Михаил Дмитриев</h3>
-        <p>Создатель A CUP. Более 9 лет работает с зерном, обжаркой, контролем качества, дегустациями и домашним приготовлением. Справочник переводит профессиональные принципы на понятный домашний язык.</p>
-      </div>
-      <div class="video-shell" id="authorVideo" data-src="https://vk.com/video_ext.php?oid=-148357406&amp;id=456239122&amp;hd=2&amp;t=146">
-        <button type="button" class="video-consent" id="loadAuthorVideo"><span class="video-play">▶</span><span><strong>Интервью с автором</strong><small>Подход A CUP к кофе</small></span></button>
-      </div>
-      <div class="qa"><strong>Почему появился справочник?</strong><p>Чтобы собрать практический опыт в систему, которой удобно пользоваться дома.</p></div>
-      <a class="interview-link" href="https://aim2flourish.com/innovations/consume-consciously-choose-your-perfect-drink-with-cupping" target="_blank" rel="noopener">Читать полное интервью →</a>
-    </div>
-  </section>
-
-  <!-- ============ STEPS ============ -->
-  <section class="section reveal">
-    <span class="kicker">Как получить доступ</span>
-    <h2>Доступ за несколько минут</h2>
-    <div class="steps">
-      <div class="step"><span class="step-num">1</span><h3>Нажми кнопку</h3><p>Сайт создаст индивидуальный платёж.</p></div>
-      <div class="step"><span class="step-num">2</span><h3>Оплати на ЮKassa</h3><p>Защищённая страница предложит доступные способы оплаты: карты и СБП.</p></div>
-      <div class="step"><span class="step-num">3</span><h3>Сохрани токен и открой справочник</h3><p>После проверки оплаты вернёшься на сайт и сразу откроешь материал.</p></div>
-    </div>
-  </section>
-
-  <!-- ============ FAQ ============ -->
-  <section class="section reveal">
-    <span class="kicker">Вопросы</span>
-    <h2>Частые вопросы</h2>
-    <div class="faq">
-      <details class="faq-item"><summary>Что внутри справочника?<span class="plus">+</span></summary><p class="a">Рецепты V60 и аэропресса, шпаргалка диагностики вкуса, разбор упаковки и зёрен, интерактивный подбор способа приготовления. Всё открывается в браузере на телефоне и компьютере.</p></details>
-      <details class="faq-item"><summary>Как я получу доступ?<span class="plus">+</span></summary><p class="a">После оплаты вы сразу получите персональный токен — на сайте или в боте @acup_guide_bot. Доступ остаётся у вас.</p></details>
-      <details class="faq-item"><summary>На каких устройствах это работает?<span class="plus">+</span></summary><p class="a">На телефоне и компьютере — справочник открывается в любом браузере.</p></details>
-      <details class="faq-item"><summary>Можно ли вернуть деньги?<span class="plus">+</span></summary><p class="a">Да, в течение 14 дней — по номеру заказа через поддержку @Arcady_ya. Условия — в публичной оферте.</p></details>
-      <details class="faq-item"><summary>Почему разовая оплата 299 ₽?<span class="plus">+</span></summary><p class="a">Это не подписка и не дорогой курс: стоимость меньше одной пачки хорошего зерна. Справочник остаётся с тобой — открывай его в любой момент, когда готовишь или покупаешь кофе.</p></details>
-      <details class="faq-item"><summary>Кому справочник не подойдёт?<span class="plus">+</span></summary><p class="a">Если нужен живой преподаватель, универсальный рецепт для любого зерна или профессиональный учебник действующего бариста.</p></details>
-    </div>
-  </section>
-
-  <!-- ============ FINAL CTA ============ -->
-  <section class="final reveal">
-    <span class="kicker">Последний шаг</span>
-    <h2>Перестань каждый раз начинать с нуля</h2>
-    <p class="lead">Получи рабочую систему выбора и приготовления кофе — для каждой новой пачки и каждой неудачной чашки.</p>
-    <div class="price-row">
-      <span class="price">299&nbsp;₽</span>
-      <span class="price-note">разовая оплата · доступ остаётся у тебя</span>
-    </div>
-    <div class="buy-card">
-      <form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
-        <input type="hidden" name="flow" value="direct">
-        <div class="cta">
-          <button class="btn buy-now" type="submit">Получить справочник</button>
-        </div>
-      </form>
-      <div class="guar-line">
-        <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.9-3.1 8.5-7 10-3.9-1.5-7-5.1-7-10V6l7-3z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></span>
-        <span><b>Гарантия возврата 14 дней</b> — попробуйте без риска: если справочник не подойдёт, вернём деньги. Возврат — через поддержку <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a> по номеру заказа.</span>
-      </div>
-      <p class="consent">Нажимая кнопку, вы принимаете условия <a href="offer.html">публичной оферты</a> и <a href="privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p>
-    </div>
-    <p class="consent" style="margin-top:16px">ЮKassa · карты и СБП · 14 дней на возврат</p>
-  </section>
-
-  <div class="status global-status" id="payStatus" aria-live="polite"></div>
-</main>
-
-<footer>
-  <div class="row">
-    <a href="../index.html">акап.рф</a>
-    <a href="offer.html">Оферта</a>
-    <a href="privacy.html">Конфиденциальность</a>
-    <a href="access.html">Вход по токену</a>
-    <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">Поддержка</a>
-  </div>
-  <div>Самозанятый Дмитриев М.А., ИНН 772453231807 · ЮKassa (ООО НКО «ЮМани»), ShopID 1427938</div>
-  <div>Поддержка: <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a> · ежедневно 10:00–22:00 (МСК)</div>
-</footer>
-
-</div>
-</div>
-
-<script>
-(function(){let busy=false;const buttons=[...document.querySelectorAll('.buy-now')],status=document.getElementById('payStatus');document.querySelectorAll('form.direct-buy').forEach((form,index)=>form.addEventListener('submit',()=>{if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy',{cta_position:index+1,price:299,currency:'RUB'});buttons.forEach(b=>{b.disabled=true;b.textContent='Переходим к безопасной оплате…'})}));async function buy(){if(busy)return;busy=true;buttons.forEach(b=>{b.disabled=true;b.dataset.label=b.textContent;b.textContent='Переходим к безопасной оплате…'});if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy');try{const base=await window.ACUPResolveApiBase();const nonce=sessionStorage.getItem('acup_payment_nonce')||String(Date.now())+'-'+Math.random().toString(36).slice(2);sessionStorage.setItem('acup_payment_nonce',nonce);const r=await fetch(base+'/api/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_nonce:nonce,acceptOffer:true,acceptPrivacy:true,acceptDigital:true,acceptIp:true,consent:true})});const d=await r.json();if(!r.ok||!d.confirmation_url)throw new Error(d.message||d.error||'Не удалось создать платёж');sessionStorage.setItem('acup_guide_order',d.orderId);location.href=d.confirmation_url}catch(e){status.className='status err global-status';status.textContent=e.message;busy=false;buttons.forEach(b=>{b.disabled=false;b.textContent=b.dataset.label})}}document.getElementById('loadAuthorVideo').addEventListener('click',function(){const shell=document.getElementById('authorVideo'),f=document.createElement('iframe');f.src=shell.dataset.src;f.title='Интервью с автором';f.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';f.allowFullscreen=true;shell.replaceChildren(f)},{once:true});if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy')})();
-</script>
-<script>
-(function () {
-  function gp(n) { try { return new URLSearchParams(location.search).get(n) || ''; } catch (_) { return ''; } }
-  function ss(n) { try { return sessionStorage.getItem('acup_utm_' + n) || ''; } catch (_) { return ''; } }
-  var utm = {
-    source: gp('utm_source') || ss('source'),
-    medium: gp('utm_medium') || ss('medium'),
-    campaign: gp('utm_campaign') || ss('campaign'),
-    term: gp('utm_term') || ss('term'),
-    content: gp('utm_content') || ss('content')
-  };
-  try {
-    var q = new URLSearchParams(location.search);
-    ['source', 'medium', 'campaign', 'term', 'content'].forEach(function (k) {
-      var v = q.get('utm_' + k);
-      if (v) sessionStorage.setItem('acup_utm_' + k, v);
-    });
-  } catch (_) {}
-  var utmQ = new URLSearchParams();
-  Object.keys(utm).forEach(function (k) { if (utm[k]) utmQ.set('utm_' + k, utm[k]); });
-  var refParam = gp('ref') ? 'ref=' + encodeURIComponent(gp('ref').toUpperCase().trim().slice(0, 9)) : '';
-  var utmS = [utmQ.toString(), refParam].filter(Boolean).join('&');
-  var nonce = (gp('test') === '1' ? 't_' : '') + (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
-  var apiBase = '';
-  if (window.ACUPResolveApiBase) { window.ACUPResolveApiBase().then(function (b) { apiBase = b; }).catch(function () {}); }
-  document.querySelectorAll('form.direct-buy').forEach(function (f) {
-    var base = f.action.split('?')[0];
-    if (utmS) f.action = base + '?' + utmS;
-    f.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var st = document.getElementById('payStatus');
-      if (window.ACUPMetrika) window.ACUPMetrika.reach('click_buy');
-      if (!apiBase) apiBase = String((window.ACUP && window.ACUP.guide && window.ACUP.guide.apiBase) || '').replace(/\/$/, '');
-      var url = apiBase + '/api/payments' + (utmS ? '?' + utmS : '');
-      fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ client_nonce: nonce, acceptOffer: true, acceptPrivacy: true, acceptDigital: true, acceptIp: true, consent: true })
-      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-        .then(function (x) {
-          if (!x.ok || !x.d.confirmation_url) throw new Error(x.d.message || x.d.error || 'Не удалось создать платёж');
-          try { sessionStorage.setItem('acup_guide_order', x.d.orderId); } catch (_) {}
-          location.href = x.d.confirmation_url;
-        })
-        .catch(function (e) {
-          if (st) { st.className = 'status err global-status'; st.textContent = e.message || String(e); }
-          document.querySelectorAll('.buy-now').forEach(function (b) { b.disabled = false; b.textContent = b.dataset.label || 'Попробовать ещё раз'; });
-        });
-    });
-  });
-})();
-</script>
-<script>
-(function () {
-  /* Премиальные микроанимации: reveal-on-scroll + липкая CTA на мобильных */
-  var motionOk = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  if (motionOk) {
-    document.body.classList.add('anim');
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-        });
-      }, { threshold: .1, rootMargin: '0px 0px -6% 0px' });
-      document.querySelectorAll('.reveal').forEach(function (el, i) {
-        el.style.transitionDelay = (i % 6) * 45 + 'ms';
-        io.observe(el);
+  <script>
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+    ym(111214147,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,ecommerce:"dataLayer"});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/111214147" style="position:absolute;left:-9999px" alt=""></div></noscript>
+  <script>
+    (function(){
+      "use strict";
+      var COUNTER=111214147,GOALS={purchase:591937343,click_buy:591937440};
+      var form=document.querySelector(".checkout"),button=form.querySelector(".buy-button"),status=document.getElementById("pay-status"),busy=false,scrollGoalSent=false;
+      function goal(name,params){if(typeof window.ym==="function")window.ym(COUNTER,"reachGoal",name,Object.assign({goal_id:GOALS[name]||undefined},params||{}))}
+      function query(name){try{return new URLSearchParams(location.search).get(name)||""}catch(e){return ""}}
+      function stored(name){try{return sessionStorage.getItem("acup_utm_"+name)||""}catch(e){return ""}}
+      var utmNames={source:"utm_source",medium:"utm_medium",campaign:"utm_campaign",term:"utm_term",content:"utm_content"},params=new URLSearchParams();
+      Object.keys(utmNames).forEach(function(key){var incoming=query(utmNames[key]);if(incoming)try{sessionStorage.setItem("acup_utm_"+key,incoming)}catch(e){}var value=incoming||stored(key);if(value)params.set(utmNames[key],value.slice(0,64))});
+      var ref=query("ref").toUpperCase().trim().slice(0,9);if(ref)params.set("ref",ref);
+      var test=query("test")==="1";if(test)params.set("test","1");
+      function getNonce(){var key="acup_payment_nonce",value="";try{value=sessionStorage.getItem(key)||""}catch(e){}if(!value){value=crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2);try{sessionStorage.setItem(key,value)}catch(e){}}return value}
+      form.elements.client_nonce.value=getNonce();
+      document.querySelectorAll(".js-buy-link").forEach(function(link){link.addEventListener("click",function(){goal("click_buy",{cta_position:"hero",price:299,currency:"RUB"})})});
+      form.addEventListener("submit",async function(event){
+        event.preventDefault();if(busy||!form.reportValidity())return;busy=true;button.disabled=true;var label=button.textContent;button.textContent="Переходим к оплате…";status.textContent="";goal("click_buy",{cta_position:"final",price:299,currency:"RUB"});
+        try{var payload={client_nonce:form.elements.client_nonce.value,acceptOffer:form.elements.acceptOffer.checked,acceptPrivacy:form.elements.acceptPrivacy.checked,acceptDigital:form.elements.acceptDigital.checked,acceptIp:form.elements.acceptIp.checked,consent:form.elements.consent.checked,test:test};var url="https://acup-access.acup-access.workers.dev/api/payments"+(params.toString()?"?"+params.toString():"");var response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});var data=await response.json();if(!response.ok||!data.confirmation_url)throw new Error(data.message||data.error||"Не удалось создать платёж");try{sessionStorage.setItem("acup_guide_order",data.orderId||data.order_id||"")}catch(e){}location.href=data.confirmation_url}catch(error){busy=false;button.disabled=false;button.textContent=label;status.textContent=error.message||"Не удалось перейти к оплате. Попробуйте ещё раз."}
       });
-    }
-  }
-  var bar = document.getElementById('stickyCta');
-  var hero = document.getElementById('buy');
-  function onScroll() {
-    if (!bar || !hero) return;
-    var r = hero.getBoundingClientRect();
-    var show = r.bottom < 60 && window.innerWidth <= 760;
-    bar.classList.toggle('show', show);
-    document.body.classList.toggle('sticky-pad', show);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-  var sb = document.getElementById('stickyBuy');
-  if (sb) sb.addEventListener('click', function () {
-    var f = document.querySelector('form.direct-buy');
-    if (f) { if (f.requestSubmit) f.requestSubmit(); else f.submit(); }
-  });
-})();
-</script>
-<div id="stickyCta">
-  <div class="cta">
-    <button class="btn" id="stickyBuy" type="button">Получить справочник</button>
-  </div>
-</div>
+      var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches,reveals=document.querySelectorAll(".reveal:not(.visible)");if(!reduced&&"IntersectionObserver" in window){var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12,rootMargin:"0px 0px -42px"});reveals.forEach(function(el){observer.observe(el)})}else reveals.forEach(function(el){el.classList.add("visible")});
+      var product=document.querySelector(".product");addEventListener("scroll",function(){var page=document.documentElement,progress=(page.scrollTop+innerHeight)/(page.scrollHeight||1);if(!scrollGoalSent&&progress>=.5){scrollGoalSent=true;goal("scroll_50",{percent:50})}if(!reduced&&scrollY<innerHeight*1.2)product.style.transform="translate3d(0,"+(scrollY*.075)+"px,0)"},{passive:true});
+    })();
+  </script>
 </body>
 </html>
