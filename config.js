@@ -4,8 +4,8 @@
 window.ACUP = {
   brand: 'A CUP',
   siteUrl: 'https://акап.рф',
-  // HTTP пока GitHub Pages SSL для IDN не выпущен (https даёт ошибку сертификата)
-  siteUrlAscii: 'http://xn--80aa3av.xn--p1ai',
+  // HTTPS на REG.RU-хостинге (валидный сертификат с 2026-08-04); http больше не основной
+  siteUrlAscii: 'https://xn--80aa3av.xn--p1ai',
 
   seller: {
     status: 'Самозанятый (НПД)',
