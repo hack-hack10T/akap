@@ -325,11 +325,16 @@ async function accessInfo(e, chatId) {
 }
 
 async function handleUpdate(e, upd) {
-  if (upd.message?.text === '/start') {
+  if (upd.message?.text?.startsWith('/start')) {
     const f = upd.message.from;
-    await logEv(e, 'bot_start', 'Визит: ' + userLabel(f), { id: f?.id, username: f?.username, first_name: f?.first_name });
+    const startArg = String(upd.message.text).trim().split(/\s+/)[1] || '';
+    const startUtm = startArg.startsWith('catalog_') ? startArg.slice(0, 60) : '';
+    await logEv(e, 'bot_start', 'Визит: ' + userLabel(f) + (startUtm ? ' [src=' + startUtm + ']' : ''), { id: f?.id, username: f?.username, first_name: f?.first_name, start: startUtm });
+    if (startUtm) {
+      await logEv(e, 'bot_catalog_visit', 'Переход из каталога: ' + startUtm + ' — ' + userLabel(f), { id: f?.id, start: startUtm });
+    }
     try {
-      await notify(e, '👤 Бот: новый визит — ' + userLabel(f));
+      await notify(e, '👤 Бот: новый визит — ' + userLabel(f) + (startUtm ? ' (из каталога ' + startUtm + ')' : ''));
       await logEv(e, 'notify_check', 'после __notify OK');
     } catch (err) {
       await logEv(e, 'notify_throw', String(err?.message || err).slice(0, 200));
