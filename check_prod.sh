@@ -10,8 +10,8 @@ check() { # check <desc> <url> <grep-ok> [grep-bad...]
   local desc="$1" url="$2" ok="$3"; shift 3
   local body="" i
   for i in 1 2 3 4 5; do
-    body=$(curl -s --max-time 25 "$url")
-    [[ -n "$body" ]] && break
+    body=$(curl -s --max-time 30 "$url")
+    echo "$body" | grep -qE "$ok" && break
     sleep 3
   done
   local bad
