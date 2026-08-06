@@ -2493,7 +2493,7 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}.wrap{width:min(c
 })();
 </script>
 <script>
-(function(){let busy=false;const buttons=[...document.querySelectorAll('#buyBtn')],status=document.getElementById('payStatus');document.querySelectorAll('form.direct-buy').forEach((form,index)=>form.addEventListener('submit',()=>{buttons.forEach(b=>{b.disabled=true;b.textContent='Переходим к безопасной оплате…'})}));async function buy(){if(busy)return;busy=true;buttons.forEach(b=>{b.disabled=true;b.dataset.label=b.textContent;b.textContent='Переходим к безопасной оплате…'});try{const base=await window.ACUPResolveApiBase();const nonce=sessionStorage.getItem('acup_payment_nonce')||String(Date.now())+'-'+Math.random().toString(36).slice(2);sessionStorage.setItem('acup_payment_nonce',nonce);const r=await fetch(base+'/api/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_nonce:nonce,acceptOffer:true,acceptPrivacy:true,acceptDigital:true,acceptIp:true,consent:true})});const d=await r.json();if(!r.ok||!d.confirmation_url)throw new Error(d.message||d.error||'Не удалось создать платёж');sessionStorage.setItem('acup_guide_order',d.orderId);location.href=d.confirmation_url}catch(e){if(status)status.className='status err global-status';if(status)status.textContent=e.message;busy=false;buttons.forEach(b=>{b.disabled=false;b.textContent=b.dataset.label})}}const _v=document.getElementById('loadAuthorVideo');if(_v)_v.addEventListener('click',function(){const shell=document.getElementById('authorVideo');if(shell){const f=document.createElement('iframe');f.src=shell.dataset.src;f.title='Интервью с автором';f.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';f.allowFullscreen=true;shell.replaceChildren(f)}},{once:true});if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy')})();
+(function(){let busy=false;const buttons=[...document.querySelectorAll('#buyBtn')],status=document.getElementById('payStatus');document.querySelectorAll('form.direct-buy').forEach((form,index)=>form.addEventListener('submit',()=>{buttons.forEach(b=>{b.disabled=true;b.textContent='Переходим к безопасной оплате…'})}));async function buy(){if(busy)return;busy=true;buttons.forEach(b=>{b.disabled=true;b.dataset.label=b.textContent;b.textContent='Переходим к безопасной оплате…'});try{const base=await window.ACUPResolveApiBase();const nonce=sessionStorage.getItem('acup_payment_nonce')||String(Date.now())+'-'+Math.random().toString(36).slice(2);sessionStorage.setItem('acup_payment_nonce',nonce);const r=await fetch(base+'/api/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_nonce:nonce,acceptOffer:true,acceptPrivacy:true,acceptDigital:true,acceptIp:true,consent:true})});const d=await r.json();if(!r.ok||!d.confirmation_url)throw new Error(d.message||d.error||'Не удалось создать платёж');sessionStorage.setItem('acup_guide_order',d.orderId);location.href=d.confirmation_url}catch(e){if(status)status.className='status err global-status';if(status)status.textContent=e.message;busy=false;buttons.forEach(b=>{b.disabled=false;b.textContent=b.dataset.label})}}const _v=document.getElementById('loadAuthorVideo');if(_v)_v.addEventListener('click',function(){const shell=document.getElementById('authorVideo');if(shell){const f=document.createElement('iframe');f.src=shell.dataset.src;f.title='Интервью с автором';f.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';f.allowFullscreen=true;shell.replaceChildren(f)}},{once:true});if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy');window.ACUPBuy=buy;})();
 </script>
 <script>
 (function () {
@@ -2547,4 +2547,19 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}.wrap{width:min(c
   });
 })();
 </script>
+
+<script>
+(function(){
+  document.addEventListener('click',function(ev){
+    var a=ev.target.closest('a[href="#buy"]');
+    if(!a)return;
+    if(typeof window.ACUPBuy==='function'){
+      ev.preventDefault();
+      a.setAttribute('aria-busy','true');
+      window.ACUPBuy();
+    }
+  });
+})();
+</script>
+
 </body></html>
