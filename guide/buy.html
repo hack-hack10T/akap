@@ -633,4 +633,15 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}.wrap{width:min(c
   });
 })();
 </script>
+
+<script>
+(function(){
+  var bar=document.querySelector('.mobileBuy'),buy=document.getElementById('buy');
+  if(!bar||!buy)return;
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){bar.style.display=e.isIntersecting?'none':'flex'})},{threshold:.05});
+  io.observe(buy);
+})();
+</script>
+
 </body></html>
