@@ -20,7 +20,7 @@ const WELCOME = `
 
 Интерактивный справочник: навигация, прогресс чтения, подбор способа приготовления и мини-тест. Не статичный PDF.
 
-💰 <b>299 ₽</b> картой или <b>165 ⭐</b> — разовая оплата, доступ остаётся у тебя.
+💰 <b>499 ₽</b> картой или <b>275 ⭐</b> — разовая оплата, доступ остаётся у тебя.
 
 🔒 ЮKassa · доступ сразу после оплаты · 🛡 7 дней на возврат — не зайдёт, вернём деньги
 `;
@@ -125,8 +125,8 @@ const ACCESS_KB = {
 const authorKb = (chatId) => ({
   inline_keyboard: [
     [
-      { text: '💳 Купить 299 ₽', url: payUrl(chatId) },
-      { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
+      { text: '💳 Купить 499 ₽', url: payUrl(chatId) },
+      { text: '⭐ Купить 275 ⭐', callback_data: 'buy_stars' },
     ],
     [{ text: '📺 Видео-интервью', url: 'https://vk.com/video-148357406_456239122' }],
     [{ text: '📄 Полное интервью', url: 'https://aim2flourish.com/innovations/consume-consciously-choose-your-perfect-drink-with-cupping' }],
@@ -138,8 +138,8 @@ const menu = (chatId) => ({
   inline_keyboard: [
     [{ text: '🛍 Магазин', web_app: { url: APP_URL } }],
     [
-      { text: '💳 Купить 299 ₽', url: payUrl(chatId) },
-      { text: '⭐ Купить 165 ⭐', callback_data: 'buy_stars' },
+      { text: '💳 Купить 499 ₽', url: payUrl(chatId) },
+      { text: '⭐ Купить 275 ⭐', callback_data: 'buy_stars' },
     ],
     [
       { text: '📖 Что внутри', callback_data: 'whats_inside' },
@@ -218,8 +218,8 @@ async function sendInvoice(e, chatId, provider) {
     provider_token: isStars ? '' : (e.YOOKASSA_PROVIDER_TOKEN || ''),
     currency: isStars ? 'XTR' : 'RUB',
     prices: isStars
-      ? [{ label: 'Справочник «От нуля до specialty»', amount: Number(e.BOT_STARS_PRICE || 165) }]
-      : [{ label: 'Справочник «От нуля до specialty»', amount: 29900 }],
+      ? [{ label: 'Справочник «От нуля до specialty»', amount: Number(e.BOT_STARS_PRICE || 275) }]
+      : [{ label: 'Справочник «От нуля до specialty»', amount: 49900 }],
   };
   return tg(e, 'sendInvoice', body);
 }
@@ -236,7 +236,7 @@ export async function createCardPayment(e, chatId) {
     const returnHash = await e.__hash(returnKey);
     await e.DB.prepare(
       `INSERT INTO orders(id,public_id,product_id,product_version,amount,currency,status,idempotency_key,created_at,updated_at,return_key_hash,tg_chat_id,tg_user_id,ref_code)
-       VALUES(?,?,?,?,29900,'RUB','created',?,?,?,?,?,?,?)`
+       VALUES(?,?,?,?,49900,'RUB','created',?,?,?,?,?,?,?)`
     )
       .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, key, now, now, returnHash, chatId, chatId, refCode())
       .run();
@@ -247,7 +247,7 @@ export async function createCardPayment(e, chatId) {
       method: 'POST',
       key,
       body: {
-        amount: { value: '299.00', currency: 'RUB' },
+        amount: { value: '499.00', currency: 'RUB' },
         capture: true,
         confirmation: { type: 'redirect', return_url: ret.href },
         description: `Справочник A CUP «От нуля до specialty», заказ №${pub}`,
@@ -274,7 +274,7 @@ async function cardLinkFlow(e, chatId) {
   const url = await createCardPayment(e, chatId);
   if (!url) return send(e, chatId, '⚠️ Не удалось создать платёж. Попробуй ещё раз чуть позже.');
   return send(e, chatId, '💳 Оплата картой — по кнопке ниже (ЮKassa). После оплаты персональный токен доступа придёт прямо в этот чат.', {
-    reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 299 ₽', url }]] },
+    reply_markup: { inline_keyboard: [[{ text: '💳 Оплатить 499 ₽', url }]] },
   });
 }
 
@@ -348,7 +348,7 @@ async function handleUpdate(e, upd) {
   if (cmd === '/author') return sendPhoto(e, upd.message.chat.id, AUTHOR_PHOTO, AUTHOR, { reply_markup: authorKb(upd.message.chat.id) });
   if (cmd === '/buy') {
     return send(e, upd.message.chat.id,
-      '💳 <b>Карта</b> — 299 ₽ (ЮKassa)\n⭐ <b>Stars</b> — 165 ⭐\n\nРазовая оплата, доступ остаётся у тебя. 🛡 <b>7 дней на возврат</b> — если не зайдёт, вернём деньги (поддержка @Arcady_ya, по номеру заказа).',
+      '💳 <b>Карта</b> — 499 ₽ (ЮKassa)\n⭐ <b>Stars</b> — 275 ⭐\n\nРазовая оплата, доступ остаётся у тебя. 🛡 <b>7 дней на возврат</b> — если не зайдёт, вернём деньги (поддержка @Arcady_ya, по номеру заказа).',
       { reply_markup: menu(upd.message.chat.id) });
   }
   if (cmd === '/access') return accessInfo(e, upd.message.chat.id);
