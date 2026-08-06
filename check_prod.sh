@@ -23,22 +23,23 @@ check() { # check <desc> <url> <grep-ok> [grep-bad...]
 
 echo "== Оферта =="
 check "оферта: редакция 06.08"        "$SITE/guide/offer.html" "Редакция от 06\.08\.2026"
-check "оферта: 14 календарных дней"   "$SITE/guide/offer.html" "14 \(четырнадцати\) календарных дней"
-check "оферта: п. 5.4 гарантия"       "$SITE/guide/offer.html" "5\.4\." "7 календарных дней"
+check "оферта: 7 календарных дней"    "$SITE/guide/offer.html" "7 \(семи\) календарных дней"
+check "оферта: п. 5.4 возврат"         "$SITE/guide/offer.html" "5\.4\." "14 \(четырнадцати\) календарных дней"
 echo "== buy.html =="
-check "buy: 14 дней на возврат"       "$SITE/guide/buy.html"   "14 дней на возврат" "7 дней на возврат|7 календарных|визуальные схемы"
+check "buy: 7 дней на возврат"        "$SITE/guide/buy.html"   "7 дней на возврат" "14 дней на возврат|визуальные схемы"
 check "buy: согласие оферта/политика" "$SITE/guide/buy.html"   "публичной оферты.*политики конфиденциальности"
 echo "== v9 (если путь задан) =="
 V9_PATH="${1:-}"
 if [[ -n "$V9_PATH" ]]; then
   check "v9: реквизиты ИНН"        "$SITE$V9_PATH" "ИНН 772453231807"
   check "v9: футер оферта/политика" "$SITE$V9_PATH" "Публичная оферта.*Политика конфиденциальности"
-  check "v9: 14 дней на возврат"    "$SITE$V9_PATH" "14 дней на возврат" "7 дней на возврат|7 календарных|визуальные схемы"
+  check "v9: 7 дней на возврат"     "$SITE$V9_PATH" "7 дней на возврат" "14 дней на возврат|визуальные схемы"
   check "v9: гарантия п. 5.4"       "$SITE$V9_PATH" "5\.4" "Вместо 990"
   check "v9: кнопка → buy.html"     "$SITE$V9_PATH" "guide/buy\.html"
 fi
 
-# сверка с репо-файлами
+echo "== index.html (главная) =="
+check "index: футер возврат 7 дней"   "$SITE/" "возврат — в течение 7 дней" "14 дней"
 echo "== Сверка с репо =="
 curl -s --max-time 20 "$SITE/guide/offer.html" > /tmp/prod_offer.html
 if diff <(grep -vE "^\s*$" /tmp/prod_offer.html) <(grep -vE "^\s*$" "$REPO/guide/offer.html") >/dev/null 2>&1; then
