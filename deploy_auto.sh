@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Авто-деплой A CUP: срабатывает при появлении /home/hack/.config/regru/ftp.env (или $FTP_ENV).
-# Согласовано юр. 06.08: выкладка строго из репо по коммитам, порядок оферта → buy → v9.
-#   оферта 614cade → guide/offer.html (ред. 06.08, 14 дней, п. 5.4)
-#   buy     b8b88f0 → guide/buy.html  (v3, 14 дней на возврат)
-#   v9      b8b88f0 → landing_v9.html (отдельный файл; index.html НЕ трогаем — решение владельца)
+# Согласовано юр. 06.08: выкладка строго из репо по коммитам, порядок оферта → buy → v9 → index.
+#   оферта 6dd41bc → guide/offer.html (ред. 06.08, возврат 7 дней, ст. 26.1 ЗоЗПП, п. 5.4)
+#   buy     6dd41bc → guide/buy.html  (7 дней на возврат)
+#   v9      6dd41bc → landing_v9.html (отдельный файл)
+#   index   6dd41bc → index.html      (только юр. футер возврата; контент кофейни не меняется)
 # Перед заливкой — бэкап текущего прода. После — check_prod.sh /landing_v9.html.
 # ИТОГ: OK = сайт выложен; любой FAIL = сайт НЕ считается выложенным.
 # Тихий режим: без ftp.env или после завершённой попытки — пустой вывод (ничего не шлём).
@@ -24,7 +25,7 @@ source "$ENV_FILE"
 touch "$ATTEMPT"
 
 cd "$REPO" || exit 1
-for c in 614cade b3ec54b 01b3d65; do
+for c in 6dd41bc; do
   git cat-file -e "$c^{commit}" 2>/dev/null || { echo "FAIL: нет коммита $c в репо"; exit 1; }
 done
 
@@ -50,9 +51,10 @@ upload() { # upload <tmpfile> <relpath>
   curl -sS --ftp-create-dirs -T "$1" "ftp://${FTP_HOST}$(ftp_path "$2")" --user "${FTP_USER}:${FTP_PASS}" \
     && echo "OK  $2" || { echo "FAIL $2"; exit 1; }
 }
-git show 614cade:guide/offer.html > /tmp/acup_offer.html && upload /tmp/acup_offer.html guide/offer.html
-git show b8b88f0:guide/buy.html   > /tmp/acup_buy.html   && upload /tmp/acup_buy.html   guide/buy.html
-git show b8b88f0:landing_v9.html  > /tmp/acup_v9.html    && upload /tmp/acup_v9.html    landing_v9.html
+git show 6dd41bc:guide/offer.html > /tmp/acup_offer.html && upload /tmp/acup_offer.html guide/offer.html
+git show 6dd41bc:guide/buy.html   > /tmp/acup_buy.html   && upload /tmp/acup_buy.html   guide/buy.html
+git show 6dd41bc:landing_v9.html  > /tmp/acup_v9.html    && upload /tmp/acup_v9.html    landing_v9.html
+git show 6dd41bc:index.html       > /tmp/acup_index.html && upload /tmp/acup_index.html index.html
 
 # 3. Контрольная сверка
 echo "=== СВЕРКА (check_prod.sh /landing_v9.html) ==="
