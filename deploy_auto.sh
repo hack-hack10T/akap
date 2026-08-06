@@ -52,7 +52,7 @@ upload() { # upload <tmpfile> <relpath>
     && echo "OK  $2" || { echo "FAIL $2"; exit 1; }
 }
 git show 6dd41bc:guide/offer.html > /tmp/acup_offer.html && upload /tmp/acup_offer.html guide/offer.html
-git show 7067766:guide/buy.html   > /tmp/acup_buy.html   && upload /tmp/acup_buy.html   guide/buy.html
+git show e403321:guide/buy.html   > /tmp/acup_buy.html   && upload /tmp/acup_buy.html   guide/buy.html
 git show 936f5e6:landing_v9.html  > /tmp/acup_v9.html    && upload /tmp/acup_v9.html    landing_v9.html
 git show 6dd41bc:index.html       > /tmp/acup_index.html && upload /tmp/acup_index.html index.html
 
