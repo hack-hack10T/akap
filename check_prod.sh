@@ -9,9 +9,9 @@ FAIL=0
 check() { # check <desc> <url> <grep-ok> [grep-bad...]
   local desc="$1" url="$2" ok="$3"; shift 3
   local body="" i
-  for i in 1 2 3 4 5; do
-    body=$(curl -s --max-time 30 "$url")
-    echo "$body" | grep -qE "$ok" && break
+  for i in 1 2 3 4 5 6; do
+    body=$(curl -s --max-time 45 "$url")
+    echo "$body" | grep -qE "$ok" && echo "$body" | grep -q "</html>" && break
     sleep 3
   done
   local bad
