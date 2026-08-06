@@ -44,7 +44,7 @@ if [[ -n "$V9_PATH" ]]; then
 fi
 
 echo "== index.html (главная) =="
-check "index: футер возврат 7 дней"   "$SITE/" "возврат — в течение 7 дней" "14 дней"
+check "index: футер возврат 7 дней"   "$SITE/index.html" "возврат — в течение 7 дней" "14 дней"
 echo "== Сверка с репо =="
 curl -s --max-time 20 "$SITE/guide/offer.html" > /tmp/prod_offer.html
 if diff <(grep -vE "^\s*$" /tmp/prod_offer.html) <(grep -vE "^\s*$" "$REPO/guide/offer.html") >/dev/null 2>&1; then
