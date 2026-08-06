@@ -5,7 +5,7 @@ window.ACUP = {
   brand: 'A CUP',
   siteUrl: 'https://акап.рф',
   // HTTPS на REG.RU-хостинге (валидный сертификат с 2026-08-04); http больше не основной
-  siteUrlAscii: 'https://xn--80aa3av.xn--p1ai',
+  siteUrlAscii: 'https://акап.рф',
 
   seller: {
     status: 'Самозанятый (НПД)',

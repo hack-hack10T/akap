@@ -163,7 +163,7 @@ export const successText = (order, token, url, ref) => `
 2. Введи токен (или сохрани его — он действует всё время доступа).
 
 Сохрани токен в надёжном месте. При возврате оплаты доступ будет отозван автоматически.
-` + (ref ? '\n\n🎁 <b>Подари другу −10%</b> — твой персональный код:\n<code>' + ref + '</code>\nСсылка: https://xn--80aa3av.xn--p1ai/guide/buy.html?ref=' + ref : '');
+` + (ref ? '\n\n🎁 <b>Подари другу −10%</b> — твой персональный код:\n<code>' + ref + '</code>\nСсылка: https://акап.рф/guide/buy.html?ref=' + ref : '');
 
 async function tg(e, method, body) {
   const r = await fetch(BOT_API + e.BOT_TOKEN + '/' + method, {
