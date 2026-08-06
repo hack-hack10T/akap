@@ -2,7 +2,7 @@
 # Авто-деплой A CUP: срабатывает при появлении /home/hack/.config/regru/ftp.env (или $FTP_ENV).
 # Согласовано юр. 06.08: выкладка строго из репо по коммитам, порядок оферта → buy → v9 → index.
 #   оферта 6dd41bc → guide/offer.html (ред. 06.08, возврат 7 дней, ст. 26.1 ЗоЗПП, п. 5.4)
-#   buy     6dd41bc → guide/buy.html  (7 дней на возврат)
+#   buy     13ffe30 → guide/buy.html (Марк: логотип/мобилка/интервью с автором; N7: 6 разделов/49 глав)
 #   v9      6dd41bc → landing_v9.html (отдельный файл)
 #   index   6dd41bc → index.html      (только юр. футер возврата; контент кофейни не меняется)
 # Перед заливкой — бэкап текущего прода. После — check_prod.sh /landing_v9.html.
@@ -52,7 +52,7 @@ upload() { # upload <tmpfile> <relpath>
     && echo "OK  $2" || { echo "FAIL $2"; exit 1; }
 }
 git show 6dd41bc:guide/offer.html > /tmp/acup_offer.html && upload /tmp/acup_offer.html guide/offer.html
-git show 5b181d1:guide/buy.html   > /tmp/acup_buy.html   && upload /tmp/acup_buy.html   guide/buy.html
+git show 13ffe30:guide/buy.html   > /tmp/acup_buy.html   && upload /tmp/acup_buy.html   guide/buy.html
 git show 6dd41bc:landing_v9.html  > /tmp/acup_v9.html    && upload /tmp/acup_v9.html    landing_v9.html
 git show 6dd41bc:index.html       > /tmp/acup_index.html && upload /tmp/acup_index.html index.html
 
