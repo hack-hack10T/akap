@@ -1,150 +1,523 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Кофе, который ты понимаешь — справочник A CUP</title>
-  <meta name="description" content="Рецепты, шпаргалки и диагностика вкуса в цифровом справочнике A CUP. Разовая оплата 299 ₽, доступ сразу.">
-  <meta name="theme-color" content="#0a0908">
-  <link rel="canonical" href="https://акап.рф/guide/buy.html">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="ru_RU">
-  <meta property="og:title" content="Кофе, который ты понимаешь — A CUP">
-  <meta property="og:description" content="От случайных чашек к чашкам, которые ты контролируешь.">
-  <meta property="og:url" content="https://акап.рф/guide/buy.html">
-  <style>
-    :root{--bg:#0a0908;--panel:#12110f;--panel-2:#181613;--text:#f5f2ed;--muted:#a5a09a;--line:rgba(255,255,255,.1);--accent:#df4b39;--accent-2:#ff8a5c;--max:1180px;--ease:cubic-bezier(.22,.8,.22,1)}
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--bg)}
-    body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-    a{color:inherit} button,input{font:inherit}.shell{width:min(calc(100% - 48px),var(--max));margin-inline:auto}
-    .block{position:relative;padding:clamp(96px,13vw,184px) 0;overflow:hidden}.block+.block{border-top:1px solid var(--line)}
-    .eyebrow{margin:0 0 22px;color:#d8d2ca;font-size:13px;font-weight:650;letter-spacing:.18em;text-transform:uppercase}
-    h1,h2,h3,p{margin-top:0}h1,h2{margin-bottom:0;font-weight:600;letter-spacing:-.058em;text-wrap:balance}
-    h1{max-width:980px;margin-inline:auto;font-size:clamp(54px,8.4vw,112px);line-height:.92}
-    h2{font-size:clamp(44px,6.7vw,86px);line-height:.96}.lead{max-width:760px;margin:30px 0 0;color:var(--muted);font-size:clamp(20px,2.3vw,29px);line-height:1.38;letter-spacing:-.025em;text-wrap:balance}
-    .center{text-align:center}.center .lead{margin-inline:auto}
-    .hero{min-height:100svh;padding-top:clamp(56px,8vh,88px);display:grid;align-items:center;text-align:center;isolation:isolate}
-    .hero-copy{position:relative;z-index:2}.hero .lead{max-width:850px;margin:30px auto 0}
-    .hero-glow{position:absolute;z-index:-1;top:-26vw;left:50%;width:min(1100px,120vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(223,75,57,.2),rgba(139,77,52,.08) 35%,transparent 68%);filter:blur(4px);transform:translateX(-50%);pointer-events:none}
-    .product{position:relative;width:min(630px,82vw);height:clamp(245px,37vw,440px);margin:54px auto 4px;perspective:1100px;will-change:transform}
-    .book{position:absolute;left:50%;top:8%;width:55%;height:78%;transform:translateX(-50%) rotateX(7deg) rotateY(-8deg);border:1px solid rgba(255,255,255,.17);border-radius:18px;background:linear-gradient(145deg,#25211d,#100f0d 58%,#080706);box-shadow:0 45px 90px rgba(0,0,0,.62),inset 1px 1px rgba(255,255,255,.08);text-align:left;padding:clamp(24px,4vw,46px)}
-    .book:after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.09) 49%,transparent 63%)}
-    .book-mark{font-size:12px;letter-spacing:.2em}.book-title{position:absolute;left:clamp(24px,4vw,46px);bottom:clamp(26px,4vw,48px);font-size:clamp(29px,4.6vw,54px);font-weight:600;line-height:.91;letter-spacing:-.055em}.book-dot{position:absolute;right:9%;top:10%;width:14px;aspect-ratio:1;border-radius:50%;background:var(--accent);box-shadow:0 0 40px rgba(223,75,57,.8)}
-    .cta-row{margin-top:30px}.buy-button{display:inline-flex;align-items:center;justify-content:center;min-width:190px;min-height:54px;padding:15px 28px;border:0;border-radius:999px;background:#f5f2ed;color:#0a0908;font-size:17px;font-weight:650;text-decoration:none;cursor:pointer;box-shadow:0 10px 35px rgba(0,0,0,.28);transition:transform .3s var(--ease),background .3s ease,box-shadow .3s ease}
-    .buy-button:hover{transform:translateY(-2px);background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.4)}.buy-button:active{transform:scale(.98)}.buy-button:disabled{opacity:.58;cursor:wait;transform:none}.micro{margin:12px 0 0;color:#85817c;font-size:13px}
-    .change-copy{max-width:920px}.change-copy .lead{max-width:660px}.orbit{position:absolute;right:-90px;top:50%;width:clamp(240px,34vw,500px);aspect-ratio:1;border:1px solid var(--line);border-radius:50%;transform:translateY(-50%)}.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid var(--line);border-radius:50%;inset:13%}.orbit:after{inset:31%;background:radial-gradient(circle,rgba(223,75,57,.28),transparent 68%);border-color:rgba(223,75,57,.25)}
-    .grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:64px}.card{min-height:270px;padding:clamp(28px,4vw,46px);border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:inset 0 1px rgba(255,255,255,.04);transition:transform .35s var(--ease),border-color .35s ease}.card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.2)}
-    .card-num{display:block;margin-bottom:72px;color:var(--accent-2);font-size:13px;font-weight:650}.card h3{margin-bottom:12px;font-size:clamp(24px,3vw,36px);letter-spacing:-.04em}.card p{max-width:440px;margin-bottom:0;color:var(--muted);font-size:17px;line-height:1.5}
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:64px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:var(--line)}.step{min-height:300px;padding:38px;background:var(--panel)}.step span{display:grid;width:42px;height:42px;margin-bottom:80px;place-items:center;border:1px solid rgba(255,255,255,.17);border-radius:50%;color:var(--muted)}.step h3{max-width:270px;margin:0;font-size:clamp(23px,2.5vw,34px);line-height:1.12;letter-spacing:-.035em}
-    .promise{background:linear-gradient(145deg,#171411,#0c0b09)}.promise h2{max-width:990px}.promise .fine{max-width:640px;margin:26px 0 0;color:#77736e;font-size:13px;line-height:1.55}.promise .fine a{text-underline-offset:3px}
-    .author-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(48px,9vw,130px);align-items:center}.monogram{position:relative;display:grid;width:min(360px,76vw);aspect-ratio:1;place-items:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,#332a23,#15120f 60%,#090807);box-shadow:0 35px 90px rgba(0,0,0,.46);font-size:clamp(64px,9vw,110px);font-weight:650;letter-spacing:-.08em}.monogram:after{content:"9 лет с зерном";position:absolute;bottom:17%;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-    .trust-list{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:62px}.trust-item{padding-top:22px;border-top:1px solid var(--line)}.trust-item h3{margin-bottom:12px;font-size:22px;letter-spacing:-.03em}.trust-item p{margin:0;color:var(--muted);line-height:1.55}.support{margin:42px 0 0;color:var(--muted)}.support a{color:var(--text);text-underline-offset:4px}
-    .faq{max-width:920px;margin:58px auto 0}.faq details{border-top:1px solid var(--line)}.faq details:last-child{border-bottom:1px solid var(--line)}.faq summary{position:relative;padding:28px 52px 28px 0;cursor:pointer;list-style:none;font-size:clamp(20px,2.5vw,28px);font-weight:550;letter-spacing:-.025em}.faq summary::-webkit-details-marker{display:none}.faq summary:after{content:"+";position:absolute;right:2px;top:24px;color:var(--muted);font-size:30px;font-weight:300;transition:transform .3s var(--ease)}.faq details[open] summary:after{transform:rotate(45deg)}.faq details p{max-width:700px;margin:-8px 0 28px;color:var(--muted);font-size:17px;line-height:1.55}
-    .final{min-height:88svh;display:grid;align-items:center}.final h2{max-width:1000px;margin-inline:auto}.checkout{max-width:740px;margin:34px auto 0}.consents{display:grid;gap:9px;margin:26px auto 0;padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025);text-align:left}.check{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;color:#98938d;font-size:12px;line-height:1.42}.check input{width:18px;height:18px;margin:0;accent-color:var(--accent)}.check a{text-underline-offset:2px}.status{min-height:20px;margin:12px 0 0;color:#ff8577;font-size:13px}
-    footer{padding:34px 0 max(34px,env(safe-area-inset-bottom));border-top:1px solid var(--line);color:#77736e;font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:28px;align-items:flex-start}.footer-links{display:flex;flex-wrap:wrap;gap:12px 24px}.footer-links a{text-underline-offset:3px}.seller{max-width:460px;margin:0;text-align:right;line-height:1.55}
-    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s var(--ease)}.reveal.visible{opacity:1;transform:none}:focus-visible{outline:3px solid rgba(255,138,92,.65);outline-offset:4px}
-    @media(max-width:760px){.shell{width:min(calc(100% - 32px),var(--max))}.block{padding:88px 0}h1{font-size:clamp(50px,15vw,74px)}h2{font-size:clamp(42px,12vw,64px)}.hero{padding-top:60px}.hero .lead{font-size:19px}.product{width:100%;height:300px;margin-top:42px}.book{width:68%;height:83%}.orbit{opacity:.45;right:-180px}.grid-4,.steps,.trust-list{grid-template-columns:1fr}.card{min-height:230px}.card-num{margin-bottom:50px}.steps{gap:1px}.step{min-height:220px}.step span{margin-bottom:52px}.author-layout{grid-template-columns:1fr}.monogram{margin-inline:auto}.footer-inner{display:block}.seller{margin-top:22px;text-align:left}.consents{padding:16px}.buy-button{width:100%;min-height:56px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.product,.card,.buy-button{transition:none}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Кофе, который ты понимаешь — справочник A CUP</title>
+<meta name="description" content="Справочник A CUP учит понимать зерно, упаковку и вкус — чтобы каждая чашка получалась такой, как ты задумал. 299 ₽, доступ сразу." />
+<meta name="theme-color" content="#14100b" />
+<link rel="canonical" href="https://акап.рф/guide/buy.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="../config.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/metrika.js"></script>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#14100b;
+  --bg-elev:#1b1510;
+  --card:#201912;
+  --ink:#f6efe4;
+  --muted:#a89a87;
+  --muted-2:#716352;
+  --line:rgba(246,239,228,.09);
+  --line-strong:rgba(246,239,228,.18);
+  --accent:#c62f3e;
+  --accent-hover:#d94352;
+  --accent-soft:rgba(198,47,62,.3);
+  --accent-glow:rgba(198,47,62,.16);
+  --copper:#c08a5a;
+  --ok:#7fb99a;
+  --radius:22px;
+  --radius-sm:12px;
+  --max:1120px;
+  --font:"Inter",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --shadow:0 30px 80px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;font-family:var(--font);font-size:16px;color:var(--ink);
+  background:var(--bg);min-height:100vh;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.03'/></svg>");
+}
+a{color:var(--accent);text-decoration:none;transition:color .15s ease}
+a:hover{color:var(--accent-hover)}
+.page{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 clamp(20px,5vw,44px) 110px}
+.center{text-align:center}
+.wide{max-width:760px;margin-left:auto;margin-right:auto}
+/* ============ TYPE ============ */
+h1,h2,h3{margin:0;letter-spacing:-.025em;line-height:1.08}
+h1{font-size:clamp(2.7rem,7.6vw,5.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.02}
+h2{font-size:clamp(1.9rem,4.6vw,3rem);font-weight:700;margin-bottom:20px}
+h3{font-size:1.15rem;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
+.kicker{
+  font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--copper);margin:0 0 18px;
+}
+.center .kicker::after{content:"";display:block;width:26px;height:1px;background:var(--copper);margin:14px auto 0;opacity:.6}
+.lead{color:var(--muted);font-size:clamp(1.05rem,2.4vw,1.25rem);line-height:1.6;margin:0 auto 34px;max-width:34em}
+.lead strong{color:var(--ink);font-weight:600}
+.section{margin-top:clamp(90px,13vw,170px)}
+/* ============ HEADER ============ */
+.site-header{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:22px 0 12px;position:sticky;top:0;z-index:20;
+  background:linear-gradient(180deg,rgba(20,16,11,.97) 60%,rgba(20,16,11,0));
+}
+.brand{display:flex;flex-direction:column;gap:1px;text-decoration:none;color:var(--ink)}
+.brand-mark{font-weight:800;font-size:17px;letter-spacing:.14em;text-transform:uppercase}
+.brand-mark em{font-style:normal;color:var(--accent)}
+.brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:.04em}
+.header-links{display:flex;gap:18px;flex-wrap:wrap;font-size:13px}
+.header-links a{color:var(--muted);font-weight:500}
+.header-links a:hover{color:var(--ink)}
+/* ============ BADGE ============ */
+.badge{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:7px 14px;border-radius:999px;
+  border:1px solid var(--line-strong);background:rgba(246,239,228,.03);
+  color:var(--muted);font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:26px;
+}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px var(--accent)}
+/* ============ BUTTONS ============ */
+.btn{
+  appearance:none;border:0;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;min-height:62px;padding:18px 32px;border-radius:999px;
+  background:var(--accent);color:#fff;
+  font-family:var(--font);font-weight:600;font-size:16.5px;letter-spacing:-.01em;
+  text-decoration:none;
+  box-shadow:0 0 0 1px rgba(255,255,255,.07) inset,0 14px 38px var(--accent-glow);
+  transition:background .16s ease,transform .16s ease,box-shadow .16s ease;
+}
+.btn:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 18px 44px rgba(198,47,62,.3);color:#fff}
+.btn:active{transform:translateY(0) scale(.985)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.buy-now:disabled{opacity:.7;cursor:wait}
+/* ============ HERO ============ */
+.hero{padding:clamp(56px,9vw,110px) 0 0;position:relative}
+.hero::before{
+  content:"";position:absolute;left:50%;top:-120px;transform:translateX(-50%);
+  width:min(900px,95vw);height:620px;border-radius:50%;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(198,47,62,.09),transparent 65%);
+  pointer-events:none;z-index:-1;
+}
+.hero .wide{text-align:center}
+.hero-sub{font-size:clamp(1.1rem,2.6vw,1.3rem);color:var(--muted);max-width:32em;margin:0 auto 30px;line-height:1.55}
+.hero-sub strong{color:var(--ink);font-weight:600}
+.price-row{display:flex;align-items:baseline;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:24px}
+.price{font-size:clamp(2.6rem,6.5vw,3.6rem);font-weight:800;letter-spacing:-.03em;line-height:1}
+.price em{font-style:normal;color:var(--accent);font-size:.55em;font-weight:700}
+.price-note{font-size:13.5px;color:var(--muted);max-width:220px;text-align:left;line-height:1.45}
+.cta-zone{max-width:420px;margin:0 auto}
+.micro-trust{
+  display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+  margin:16px 0 0;font-size:13px;color:var(--muted);line-height:1.5;
+}
+.micro-trust .sep{opacity:.4}
+.micro-trust svg{width:13px;height:13px;vertical-align:-2px;margin-right:2px;color:var(--ok)}
+.cta-hint{margin:14px 0 0;font-size:12.5px;color:var(--muted-2);line-height:1.55}
+.cta-hint a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.cta-hint a:hover{color:var(--ink)}
+.legal{font-size:11.5px;max-width:52em;margin-left:auto;margin-right:auto}
+/* фото героя — премиальная карточка */
+.hero-media{margin-top:clamp(44px,7vw,80px)}
+.hero-media img{
+  display:block;width:100%;max-width:1000px;margin:0 auto;
+  border-radius:var(--radius);border:1px solid var(--line-strong);
+  box-shadow:var(--shadow);
+}
+/* ============ BLOCK 1 — ПЕРЕМЕНА ============ */
+.shift-line{max-width:720px;margin:0 auto;text-align:center}
+.shift-line .was{color:var(--muted);font-size:clamp(1.1rem,2.6vw,1.4rem);margin:0 0 14px}
+.shift-line .was::before{content:"раньше · ";font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:8px}
+.shift-line .now{
+  color:var(--ink);font-weight:600;font-size:clamp(1.45rem,3.6vw,2.1rem);line-height:1.3;
+  letter-spacing:-.02em;margin:0 0 18px;
+}
+.shift-line .now::before{content:"теперь · ";font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);display:block;margin-bottom:10px}
+.shift-line .path{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.shift-line .path b{color:var(--ok);font-weight:500}
+/* ============ BLOCK 2 — УМЕНИЯ ============ */
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:860px;margin:0 auto}
+.skill{
+  padding:26px 26px 24px;border-radius:var(--radius-sm);
+  background:var(--bg-elev);border:1px solid var(--line);
+  font-size:1.12rem;font-weight:600;line-height:1.45;letter-spacing:-.01em;
+  transition:border-color .18s ease,transform .18s ease;
+}
+.skill:hover{border-color:var(--accent-soft);transform:translateY(-2px)}
+.skill small{display:block;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:10px}
+/* ============ BLOCK 3 — КАК УСТРОЕНО ============ */
+.how-grid{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:clamp(30px,5vw,56px);align-items:start;margin-top:8px}
+.how-intro{font-size:clamp(1.2rem,2.8vw,1.5rem);color:var(--ink);font-weight:600;line-height:1.45;letter-spacing:-.015em;margin:0 0 26px}
+.how-intro span{color:var(--muted);font-weight:400}
+.steps{display:grid;gap:12px}
+.step{
+  display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;
+  padding:20px 22px;background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);
+}
+.step-num{
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  font-weight:700;font-size:16px;color:var(--ink);
+  border:1px solid var(--accent-soft);background:rgba(198,47,62,.1);
+}
+.step h3{font-size:1.05rem;margin-bottom:3px}
+.step p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.5}
+/* таблица-шпаргалка */
+.table-card{
+  border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--bg-elev);overflow-x:auto;
+}
+.table-card .tc-head{
+  padding:18px 22px 14px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);
+}
+.table-card table{width:100%;border-collapse:collapse;min-width:500px}
+.table-card th,.table-card td{text-align:left;padding:15px 22px;border-bottom:1px solid var(--line);vertical-align:top;font-size:15px}
+.table-card tr:last-child td{border-bottom:0}
+.table-card th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.table-card td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+.table-card td:not(:first-child){color:var(--muted)}
+.table-card tbody tr{transition:background .15s ease}
+.table-card tbody tr:hover{background:rgba(246,239,228,.03)}
+.table-card .tc-foot{padding:14px 22px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:28px}
+.chips span{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 13px;background:var(--bg-elev)}
+/* ============ ГАРАНТИЯ ============ */
+.guar{
+  display:flex;gap:20px;align-items:flex-start;text-align:left;
+  max-width:720px;margin:0 auto;padding:26px 28px;border-radius:var(--radius-sm);
+  border:1px solid var(--accent-soft);background:rgba(198,47,62,.06);
+}
+.guar .shield{flex:0 0 auto;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(198,47,62,.14);color:var(--accent)}
+.guar h3{font-size:1.1rem;margin-bottom:4px}
+.guar p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+.guar a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+/* ============ АВТОР ============ */
+.author-master{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:clamp(32px,6vw,72px);align-items:start}
+.author-photo{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.author-photo img{width:100%;height:auto;display:block;filter:saturate(.78) contrast(1.08)}
+.author-bio{padding:22px 24px;border-radius:var(--radius-sm);background:var(--bg-elev);border:1px solid var(--line-strong)}
+.author-bio h3{font-size:1.2rem}
+.author-bio p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
+.qa{padding:16px 0;border-bottom:1px solid var(--line)}
+.qa p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.interview-link{display:inline-block;margin-top:18px;color:var(--muted);text-decoration:underline;text-underline-offset:4px}
+.interview-link:hover{color:var(--ink)}
+.video-shell{margin-top:16px;aspect-ratio:16/9;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-elev)}
+.video-shell iframe{width:100%;height:100%;border:0;display:block}
+.video-consent{width:100%;height:100%;border:0;padding:20px;display:flex;align-items:center;justify-content:center;gap:16px;color:var(--ink);background:transparent;cursor:pointer;font:inherit;text-align:left}
+.video-consent small{display:block;margin-top:4px;color:var(--muted);line-height:1.45}
+.video-play{width:46px;height:46px;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;flex:0 0 auto;color:var(--copper);font-size:13px;transition:border-color .15s ease,color .15s ease}
+.video-consent:hover .video-play{border-color:var(--copper);color:var(--ink)}
+/* ============ FAQ ============ */
+.faq{display:grid;gap:12px;max-width:720px;margin:0 auto}
+.faq details{
+  background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:20px 24px;transition:border-color .18s ease;
+}
+.faq details[open]{border-color:var(--accent-soft)}
+.faq summary{
+  cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  font-weight:600;font-size:16px;color:var(--ink);
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);font-weight:500;font-size:18px;color:var(--copper);transition:transform .2s ease;flex:0 0 auto}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:10px 0 0;color:var(--muted);font-size:14.5px;line-height:1.6}
+/* ============ FINAL ============ */
+.final{margin-top:clamp(90px,13vw,170px)}
+.final .statement{
+  font-size:clamp(2rem,5.4vw,3.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.12;
+  margin:0 auto 16px;max-width:16em;
+}
+.final .statement em{font-style:normal;color:var(--copper)}
+.final .price-row{margin-top:28px}
+.final-media{margin-top:clamp(36px,6vw,60px)}
+.final-media img{
+  display:block;width:100%;max-width:1000px;margin:0 auto;
+  border-radius:var(--radius);border:1px solid var(--line-strong);box-shadow:var(--shadow);
+}
+/* ============ FOOTER ============ */
+.site-footer{margin-top:clamp(80px,11vw,130px);padding-top:26px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted-2);text-align:center;line-height:1.7}
+.site-footer a{color:var(--muted)}
+.site-footer a:hover{color:var(--ink)}
+.site-footer .row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-bottom:12px}
+.site-footer .row a{text-decoration:underline;text-underline-offset:3px}
+/* ============ STICKY CTA ============ */
+.sticky-cta{
+  display:none;position:fixed;left:0;right:0;bottom:0;z-index:30;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,transparent,rgba(20,16,11,.97) 30%);
+  pointer-events:none;
+}
+.sticky-cta .btn{pointer-events:auto;box-shadow:0 8px 32px rgba(0,0,0,.5),0 12px 36px var(--accent-glow)}
+@media (max-width:720px){
+  .sticky-cta.show{display:block}
+  body.sticky-pad{padding-bottom:96px}
+}
+/* ============ STATUS ============ */
+.status{margin-top:12px;font-size:14px;min-height:1.3em;text-align:center}
+.status.err{color:#f07178;font-weight:600}
+.status.ok{color:var(--ok);font-weight:600}
+.global-status{position:sticky;bottom:18px;z-index:40;max-width:760px;margin:20px auto}
+/* ============ MOTION ============ */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.22,.61,.36,1)}
+.rv.in{opacity:1;transform:none}
+.hero .rv:nth-child(2){transition-delay:.08s}
+.hero .rv:nth-child(3){transition-delay:.16s}
+.hero .rv:nth-child(4){transition-delay:.24s}
+.hero .rv:nth-child(5){transition-delay:.32s}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .how-grid{grid-template-columns:1fr}
+  .author-master{grid-template-columns:1fr}
+  .author-content{padding-top:0}
+}
+@media (max-width:640px){
+  .skills{grid-template-columns:1fr}
+  .guar{flex-direction:column;gap:14px}
+  .step{grid-template-columns:40px 1fr}
+  .price-note{text-align:center}
+}
+</style>
 </head>
 <body>
-  <main>
-    <section class="block hero" id="hero" aria-labelledby="hero-title">
-      <div class="hero-glow" aria-hidden="true"></div>
-      <div class="shell hero-copy">
-        <p class="eyebrow reveal visible">A CUP</p>
-        <h1 id="hero-title" class="reveal visible">Кофе, который ты понимаешь</h1>
-        <p class="lead reveal visible">Справочник, который превращает случайные чашки в чашки, которые ты контролируешь. Рецепты, шпаргалки и диагностика вкуса — в одном месте.</p>
-        <div class="cta-row reveal visible"><a class="buy-button js-buy-link" href="#buy">Купить за 299 ₽</a><p class="micro">Оплата картой или СБП. Доступ сразу.</p></div>
-        <div class="product reveal visible" aria-label="Цифровой справочник A CUP">
-          <div class="book"><span class="book-mark">A CUP</span><span class="book-dot"></span><span class="book-title">Справочник<br>по кофе</span></div>
-        </div>
-      </div>
-    </section>
+<div class="page">
 
-    <section class="block" aria-labelledby="change-title">
-      <div class="orbit" aria-hidden="true"></div><div class="shell change-copy reveal"><h2 id="change-title">От случайности — к контролю</h2><p class="lead">Больше не нужно угадывать. Справочник объясняет, что происходит в чашке и что изменить, чтобы стало вкуснее.</p></div>
-    </section>
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="brand-mark">A CUP<em>.</em></span><span class="brand-sub">кофе без снобизма</span></a>
+  <nav class="header-links"><a href="access.html">Уже купил</a></nav>
+</header>
 
-    <section class="block" aria-labelledby="skills-title">
-      <div class="shell"><h2 id="skills-title" class="reveal">Что ты получишь</h2><div class="grid-4">
-        <article class="card reveal"><span class="card-num">01</span><h3>Рецепты, которые работают</h3><p>от классики до фильтра, с весами, помолом и временем</p></article>
-        <article class="card reveal"><span class="card-num">02</span><h3>Диагностика вкуса</h3><p>почему горчит, кислит, плоская; что поменять</p></article>
-        <article class="card reveal"><span class="card-num">03</span><h3>Шпаргалки</h3><p>таблицы экстракции, помолов, соотношений</p></article>
-        <article class="card reveal"><span class="card-num">04</span><h3>Понятная теория</h3><p>без воды: как зерно, вода и рецепт влияют на вкус</p></article>
-      </div></div>
-    </section>
+<main>
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wide">
+    <p class="badge rv">Цифровой справочник</p>
+    <h1 class="rv">Кофе, который ты&nbsp;понимаешь</h1>
+    <p class="hero-sub rv">Справочник A CUP учит понимать зерно, упаковку и&nbsp;вкус — чтобы каждая чашка получалась такой, как ты задумал. <strong>От нуля до&nbsp;specialty.</strong></p>
+    <div class="price-row rv"><span class="price">299<em>₽</em></span><span class="price-note">Разовая оплата.<br>Доступ без срока действия.</span></div>
+    <div class="cta-zone rv">
+      <form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
+        <input type="hidden" name="flow" value="direct">
+        <button class="btn buy-now" type="submit">Купить и открыть справочник</button>
+      </form>
+      <p class="micro-trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.6-8 11.3-4.6-1.7-8-6.3-8-11.3V5.5L12 2z"/><path d="M9 11.5l2 2 4-4"/></svg>Оплата защищена ЮKassa</span><span class="sep">·</span><span>Доступ сразу</span><span class="sep">·</span><span>14 дней на возврат</span>
+      </p>
+      <p class="cta-hint legal">Нажимая кнопку, вы принимаете условия <a href="offer.html">публичной оферты</a> и <a href="privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p>
+    </div>
+  </div>
+  <div class="hero-media rv"><img src="img/hero_premium_cup.png" width="1024" height="576" alt="Капучино с латте-арт — чашка кофе, который ты понимаешь"></div>
+</section>
 
-    <section class="block" aria-labelledby="steps-title">
-      <div class="shell"><h2 id="steps-title" class="reveal">Как это работает</h2><div class="steps reveal">
-        <article class="step"><span>1</span><h3>Оплати — получи доступ сразу</h3></article><article class="step"><span>2</span><h3>Открой справочник — на телефоне или компьютере</h3></article><article class="step"><span>3</span><h3>Вари и поправляй вкус по диагностике</h3></article>
-      </div></div>
-    </section>
+<!-- ================= БЛОК 1 — ПЕРЕМЕНА ================= -->
+<section class="section">
+  <div class="shift-line rv">
+    <p class="kicker">Перемена</p>
+    <p class="was">Раньше новая пачка — всегда неизвестность.</p>
+    <p class="now">Теперь ты знаешь, чего ждать, и&nbsp;умеешь это повторить.</p>
+    <p class="path">Путь от <b>случайных чашек</b> к <b>осознанным</b></p>
+  </div>
+</section>
 
-    <section class="block promise" aria-labelledby="promise-title">
-      <div class="shell reveal"><h2 id="promise-title">14 дней, чтобы кофе стал понятным.</h2><p class="lead">Если нет — напиши нам, вернём деньги. Возврат по номеру заказа.</p><p class="fine">Способ возврата и условия — в оферте. <a href="/guide/offer.html">Оферта</a> — внизу страницы.</p></div>
-    </section>
+<!-- ================= БЛОК 2 — УМЕНИЯ ================= -->
+<section class="section">
+  <div class="center wide rv">
+    <p class="kicker">Что ты научишься делать</p>
+    <h2>Не характеристики — умения</h2>
+  </div>
+  <div class="skills">
+    <div class="skill rv"><small>Понимать упаковку</small>Понимать упаковку за минуту, а не гадать по картинке.</div>
+    <div class="skill rv"><small>Настраивать рецепт</small>Настраивать рецепт под своё зерно и свой вкус.</div>
+    <div class="skill rv"><small>Находить причину</small>Находить причину, когда чашка не получилась.</div>
+    <div class="skill rv"><small>Готовить каждый день</small>Готовить кофе, который хочется пить каждый день.</div>
+  </div>
+</section>
 
-    <section class="block" aria-labelledby="author-title">
-      <div class="shell author-layout"><div class="monogram reveal" aria-hidden="true">МД</div><div class="reveal"><h2 id="author-title">Автор — Михаил Дмитриев</h2><p class="lead">Основатель A CUP, 9 лет с зерном: от розничных кофеен до обучения бариста. Написал справочник, которого не хватало: без воды, по шагам, с диагностикой вкуса.</p></div></div>
-    </section>
+<!-- ================= БЛОК 3 — КАК УСТРОЕНО ================= -->
+<section class="section">
+  <div class="center wide rv">
+    <p class="kicker">Как это устроено</p>
+    <p class="how-intro">Не курс и не лекции. <span>Рабочий справочник, который открывается сразу после оплаты: рецепты, шпаргалки, диагностика вкуса. На телефоне и на компьютере. <b style="color:var(--ink);font-weight:600">299 ₽, разовая оплата. Это не подписка: доступ без срока действия. 14 дней на возврат.</b></span></p>
+  </div>
+  <div class="how-grid">
+    <div class="steps">
+      <div class="step rv"><div class="step-num">1</div><div><h3>Нажми кнопку</h3><p>Сайт создаст индивидуальный платёж на ЮKassa.</p></div></div>
+      <div class="step rv"><div class="step-num">2</div><div><h3>Оплати</h3><p>Защищённая страница предложит доступные способы оплаты.</p></div></div>
+      <div class="step rv"><div class="step-num">3</div><div><h3>Открой справочник</h3><p>Доступ — сразу после оплаты, на телефоне и компьютере.</p></div></div>
+    </div>
+    <div class="table-card rv">
+      <div class="tc-head">Как это выглядит: шпаргалка</div>
+      <table>
+        <thead><tr><th>В чашке</th><th>Причина</th><th>Что проверить первым</th></tr></thead>
+        <tbody>
+          <tr><td>Кисло и пусто</td><td>Недостаточно извлечён вкус</td><td>Помол мельче или больше времени</td></tr>
+          <tr><td>Горько и вяжет</td><td>Извлечено слишком много</td><td>Помол крупнее или меньше времени</td></tr>
+          <tr><td>Водянисто</td><td>Мало концентрации</td><td>Количество кофе и помол</td></tr>
+          <tr><td>Плоско</td><td>Зерно или вода</td><td>Свежесть и состав воды</td></tr>
+        </tbody>
+      </table>
+      <div class="tc-foot">Внутри — расширенная диагностика и главное правило: менять только один параметр за раз.</div>
+    </div>
+  </div>
+  <div class="chips rv"><span>Основы: зерно, помол, вода</span><span>Рецепты V60 и аэропресса</span><span>Игра «Диагностика вкуса»</span><span>Шпаргалки</span><span>История specialty</span></div>
+</section>
 
-    <section class="block" aria-labelledby="trust-title">
-      <div class="shell"><h2 id="trust-title" class="reveal">Всё прозрачно</h2><div class="trust-list reveal"><article class="trust-item"><h3>Разовая оплата</h3><p>Это не подписка: разовая оплата, доступ без срока действия.</p></article><article class="trust-item"><h3>Безопасный платёж</h3><p>Карта не сохраняется, платёж проходит через защищённую страницу ЮKassa.</p></article><article class="trust-item"><h3>Поддержка</h3><p>Если что-то не так — поддержка отвечает в течение дня.</p></article></div><p class="support reveal">Поддержка: Telegram <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a></p></div>
-    </section>
+<!-- ================= ГАРАНТИЯ ================= -->
+<section class="section">
+  <div class="guar rv">
+    <span class="shield"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.6-8 11.3-4.6-1.7-8-6.3-8-11.3V5.5L12 2z"/><path d="M9 11.5l2 2 4-4"/></svg></span>
+    <div>
+      <h3>14 дней на возврат</h3>
+      <p>Попробуй без риска: не подойдёт — вернём деньги. Возврат по номеру заказа через поддержку <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a>.</p>
+    </div>
+  </div>
+</section>
 
-    <section class="block" aria-labelledby="faq-title">
-      <div class="shell"><h2 id="faq-title" class="center reveal">Вопросы и ответы</h2><div class="faq reveal">
-        <details><summary>Что я получу после оплаты?</summary><p>Доступ к справочнику сразу.</p></details><details><summary>Это подписка?</summary><p>Нет, разовая оплата, доступ без срока.</p></details><details><summary>Как оплатить?</summary><p>Картой или через СБП на защищённой странице.</p></details><details><summary>А если не понравится?</summary><p>Гарантия 14 дней, возврат по номеру заказа.</p></details>
-      </div></div>
-    </section>
+<!-- ================= АВТОР ================= -->
+<section class="section author-master">
+  <div class="author-photo rv"><img src="assets/mikhail-portrait.webp" width="591" height="826" loading="lazy" alt="Михаил Дмитриев, создатель A CUP"></div>
+  <div class="author-content">
+    <p class="kicker rv">Михаил Дмитриев · A CUP</p>
+    <h2 class="rv">Кто собрал этот справочник</h2>
+    <div class="author-bio rv">
+      <h3>Михаил Дмитриев</h3>
+      <p>Создатель A CUP. Более 9 лет работает с зерном, обжаркой, контролем качества, дегустациями и домашним приготовлением. Справочник переводит профессиональные принципы на понятный домашний язык.</p>
+    </div>
+  </div>
+</section>
 
-    <section class="block final center" id="buy" aria-labelledby="final-title">
-      <div class="shell reveal"><p class="eyebrow">A CUP</p><h2 id="final-title">Кофе — это не магия. Это понимание.</h2>
-        <form class="checkout" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
-          <button class="buy-button" type="submit">Купить за 299 ₽</button><p class="micro">Оплата картой или СБП. Доступ сразу.</p>
-          <div class="consents" aria-label="Согласия для оплаты">
-            <label class="check"><input type="checkbox" name="acceptOffer" required checked><span>Принимаю условия <a href="/guide/offer.html">публичной оферты</a>.</span></label>
-            <label class="check"><input type="checkbox" name="acceptPrivacy" required checked><span>Ознакомлен с <a href="/guide/privacy.html">политикой конфиденциальности</a>.</span></label>
-            <label class="check"><input type="checkbox" name="acceptDigital" required checked><span>Подтверждаю покупку цифрового товара с доступом сразу после оплаты.</span></label>
-            <label class="check"><input type="checkbox" name="acceptIp" required checked><span>Согласен, что для безопасности платежа может обрабатываться IP-адрес.</span></label>
-            <label class="check"><input type="checkbox" name="consent" required checked><span>Даю согласие на обработку персональных данных в соответствии с 152-ФЗ.</span></label>
-          </div>
-          <input type="hidden" name="client_nonce" value=""><p class="status" id="pay-status" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
-  </main>
-  <footer><div class="shell footer-inner"><nav class="footer-links" aria-label="Юридические ссылки"><a href="/guide/offer.html">Оферта</a><a href="/guide/privacy.html">Конфиденциальность</a><a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">Поддержка</a></nav><p class="seller">Самозанятый Дмитриев Михаил Александрович<br>ИНН 772453231807</p></div></footer>
+<!-- ================= ФИНАЛ ================= -->
+<section class="section final">
+  <div class="wide center">
+    <p class="kicker rv">Итог</p>
+    <p class="statement rv">Кофе — это не магия. Это&nbsp;<em>понимание</em>.</p>
+    <p class="lead rv">Справочник A CUP помогает в нём разобраться.</p>
+    <div class="price-row rv"><span class="price">299<em>₽</em></span><span class="price-note">разовая оплата</span></div>
+    <div class="cta-zone rv">
+      <form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
+        <input type="hidden" name="flow" value="direct">
+        <button class="btn buy-now" type="submit">Купить и открыть справочник</button>
+      </form>
+      <p class="micro-trust"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.6-8 11.3-4.6-1.7-8-6.3-8-11.3V5.5L12 2z"/><path d="M9 11.5l2 2 4-4"/></svg>ЮKassa</span><span class="sep">·</span><span>Доступ сразу после оплаты</span><span class="sep">·</span><span>14 дней на возврат</span></p>
+      <p class="cta-hint legal">Нажимая кнопку, вы принимаете условия <a href="offer.html">публичной оферты</a> и <a href="privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p>
+    </div>
+  </div>
+  <div class="final-media rv"><img src="img/hero_premium_pour_dark.png" width="1024" height="576" loading="lazy" alt="Пролив V60 — процесс, который ты понимаешь"></div>
+</section>
 
-  <script>
-    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
-    ym(111214147,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,ecommerce:"dataLayer"});
-  </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/111214147" style="position:absolute;left:-9999px" alt=""></div></noscript>
-  <script>
-    (function(){
-      "use strict";
-      var COUNTER=111214147,GOALS={purchase:591937343,click_buy:591937440};
-      var form=document.querySelector(".checkout"),button=form.querySelector(".buy-button"),status=document.getElementById("pay-status"),busy=false,scrollGoalSent=false;
-      function goal(name,params){if(typeof window.ym==="function")window.ym(COUNTER,"reachGoal",name,Object.assign({goal_id:GOALS[name]||undefined},params||{}))}
-      function query(name){try{return new URLSearchParams(location.search).get(name)||""}catch(e){return ""}}
-      function stored(name){try{return sessionStorage.getItem("acup_utm_"+name)||""}catch(e){return ""}}
-      var utmNames={source:"utm_source",medium:"utm_medium",campaign:"utm_campaign",term:"utm_term",content:"utm_content"},params=new URLSearchParams();
-      Object.keys(utmNames).forEach(function(key){var incoming=query(utmNames[key]);if(incoming)try{sessionStorage.setItem("acup_utm_"+key,incoming)}catch(e){}var value=incoming||stored(key);if(value)params.set(utmNames[key],value.slice(0,64))});
-      var ref=query("ref").toUpperCase().trim().slice(0,9);if(ref)params.set("ref",ref);
-      var test=query("test")==="1";if(test)params.set("test","1");
-      function getNonce(){var key="acup_payment_nonce",value="";try{value=sessionStorage.getItem(key)||""}catch(e){}if(!value){value=crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2);try{sessionStorage.setItem(key,value)}catch(e){}}return value}
-      form.elements.client_nonce.value=getNonce();
-      document.querySelectorAll(".js-buy-link").forEach(function(link){link.addEventListener("click",function(){goal("click_buy",{cta_position:"hero",price:299,currency:"RUB"})})});
-      form.addEventListener("submit",async function(event){
-        event.preventDefault();if(busy||!form.reportValidity())return;busy=true;button.disabled=true;var label=button.textContent;button.textContent="Переходим к оплате…";status.textContent="";goal("click_buy",{cta_position:"final",price:299,currency:"RUB"});
-        try{var payload={client_nonce:form.elements.client_nonce.value,acceptOffer:form.elements.acceptOffer.checked,acceptPrivacy:form.elements.acceptPrivacy.checked,acceptDigital:form.elements.acceptDigital.checked,acceptIp:form.elements.acceptIp.checked,consent:form.elements.consent.checked,test:test};var url="https://acup-access.acup-access.workers.dev/api/payments"+(params.toString()?"?"+params.toString():"");var response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});var data=await response.json();if(!response.ok||!data.confirmation_url)throw new Error(data.message||data.error||"Не удалось создать платёж");try{sessionStorage.setItem("acup_guide_order",data.orderId||data.order_id||"")}catch(e){}location.href=data.confirmation_url}catch(error){busy=false;button.disabled=false;button.textContent=label;status.textContent=error.message||"Не удалось перейти к оплате. Попробуйте ещё раз."}
-      });
-      var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches,reveals=document.querySelectorAll(".reveal:not(.visible)");if(!reduced&&"IntersectionObserver" in window){var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12,rootMargin:"0px 0px -42px"});reveals.forEach(function(el){observer.observe(el)})}else reveals.forEach(function(el){el.classList.add("visible")});
-      var product=document.querySelector(".product");addEventListener("scroll",function(){var page=document.documentElement,progress=(page.scrollTop+innerHeight)/(page.scrollHeight||1);if(!scrollGoalSent&&progress>=.5){scrollGoalSent=true;goal("scroll_50",{percent:50})}if(!reduced&&scrollY<innerHeight*1.2)product.style.transform="translate3d(0,"+(scrollY*.075)+"px,0)"},{passive:true});
-    })();
-  </script>
+<!-- ================= FAQ ================= -->
+<section class="section">
+  <div class="center wide rv">
+    <p class="kicker">Вопросы</p>
+    <h2>Частые вопросы</h2>
+  </div>
+  <div class="faq">
+    <details class="rv"><summary>Что внутри справочника?</summary><p>Основы: зерно, помол, вода, экстракция. Игра «Диагностика вкуса». Рецепты. Шпаргалки. История specialty. Всё открывается в браузере.</p></details>
+    <details class="rv"><summary>Как я получу доступ?</summary><p>После оплаты ты сразу получишь персональный токен — на сайте или в боте @acup_guide_bot. Это не подписка: доступ без срока действия.</p></details>
+    <details class="rv"><summary>На каких устройствах это работает?</summary><p>На телефоне и компьютере — справочник открывается в любом браузере.</p></details>
+    <details class="rv"><summary>Можно ли вернуть деньги?</summary><p>Да, в течение 14 дней — по номеру заказа через поддержку. Условия — в публичной оферте.</p></details>
+  </div>
+</section>
+
+<div class="status global-status" id="payStatus" aria-live="polite"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="row"><a href="../index.html">акап.рф</a><a href="offer.html">Оферта</a><a href="privacy.html">Конфиденциальность</a><a href="access.html">Вход по токену</a><a href="https://t.me/Arcady_ya">Поддержка</a></div>
+  <div>A CUP · самозанятый Дмитриев М.А., ИНН 772453231807 · ЮKassa</div>
+</footer>
+
+</div>
+
+<div class="sticky-cta" id="stickyCta">
+  <form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
+    <input type="hidden" name="flow" value="direct">
+    <button class="btn buy-now" type="submit">Купить и открыть справочник</button>
+  </form>
+</div>
+
+<!-- платёжная логика (без изменений) -->
+<script>
+(function(){let busy=false;const buttons=[...document.querySelectorAll('.buy-now')],status=document.getElementById('payStatus');document.querySelectorAll('form.direct-buy').forEach((form,index)=>form.addEventListener('submit',()=>{if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy',{cta_position:index+1,price:299,currency:'RUB'});buttons.forEach(b=>{b.disabled=true;b.textContent='Переходим к безопасной оплате…'})}));async function buy(){if(busy)return;busy=true;buttons.forEach(b=>{b.disabled=true;b.dataset.label=b.textContent;b.textContent='Переходим к безопасной оплате…'});if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy');try{const base=await window.ACUPResolveApiBase();const nonce=sessionStorage.getItem('acup_payment_nonce')||String(Date.now())+'-'+Math.random().toString(36).slice(2);sessionStorage.setItem('acup_payment_nonce',nonce);const r=await fetch(base+'/api/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_nonce:nonce,acceptOffer:true,acceptPrivacy:true,acceptDigital:true,acceptIp:true,consent:true})});const d=await r.json();if(!r.ok||!d.confirmation_url)throw new Error(d.message||d.error||'Не удалось создать платёж');sessionStorage.setItem('acup_guide_order',d.orderId);location.href=d.confirmation_url}catch(e){status.className='status err global-status';status.textContent=e.message;busy=false;buttons.forEach(b=>{b.disabled=false;b.textContent=b.dataset.label})}}const _v=document.getElementById('loadAuthorVideo');if(_v)_v.addEventListener('click',function(){const shell=document.getElementById('authorVideo');if(shell){const f=document.createElement('iframe');f.src=shell.dataset.src;f.title='Интервью с автором';f.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';f.allowFullscreen=true;shell.replaceChildren(f)}},{once:true});if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy')})();
+</script>
+<script>
+(function () {
+  function gp(n) { try { return new URLSearchParams(location.search).get(n) || ''; } catch (_) { return ''; } }
+  function ss(n) { try { return sessionStorage.getItem('acup_utm_' + n) || ''; } catch (_) { return ''; } }
+  var utm = {
+    source: gp('utm_source') || ss('source'),
+    medium: gp('utm_medium') || ss('medium'),
+    campaign: gp('utm_campaign') || ss('campaign'),
+    term: gp('utm_term') || ss('term'),
+    content: gp('utm_content') || ss('content')
+  };
+  try {
+    var q = new URLSearchParams(location.search);
+    ['source', 'medium', 'campaign', 'term', 'content'].forEach(function (k) {
+      var v = q.get('utm_' + k);
+      if (v) sessionStorage.setItem('acup_utm_' + k, v);
+    });
+  } catch (_) {}
+  var utmQ = new URLSearchParams();
+  Object.keys(utm).forEach(function (k) { if (utm[k]) utmQ.set('utm_' + k, utm[k]); });
+  var refParam = gp('ref') ? 'ref=' + encodeURIComponent(gp('ref').toUpperCase().trim().slice(0, 9)) : '';
+  var utmS = [utmQ.toString(), refParam].filter(Boolean).join('&');
+  var nonce = (gp('test') === '1' ? 't_' : '') + (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
+  var apiBase = '';
+  if (window.ACUPResolveApiBase) { window.ACUPResolveApiBase().then(function (b) { apiBase = b; }).catch(function () {}); }
+  document.querySelectorAll('form.direct-buy').forEach(function (f) {
+    var base = f.action.split('?')[0];
+    if (utmS) f.action = base + '?' + utmS;
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var st = document.getElementById('payStatus');
+      if (window.ACUPMetrika) window.ACUPMetrika.reach('click_buy');
+      if (!apiBase) apiBase = String((window.ACUP && window.ACUP.guide && window.ACUP.guide.apiBase) || '').replace(/\/$/, '');
+      var url = apiBase + '/api/payments' + (utmS ? '?' + utmS : '');
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ client_nonce: nonce, acceptOffer: true, acceptPrivacy: true, acceptDigital: true, acceptIp: true, consent: true })
+      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (x) {
+          if (!x.ok || !x.d.confirmation_url) throw new Error(x.d.message || x.d.error || 'Не удалось создать платёж');
+          try { sessionStorage.setItem('acup_guide_order', x.d.orderId); } catch (_) {}
+          location.href = x.d.confirmation_url;
+        })
+        .catch(function (e) {
+          if (st) { st.className = 'status err global-status'; st.textContent = e.message || String(e); }
+          document.querySelectorAll('.buy-now').forEach(function (b) { b.disabled = false; b.textContent = b.dataset.label || 'Попробовать ещё раз'; });
+        });
+    });
+  });
+})();
+</script>
+<script>
+/* премиальные микроанимации: появление секций + мобильная sticky-кнопка */
+(function(){
+  if(!('IntersectionObserver' in window)){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  var sticky=document.querySelector('.sticky-cta'),final=document.querySelector('.final');
+  if(sticky&&final){var so=new IntersectionObserver(function(es){es.forEach(function(e){var show=e.isIntersecting&&window.innerWidth<=720;sticky.classList.toggle('show',!show);document.body.classList.toggle('sticky-pad',!show)})},{threshold:.15});so.observe(final)}
+})();
+</script>
 </body>
 </html>
