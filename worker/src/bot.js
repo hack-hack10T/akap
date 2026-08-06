@@ -240,7 +240,7 @@ export async function createCardPayment(e, chatId) {
     )
       .bind(id, pub, e.PRODUCT_ID, e.PRODUCT_VERSION, key, now, now, returnHash, chatId, chatId, refCode())
       .run();
-    const ret = new URL('/payment/return', e.__origin);
+    const ret = new URL('/payment/return', 'https://acup-access.acup-access.workers.dev');
     ret.searchParams.set('order', pub);
     ret.searchParams.set('key', returnKey);
     const q = await e.__yk(e, '/payments', {
