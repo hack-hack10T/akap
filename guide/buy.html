@@ -1,461 +1,218 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Кофе, который ты понимаешь — справочник A CUP</title>
-<meta name="description" content="Справочник A CUP учит понимать зерно, упаковку и вкус — чтобы каждая чашка получалась такой, как ты задумал. 299 ₽, доступ сразу." />
-<meta name="theme-color" content="#14100b" />
-<link rel="canonical" href="https://акап.рф/guide/buy.html" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>От нуля до specialty — A CUP</title>
+<meta name="description" content="Практический визуальный гид по кофе: зерно, вода, помол, рецепты и оборудование.">
+<style>
+:root{
+ --black:#000;--ink:#1d1d1f;--paper:#fff;--bg:#f5f5f7;--muted:#6e6e73;--blue:#0071e3;
+ --coffee:#7a4428;--coffee2:#bd8259;--cream:#eee2d7;--line:rgba(0,0,0,.08);
+ --ease:cubic-bezier(.22,.82,.24,1);--max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#000}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,Arial,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}button,input{font:inherit}.wrap{width:min(calc(100% - 40px),var(--max));margin:auto}
+.nav{position:fixed;inset:0 0 auto;z-index:200;background:rgba(10,10,11,.7);color:#fff;border-bottom:1px solid rgba(255,255,255,.08);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%)}
+.navin{height:54px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:19px;font-weight:800;letter-spacing:-.04em}.navlinks{display:flex;gap:22px;align-items:center;font-size:13px;color:#d8d8dc}.navbuy{background:var(--blue);color:white;padding:8px 15px;border-radius:999px}
+.hero{position:relative;min-height:100svh;overflow:hidden;background:#000;color:#fff;padding:90px 0 0}.hero:before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 50% 44%,rgba(189,130,89,.26),rgba(60,28,13,.1) 36%,transparent 64%);filter:blur(20px)}
+.heroCopy{position:relative;z-index:5;text-align:center;padding:0 20px}.eyebrow{font-size:18px;color:#d69b72;font-weight:720}.hero h1{margin:10px auto 0;font-size:clamp(58px,9vw,116px);line-height:.87;letter-spacing:-.082em;max-width:1060px}.heroLead{font-size:clamp(20px,2.5vw,30px);line-height:1.17;letter-spacing:-.035em;max-width:730px;margin:22px auto 0;color:#d2d2d7}.actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:28px}.btn{border:0;border-radius:999px;padding:14px 24px;font-weight:650;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.primary{background:var(--blue);color:#fff;box-shadow:0 12px 32px rgba(0,113,227,.24)}.secondary{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}.heroPrice{display:inline-flex;align-items:center;gap:9px;font-size:clamp(27px,3vw,36px);font-weight:820;letter-spacing:-.04em;color:#fff}.heroPrice small{font-size:14px;font-weight:600;color:#a1a1a6;letter-spacing:0}
+.heroScene{position:relative;height:48svh;min-height:360px;margin-top:8px;perspective:1600px;transform-style:preserve-3d}.heroGlow{position:absolute;left:50%;top:58%;width:min(900px,120vw);height:320px;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(220,147,96,.4),rgba(129,69,35,.12) 45%,transparent 72%);filter:blur(22px);animation:glowBreath 5s ease-in-out infinite}.bookHero{position:absolute;left:50%;top:50%;width:min(720px,88vw);aspect-ratio:1.55/1;transform:translate(-50%,-50%) rotateX(55deg) rotateZ(-12deg);transform-style:preserve-3d;animation:bookBreath 7s var(--ease) infinite}.bookBase{position:absolute;inset:0;border-radius:34px;background:linear-gradient(145deg,#d9b79f,#8c5131 55%,#32170c);box-shadow:-34px 70px 110px rgba(0,0,0,.7),inset 0 2px rgba(255,255,255,.58)}.bookCover{position:absolute;inset:0;border-radius:34px;overflow:hidden;background:linear-gradient(140deg,#d0a07e,#8c4e2e 48%,#2b1309);border:1px solid rgba(255,255,255,.28);padding:5%}.bookCover:before{content:"";position:absolute;inset:12px;border:1px solid rgba(255,255,255,.25);border-radius:25px}.bookCover:after{content:"";position:absolute;width:43%;aspect-ratio:.72;right:-7%;top:-21%;border-radius:50%;background:radial-gradient(circle at 34% 28%,#d59e76,#704027 48%,#1c0904 80%);transform:rotate(29deg);box-shadow:inset 28px 20px 45px rgba(255,255,255,.12)}.beanSplit{position:absolute;z-index:3;right:11%;top:-12%;width:4.5%;height:77%;border-radius:50%;transform:rotate(35deg);background:linear-gradient(90deg,transparent,#1b0904 36%,#a46745 58%,transparent)}.coverLabel{position:relative;z-index:4;font-size:clamp(10px,1.4vw,16px);letter-spacing:.18em;font-weight:800}.coverTitle{position:absolute;z-index:4;left:5%;bottom:15%;font-size:clamp(38px,6.2vw,74px);line-height:.86;letter-spacing:-.075em;font-weight:820}.coverFoot{position:absolute;left:5%;bottom:6%;z-index:4;font-size:clamp(10px,1.2vw,14px);font-weight:700}.heroChip{position:absolute;z-index:7;padding:11px 16px;border-radius:18px;background:rgba(255,255,255,.84);color:#1d1d1f;box-shadow:0 20px 50px rgba(0,0,0,.24);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);font-size:13px;font-weight:730;animation:chipFloat 5s ease-in-out infinite}.hc1{left:4%;top:34%}.hc2{right:4%;top:22%;animation-delay:-1.7s}.hc3{right:14%;bottom:8%;animation-delay:-3.1s}
+@keyframes bookBreath{50%{transform:translate(-50%,-54%) rotateX(52deg) rotateZ(-9deg)}}@keyframes chipFloat{50%{transform:translateY(-12px)}}@keyframes glowBreath{50%{opacity:.72;transform:translate(-50%,-50%) scale(.92)}}
+.section{position:relative;padding:120px 0}.kicker{font-size:19px;color:#9b603d;font-weight:730}.section h2{font-size:clamp(48px,7vw,86px);line-height:.94;letter-spacing:-.066em;margin:10px 0 0;max-width:900px}.lead{font-size:clamp(20px,2.4vw,28px);line-height:1.2;letter-spacing:-.032em;color:var(--muted);max-width:730px;margin:22px 0 0}
+/* scroll cinema */
+.story{height:340svh;background:#000;color:#fff;position:relative}.storySticky{position:sticky;top:0;height:100svh;overflow:hidden}.storyCopy{position:absolute;z-index:30;left:50%;top:max(72px,8svh);transform:translateX(-50%);width:min(900px,calc(100% - 34px));text-align:center}.storyCopy .kicker{color:#d59c75}.storyCopy h2{margin:8px auto 0;font-size:clamp(48px,7.6vw,90px)}.storyCopy p{margin:17px auto 0;color:#a1a1a6;font-size:clamp(17px,2vw,23px)}
+.storyStage{--p:0;position:absolute;inset:0;perspective:1800px;transform-style:preserve-3d}.stageAura{position:absolute;left:50%;top:59%;width:min(1050px,145vw);height:min(740px,96vw);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(164,88,48,calc(.22 + var(--p)*.24)),rgba(76,35,16,.1) 46%,transparent 71%);filter:blur(26px)}.stageFloor{position:absolute;left:50%;top:84%;width:min(860px,100vw);height:120px;transform:translateX(-50%) scaleX(calc(1 - var(--p)*.12));background:radial-gradient(ellipse,rgba(0,0,0,.95),transparent 68%);filter:blur(20px)}
+.sheet{position:absolute;left:50%;top:59%;width:min(385px,66vw);height:min(540px,93vw);border-radius:28px;background:#fff;overflow:hidden;box-shadow:0 58px 130px rgba(0,0,0,.72),0 0 0 1px rgba(255,255,255,.18);transform-style:preserve-3d;will-change:transform}.sheet:after{content:"";position:absolute;inset:0;background:linear-gradient(112deg,transparent 18%,rgba(255,255,255,.42) 38%,transparent 56%);transform:translateX(calc(-160% + var(--p)*330%));mix-blend-mode:screen}.s1{z-index:1;transform:translate(-50%,-50%) translateX(calc(-320px + var(--p)*165px)) translateY(calc(76px - var(--p)*38px)) rotateY(calc(26deg - var(--p)*14deg)) rotateZ(calc(-14deg + var(--p)*9deg)) scale(calc(.9 + var(--p)*.03))}.s2{z-index:4;transform:translate(-50%,-50%) translateY(calc(18px - var(--p)*44px)) rotateY(calc(-2deg + var(--p)*8deg)) rotateZ(calc(1deg - var(--p)*3deg)) scale(calc(.98 + var(--p)*.09))}.s3{z-index:2;transform:translate(-50%,-50%) translateX(calc(320px - var(--p)*165px)) translateY(calc(82px - var(--p)*42px)) rotateY(calc(-26deg + var(--p)*14deg)) rotateZ(calc(14deg - var(--p)*9deg)) scale(calc(.9 + var(--p)*.03))}
+.sheetHead{height:43%;padding:30px;position:relative;overflow:hidden;background:linear-gradient(145deg,#efe0d5,#c79b7e);color:#2f180e}.sheetHead.dark{background:linear-gradient(145deg,#180c07,#5a2d19);color:#fff}.mini{font-size:11px;letter-spacing:.17em;font-weight:820}.sheetTitle{font-size:40px;line-height:.91;letter-spacing:-.06em;font-weight:820;margin-top:15px;position:relative;z-index:2}.beanArt{position:absolute;width:48%;aspect-ratio:.72;right:-12%;top:-4%;border-radius:50%;background:radial-gradient(circle at 34% 28%,#d59e76,#704027 48%,#1c0904 80%);transform:rotate(27deg)}.beanArt:after{content:"";position:absolute;left:48%;top:10%;height:78%;width:9%;border-radius:50%;background:linear-gradient(90deg,transparent,#1a0803 40%,#a46b4a 62%,transparent)}.sheetBody{padding:28px;color:#202124}.line{height:11px;border-radius:99px;background:#e6e6eb;margin:11px 0}.line.sm{width:57%}.line.md{width:75%}.line.lg{width:92%}.metric{margin-top:20px;height:145px;border-radius:24px;background:linear-gradient(145deg,#f2f2f4,#e8dfd8);display:grid;place-items:center;font-size:58px;font-weight:820;color:#9a522d;letter-spacing:-.08em}.storyCaption{position:absolute;z-index:20;left:50%;bottom:max(22px,4svh);transform:translateX(-50%);display:flex;gap:10px;align-items:center;color:#85858b;font-size:12px;white-space:nowrap}.storyCaption i{width:3px;height:3px;background:#555;border-radius:50%}
+/* product chapters */
+.chapters{background:#f5f5f7}.featureGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;margin-top:64px}.feature{position:relative;border-radius:42px;overflow:hidden;padding:42px;min-height:430px;background:white;border:1px solid rgba(0,0,0,.04);isolation:isolate}.feature h3{font-size:clamp(34px,4.3vw,56px);line-height:.96;letter-spacing:-.058em;margin:0;max-width:580px}.feature p{font-size:18px;line-height:1.34;color:var(--muted);max-width:500px}.featureTall{grid-row:span 2;min-height:884px;background:linear-gradient(180deg,#f7f1ec,#ded0c4)}.featureDark{background:#050505;color:#fff}.featureDark p{color:#9a9aa0}.featureBlue{background:linear-gradient(145deg,#eefbff,#b9e4f8)}.featureWide{grid-column:span 2;min-height:560px;background:linear-gradient(145deg,#fff,#eee9e4)}
+.dial{position:absolute;width:380px;height:380px;border-radius:50%;left:50%;bottom:56px;transform:translateX(-50%) rotate(calc(var(--spin,0)*1deg));background:conic-gradient(from 0deg,#1c0d06,#6f3e24,#c99774,#54301e,#1c0d06);box-shadow:0 50px 90px rgba(67,37,22,.36),inset 0 0 0 28px rgba(255,255,255,.11);animation:dialIdle 16s linear infinite}.dial:before{content:"";position:absolute;inset:68px;border-radius:50%;background:radial-gradient(circle at 38% 30%,#39302a,#0f0c0a);box-shadow:inset 0 0 0 2px rgba(255,255,255,.08)}.dial:after{content:"ПОМОЛ";position:absolute;inset:0;display:grid;place-items:center;color:white;font-size:13px;letter-spacing:.2em;font-weight:820}.dialTick{position:absolute;left:50%;top:12px;width:3px;height:28px;border-radius:4px;background:#fff;transform:translateX(-50%);box-shadow:0 0 18px rgba(255,255,255,.7)}@keyframes dialIdle{to{transform:translateX(-50%) rotate(360deg)}}
+.waveScene{position:absolute;left:0;right:0;bottom:0;height:230px;overflow:hidden}.waveLine{position:absolute;left:-10%;width:120%;height:100%;border-radius:50%;border-top:5px solid rgba(0,93,160,.45);animation:waveShift 7s ease-in-out infinite}.waveLine:nth-child(2){bottom:-45%;border-color:rgba(255,255,255,.9);animation-delay:-2.4s}.waveLine:nth-child(3){bottom:-20%;border-color:rgba(0,93,160,.2);animation-delay:-4.1s}@keyframes waveShift{50%{transform:translateX(5%) translateY(-16px) rotate(-2deg)}}.temp{position:absolute;right:34px;bottom:18px;font-size:128px;font-weight:820;color:rgba(0,76,130,.15);letter-spacing:-.1em}
+.flavorSphere{position:absolute;width:300px;height:300px;border-radius:50%;right:-48px;bottom:-58px;background:radial-gradient(circle at 32% 27%,#e1ba9d,#8b4a2b 45%,#251008 77%);box-shadow:inset -32px -32px 58px rgba(0,0,0,.4),0 40px 70px rgba(0,0,0,.35);animation:sphereFloat 7s ease-in-out infinite}.flavorSphere:before{content:"";position:absolute;inset:14%;border-radius:50%;border:1px solid rgba(255,255,255,.18)}@keyframes sphereFloat{50%{transform:translateY(-14px) rotate(8deg)}}
+.recipeStage{position:absolute;left:50%;bottom:38px;width:88%;height:290px;transform:translateX(-50%);perspective:1000px}.recipe{position:absolute;width:45%;height:250px;border-radius:28px;background:#fff;padding:25px;box-shadow:0 26px 65px rgba(0,0,0,.16);transition:.5s var(--ease);animation:recipeBreathe 8s ease-in-out infinite}.recipe:nth-child(1){left:0;transform:rotate(-9deg) translateY(10px)}.recipe:nth-child(2){left:27.5%;z-index:3;animation-delay:-2.6s}.recipe:nth-child(3){right:0;transform:rotate(9deg) translateY(10px);animation-delay:-5.2s}.recipeIcon{width:70px;height:70px;border-radius:22px;background:#f1e4da;display:grid;place-items:center;font-size:34px}.recipe strong{display:block;font-size:24px;letter-spacing:-.04em;margin-top:20px}.recipe span{display:block;color:#777;margin-top:7px;font-size:14px}@keyframes recipeBreathe{50%{translate:0 -10px}}
+/* author */
+.author{background:#000;color:#fff;overflow:hidden}.authorGrid{display:grid;grid-template-columns:.92fr 1.08fr;gap:74px;align-items:center}.portrait{position:relative;min-height:700px;border-radius:48px;overflow:hidden;background:radial-gradient(circle at 50% 20%,#e7c8b1,#a46d49 35%,#422013 66%,#080403 100%);box-shadow:0 44px 110px rgba(0,0,0,.45)}.portrait:before{content:"";position:absolute;left:50%;top:90px;width:310px;height:390px;transform:translateX(-50%);border-radius:48% 52% 46% 54%;background:linear-gradient(145deg,#cf9570,#915839 56%,#3d1d11);box-shadow:inset 32px 24px 55px rgba(255,255,255,.12)}.portrait:after{content:"";position:absolute;left:50%;bottom:-120px;width:520px;height:410px;transform:translateX(-50%);border-radius:52% 52% 16% 16%;background:linear-gradient(145deg,#111,#30231c)}.glasses{position:absolute;z-index:4;left:50%;top:207px;width:222px;height:72px;transform:translateX(-50%)}.glasses:before,.glasses:after{content:"";position:absolute;top:0;width:87px;height:62px;border:8px solid #171717;border-radius:24px;background:rgba(255,255,255,.04)}.glasses:before{left:0}.glasses:after{right:0}.bridge{position:absolute;z-index:5;left:50%;top:231px;width:42px;height:8px;border-radius:99px;background:#171717;transform:translateX(-50%)}.author .kicker{color:#d49a72}.author .lead{color:#a1a1a6}.quote{font-size:clamp(29px,3.2vw,44px);line-height:1.1;letter-spacing:-.047em;margin-top:38px}.signature{color:#d49a72;font-weight:700;margin-top:25px}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}.fact{background:#151515;border:1px solid #262626;border-radius:22px;padding:18px}.fact strong{font-size:29px;letter-spacing:-.05em}.fact span{display:block;color:#8e8e93;font-size:12px;margin-top:6px}
+/* chapters / buy */
+.program{background:white}.chapterList{margin-top:54px;border-top:1px solid var(--line)}.chapter{display:grid;grid-template-columns:70px 1fr auto;gap:20px;align-items:center;padding:28px 0;border-bottom:1px solid var(--line)}.num{font-size:14px;color:#9a5b31;font-weight:800}.ct{font-size:27px;font-weight:680;letter-spacing:-.035em}.meta{color:#888}.buy{padding:105px 0 145px;background:linear-gradient(180deg,#f5f5f7,#fff)}.buyCard{border-radius:46px;background:#000;color:#fff;padding:66px;position:relative;overflow:hidden}.buyCard:before{content:"";position:absolute;right:-15%;top:-35%;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#9c5834,transparent 68%);filter:blur(16px);opacity:.5}.buyGrid{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}.buy h2{font-size:clamp(48px,6vw,76px);margin:8px 0 0}.price{font-size:82px;font-weight:820;letter-spacing:-.075em;margin-top:24px}.guarantee{color:#a1a1a6;font-size:16px;font-weight:600;margin-top:14px}.benefits{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.benefits div{background:#171717;border:1px solid #2b2b2b;border-radius:999px;padding:10px 14px;font-size:13px}.box{background:#fff;color:#1d1d1f;border-radius:31px;padding:24px;box-shadow:0 35px 80px rgba(0,0,0,.45)}.box input{width:100%;border:1px solid #d7d7dc;border-radius:15px;padding:15px;margin-bottom:12px}.box .btn{width:100%;padding:16px}.fine{font-size:12px;color:#777;text-align:center;margin-top:12px}.guarantee a{color:#2997ff}.consent{font-size:11px;color:#777;text-align:center;margin-top:9px;margin-bottom:6px;line-height:1.45}.consent a{color:#0071e3}.footer{padding:34px 0 120px;color:#777;font-size:12px}.flinks{display:flex;gap:18px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}.flinks a{color:#777}.flinks a:hover{color:#1d1d1f}.footer .wrap>div{margin:3px 0}.mobileBuy{display:none;position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:220;background:rgba(248,248,250,.9);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:10px 11px 10px 18px;box-shadow:0 18px 50px rgba(0,0,0,.22);align-items:center;justify-content:space-between}.mobileBuy strong{font-size:20px}.mobileBuy small{display:block;color:#777;margin-top:2px}
+.reveal{opacity:1;transform:none}.js .reveal.pre{opacity:0;transform:translateY(26px) scale(.985)}.js .reveal.show{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
+@media(max-width:800px){
+ .wrap{width:min(calc(100% - 28px),var(--max))}.navlinks a:not(.navbuy){display:none}.hero{padding-top:82px}.hero h1{font-size:clamp(53px,15.3vw,75px)}.heroLead{font-size:20px;max-width:350px}.heroScene{height:42svh;min-height:330px}.bookHero{width:94vw}.heroChip{font-size:10px;padding:8px 11px;border-radius:14px}.hc1{left:1%;top:36%}.hc2{right:1%;top:23%}.hc3{right:7%;bottom:8%}
+ .section{padding:88px 0}.section h2{font-size:clamp(45px,12.5vw,60px)}.lead{font-size:20px}.story{height:290svh;min-height:1850px}.storyCopy{top:max(64px,7svh)}.storyCopy h2{font-size:clamp(43px,12vw,58px)}.storyCopy p{font-size:17px}.sheet{top:61%;width:69vw;height:96vw;border-radius:23px}.sheetHead{padding:23px}.sheetTitle{font-size:30px}.sheetBody{padding:21px}.metric{height:110px;font-size:45px}.s1{transform:translate(-50%,-50%) translateX(calc(-150px + var(--p)*76px)) translateY(calc(56px - var(--p)*27px)) rotateY(calc(20deg - var(--p)*12deg)) rotateZ(calc(-11deg + var(--p)*7deg)) scale(.86)}.s2{transform:translate(-50%,-50%) translateY(calc(14px - var(--p)*30px)) rotateY(calc(-2deg + var(--p)*6deg)) rotateZ(calc(1deg - var(--p)*2deg)) scale(calc(.96 + var(--p)*.06))}.s3{transform:translate(-50%,-50%) translateX(calc(150px - var(--p)*76px)) translateY(calc(60px - var(--p)*29px)) rotateY(calc(-20deg + var(--p)*12deg)) rotateZ(calc(11deg - var(--p)*7deg)) scale(.86)}.storyCaption{bottom:max(88px,12svh);font-size:10px;gap:7px}
+ .featureGrid{grid-template-columns:1fr;margin-top:46px}.feature{padding:29px 24px;border-radius:31px;min-height:510px}.featureTall{grid-row:auto;min-height:650px}.featureWide{grid-column:auto;min-height:520px}.dial{width:290px;height:290px;bottom:42px}.temp{font-size:100px}.flavorSphere{width:250px;height:250px}.recipeStage{width:104%;transform:translateX(-50%) scale(.8);bottom:10px}
+ .authorGrid{grid-template-columns:1fr;gap:45px}.portrait{min-height:500px;border-radius:33px}.author .lead{font-size:20px}.quote{font-size:29px}.facts{grid-template-columns:repeat(3,1fr);gap:8px}.fact{padding:13px 8px;border-radius:17px}.fact strong{font-size:22px}.fact span{font-size:10px}
+ .chapter{grid-template-columns:42px 1fr;padding:23px 0}.ct{font-size:22px}.meta{display:none}.buy{padding:88px 0 125px}.buyCard{padding:40px 23px;border-radius:31px}.buyGrid{grid-template-columns:1fr;gap:35px}.price{font-size:66px}.mobileBuy{display:flex}.footer{padding-bottom:120px}
+}
+@media(max-width:370px){.hero h1{font-size:49px}.storyCaption span:nth-of-type(2),.storyCaption i:nth-of-type(2){display:none}.facts{grid-template-columns:1fr 1fr}.fact:last-child{grid-column:span 2}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.story{height:auto;min-height:720px}.storySticky{position:relative;height:720px}.storyStage{--p:.56!important}.js .reveal.pre{opacity:1;transform:none}}
+
+/* V8: fail-safe mobile motion. Works without JavaScript and inside iOS preview. */
+@media (max-width:800px){
+  .storyStage{--p:.48}
+  .sheet{backface-visibility:hidden;-webkit-backface-visibility:hidden;transform-origin:50% 58%;}
+  .s1{animation:mobileSheetLeft 9s cubic-bezier(.45,0,.2,1) infinite!important}
+  .s2{animation:mobileSheetCenter 9s cubic-bezier(.45,0,.2,1) infinite!important}
+  .s3{animation:mobileSheetRight 9s cubic-bezier(.45,0,.2,1) infinite!important}
+  .sheet:after{animation:mobileShine 5.5s ease-in-out infinite!important;transform:none}
+  .stageAura{animation:mobileAura 6s ease-in-out infinite!important}
+  .stageFloor{animation:mobileFloor 6s ease-in-out infinite!important}
+  .dial{animation:mobileDial 10s linear infinite!important}
+  .flavorSphere{animation:mobileSphere 7s ease-in-out infinite!important}
+  .waveLine:nth-child(1){animation:mobileWave 4s ease-in-out infinite!important}
+  .waveLine:nth-child(2){animation:mobileWave 4.8s ease-in-out -1.3s infinite!important}
+  .waveLine:nth-child(3){animation:mobileWave 5.6s ease-in-out -2.4s infinite!important}
+  .recipe:nth-child(1){animation:mobileRecipe1 7s ease-in-out infinite!important}
+  .recipe:nth-child(2){animation:mobileRecipe2 7s ease-in-out -2.3s infinite!important}
+  .recipe:nth-child(3){animation:mobileRecipe3 7s ease-in-out -4.6s infinite!important}
+}
+@keyframes mobileSheetLeft{
+  0%,100%{transform:translate(-50%,-50%) translateX(-145px) translateY(56px) rotateY(20deg) rotateZ(-11deg) scale(.86)}
+  32%{transform:translate(-50%,-50%) translateX(-92px) translateY(22px) rotateY(11deg) rotateZ(-5deg) scale(.91)}
+  58%{transform:translate(-50%,-50%) translateX(-72px) translateY(10px) rotateY(5deg) rotateZ(-2deg) scale(.94)}
+  78%{transform:translate(-50%,-50%) translateX(-112px) translateY(38px) rotateY(15deg) rotateZ(-8deg) scale(.89)}
+}
+@keyframes mobileSheetCenter{
+  0%,100%{transform:translate(-50%,-50%) translateY(14px) rotateY(-2deg) rotateZ(1deg) scale(.96)}
+  32%{transform:translate(-50%,-50%) translateY(-22px) rotateY(5deg) rotateZ(-1deg) scale(1.035)}
+  58%{transform:translate(-50%,-50%) translateY(-34px) rotateY(-4deg) rotateZ(1deg) scale(1.065)}
+  78%{transform:translate(-50%,-50%) translateY(-8px) rotateY(3deg) rotateZ(-1deg) scale(1.01)}
+}
+@keyframes mobileSheetRight{
+  0%,100%{transform:translate(-50%,-50%) translateX(145px) translateY(60px) rotateY(-20deg) rotateZ(11deg) scale(.86)}
+  32%{transform:translate(-50%,-50%) translateX(92px) translateY(24px) rotateY(-11deg) rotateZ(5deg) scale(.91)}
+  58%{transform:translate(-50%,-50%) translateX(72px) translateY(12px) rotateY(-5deg) rotateZ(2deg) scale(.94)}
+  78%{transform:translate(-50%,-50%) translateX(112px) translateY(40px) rotateY(-15deg) rotateZ(8deg) scale(.89)}
+}
+@keyframes mobileShine{0%,18%{opacity:0;transform:translateX(-150%)}42%{opacity:.75}62%,100%{opacity:0;transform:translateX(150%)}}
+@keyframes mobileAura{50%{transform:translate(-50%,-50%) scale(.9);opacity:.72}}
+@keyframes mobileFloor{50%{transform:translateX(-50%) scaleX(.78);opacity:.72}}
+@keyframes mobileDial{to{transform:translateX(-50%) rotate(360deg)}}
+@keyframes mobileSphere{50%{transform:translate(-50%,-55%) rotate(8deg) scale(1.05)}}
+@keyframes mobileWave{50%{transform:translateX(-7%) translateY(-10px) scaleY(1.08)}}
+@keyframes mobileRecipe1{50%{transform:translateY(-13px) rotate(-2deg)}}
+@keyframes mobileRecipe2{50%{transform:translateY(-18px) rotate(1.5deg)}}
+@keyframes mobileRecipe3{50%{transform:translateY(-11px) rotate(2deg)}}
+/* Do not kill the product animation when iOS Reduce Motion is enabled. Keep it slower. */
+@media (max-width:800px) and (prefers-reduced-motion:reduce){
+  .s1,.s2,.s3{animation-duration:18s!important;animation-iteration-count:infinite!important}
+  .sheet:after,.stageAura,.stageFloor,.dial,.flavorSphere,.waveLine,.recipe{animation-duration:14s!important;animation-iteration-count:infinite!important}
+  .story{height:290svh!important;min-height:1850px!important}.storySticky{position:sticky!important;height:100svh!important}
+}
+
+
+/* V9 — spacious mobile composition: one idea, one object, more air. */
+@media (max-width:800px){
+  .wrap{width:min(calc(100% - 34px),1180px)}
+  .navin{height:52px}.navlinks>a:not(.navbuy){display:none}.navbuy{padding:8px 14px}
+  .hero{min-height:112svh;padding-top:88px;display:flex;flex-direction:column;justify-content:flex-start}
+  .heroCopy{padding:0 26px}.eyebrow{font-size:15px}.hero h1{font-size:clamp(54px,16vw,76px);line-height:.9;max-width:360px;margin-top:13px}
+  .heroLead{font-size:20px;line-height:1.24;max-width:330px;margin-top:24px}.actions{margin-top:30px;gap:11px}.btn{padding:13px 20px}
+  .heroScene{height:53svh;min-height:430px;margin-top:28px}.bookHero{width:min(560px,92vw);top:48%;animation-duration:9s}
+  .heroChip{font-size:11px;padding:9px 12px;border-radius:15px}.hc1{left:7%;top:22%}.hc2{right:6%;top:16%}.hc3{right:12%;bottom:11%}
+  .section{padding:112px 0}.section h2{font-size:clamp(46px,13.3vw,67px);line-height:.96}.lead{font-size:20px;line-height:1.32;margin-top:24px}
+  .story{height:320svh;min-height:2100px}.storyCopy{top:max(84px,10svh);width:calc(100% - 42px)}
+  .storyCopy h2{font-size:clamp(44px,12.5vw,62px);line-height:.96}.storyCopy p{font-size:17px;line-height:1.35;max-width:310px;margin-top:19px}
+  .storyStage{perspective:1500px}.sheet{width:min(330px,72vw);height:min(468px,102vw);border-radius:25px;top:62%}
+  .sheetHead{padding:25px}.sheetTitle{font-size:34px}.sheetBody{padding:23px}.metric{height:118px;font-size:50px}
+  .storyCaption{bottom:calc(26px + env(safe-area-inset-bottom));font-size:11px;gap:8px}
+  .s1{animation-name:spaceSheetLeft!important}.s2{animation-name:spaceSheetCenter!important}.s3{animation-name:spaceSheetRight!important}
+  .featureGrid{display:block;margin-top:58px}.feature{min-height:0;height:auto;padding:36px 27px 40px;margin-bottom:30px;border-radius:34px;overflow:hidden}
+  .feature h3{font-size:clamp(38px,11vw,54px);line-height:.98}.feature p{font-size:18px;line-height:1.38;margin-top:18px}
+  .featureTall{min-height:760px}.featureBlue{min-height:650px}.featureDark{min-height:690px}.featureWide{min-height:760px}
+  .dial{width:310px;height:310px;bottom:74px}.temp{font-size:112px;bottom:120px}.waveScene{bottom:60px;height:170px}
+  .flavorSphere{width:270px;height:270px;bottom:80px}.recipeStage{width:100%;bottom:56px;transform:translateX(-50%) scale(.72);gap:16px}
+  .authorGrid{gap:62px}.portrait{min-height:580px;border-radius:36px}.author .lead{font-size:20px}.quote{font-size:31px;line-height:1.08;margin-top:34px}
+  .facts{margin-top:34px}.program .chapterList{margin-top:48px}.chapter{padding:27px 0}.ct{font-size:23px}
+  .buy{padding:120px 0 150px}.buyCard{padding:44px 25px;border-radius:34px}.buyGrid{gap:44px}.price{font-size:72px}.box{padding:0}
+  .mobileBuy{padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(248,248,250,.86)}
+}
+@keyframes spaceSheetLeft{
+  0%,100%{transform:translate(-50%,-50%) translateX(-128px) translateY(72px) rotateY(18deg) rotateZ(-9deg) scale(.80)}
+  34%{transform:translate(-50%,-50%) translateX(-96px) translateY(50px) rotateY(11deg) rotateZ(-5deg) scale(.84)}
+  58%{transform:translate(-50%,-50%) translateX(-88px) translateY(40px) rotateY(7deg) rotateZ(-3deg) scale(.86)}
+  80%{transform:translate(-50%,-50%) translateX(-110px) translateY(58px) rotateY(14deg) rotateZ(-7deg) scale(.82)}
+}
+@keyframes spaceSheetCenter{
+  0%,100%{transform:translate(-50%,-50%) translateY(8px) rotateY(-1deg) scale(.98)}
+  34%{transform:translate(-50%,-50%) translateY(-28px) rotateY(4deg) scale(1.025)}
+  58%{transform:translate(-50%,-50%) translateY(-42px) rotateY(-3deg) scale(1.055)}
+  80%{transform:translate(-50%,-50%) translateY(-14px) rotateY(2deg) scale(1.01)}
+}
+@keyframes spaceSheetRight{
+  0%,100%{transform:translate(-50%,-50%) translateX(128px) translateY(76px) rotateY(-18deg) rotateZ(9deg) scale(.80)}
+  34%{transform:translate(-50%,-50%) translateX(96px) translateY(52px) rotateY(-11deg) rotateZ(5deg) scale(.84)}
+  58%{transform:translate(-50%,-50%) translateX(88px) translateY(42px) rotateY(-7deg) rotateZ(3deg) scale(.86)}
+  80%{transform:translate(-50%,-50%) translateX(110px) translateY(60px) rotateY(-14deg) rotateZ(7deg) scale(.82)}
+}
+
+</style>
 <script src="../config.js"></script>
 <script src="../js/api.js"></script>
-<script src="../js/metrika.js"></script>
-<style>
-/* ============ TOKENS ============ */
-:root{
-  --bg:#14100b;
-  --bg-elev:#1b1510;
-  --card:#201912;
-  --ink:#f6efe4;
-  --muted:#a89a87;
-  --muted-2:#716352;
-  --line:rgba(246,239,228,.09);
-  --line-strong:rgba(246,239,228,.18);
-  --accent:#c62f3e;
-  --accent-hover:#d94352;
-  --accent-soft:rgba(198,47,62,.3);
-  --accent-glow:rgba(198,47,62,.16);
-  --copper:#c08a5a;
-  --ok:#7fb99a;
-  --radius:22px;
-  --radius-sm:12px;
-  --max:1120px;
-  --font:"Inter",system-ui,-apple-system,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,monospace;
-  --shadow:0 30px 80px rgba(0,0,0,.5);
-}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0;font-family:var(--font);font-size:16px;color:var(--ink);
-  background:var(--bg);min-height:100vh;line-height:1.6;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-body::before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.03'/></svg>");
-}
-a{color:var(--accent);text-decoration:none;transition:color .15s ease}
-a:hover{color:var(--accent-hover)}
-.page{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 clamp(20px,5vw,44px) 110px}
-.center{text-align:center}
-.wide{max-width:760px;margin-left:auto;margin-right:auto}
-/* ============ TYPE ============ */
-h1,h2,h3{margin:0;letter-spacing:-.025em;line-height:1.08}
-h1{font-size:clamp(2.7rem,7.6vw,5.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.02}
-h2{font-size:clamp(1.9rem,4.6vw,3rem);font-weight:700;margin-bottom:20px}
-h3{font-size:1.15rem;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
-.kicker{
-  font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--copper);margin:0 0 18px;
-}
-.center .kicker::after{content:"";display:block;width:26px;height:1px;background:var(--copper);margin:14px auto 0;opacity:.6}
-.lead{color:var(--muted);font-size:clamp(1.05rem,2.4vw,1.25rem);line-height:1.6;margin:0 auto 34px;max-width:34em}
-.lead strong{color:var(--ink);font-weight:600}
-.section{margin-top:clamp(90px,13vw,170px)}
-/* ============ HEADER ============ */
-.site-header{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:22px 0 12px;position:sticky;top:0;z-index:20;
-  background:linear-gradient(180deg,rgba(20,16,11,.97) 60%,rgba(20,16,11,0));
-}
-.brand{display:flex;flex-direction:column;gap:1px;text-decoration:none;color:var(--ink)}
-.brand-mark{font-weight:800;font-size:17px;letter-spacing:.14em;text-transform:uppercase}
-.brand-mark em{font-style:normal;color:var(--accent)}
-.brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:.04em}
-.header-links{display:flex;gap:18px;flex-wrap:wrap;font-size:13px}
-.header-links a{color:var(--muted);font-weight:500}
-.header-links a:hover{color:var(--ink)}
-/* ============ BADGE ============ */
-.badge{
-  display:inline-flex;align-items:center;gap:9px;
-  padding:7px 14px;border-radius:999px;
-  border:1px solid var(--line-strong);background:rgba(246,239,228,.03);
-  color:var(--muted);font-family:var(--mono);font-size:11px;font-weight:500;
-  letter-spacing:.14em;text-transform:uppercase;margin-bottom:26px;
-}
-.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px var(--accent)}
-/* ============ BUTTONS ============ */
-.btn{
-  appearance:none;border:0;cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  width:100%;min-height:62px;padding:18px 32px;border-radius:999px;
-  background:var(--accent);color:#fff;
-  font-family:var(--font);font-weight:600;font-size:16.5px;letter-spacing:-.01em;
-  text-decoration:none;
-  box-shadow:0 0 0 1px rgba(255,255,255,.07) inset,0 14px 38px var(--accent-glow);
-  transition:background .16s ease,transform .16s ease,box-shadow .16s ease;
-}
-.btn:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 18px 44px rgba(198,47,62,.3);color:#fff}
-.btn:active{transform:translateY(0) scale(.985)}
-.btn:disabled{opacity:.6;cursor:wait;transform:none}
-.buy-now:disabled{opacity:.7;cursor:wait}
-/* ============ HERO ============ */
-.hero{padding:clamp(56px,9vw,110px) 0 0;position:relative}
-.hero::before{
-  content:"";position:absolute;left:50%;top:-120px;transform:translateX(-50%);
-  width:min(900px,95vw);height:620px;border-radius:50%;
-  background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(198,47,62,.09),transparent 65%);
-  pointer-events:none;z-index:-1;
-}
-.hero .wide{text-align:center}
-.hero-sub{font-size:clamp(1.1rem,2.6vw,1.3rem);color:var(--muted);max-width:32em;margin:0 auto 30px;line-height:1.55}
-.hero-sub strong{color:var(--ink);font-weight:600}
-.price-row{display:flex;align-items:baseline;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:24px}
-.price{font-size:clamp(2.6rem,6.5vw,3.6rem);font-weight:800;letter-spacing:-.03em;line-height:1}
-.price em{font-style:normal;color:var(--accent);font-size:.55em;font-weight:700}
-.price-note{font-size:13.5px;color:var(--muted);max-width:220px;text-align:left;line-height:1.45}
-.cta-zone{max-width:420px;margin:0 auto}
-.micro-trust{
-  display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
-  margin:16px 0 0;font-size:13px;color:var(--muted);line-height:1.5;
-}
-.micro-trust .sep{opacity:.4}
-.micro-trust svg{width:13px;height:13px;vertical-align:-2px;margin-right:2px;color:var(--ok)}
-.cta-hint{margin:14px 0 0;font-size:12.5px;color:var(--muted-2);line-height:1.55}
-.cta-hint a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
-.cta-hint a:hover{color:var(--ink)}
-.legal{font-size:11.5px;max-width:52em;margin-left:auto;margin-right:auto}
-/* фото героя — премиальная карточка */
-.hero-media{margin-top:clamp(44px,7vw,80px)}
-.hero-media img{
-  display:block;width:100%;max-width:1000px;margin:0 auto;
-  border-radius:var(--radius);border:1px solid var(--line-strong);
-  box-shadow:var(--shadow);
-}
-/* ============ BLOCK 1 — ПЕРЕМЕНА ============ */
-.shift-line{max-width:720px;margin:0 auto;text-align:center}
-.shift-line .was{color:var(--muted);font-size:clamp(1.1rem,2.6vw,1.4rem);margin:0 0 14px}
-.shift-line .was::before{content:"раньше · ";font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:8px}
-.shift-line .now{
-  color:var(--ink);font-weight:600;font-size:clamp(1.45rem,3.6vw,2.1rem);line-height:1.3;
-  letter-spacing:-.02em;margin:0 0 18px;
-}
-.shift-line .now::before{content:"теперь · ";font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);display:block;margin-bottom:10px}
-.shift-line .path{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.shift-line .path b{color:var(--ok);font-weight:500}
-/* ============ BLOCK 2 — УМЕНИЯ ============ */
-.skills{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:860px;margin:0 auto}
-.skill{
-  padding:26px 26px 24px;border-radius:var(--radius-sm);
-  background:var(--bg-elev);border:1px solid var(--line);
-  font-size:1.12rem;font-weight:600;line-height:1.45;letter-spacing:-.01em;
-  transition:border-color .18s ease,transform .18s ease;
-}
-.skill:hover{border-color:var(--accent-soft);transform:translateY(-2px)}
-.skill small{display:block;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:10px}
-/* ============ BLOCK 3 — КАК УСТРОЕНО ============ */
-.how-grid{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:clamp(30px,5vw,56px);align-items:start;margin-top:8px}
-.how-intro{font-size:clamp(1.2rem,2.8vw,1.5rem);color:var(--ink);font-weight:600;line-height:1.45;letter-spacing:-.015em;margin:0 0 26px}
-.how-intro span{color:var(--muted);font-weight:400}
-.steps{display:grid;gap:12px}
-.step{
-  display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;
-  padding:20px 22px;background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);
-}
-.step-num{
-  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
-  font-weight:700;font-size:16px;color:var(--ink);
-  border:1px solid var(--accent-soft);background:rgba(198,47,62,.1);
-}
-.step h3{font-size:1.05rem;margin-bottom:3px}
-.step p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.5}
-/* таблица-шпаргалка */
-.table-card{
-  border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--bg-elev);overflow-x:auto;
-}
-.table-card .tc-head{
-  padding:18px 22px 14px;border-bottom:1px solid var(--line);
-  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);
-}
-.table-card table{width:100%;border-collapse:collapse;min-width:500px}
-.table-card th,.table-card td{text-align:left;padding:15px 22px;border-bottom:1px solid var(--line);vertical-align:top;font-size:15px}
-.table-card tr:last-child td{border-bottom:0}
-.table-card th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.table-card td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
-.table-card td:not(:first-child){color:var(--muted)}
-.table-card tbody tr{transition:background .15s ease}
-.table-card tbody tr:hover{background:rgba(246,239,228,.03)}
-.table-card .tc-foot{padding:14px 22px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:28px}
-.chips span{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 13px;background:var(--bg-elev)}
-/* ============ ГАРАНТИЯ ============ */
-.guar{
-  display:flex;gap:20px;align-items:flex-start;text-align:left;
-  max-width:720px;margin:0 auto;padding:26px 28px;border-radius:var(--radius-sm);
-  border:1px solid var(--accent-soft);background:rgba(198,47,62,.06);
-}
-.guar .shield{flex:0 0 auto;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(198,47,62,.14);color:var(--accent)}
-.guar h3{font-size:1.1rem;margin-bottom:4px}
-.guar p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
-.guar a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-/* ============ АВТОР ============ */
-.author-master{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:clamp(32px,6vw,72px);align-items:start}
-.author-photo{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
-.author-photo img{width:100%;height:auto;display:block;filter:saturate(.78) contrast(1.08)}
-.author-bio{padding:22px 24px;border-radius:var(--radius-sm);background:var(--bg-elev);border:1px solid var(--line-strong)}
-.author-bio h3{font-size:1.2rem}
-.author-bio p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
-.qa{padding:16px 0;border-bottom:1px solid var(--line)}
-.qa p{margin:6px 0 0;color:var(--muted);font-size:14px}
-.interview-link{display:inline-block;margin-top:18px;color:var(--muted);text-decoration:underline;text-underline-offset:4px}
-.interview-link:hover{color:var(--ink)}
-.video-shell{margin-top:16px;aspect-ratio:16/9;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-elev)}
-.video-shell iframe{width:100%;height:100%;border:0;display:block}
-.video-consent{width:100%;height:100%;border:0;padding:20px;display:flex;align-items:center;justify-content:center;gap:16px;color:var(--ink);background:transparent;cursor:pointer;font:inherit;text-align:left}
-.video-consent small{display:block;margin-top:4px;color:var(--muted);line-height:1.45}
-.video-play{width:46px;height:46px;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;flex:0 0 auto;color:var(--copper);font-size:13px;transition:border-color .15s ease,color .15s ease}
-.video-consent:hover .video-play{border-color:var(--copper);color:var(--ink)}
-/* ============ FAQ ============ */
-.faq{display:grid;gap:12px;max-width:720px;margin:0 auto}
-.faq details{
-  background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);
-  padding:20px 24px;transition:border-color .18s ease;
-}
-.faq details[open]{border-color:var(--accent-soft)}
-.faq summary{
-  cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
-  font-weight:600;font-size:16px;color:var(--ink);
-}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-family:var(--mono);font-weight:500;font-size:18px;color:var(--copper);transition:transform .2s ease;flex:0 0 auto}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq details p{margin:10px 0 0;color:var(--muted);font-size:14.5px;line-height:1.6}
-/* ============ FINAL ============ */
-.final{margin-top:clamp(90px,13vw,170px)}
-.final .statement{
-  font-size:clamp(2rem,5.4vw,3.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.12;
-  margin:0 auto 16px;max-width:16em;
-}
-.final .statement em{font-style:normal;color:var(--copper)}
-.final .price-row{margin-top:28px}
-.final-media{margin-top:clamp(36px,6vw,60px)}
-.final-media img{
-  display:block;width:100%;max-width:1000px;margin:0 auto;
-  border-radius:var(--radius);border:1px solid var(--line-strong);box-shadow:var(--shadow);
-}
-/* ============ FOOTER ============ */
-.site-footer{margin-top:clamp(80px,11vw,130px);padding-top:26px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted-2);text-align:center;line-height:1.7}
-.site-footer a{color:var(--muted)}
-.site-footer a:hover{color:var(--ink)}
-.site-footer .row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-bottom:12px}
-.site-footer .row a{text-decoration:underline;text-underline-offset:3px}
-/* ============ STICKY CTA ============ */
-.sticky-cta{
-  display:none;position:fixed;left:0;right:0;bottom:0;z-index:30;
-  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-  background:linear-gradient(180deg,transparent,rgba(20,16,11,.97) 30%);
-  pointer-events:none;
-}
-.sticky-cta .btn{pointer-events:auto;box-shadow:0 8px 32px rgba(0,0,0,.5),0 12px 36px var(--accent-glow)}
-@media (max-width:720px){
-  .sticky-cta.show{display:block}
-  body.sticky-pad{padding-bottom:96px}
-}
-/* ============ STATUS ============ */
-.status{margin-top:12px;font-size:14px;min-height:1.3em;text-align:center}
-.status.err{color:#f07178;font-weight:600}
-.status.ok{color:var(--ok);font-weight:600}
-.global-status{position:sticky;bottom:18px;z-index:40;max-width:760px;margin:20px auto}
-/* ============ MOTION ============ */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.22,.61,.36,1)}
-.rv.in{opacity:1;transform:none}
-.hero .rv:nth-child(2){transition-delay:.08s}
-.hero .rv:nth-child(3){transition-delay:.16s}
-.hero .rv:nth-child(4){transition-delay:.24s}
-.hero .rv:nth-child(5){transition-delay:.32s}
-@media (prefers-reduced-motion:reduce){
-  .rv{opacity:1;transform:none;transition:none}
-  *{animation:none!important;transition:none!important}
-  html{scroll-behavior:auto}
-}
-/* ============ RESPONSIVE ============ */
-@media (max-width:900px){
-  .how-grid{grid-template-columns:1fr}
-  .author-master{grid-template-columns:1fr}
-  .author-content{padding-top:0}
-}
-@media (max-width:640px){
-  .skills{grid-template-columns:1fr}
-  .guar{flex-direction:column;gap:14px}
-  .step{grid-template-columns:40px 1fr}
-  .price-note{text-align:center}
-}
-</style>
 </head>
 <body>
-<div class="page">
-
-<header class="site-header">
-  <a class="brand" href="../index.html"><span class="brand-mark">A CUP<em>.</em></span><span class="brand-sub">кофе без снобизма</span></a>
-  <nav class="header-links"><a href="access.html">Уже купил</a></nav>
-</header>
-
-<main>
-<!-- ================= HERO ================= -->
+<header class="nav"><div class="wrap navin"><a class="logo" href="#top">A CUP</a><nav class="navlinks"><a href="#inside">Внутри</a><a href="#author">Автор</a><a href="#program">Программа</a><a class="navbuy" href="#buy">Купить</a></nav></div></header>
+<main id="top">
 <section class="hero">
-  <div class="wide">
-    <p class="badge rv">Цифровой справочник</p>
-    <h1 class="rv">Кофе, который ты&nbsp;понимаешь</h1>
-    <p class="hero-sub rv">Справочник A CUP учит понимать зерно, упаковку и&nbsp;вкус — чтобы каждая чашка получалась такой, как ты задумал. <strong>От нуля до&nbsp;specialty.</strong></p>
-    <div class="price-row rv"><span class="price">299<em>₽</em></span><span class="price-note">Разовая оплата.<br>Доступ без срока действия.</span></div>
-    <div class="cta-zone rv">
-      <form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
-        <input type="hidden" name="flow" value="direct">
-        <button class="btn buy-now" type="submit">Купить и открыть справочник</button>
-      </form>
-      <p class="micro-trust">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.6-8 11.3-4.6-1.7-8-6.3-8-11.3V5.5L12 2z"/><path d="M9 11.5l2 2 4-4"/></svg>Оплата защищена ЮKassa</span><span class="sep">·</span><span>Доступ сразу</span><span class="sep">·</span><span>14 дней на возврат</span>
-      </p>
-      <p class="cta-hint legal">Нажимая кнопку, вы принимаете условия <a href="offer.html">публичной оферты</a> и <a href="privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p>
-    </div>
-  </div>
-  <div class="hero-media rv"><img src="img/hero_premium_cup.png" width="1024" height="576" alt="Капучино с латте-арт — чашка кофе, который ты понимаешь"></div>
+ <div class="heroCopy"><div class="eyebrow reveal">Практический гид по кофе</div><h1 class="reveal">От нуля<br>до specialty.</h1><p class="heroLead reveal">Понимай вкус. Настраивай рецепт. Заваривай лучше — без снобизма и лишних покупок.</p><div class="actions reveal"><div class="heroPrice">299 ₽<small>· один раз</small></div><a class="btn primary" href="#buy">Купить и открыть справочник</a><a class="btn secondary" href="#inside">Посмотреть внутри</a></div></div>
+ <div class="heroScene"><div class="heroGlow"></div><div class="bookHero"><div class="bookBase"></div><div class="bookCover"><div class="coverLabel">A CUP · VISUAL GUIDE</div><div class="coverTitle">От нуля<br>до specialty</div><div class="coverFoot">Кофе становится понятным</div><div class="beanSplit"></div></div></div><div class="heroChip hc1">6 глав</div><div class="heroChip hc2">визуальные схемы</div><div class="heroChip hc3">доступ навсегда</div></div>
 </section>
-
-<!-- ================= БЛОК 1 — ПЕРЕМЕНА ================= -->
-<section class="section">
-  <div class="shift-line rv">
-    <p class="kicker">Перемена</p>
-    <p class="was">Раньше новая пачка — всегда неизвестность.</p>
-    <p class="now">Теперь ты знаешь, чего ждать, и&nbsp;умеешь это повторить.</p>
-    <p class="path">Путь от <b>случайных чашек</b> к <b>осознанным</b></p>
-  </div>
-</section>
-
-<!-- ================= БЛОК 2 — УМЕНИЯ ================= -->
-<section class="section">
-  <div class="center wide rv">
-    <p class="kicker">Что ты научишься делать</p>
-    <h2>Не характеристики — умения</h2>
-  </div>
-  <div class="skills">
-    <div class="skill rv"><small>Понимать упаковку</small>Понимать упаковку за минуту, а не гадать по картинке.</div>
-    <div class="skill rv"><small>Настраивать рецепт</small>Настраивать рецепт под своё зерно и свой вкус.</div>
-    <div class="skill rv"><small>Находить причину</small>Находить причину, когда чашка не получилась.</div>
-    <div class="skill rv"><small>Готовить каждый день</small>Готовить кофе, который хочется пить каждый день.</div>
-  </div>
-</section>
-
-<!-- ================= БЛОК 3 — КАК УСТРОЕНО ================= -->
-<section class="section">
-  <div class="center wide rv">
-    <p class="kicker">Как это устроено</p>
-    <p class="how-intro">Не курс и не лекции. <span>Рабочий справочник, который открывается сразу после оплаты: рецепты, шпаргалки, диагностика вкуса. На телефоне и на компьютере. <b style="color:var(--ink);font-weight:600">299 ₽, разовая оплата. Это не подписка: доступ без срока действия. 14 дней на возврат.</b></span></p>
-  </div>
-  <div class="how-grid">
-    <div class="steps">
-      <div class="step rv"><div class="step-num">1</div><div><h3>Нажми кнопку</h3><p>Сайт создаст индивидуальный платёж на ЮKassa.</p></div></div>
-      <div class="step rv"><div class="step-num">2</div><div><h3>Оплати</h3><p>Защищённая страница предложит доступные способы оплаты.</p></div></div>
-      <div class="step rv"><div class="step-num">3</div><div><h3>Открой справочник</h3><p>Доступ — сразу после оплаты, на телефоне и компьютере.</p></div></div>
-    </div>
-    <div class="table-card rv">
-      <div class="tc-head">Как это выглядит: шпаргалка</div>
-      <table>
-        <thead><tr><th>В чашке</th><th>Причина</th><th>Что проверить первым</th></tr></thead>
-        <tbody>
-          <tr><td>Кисло и пусто</td><td>Недостаточно извлечён вкус</td><td>Помол мельче или больше времени</td></tr>
-          <tr><td>Горько и вяжет</td><td>Извлечено слишком много</td><td>Помол крупнее или меньше времени</td></tr>
-          <tr><td>Водянисто</td><td>Мало концентрации</td><td>Количество кофе и помол</td></tr>
-          <tr><td>Плоско</td><td>Зерно или вода</td><td>Свежесть и состав воды</td></tr>
-        </tbody>
-      </table>
-      <div class="tc-foot">Внутри — расширенная диагностика и главное правило: менять только один параметр за раз.</div>
-    </div>
-  </div>
-  <div class="chips rv"><span>Основы: зерно, помол, вода</span><span>Рецепты V60 и аэропресса</span><span>Игра «Диагностика вкуса»</span><span>Шпаргалки</span><span>История specialty</span></div>
-</section>
-
-<!-- ================= ГАРАНТИЯ ================= -->
-<section class="section">
-  <div class="guar rv">
-    <span class="shield"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.6-8 11.3-4.6-1.7-8-6.3-8-11.3V5.5L12 2z"/><path d="M9 11.5l2 2 4-4"/></svg></span>
-    <div>
-      <h3>14 дней на возврат</h3>
-      <p>Попробуй без риска: не подойдёт — вернём деньги. Возврат по номеру заказа через поддержку <a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">@Arcady_ya</a>.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= АВТОР ================= -->
-<section class="section author-master">
-  <div class="author-photo rv"><img src="assets/mikhail-portrait.webp" width="591" height="826" loading="lazy" alt="Михаил Дмитриев, создатель A CUP"></div>
-  <div class="author-content">
-    <p class="kicker rv">Михаил Дмитриев · A CUP</p>
-    <h2 class="rv">Кто собрал этот справочник</h2>
-    <div class="author-bio rv">
-      <h3>Михаил Дмитриев</h3>
-      <p>Создатель A CUP. Более 9 лет работает с зерном, обжаркой, контролем качества, дегустациями и домашним приготовлением. Справочник переводит профессиональные принципы на понятный домашний язык.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= ФИНАЛ ================= -->
-<section class="section final">
-  <div class="wide center">
-    <p class="kicker rv">Итог</p>
-    <p class="statement rv">Кофе — это не магия. Это&nbsp;<em>понимание</em>.</p>
-    <p class="lead rv">Справочник A CUP помогает в нём разобраться.</p>
-    <div class="price-row rv"><span class="price">299<em>₽</em></span><span class="price-note">разовая оплата</span></div>
-    <div class="cta-zone rv">
-      <form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
-        <input type="hidden" name="flow" value="direct">
-        <button class="btn buy-now" type="submit">Купить и открыть справочник</button>
-      </form>
-      <p class="micro-trust"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.6-8 11.3-4.6-1.7-8-6.3-8-11.3V5.5L12 2z"/><path d="M9 11.5l2 2 4-4"/></svg>ЮKassa</span><span class="sep">·</span><span>Доступ сразу после оплаты</span><span class="sep">·</span><span>14 дней на возврат</span></p>
-      <p class="cta-hint legal">Нажимая кнопку, вы принимаете условия <a href="offer.html">публичной оферты</a> и <a href="privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p>
-    </div>
-  </div>
-  <div class="final-media rv"><img src="img/hero_premium_pour_dark.png" width="1024" height="576" loading="lazy" alt="Пролив V60 — процесс, который ты понимаешь"></div>
-</section>
-
-<!-- ================= FAQ ================= -->
-<section class="section">
-  <div class="center wide rv">
-    <p class="kicker">Вопросы</p>
-    <h2>Частые вопросы</h2>
-  </div>
-  <div class="faq">
-    <details class="rv"><summary>Что внутри справочника?</summary><p>Основы: зерно, помол, вода, экстракция. Игра «Диагностика вкуса». Рецепты. Шпаргалки. История specialty. Всё открывается в браузере.</p></details>
-    <details class="rv"><summary>Как я получу доступ?</summary><p>После оплаты ты сразу получишь персональный токен — на сайте или в боте @acup_guide_bot. Это не подписка: доступ без срока действия.</p></details>
-    <details class="rv"><summary>На каких устройствах это работает?</summary><p>На телефоне и компьютере — справочник открывается в любом браузере.</p></details>
-    <details class="rv"><summary>Можно ли вернуть деньги?</summary><p>Да, в течение 14 дней — по номеру заказа через поддержку. Условия — в публичной оферте.</p></details>
-  </div>
-</section>
-
-<div class="status global-status" id="payStatus" aria-live="polite"></div>
+<section class="story" id="inside"><div class="storySticky"><div class="storyCopy"><div class="kicker">Внутри</div><h2>Не просто текст.<br>Визуальная система.</h2><p>Три ключевые главы. Каждая — как отдельный продуктовый объект.</p></div><div class="storyStage"><div class="stageAura"></div><div class="stageFloor"></div>
+ <article class="sheet s1"><div class="sheetHead"><div class="mini">ГЛАВА 02</div><div class="sheetTitle">Как выбрать<br>зерно</div><div class="beanArt"></div></div><div class="sheetBody"><div class="line lg"></div><div class="line sm"></div><div class="line md"></div><div class="metric">SCA</div></div></article>
+ <article class="sheet s2"><div class="sheetHead dark"><div class="mini">ГЛАВА 04</div><div class="sheetTitle">Помол без<br>гадания</div><div class="beanArt"></div></div><div class="sheetBody"><div class="line lg"></div><div class="line md"></div><div class="line lg"></div><div class="metric">1:16</div></div></article>
+ <article class="sheet s3"><div class="sheetHead"><div class="mini">ГЛАВА 05</div><div class="sheetTitle">Рецепты<br>дома</div><div class="beanArt"></div></div><div class="sheetBody"><div class="line lg"></div><div class="line sm"></div><div class="line md"></div><div class="metric">92°</div></div></article>
+ <div class="storyCaption"><span>6 глав</span><i></i><span>визуальные схемы</span><i></i><span>доступ навсегда</span></div></div></div></section>
+<section class="section chapters"><div class="wrap"><div class="kicker reveal">Только главное</div><h2 class="reveal">Вкус — это управляемая система.</h2><p class="lead reveal">Четыре ключевых элемента. Каждый показан как отдельный продуктовый объект, а не как длинный текстовый блок.</p><div class="featureGrid">
+ <article class="feature featureTall reveal"><h3>Помол, который можно настроить.</h3><p>Кисло — двигаемся мельче. Горько — крупнее. Понятная логика вместо случайных вращений.</p><div class="dial"><div class="dialTick"></div></div></article>
+ <article class="feature featureBlue reveal"><h3>Температура без мифов.</h3><p>Почему одному зерну подходит 88 °C, а другому — 94 °C.</p><div class="temp">92°</div><div class="waveScene"><div class="waveLine"></div><div class="waveLine"></div><div class="waveLine"></div></div></article>
+ <article class="feature featureDark reveal"><h3>Вкус становится видимым.</h3><p>Кислотность, сладость, горечь и тело складываются в одну понятную картину.</p><div class="flavorSphere"></div></article>
+ <article class="feature featureWide reveal"><h3>Рецепты, которые работают дома.</h3><p>Пропорции, время, температура и понятная корректировка под зерно.</p><div class="recipeStage"><div class="recipe"><div class="recipeIcon">◉</div><strong>Воронка</strong><span>Чистый и яркий вкус</span></div><div class="recipe"><div class="recipeIcon">◌</div><strong>Аэропресс</strong><span>Быстро и стабильно</span></div><div class="recipe"><div class="recipeIcon">◍</div><strong>Турка</strong><span>Плотно и насыщенно</span></div></div></article>
+ </div></div></section>
+<section class="section author" id="author"><div class="wrap authorGrid"><div class="portrait reveal"><div class="glasses"></div><div class="bridge"></div></div><div><div class="kicker reveal">Об авторе</div><h2 class="reveal">Сначала кофейня. Потом — система.</h2><p class="lead reveal">Михаил Дмитриев — сооснователь A CUP. Практический опыт кофейни и ежедневной работы с кофе собран в одном понятном руководстве.</p><div class="quote reveal">«Такой гид я сам хотел получить в самом начале: без снобизма, сложных терминов и бессмысленных покупок».</div><div class="signature reveal">Михаил Дмитриев · A CUP</div><div class="facts reveal"><div class="fact"><strong>2019</strong><span>старт A CUP</span></div><div class="fact"><strong>100%</strong><span>практический подход</span></div><div class="fact"><strong>0</strong><span>снобизма</span></div></div></div></div></section>
+<section class="section program" id="program"><div class="wrap"><div class="kicker reveal">Программа</div><h2 class="reveal">Шесть глав. Один понятный путь.</h2><div class="chapterList reveal"><div class="chapter"><div class="num">01</div><div class="ct">Как устроен вкус кофе</div><div class="meta">База</div></div><div class="chapter"><div class="num">02</div><div class="ct">Как выбирать зерно</div><div class="meta">Покупка</div></div><div class="chapter"><div class="num">03</div><div class="ct">Помол без гадания</div><div class="meta">Настройка</div></div><div class="chapter"><div class="num">04</div><div class="ct">Вода и температура</div><div class="meta">Баланс</div></div><div class="chapter"><div class="num">05</div><div class="ct">Рецепты дома</div><div class="meta">Практика</div></div><div class="chapter"><div class="num">06</div><div class="ct">Оборудование без переплаты</div><div class="meta">Выбор</div></div></div></div></section>
+<section class="buy" id="buy"><div class="wrap"><div class="buyCard reveal"><div class="buyGrid"><div><div class="kicker">Доступ навсегда</div><h2>Лучший кофе.<br>Каждый день.</h2><div class="price">299 ₽</div><div class="guarantee"><a href="/guide/offer.html">14 дней на возврат</a> — по оферте, п. 5.4. Не подойдёт — вернём деньги</div><div class="benefits"><div>Мгновенный доступ</div><div>Без подписки</div><div>Любое устройство</div></div></div><div class="box"><form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments"><input type="hidden" name="flow" value="direct"><button class="btn primary" id="buyBtn" type="submit">Купить и открыть справочник</button></form><div class="fine">Это не подписка: разовая оплата, доступ без срока действия</div><p class="consent">Нажимая кнопку, вы принимаете условия <a href="/guide/offer.html">публичной оферты</a> и <a href="/guide/privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p></div></div></div></div></section>
 </main>
-
-<footer class="site-footer">
-  <div class="row"><a href="../index.html">акап.рф</a><a href="offer.html">Оферта</a><a href="privacy.html">Конфиденциальность</a><a href="access.html">Вход по токену</a><a href="https://t.me/Arcady_ya">Поддержка</a></div>
-  <div>A CUP · самозанятый Дмитриев М.А., ИНН 772453231807 · ЮKassa</div>
-</footer>
-
-</div>
-
-<div class="sticky-cta" id="stickyCta">
-  <form class="direct-buy" method="post" action="https://acup-access.acup-access.workers.dev/api/payments">
-    <input type="hidden" name="flow" value="direct">
-    <button class="btn buy-now" type="submit">Купить и открыть справочник</button>
-  </form>
-</div>
-
-<!-- платёжная логика (без изменений) -->
+<footer class="footer"><div class="wrap"><div class="flinks"><a href="/guide/offer.html">Публичная оферта</a><a href="/guide/privacy.html">Политика конфиденциальности</a><a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">Поддержка</a></div><div>A CUP · самозанятый Дмитриев М.А., ИНН 772453231807 · ЮKassa</div><div>© 2026 A CUP. Все права защищены.</div></div></footer>
+<div class="mobileBuy"><div><strong>299 ₽</strong><small>доступ навсегда</small></div><a class="btn primary" href="#buy">Купить</a></div>
 <script>
-(function(){let busy=false;const buttons=[...document.querySelectorAll('.buy-now')],status=document.getElementById('payStatus');document.querySelectorAll('form.direct-buy').forEach((form,index)=>form.addEventListener('submit',()=>{if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy',{cta_position:index+1,price:299,currency:'RUB'});buttons.forEach(b=>{b.disabled=true;b.textContent='Переходим к безопасной оплате…'})}));async function buy(){if(busy)return;busy=true;buttons.forEach(b=>{b.disabled=true;b.dataset.label=b.textContent;b.textContent='Переходим к безопасной оплате…'});if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy');try{const base=await window.ACUPResolveApiBase();const nonce=sessionStorage.getItem('acup_payment_nonce')||String(Date.now())+'-'+Math.random().toString(36).slice(2);sessionStorage.setItem('acup_payment_nonce',nonce);const r=await fetch(base+'/api/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_nonce:nonce,acceptOffer:true,acceptPrivacy:true,acceptDigital:true,acceptIp:true,consent:true})});const d=await r.json();if(!r.ok||!d.confirmation_url)throw new Error(d.message||d.error||'Не удалось создать платёж');sessionStorage.setItem('acup_guide_order',d.orderId);location.href=d.confirmation_url}catch(e){status.className='status err global-status';status.textContent=e.message;busy=false;buttons.forEach(b=>{b.disabled=false;b.textContent=b.dataset.label})}}const _v=document.getElementById('loadAuthorVideo');if(_v)_v.addEventListener('click',function(){const shell=document.getElementById('authorVideo');if(shell){const f=document.createElement('iframe');f.src=shell.dataset.src;f.title='Интервью с автором';f.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';f.allowFullscreen=true;shell.replaceChildren(f)}},{once:true});if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy')})();
+/* Яндекс.Метрика — A CUP / акап.рф, счётчик 111214147 (код = прод js/metrika.js) */
+(function () {
+  var id = 111214147;
+  (function (m, e, t, r, i, k, a) {
+    m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+    m[i].l = 1 * new Date();
+    for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) return; }
+    (k = e.createElement(t)), (a = e.getElementsByTagName(t)[0]);
+    k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+  })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + id, 'ym');
+  window.ym(id, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true, ecommerce: 'dataLayer' });
+  window.ACUPMetrika = {
+    id: id,
+    reach: function (goal, params) {
+      try { if (typeof window.ym === 'function') window.ym(id, 'reachGoal', goal, params || {}); } catch (_) {}
+    },
+  };
+})();
+</script>
+<script>
+(function(){
+ document.documentElement.classList.add('js');
+ var items=[].slice.call(document.querySelectorAll('.reveal'));items.forEach(function(x){x.classList.add('pre')});
+ function show(x){x.classList.remove('pre');x.classList.add('show')}
+ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{threshold:.06});items.forEach(function(x){io.observe(x)})}else{items.forEach(show)}
+ setTimeout(function(){items.forEach(show)},800);
+ var story=document.querySelector('.story'),stage=document.querySelector('.storyStage'),raf=0,current=0,target=0;
+ function vh(){return window.visualViewport?window.visualViewport.height:innerHeight}
+ function measure(){if(!story)return;var r=story.getBoundingClientRect(),range=Math.max(1,story.offsetHeight-vh());target=Math.max(0,Math.min(1,-r.top/range));if(!raf)raf=requestAnimationFrame(loop)}
+ function loop(){raf=0;current+=(target-current)*.085;var eased=current<.5?2*current*current:1-Math.pow(-2*current+2,2)/2;if(innerWidth>800){stage.style.setProperty('--p',eased.toFixed(4));}else{stage.style.setProperty('--touch-p',eased.toFixed(4));}if(Math.abs(target-current)>.001)raf=requestAnimationFrame(loop)}
+ measure();addEventListener('scroll',measure,{passive:true});addEventListener('resize',measure,{passive:true});if(window.visualViewport)visualViewport.addEventListener('resize',measure,{passive:true});
+ if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy');
+})();
+</script>
+<script>
+(function(){let busy=false;const buttons=[...document.querySelectorAll('#buyBtn')],status=document.getElementById('payStatus');document.querySelectorAll('form.direct-buy').forEach((form,index)=>form.addEventListener('submit',()=>{if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy',{cta_position:index+1,price:299,currency:'RUB'});buttons.forEach(b=>{b.disabled=true;b.textContent='Переходим к безопасной оплате…'})}));async function buy(){if(busy)return;busy=true;buttons.forEach(b=>{b.disabled=true;b.dataset.label=b.textContent;b.textContent='Переходим к безопасной оплате…'});if(window.ACUPMetrika)window.ACUPMetrika.reach('click_buy');try{const base=await window.ACUPResolveApiBase();const nonce=sessionStorage.getItem('acup_payment_nonce')||String(Date.now())+'-'+Math.random().toString(36).slice(2);sessionStorage.setItem('acup_payment_nonce',nonce);const r=await fetch(base+'/api/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_nonce:nonce,acceptOffer:true,acceptPrivacy:true,acceptDigital:true,acceptIp:true,consent:true})});const d=await r.json();if(!r.ok||!d.confirmation_url)throw new Error(d.message||d.error||'Не удалось создать платёж');sessionStorage.setItem('acup_guide_order',d.orderId);location.href=d.confirmation_url}catch(e){if(status)status.className='status err global-status';if(status)status.textContent=e.message;busy=false;buttons.forEach(b=>{b.disabled=false;b.textContent=b.dataset.label})}}const _v=document.getElementById('loadAuthorVideo');if(_v)_v.addEventListener('click',function(){const shell=document.getElementById('authorVideo');if(shell){const f=document.createElement('iframe');f.src=shell.dataset.src;f.title='Интервью с автором';f.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';f.allowFullscreen=true;shell.replaceChildren(f)}},{once:true});if(window.ACUPMetrika)window.ACUPMetrika.reach('view_buy')})();
 </script>
 <script>
 (function () {
@@ -509,15 +266,4 @@ h3{font-size:1.15rem;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
   });
 })();
 </script>
-<script>
-/* премиальные микроанимации: появление секций + мобильная sticky-кнопка */
-(function(){
-  if(!('IntersectionObserver' in window)){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});return}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
-  var sticky=document.querySelector('.sticky-cta'),final=document.querySelector('.final');
-  if(sticky&&final){var so=new IntersectionObserver(function(es){es.forEach(function(e){var show=e.isIntersecting&&window.innerWidth<=720;sticky.classList.toggle('show',!show);document.body.classList.toggle('sticky-pad',!show)})},{threshold:.15});so.observe(final)}
-})();
-</script>
-</body>
-</html>
+</body></html>
