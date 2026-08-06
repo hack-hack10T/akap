@@ -155,13 +155,113 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}.wrap{width:min(c
 <main id="top">
 <section class="hero">
  <div class="heroCopy"><div class="eyebrow reveal">Практический гид по кофе</div><h1 class="reveal">От нуля<br>до specialty.</h1><p class="heroLead reveal">Понимай вкус. Настраивай рецепт. Заваривай лучше — без снобизма и лишних покупок.</p><div class="actions reveal"><div class="heroPrice">299 ₽<small>· один раз</small></div><a class="btn primary" href="#buy">Купить и открыть справочник</a><a class="btn secondary" href="#inside">Посмотреть внутри</a></div></div>
- <div class="heroScene"><div class="heroGlow"></div><div class="bookHero"><div class="bookBase"></div><div class="bookCover"><div class="coverLabel">A CUP · VISUAL GUIDE</div><div class="coverTitle">От нуля<br>до specialty</div><div class="coverFoot">Кофе становится понятным</div><div class="beanSplit"></div></div></div><div class="heroChip hc1">6 глав</div><div class="heroChip hc2">шпаргалки и рецепты</div><div class="heroChip hc3">доступ навсегда</div></div>
+ <div class="heroScene"><div class="heroGlow"></div><div class="bookHero"><div class="bookBase"></div><div class="bookCover"><div class="coverLabel">A CUP · VISUAL GUIDE</div><div class="coverTitle">От нуля<br>до specialty</div><div class="coverFoot">Кофе становится понятным</div><div class="beanSplit"></div></div></div><div class="heroChip hc1">6 разделов</div><div class="heroChip hc2">49 глав</div><div class="heroChip hc3">доступ навсегда</div></div>
 </section>
-<section class="story" id="inside"><div class="storySticky"><div class="storyCopy"><div class="kicker">Внутри</div><h2>Не просто текст.<br>Визуальная система.</h2><p>Три ключевые главы. Каждая — как отдельный продуктовый объект.</p></div><div class="storyStage"><div class="stageAura"></div><div class="stageFloor"></div>
- <article class="sheet s1"><div class="sheetHead"><div class="mini">ГЛАВА 02</div><div class="sheetTitle">Как выбрать<br>зерно</div><div class="beanArt"></div></div><div class="sheetBody"><div class="line lg"></div><div class="line sm"></div><div class="line md"></div><div class="metric">SCA</div></div></article>
- <article class="sheet s2"><div class="sheetHead dark"><div class="mini">ГЛАВА 04</div><div class="sheetTitle">Помол без<br>гадания</div><div class="beanArt"></div></div><div class="sheetBody"><div class="line lg"></div><div class="line md"></div><div class="line lg"></div><div class="metric">1:16</div></div></article>
- <article class="sheet s3"><div class="sheetHead"><div class="mini">ГЛАВА 05</div><div class="sheetTitle">Рецепты<br>дома</div><div class="beanArt"></div></div><div class="sheetBody"><div class="line lg"></div><div class="line sm"></div><div class="line md"></div><div class="metric">92°</div></div></article>
- <div class="storyCaption"><span>6 глав</span><i></i><span>шпаргалки и рецепты</span><i></i><span>доступ навсегда</span></div></div></div></section>
+<!-- A CUP — БЛОК «ВНУТРИ», mobile-first (владелец, расп. №10) -->
+<style>
+.acup-inside,.acup-inside *{box-sizing:border-box}
+.acup-inside{
+  --text:#f5f5f7;--muted:#a1a1a6;--copper:#9a4d1d;--blue:#0071e3;
+  width:100%;margin:0;padding:58px 0 0;overflow:hidden;color:var(--text);
+  background:radial-gradient(circle at 50% 18%,rgba(255,255,255,.08),transparent 28%),linear-gradient(180deg,#070707,#020202);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Arial,sans-serif;
+}
+.acup-inside__shell{width:min(1180px,100%);margin:auto}
+.acup-inside__header{position:relative;z-index:10;width:min(100% - 28px,820px);margin:0 auto 24px;text-align:center}
+.acup-inside__eyebrow{margin:0 0 10px;color:#c78b63;font-size:13px;font-weight:700}
+.acup-inside__title{margin:0;font-size:clamp(44px,13.2vw,86px);line-height:.93;letter-spacing:-.058em;font-weight:700;text-wrap:balance}
+.acup-inside__title span{display:block;color:#d2d2d7}
+.acup-inside__scene{position:relative;min-height:590px;perspective:1500px;transform-style:preserve-3d}
+.acup-inside__scene:before{content:"";position:absolute;left:12%;right:12%;bottom:4%;height:13%;border-radius:50%;background:rgba(0,0,0,.58);filter:blur(34px)}
+.acup-inside__card{
+  position:absolute;top:47%;left:50%;width:min(270px,72vw);min-height:390px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.18);border-radius:26px;
+  background:linear-gradient(180deg,#f5f2ef,#e9e5e1);color:#1d1d1f;
+  box-shadow:0 1px 0 rgba(255,255,255,.75) inset,0 38px 88px rgba(0,0,0,.42);
+  transform-style:preserve-3d;
+}
+.acup-inside__card:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.46),transparent 30%),linear-gradient(180deg,transparent 65%,rgba(0,0,0,.04))}
+.acup-inside__card--main{z-index:4;animation:ai-main 9s cubic-bezier(.4,0,.2,1) infinite}
+.acup-inside__card--left{z-index:2;opacity:.82;animation:ai-left-mobile 10s cubic-bezier(.4,0,.2,1) infinite}
+.acup-inside__card--right{z-index:2;opacity:.82;animation:ai-right-mobile 10.5s cubic-bezier(.4,0,.2,1) infinite}
+.acup-inside__cover{position:relative;min-height:178px;padding:21px;display:flex;flex-direction:column;background:radial-gradient(circle at 78% 24%,rgba(202,132,86,.72),transparent 30%),linear-gradient(145deg,#35190e,#120807);color:#fff}
+.acup-inside__section-no{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;opacity:.84}
+.acup-inside__card-title{position:relative;z-index:2;margin-top:15px;max-width:200px;font-size:29px;line-height:.96;letter-spacing:-.045em;font-weight:700;overflow-wrap:anywhere}
+.acup-inside__shape{position:absolute;top:34px;right:-30px;width:132px;height:132px;border-radius:48% 52% 45% 55%;background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.28),transparent 8%),linear-gradient(145deg,#c88355,#4c2010 72%);transform:rotate(-20deg);box-shadow:0 22px 42px rgba(0,0,0,.28)}
+.acup-inside__shape:after{content:"";position:absolute;left:46%;top:10%;bottom:10%;width:9%;border-radius:50%;background:rgba(34,12,5,.55)}
+.acup-inside__body{padding:18px 20px 20px}
+.acup-inside__line{height:9px;margin-bottom:10px;border-radius:999px;background:#d9d8dd}
+.acup-inside__line:nth-child(2){width:78%}.acup-inside__line:nth-child(3){width:92%}
+.acup-inside__metric{margin-top:21px;padding:19px 14px;border-radius:20px;background:#f0ece8;text-align:center}
+.acup-inside__metric strong{display:block;color:var(--copper);font-size:44px;line-height:.92;letter-spacing:-.055em}
+.acup-inside__metric span{display:block;margin-top:8px;color:#6e6e73;font-size:11px}
+.acup-inside__caption{position:relative;z-index:8;width:min(100% - 36px,620px);margin:0 auto;padding:0 0 28px;color:var(--muted);text-align:center;font-size:16px;line-height:1.45}
+.acup-inside__buy{position:relative;z-index:12;width:calc(100% - 24px);margin:auto;padding:14px 14px 14px 18px;border:1px solid rgba(255,255,255,.18);border-radius:26px 26px 0 0;display:flex;align-items:center;justify-content:space-between;gap:18px;background:rgba(245,245,247,.96);color:#1d1d1f;box-shadow:0 -14px 42px rgba(0,0,0,.26);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.acup-inside__price strong{display:block;font-size:27px;line-height:1;letter-spacing:-.04em}
+.acup-inside__price span{display:block;margin-top:6px;color:#86868b;font-size:13px}
+.acup-inside__button{min-width:132px;min-height:50px;padding:0 22px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;text-decoration:none;font-size:16px;font-weight:600;-webkit-tap-highlight-color:transparent}
+@keyframes ai-main{0%,100%{transform:translate3d(-50%,-50%,90px)}50%{transform:translate3d(-50%,-53%,115px) rotateY(1deg) rotateZ(-.4deg)}}
+@keyframes ai-left-mobile{0%,100%{transform:translate3d(-94%,-44%,-42px) rotateY(16deg) rotateZ(-5deg) scale(.91)}50%{transform:translate3d(-88%,-47%,-20px) rotateY(11deg) rotateZ(-3deg) scale(.93)}}
+@keyframes ai-right-mobile{0%,100%{transform:translate3d(-6%,-43%,-42px) rotateY(-16deg) rotateZ(5deg) scale(.91)}50%{transform:translate3d(-12%,-46%,-20px) rotateY(-11deg) rotateZ(3deg) scale(.93)}}
+@media(min-width:761px){
+  .acup-inside{padding-top:clamp(72px,9vw,120px)}
+  .acup-inside__header{margin-bottom:clamp(32px,5vw,56px)}
+  .acup-inside__eyebrow{font-size:14px}
+  .acup-inside__scene{min-height:650px}
+  .acup-inside__card{top:46%;width:min(340px,29vw);min-height:470px;border-radius:32px}
+  .acup-inside__cover{min-height:215px;padding:26px}
+  .acup-inside__section-no{font-size:13px}
+  .acup-inside__card-title{margin-top:18px;max-width:250px;font-size:clamp(31px,3.1vw,42px)}
+  .acup-inside__shape{top:38px;right:-22px;width:170px;height:170px}
+  .acup-inside__body{padding:22px 26px 26px}
+  .acup-inside__line{height:12px;margin-bottom:13px}
+  .acup-inside__metric{margin-top:28px;padding:23px 18px;border-radius:24px}
+  .acup-inside__metric strong{font-size:54px}
+  .acup-inside__caption{padding-bottom:50px;font-size:19px}
+  .acup-inside__buy{width:min(760px,calc(100% - 32px));padding:17px 20px;border-radius:30px 30px 0 0}
+  .acup-inside__price strong{font-size:30px}
+  .acup-inside__button{min-width:150px;min-height:54px;padding:0 26px;font-size:17px}
+  .acup-inside__card--left{animation-name:ai-left}
+  .acup-inside__card--right{animation-name:ai-right}
+}
+@keyframes ai-left{0%,100%{transform:translate3d(-115%,-45%,-35px) rotateY(18deg) rotateZ(-6deg) scale(.95)}50%{transform:translate3d(-108%,-48%,-18px) rotateY(13deg) rotateZ(-4deg) scale(.97)}}
+@keyframes ai-right{0%,100%{transform:translate3d(15%,-44%,-35px) rotateY(-18deg) rotateZ(6deg) scale(.95)}50%{transform:translate3d(8%,-47%,-18px) rotateY(-13deg) rotateZ(4deg) scale(.97)}}
+@media(max-width:380px){.acup-inside__title{font-size:43px}.acup-inside__scene{min-height:560px}.acup-inside__card{width:252px}.acup-inside__button{min-width:116px;padding:0 18px}}
+@media(prefers-reduced-motion:reduce){.acup-inside__card{animation-duration:24s}}
+</style>
+
+<section class="acup-inside" id="inside" aria-labelledby="acup-inside-title">
+  <div class="acup-inside__shell">
+    <header class="acup-inside__header">
+      <p class="acup-inside__eyebrow">&#1042;&#1085;&#1091;&#1090;&#1088;&#1080;</p>
+      <h2 class="acup-inside__title" id="acup-inside-title">&#1053;&#1077; &#1087;&#1088;&#1086;&#1089;&#1090;&#1086; &#1090;&#1077;&#1082;&#1089;&#1090;.<span>&#1042;&#1080;&#1079;&#1091;&#1072;&#1083;&#1100;&#1085;&#1072;&#1103; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072;.</span></h2>
+    </header>
+
+    <div class="acup-inside__scene" aria-hidden="true">
+      <article class="acup-inside__card acup-inside__card--left">
+        <div class="acup-inside__cover"><span class="acup-inside__section-no">&#1056;&#1072;&#1079;&#1076;&#1077;&#1083; 02</span><strong class="acup-inside__card-title">&#1050;&#1072;&#1082; &#1074;&#1099;&#1073;&#1080;&#1088;&#1072;&#1090;&#1100; &#1079;&#1077;&#1088;&#1085;&#1086;</strong><div class="acup-inside__shape"></div></div>
+        <div class="acup-inside__body"><div class="acup-inside__line"></div><div class="acup-inside__line"></div><div class="acup-inside__line"></div><div class="acup-inside__metric"><strong>SCA</strong><span>&#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1099; &#1082;&#1072;&#1095;&#1077;&#1089;&#1090;&#1074;&#1072;</span></div></div>
+      </article>
+
+      <article class="acup-inside__card acup-inside__card--right">
+        <div class="acup-inside__cover"><span class="acup-inside__section-no">&#1056;&#1072;&#1079;&#1076;&#1077;&#1083; 05</span><strong class="acup-inside__card-title">&#1042;&#1086;&#1076;&#1072; &#1080; &#1090;&#1077;&#1084;&#1087;&#1077;&#1088;&#1072;&#1090;&#1091;&#1088;&#1072;</strong><div class="acup-inside__shape"></div></div>
+        <div class="acup-inside__body"><div class="acup-inside__line"></div><div class="acup-inside__line"></div><div class="acup-inside__line"></div><div class="acup-inside__metric"><strong>92&#176;</strong><span>&#1090;&#1086;&#1095;&#1082;&#1072; &#1076;&#1083;&#1103; &#1085;&#1072;&#1089;&#1090;&#1088;&#1086;&#1081;&#1082;&#1080;</span></div></div>
+      </article>
+
+      <article class="acup-inside__card acup-inside__card--main">
+        <div class="acup-inside__cover"><span class="acup-inside__section-no">&#1056;&#1072;&#1079;&#1076;&#1077;&#1083; 04</span><strong class="acup-inside__card-title">&#1055;&#1086;&#1084;&#1086;&#1083; &#1073;&#1077;&#1079; &#1075;&#1072;&#1076;&#1072;&#1085;&#1080;&#1103;</strong><div class="acup-inside__shape"></div></div>
+        <div class="acup-inside__body"><div class="acup-inside__line"></div><div class="acup-inside__line"></div><div class="acup-inside__line"></div><div class="acup-inside__metric"><strong>1:16</strong><span>&#1082;&#1086;&#1092;&#1077; &#1082; &#1074;&#1086;&#1076;&#1077;</span></div></div>
+      </article>
+    </div>
+
+    <p class="acup-inside__caption">&#1057;&#1093;&#1077;&#1084;&#1099;, &#1088;&#1077;&#1094;&#1077;&#1087;&#1090;&#1099; &#1080; &#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1080;&#1088;&#1099;, &#1082; &#1082;&#1086;&#1090;&#1086;&#1088;&#1099;&#1084; &#1091;&#1076;&#1086;&#1073;&#1085;&#1086; &#1074;&#1086;&#1079;&#1074;&#1088;&#1072;&#1097;&#1072;&#1090;&#1100;&#1089;&#1103; &#1074;&#1086; &#1074;&#1088;&#1077;&#1084;&#1103; &#1087;&#1088;&#1080;&#1075;&#1086;&#1090;&#1086;&#1074;&#1083;&#1077;&#1085;&#1080;&#1103;.</p>
+  </div>
+
+  <div class="acup-inside__buy">
+    <div class="acup-inside__price"><strong>299 &#8381;</strong><span>&#1076;&#1086;&#1089;&#1090;&#1091;&#1087; &#1085;&#1072;&#1074;&#1089;&#1077;&#1075;&#1076;&#1072;</span></div>
+    <a class="acup-inside__button" href="#buy">&#1050;&#1091;&#1087;&#1080;&#1090;&#1100;</a>
+  </div>
+</section>
 <section class="section chapters"><div class="wrap"><div class="kicker reveal">Только главное</div><h2 class="reveal">Вкус — это управляемая система.</h2><p class="lead reveal">Четыре ключевых элемента. Каждый показан как отдельный продуктовый объект, а не как длинный текстовый блок.</p><div class="featureGrid">
  <article class="feature featureTall reveal"><h3>Помол, который можно настроить.</h3><p>Кисло — двигаемся мельче. Горько — крупнее. Понятная логика вместо случайных вращений.</p><div class="dial"><div class="dialTick"></div></div></article>
  <article class="feature featureBlue reveal"><h3>Температура без мифов.</h3><p>Почему одному зерну подходит 88 °C, а другому — 94 °C.</p><div class="temp">92°</div><div class="waveScene"><div class="waveLine"></div><div class="waveLine"></div><div class="waveLine"></div></div></article>
@@ -169,7 +269,7 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}.wrap{width:min(c
  <article class="feature featureWide reveal"><h3>Рецепты, которые работают дома.</h3><p>Пропорции, время, температура и понятная корректировка под зерно.</p><div class="recipeStage"><div class="recipe"><div class="recipeIcon">◉</div><strong>Воронка</strong><span>Чистый и яркий вкус</span></div><div class="recipe"><div class="recipeIcon">◌</div><strong>Аэропресс</strong><span>Быстро и стабильно</span></div><div class="recipe"><div class="recipeIcon">◍</div><strong>Турка</strong><span>Плотно и насыщенно</span></div></div></article>
  </div></div></section>
 <section class="section author" id="author"><div class="wrap authorGrid"><div class="portrait reveal"><div class="glasses"></div><div class="bridge"></div></div><div><div class="kicker reveal">Об авторе</div><h2 class="reveal">Сначала кофейня. Потом — система.</h2><p class="lead reveal">Михаил Дмитриев — сооснователь A CUP. Практический опыт кофейни и ежедневной работы с кофе собран в одном понятном руководстве.</p><div class="quote reveal">«Такой гид я сам хотел получить в самом начале: без снобизма, сложных терминов и бессмысленных покупок».</div><div class="signature reveal">Михаил Дмитриев · A CUP</div><div class="facts reveal"><div class="fact"><strong>2019</strong><span>старт A CUP</span></div><div class="fact"><strong>100%</strong><span>практический подход</span></div><div class="fact"><strong>0</strong><span>снобизма</span></div></div></div></div></section>
-<section class="section program" id="program"><div class="wrap"><div class="kicker reveal">Программа</div><h2 class="reveal">Шесть глав. Один понятный путь.</h2><div class="chapterList reveal"><div class="chapter"><div class="num">01</div><div class="ct">Как устроен вкус кофе</div><div class="meta">База</div></div><div class="chapter"><div class="num">02</div><div class="ct">Как выбирать зерно</div><div class="meta">Покупка</div></div><div class="chapter"><div class="num">03</div><div class="ct">Помол без гадания</div><div class="meta">Настройка</div></div><div class="chapter"><div class="num">04</div><div class="ct">Вода и температура</div><div class="meta">Баланс</div></div><div class="chapter"><div class="num">05</div><div class="ct">Рецепты дома</div><div class="meta">Практика</div></div><div class="chapter"><div class="num">06</div><div class="ct">Оборудование без переплаты</div><div class="meta">Выбор</div></div></div></div></section>
+<section class="section program" id="program"><div class="wrap"><div class="kicker reveal">Программа</div><h2 class="reveal">Шесть разделов. Один понятный путь.</h2><p class="lead reveal">49 глав · практика · приложение</p><div class="chapterList reveal"><div class="chapter"><div class="num">01</div><div class="ct">Как устроен вкус кофе</div><div class="meta">База</div></div><div class="chapter"><div class="num">02</div><div class="ct">Как выбирать зерно</div><div class="meta">Покупка</div></div><div class="chapter"><div class="num">03</div><div class="ct">Помол без гадания</div><div class="meta">Настройка</div></div><div class="chapter"><div class="num">04</div><div class="ct">Вода и температура</div><div class="meta">Баланс</div></div><div class="chapter"><div class="num">05</div><div class="ct">Рецепты дома</div><div class="meta">Практика</div></div><div class="chapter"><div class="num">06</div><div class="ct">Оборудование без переплаты</div><div class="meta">Выбор</div></div></div></div></section>
 <section class="buy" id="buy"><div class="wrap"><div class="buyCard reveal"><div class="buyGrid"><div><div class="kicker">Доступ навсегда</div><h2>Лучший кофе.<br>Каждый день.</h2><div class="price">299 ₽</div><div class="guarantee"><a href="/guide/offer.html">7 дней на возврат</a> — по оферте, п. 5.4. Не подойдёт — вернём деньги</div><div class="benefits"><div>Мгновенный доступ</div><div>Без подписки</div><div>Любое устройство</div></div></div><div class="box"><button class="btn primary" id="buyBtn" type="button">Купить и открыть справочник</button><div class="fine">Это не подписка: разовая оплата, доступ без срока действия</div><p class="consent">Нажимая кнопку, вы принимаете условия <a href="/guide/offer.html">публичной оферты</a> и <a href="/guide/privacy.html">политики конфиденциальности</a> и подтверждаете покупку цифрового товара с доступом сразу после оплаты.</p></div></div></div></div></section>
 </main>
 <footer class="footer"><div class="wrap"><div class="flinks"><a href="/guide/offer.html">Публичная оферта</a><a href="/guide/privacy.html">Политика конфиденциальности</a><a href="https://t.me/Arcady_ya" target="_blank" rel="noopener">Поддержка</a></div><div>A CUP · самозанятый Дмитриев М.А., ИНН 772453231807 · ЮKassa</div><div>© 2026 A CUP. Все права защищены.</div></div></footer>
