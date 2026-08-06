@@ -2,7 +2,7 @@
 # Авто-деплой A CUP: срабатывает при появлении /home/hack/.config/regru/ftp.env (или $FTP_ENV).
 # Согласовано юр. 06.08: выкладка строго из репо по коммитам, порядок оферта → buy → v9 → index.
 #   оферта 6dd41bc → guide/offer.html (ред. 06.08, возврат 7 дней, ст. 26.1 ЗоЗПП, п. 5.4)
-#   buy     13ffe30 → guide/buy.html (Марк: логотип/мобилка/интервью с автором; N7: 6 разделов/49 глав)
+#   buy     0266190 → guide/buy.html (цена 499 ₽ — как большой капучино в Даблби; Марк: логотип/мобилка/интервью; N7: 49 глав)
 #   v9      6dd41bc → landing_v9.html (отдельный файл)
 #   index   6dd41bc → index.html      (только юр. футер возврата; контент кофейни не меняется)
 # Перед заливкой — бэкап текущего прода. После — check_prod.sh /landing_v9.html.
@@ -51,9 +51,10 @@ upload() { # upload <tmpfile> <relpath>
   curl -sS --ftp-create-dirs -T "$1" "ftp://${FTP_HOST}$(ftp_path "$2")" --user "${FTP_USER}:${FTP_PASS}" \
     && echo "OK  $2" || { echo "FAIL $2"; exit 1; }
 }
-git show 6dd41bc:guide/offer.html > /tmp/acup_offer.html && upload /tmp/acup_offer.html guide/offer.html
-git show e403321:guide/buy.html   > /tmp/acup_buy.html   && upload /tmp/acup_buy.html   guide/buy.html
-git show 936f5e6:landing_v9.html  > /tmp/acup_v9.html    && upload /tmp/acup_v9.html    landing_v9.html
+git show dc6d010:guide/offer.html > /tmp/acup_offer.html && upload /tmp/acup_offer.html guide/offer.html
+git show 0266190:guide/buy.html  > /tmp/acup_buy.html   && upload /tmp/acup_buy.html   guide/buy.html
+git show 0266190:landing_v9.html  > /tmp/acup_v9.html    && upload /tmp/acup_v9.html    landing_v9.html
+git show 0266190:config.js         > /tmp/acup_config.js  && upload /tmp/acup_config.js   config.js
 git show 6dd41bc:index.html       > /tmp/acup_index.html && upload /tmp/acup_index.html index.html
 
 # 3. Контрольная сверка
