@@ -28,7 +28,7 @@ SITE_FILES=(
   index.html config.js robots.txt sitemap.xml og-image.jpg
   css/guide-legal.css
   js/api.js js/metrika.js
-  guide/buy.html guide/offer.html guide/privacy.html guide/access.html guide/success.html
+  guide/buy.html guide/payment.html guide/offer.html guide/privacy.html guide/access.html guide/success.html
   guide/assets/mikhail-portrait.webp
 )
 
