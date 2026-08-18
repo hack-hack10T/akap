@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Coffee Fix — диагностика вкуса кофе · A CUP</title>
+<meta name="description" content="2 минуты — и понятно, что менять в заваривании: помол, температура, пропорция. 8 методов, без снобизма.">
+<link rel="canonical" href="https://акап.рф/coffee-fix.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="A CUP">
+<meta property="og:title" content="Coffee Fix — диагностика вкуса кофе">
+<meta property="og:description" content="Кислый, горький или водянистый? Персональные настройки заваривания по вашему методу.">
+<meta property="og:url" content="https://акап.рф/coffee-fix.html">
+<meta property="og:image" content="https://акап.рф/og-image.jpg">
+<style>
+:root{--black:#000;--ink:#1d1d1f;--bg:#0a0908;--card:#171512;--line:rgba(255,255,255,.1);--muted:#a1a1a6;--copper:#9a4d1d;--blue:#0071e3;--text:#f5f5f7}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+.wrap{width:min(calc(100% - 32px),720px);margin:auto;padding:26px 0 48px}
+.logo{font-size:19px;font-weight:800;letter-spacing:-.04em;color:#fff;text-decoration:none}
+.step{display:none}.step.active{display:block}
+.kicker{color:#c78b63;font-size:13px;font-weight:700;margin:6px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+h1{font-size:clamp(36px,9vw,58px);line-height:.95;letter-spacing:-.05em;margin:0 0 10px}
+.lead{color:var(--muted);font-size:17px;line-height:1.4;margin:0 0 24px}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin:0 0 12px;font-size:18px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.opt small{display:block;color:var(--muted);font-size:13px;font-weight:400;margin-top:5px}
+.opt:hover{border-color:rgba(255,255,255,.3)}
+.opt:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.opt:active{transform:scale(.985)}
+.back{background:none;border:0;color:var(--muted);font-size:14px;cursor:pointer;padding:8px 0 4px;margin-bottom:10px}
+.back:focus-visible{outline:2px solid var(--blue)}
+.result{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px 20px;margin-top:8px}
+.result h2{font-size:24px;letter-spacing:-.03em;margin:0 0 6px}
+.result .sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+.fix{border-top:1px solid var(--line);padding:13px 0}
+.fix:last-child{border-bottom:1px solid var(--line)}
+.fix b{display:block;font-size:15px;margin-bottom:3px}
+.fix span{color:var(--muted);font-size:14px;line-height:1.45;display:block}
+.cta{display:block;width:100%;margin-top:20px;background:var(--blue);color:#fff;border:0;border-radius:999px;padding:16px;font-size:17px;font-weight:650;cursor:pointer}
+.cta:focus-visible{outline:3px solid rgba(255,255,255,.7);outline-offset:2px}
+.cta:disabled{opacity:.65;cursor:default}
+.note{color:var(--muted);font-size:12px;text-align:center;margin-top:12px}
+.fine{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.4;text-align:center}
+.fine a{color:var(--blue)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/" title="A CUP">A CUP</a>
+
+  <section id="step-symptom" class="step active" aria-labelledby="fix-title">
+    <p class="kicker">Coffee Fix · 1 из 2</p>
+    <h1 id="fix-title">Что не так со вкусом?</h1>
+    <p class="lead">Выберите главную проблему — подберём настройку под ваш способ заваривания.</p>
+    <button class="opt" data-symptom="sour"><span>Кислый</span><small>Яркая кислинка, будто недоварили</small></button>
+    <button class="opt" data-symptom="bitter"><span>Горький</span><small>Горечь и сухость во рту</small></button>
+    <button class="opt" data-symptom="watery"><span>Водянистый</span><small>Пустой, слабый вкус</small></button>
+    <button class="opt" data-symptom="weak"><span>Слабый</span><small>Есть вкус, но не хватает насыщенности</small></button>
+  </section>
+
+  <section id="step-method" class="step" aria-labelledby="method-title" hidden>
+    <button class="back" type="button" id="btn-back-method">← Назад</button>
+    <p class="kicker">Coffee Fix · 2 из 2</p>
+    <h1 id="method-title">Как завариваете?</h1>
+    <p class="lead">Выберите метод — дадим конкретные параметры.</p>
+    <div id="method-list"></div>
+  </section>
+
+  <section id="step-result" class="step" aria-labelledby="result-title" hidden>
+    <button class="back" type="button" id="btn-back-result">← Назад</button>
+    <p class="kicker">Готово · меньше 90 секунд</p>
+    <div id="result-box" class="result" aria-live="polite"></div>
+    <button class="cta" type="button" data-checkout data-placement="fix_result">Улучшить вкус — гид A CUP</button>
+    <p class="fine">Полный справочник «От нуля до specialty»: 8 методов, настройка помола и воды, рецепты. <a href="/guide/offer.html">7 дней на возврат</a> · оплата один раз · доступ навсегда.</p>
+  </section>
+</div>
+
+<script src="./config.js"></script>
+<script src="./js/api.js"></script>
+<script src="./js/checkout.js"></script>
+<script>
+(function () {
+  var ym = 111214147;
+  (function (m, e, t, r, i, k, a) {
+    m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+    m[i].l = 1 * new Date();
+    for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) return; }
+    (k = e.createElement(t)), (a = e.getElementsByTagName(t)[0]);
+    k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+  })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ym, 'ym');
+  window.ym(ym, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: false, ecommerce: 'dataLayer' });
+  window.ACUPMetrika = { id: ym, reach: function (g, p) { try { if (typeof window.ym === 'function') window.ym(ym, 'reachGoal', g, p || {}); } catch (_) {} } };
+
+  var SYMPTOM_LABEL = { sour: 'Кислый', bitter: 'Горький', watery: 'Водянистый', weak: 'Слабый' };
+  var METHODS = [
+    { id: 'v60', t: 'Воронка (V60/Kalita)', base: { grind: 'Средне-мелкий (как сахар)', temp: '92–94 °C', ratio: '1:16 (15 г / 240 мл)', time: '2:30–3:00' } },
+    { id: 'aeropress', t: 'Аэропресс', base: { grind: 'Средне-мелкий', temp: '88–92 °C', ratio: '1:14 (15 г / 210 мл)', time: '1:30–2:00' } },
+    { id: 'turk', t: 'Турка', base: { grind: 'В пыль (мельче соли)', temp: 'Не доводить до кипения', ratio: '1:10 (10 г / 100 мл)', time: '2–3 мин на малом огне' } },
+    { id: 'french', t: 'Френч-пресс', base: { grind: 'Крупный', temp: '93–95 °C', ratio: '1:15 (20 г / 300 мл)', time: '4:00, затем пресс' } },
+    { id: 'moka', t: 'Мока (гейзер)', base: { grind: 'Средне-мелкий', temp: 'Вода уже кипяток внизу', ratio: '1:7 (16 г / 110 мл)', time: 'Снять до шипения' } },
+    { id: 'chemex', t: 'Кемекс', base: { grind: 'Средне-крупный', temp: '93–95 °C', ratio: '1:15 (30 г / 450 мл)', time: '3:30–4:00' } },
+    { id: 'espresso', t: 'Эспрессо-машина', base: { grind: 'Мелкий (эспрессо)', temp: '93 °C', ratio: '1:2 (18 г / 36 мл)', time: '25–30 сек' } },
+    { id: 'clever', t: 'Умная воронка (Clever/Switch)', base: { grind: 'Средне-крупный', temp: '92–94 °C', ratio: '1:16 (15 г / 240 мл)', time: 'Погружение 2:00, слив' } }
+  ];
+  var FIX = {
+    sour: { grind: 'Помол мельче — экстракция выше, кислинка уйдёт.', temp: 'Температура выше (+3–4 °C).', ratio: 'Время заваривания дольше (на 20–30 сек).', extra: 'Кислый обычно = недобор. Мельчите по шагу, пока не станет сбалансированно.' },
+    bitter: { grind: 'Помол крупнее — уйдёт горечь от переэкстракции.', temp: 'Температура ниже (−3–4 °C).', ratio: 'Время короче (на 20–30 сек).', extra: 'Горький = перебор. Крупнее помол и чуть холоднее вода.' },
+    watery: { grind: 'Помол мельче, чтобы вкус стал плотнее.', temp: 'Температура выше (+2–3 °C).', ratio: 'Больше кофе на тот же объём воды (доза +10–15%).', extra: 'Водянистый = мало растворённого. Мельче и плотнее доза.' },
+    weak: { grind: 'Помол чуть мельче для насыщенности.', temp: 'Температура выше (+2–3 °C).', ratio: 'Доза +10%, вода −10% (крепче).', extra: 'Слабый — поднимите дозу и не бойтесь мельче помола.' }
+  };
+
+  var state = { symptom: null, method: null };
+  var $ = function (id) { return document.getElementById(id); };
+  function show(id) {
+    ['step-symptom', 'step-method', 'step-result'].forEach(function (s) { $(s).hidden = true; });
+    $(id).hidden = false;
+  }
+  function reach(g, p) { try { if (window.ACUPMetrika) window.ACUPMetrika.reach(g, p || {}); } catch (_) {} }
+
+  document.querySelectorAll('[data-symptom]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      state.symptom = b.dataset.symptom;
+      reach('fix_start', { symptom: state.symptom });
+      var list = $('method-list');
+      list.innerHTML = '';
+      METHODS.forEach(function (m) {
+        var el = document.createElement('button');
+        el.className = 'opt';
+        el.type = 'button';
+        el.innerHTML = '<span>' + m.t + '</span><small>' + m.base.grind + ' · ' + m.base.time + '</small>';
+        el.addEventListener('click', function () { pickMethod(m.id); });
+        list.appendChild(el);
+      });
+      show('step-method');
+      $('method-title').focus();
+    });
+  });
+  $('btn-back-method').addEventListener('click', function () { show('step-symptom'); });
+  $('btn-back-result').addEventListener('click', function () { show('step-method'); });
+
+  function pickMethod(mid) {
+    state.method = mid;
+    reach('fix_method', { symptom: state.symptom, method: mid });
+    var m = METHODS.filter(function (x) { return x.id === mid; })[0];
+    var f = FIX[state.symptom];
+    var label = SYMPTOM_LABEL[state.symptom];
+    $('result-box').innerHTML =
+      '<h2>Настройка: ' + m.t + '</h2>' +
+      '<p class="sub">Проблема: ' + label + ' · ваша база</p>' +
+      '<div class="fix"><b>Помол</b><span>' + m.base.grind + '</span></div>' +
+      '<div class="fix"><b>Температура</b><span>' + m.base.temp + '</span></div>' +
+      '<div class="fix"><b>Пропорция</b><span>' + m.base.ratio + '</span></div>' +
+      '<div class="fix"><b>Время</b><span>' + m.base.time + '</span></div>' +
+      '<div class="fix"><b>Что менять (' + label.toLowerCase() + ')</b><span>' + f.grind + ' ' + f.temp + ' ' + f.ratio + ' ' + f.time + '</span></div>' +
+      '<div class="fix"><b>Почему</b><span>' + f.extra + '</span></div>';
+    show('step-result');
+    reach('fix_result', { symptom: state.symptom, method: mid });
+    $('result-box').focus();
+  }
+
+  // события CTA (fix_lead) — обёртка над beginCheckout из checkout.js
+  document.querySelectorAll('[data-checkout]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      reach('fix_lead', { symptom: state.symptom || '', method: state.method || '' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
