@@ -1,20 +1,41 @@
-# A CUP — PROJECT STATE (источник: мастер-план v1.0, 18.08.2026; актуализация 19.08.2026)
+# A CUP — PROJECT STATE (состояние проекта)
 
-## Текущее состояние
-- **main** = e08d942 (Merge LEAD-01) + 4ea6119 (Merge N1-D ФАЗА 0). Статус: «подготовлено к запуску» (требование к 19.08).
-- **Прод**: НЕ выкачен — ждёт команду владельца «запускаем». Работает старая инфраструктура (buy.html, worker acup-access).
-- **Готово (в main)**:
-  - ФАЗА 0 (N1-D): `js/checkout.js` — единый `beginCheckout({placement, offerVariant})`; PAY-02 (видимая ошибка `#payStatus`, разблокировка, retry); UTM/ref first+last-touch; цели Метрики click_buy/checkout/view_buy(IO); canonical/OG/Product JSON-LD (499 ₽).
-  - LEAD-01: `coffee-fix.html` — диагностика вкуса (4 симптома × 8 методов), события fix_start/fix_method/fix_result/fix_lead, a11y, CTA через beginCheckout.
-- **После запуска**: N1-B (UX-01/02, A11Y-01), Toolkit, партнёрка, клуб, 16–20 SEO-страниц, тест цен 690/990 ₽.
+> Собрано из мастер-плана 2026 + фактического состояния репозитория на 19.08.2026 (08:00).
+> Каноническая папка ChatGPT Library «A_CUP_Codex_Context» сверяется при появлении доступа.
 
-## Ключевые факты
-- Цена: 499 ₽ (контроль), реф 449 ₽, Stars 275⭐.
-- Гарантия: 7 дней (ст. 26.1 ЗоЗПП; юр. решение 06.08, коммит 6dd41bc).
-- Метрика: счётчик 111214147; цели view_buy/click_buy/checkout/payment_success/purchase (+ fix_* для Coffee Fix).
-- Домен: акап.рф (punycode xn--80aa3av.xn--p1ai); API: acup-access.acup-access.workers.dev.
-- Схема событий 8.1 (landing_view→referral_purchase) — в работе (Софья); файл docs/events-schema-8.1.md должен появиться в репо.
+## Статус на 19.08.2026
 
-## Открытые вопросы
-- Оригинальная папка A_CUP_Codex_Context (ChatGPT Library) запрошена у владельца; ревью идёт по мастер-плану (см. AGENTS.md, CODEX_REVIEW_PROMPTS.md).
-- PERF-01: TTFB <0.8 с (замерено 19.08); «12–15 с» владельца — вероятная сетевая аномалия, повторные замеры при необходимости.
+- Цель: подготовить всё к запуску до конца дня 19.08 (распоряжение N2). Прод (старая инфраструктура) НЕ трогать до команды «запускаем».
+- Все работы — в ветках feat/*. Ревью через Codex — обязательная процедура (N3).
+
+## Ветки и пакеты
+
+| Ветка | Пакет | Статус |
+|---|---|---|
+| feat/seo-problem-pages | N1-E/N2: 3 SEO-страницы (кислый/горький/водянистый) + css/blog.css + keyword map + sitemap | Готово, коммиты 8e81b53, 5ff9863; на Codex-ревью (N3) |
+| feat/analytics-events | N1-D: docs/events-schema-8.1.md (схема событий 8.1) | Готово, коммит 8740707 (ветка восстановлена — была пересоздана от main) |
+| feat/codex-context | N3: AGENTS.md + CODEX_REVIEW_PROMPTS.md + docs/A_CUP_* | В работе |
+| feat/guide-v2-content | N1-A: гайд 2.0 (ED-01/02/03), 9 модулей, core 6747 слов | Черновик (другой агент) |
+| main | прод-состояние | Не трогать без команды |
+
+## Что готово к запуску (аналитика)
+
+- Единая схема событий: docs/events-schema-8.1.md — 17 событий, каналы C/S, маппинг целей Метрики, beginCheckout, UTM/ref first/last-touch, view_buy по видимости, идемпотентность client_nonce.
+- Цели Метрики 111214147: click_buy=591937440, view_buy=593419260 (создана), purchase=591937343, payment_succeeded=592465415. checkout_create — НЕ создана (в launch checkpoint; ручной шаг 1 мин или вход владельца в браузер 9333).
+- SEO: 3 страницы blog/pochemu-kofe-{kislyy,gorkiy,vodyanistyy}/ с уникальными title/H1/description/OG/canonical, CTA → /guide/buy.html (временно, до выхода Coffee Fix /diagnostic/), события cta_click, internal links; sitemap.xml обновлён.
+
+## Известные ограничения и блокеры
+
+1. checkout_create (цель Метрики) — отложена в launch checkpoint: браузер 9333 перезапущен без авторизованной сессии (OAuth «акап2» протух), создать цель через CDP нельзя до одноразового входа владельца.
+2. Wordstat без авторизации недоступен — частотности семантического ядра не собраны (подсказки Яндекса использованы); полное ядро — после запуска.
+3. Coffee Fix (диагностика /diagnostic/) — в работе (Максим, LEAD-01); до выхода CTA SEO-страниц ведут на /guide/buy.html.
+4. TTFB: цель ≤0.8с; наблюдались 12–15с — диагностика в работе (Максим, PERF-01).
+5. Dashboard владельца (8.3) — спецификация после запуска (не блокирует).
+
+## Stop/Go (кратко, из мастер-плана 8.4)
+
+- 200 квалифицированных визитов и checkout_create < 3% → стоп трафика.
+- Checkout → payment < 65% → тех. проверка.
+- CAC > 350₽ при LTV < 800₽ после 15 продаж → не масштабировать.
+- Refund > 5% → разбор причин.
+- 24h activation < 60% → исправить доставку доступа/onboarding.
