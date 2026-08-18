@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>От нуля до specialty — A CUP</title>
+<meta name="description" content="Полный глубокий гайд по specialty-кофе. История, физика, биохимия, рецепты, сенсорика. Как пить нормальный кофе и понимать его.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090807;--bg2:#100f0d;--bg3:#161411;--raised:#1c1916;
+  --text:#f2ede5;--text2:#cfc7bc;--muted:#8f877c;--faint:#5e5850;
+  --red:#C41E3A;--red2:#e83a55;--gold:#c9a227;--gold2:#e0bc4a;
+  --line:rgba(242,237,229,.07);--line2:rgba(242,237,229,.14);
+  --r:14px;--ease:cubic-bezier(.22,1,.36,1);--out:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,.sg{font-family:'Space Grotesk',sans-serif;font-weight:500;letter-spacing:-.03em;line-height:1.15}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;background:rgba(9,8,7,.88);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid transparent;transition:.3s}
+nav.on{border-bottom-color:var(--line)}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;letter-spacing:.16em;color:var(--red);text-decoration:none}
+.nav-toggle{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.nav-toggle span{display:block;width:18px;height:1.5px;background:var(--text);transition:.3s}
+.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--line);padding:12px 18px;flex-direction:column;gap:8px;max-height:70vh;overflow:auto}
+.nav-links.open{display:flex}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:500;padding:8px 0;border-bottom:1px solid var(--line)}
+.nav-links a:hover{color:var(--text)}
+@media(min-width:960px){
+  .nav-toggle{display:none}
+  .nav-links{display:flex;position:static;background:transparent;border:none;padding:0;flex-direction:row;gap:16px;max-height:none;overflow:visible}
+  .nav-links a{border:none;padding:0;font-size:12px}
+}
+
+/* HERO */
+.hero{min-height:100vh;min-height:100dvh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#1a100c 0%,#090807 70%)}
+#p-canvas{position:absolute;inset:0;z-index:1;pointer-events:none}
+.bean-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none}
+.bean-svg{width:min(190px,46vw);filter:drop-shadow(0 24px 60px rgba(0,0,0,.65));will-change:transform,opacity}
+.letters{position:absolute;inset:0;z-index:3;pointer-events:none}
+.letter{position:absolute;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(22px,4.8vw,48px);color:var(--text);opacity:0;text-shadow:0 4px 24px rgba(0,0,0,.5)}
+.hero-bottom{position:absolute;bottom:8vh;left:0;right:0;text-align:center;z-index:4;opacity:0;transform:translateY(16px);transition:opacity .6s var(--out),transform .6s var(--out);padding:0 16px}
+.hero-bottom.show{opacity:1;transform:none}
+.hero-bottom .ey{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.hero-bottom .sub{font-size:clamp(13px,1.5vw,15px);color:var(--muted);max-width:380px;margin:0 auto;line-height:1.45}
+.cue{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.12em;color:var(--faint);z-index:4;transition:opacity .4s}
+
+/* CONTENT */
+.wrap{max-width:780px;margin:0 auto;padding:0 18px}
+@media(min-width:640px){.wrap{padding:0 28px}}
+section{padding:64px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+.lbl{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.ttl{font-size:clamp(26px,4.2vw,40px);margin-bottom:10px;color:var(--text)}
+.bar{width:28px;height:2px;background:var(--red);margin:12px 0 24px;border-radius:1px}
+.lead{font-size:16.5px;color:var(--text2);line-height:1.55;margin-bottom:28px;max-width:560px}
+.prose p{font-size:15.5px;color:var(--text2);margin-bottom:15px}
+.prose p strong{color:var(--text);font-weight:600}
+.prose h3{font-size:19px;margin:32px 0 12px;color:var(--text);font-weight:500}
+.prose h4{font-size:16px;margin:22px 0 8px;color:var(--text);font-weight:600}
+.prose ul,.prose ol{margin:10px 0 18px 20px}
+.prose li{font-size:15px;color:var(--text2);margin-bottom:6px}
+.quote{font-family:'Space Grotesk',sans-serif;font-size:18px;line-height:1.45;color:var(--text);border-left:2px solid var(--red);padding-left:16px;margin:28px 0;max-width:520px}
+.note{background:rgba(196,30,58,.1);border:1px solid rgba(196,30,58,.22);border-radius:12px;padding:16px 18px;margin:20px 0;font-size:14.5px;color:var(--text2)}
+.note strong{color:var(--red)}
+.ref{font-size:12.5px;color:var(--muted);margin-top:8px}
+.ref a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(196,30,58,.3)}
+
+/* CARDS & GRIDS */
+.cards{display:grid;gap:12px;margin:24px 0}
+@media(min-width:560px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--raised);border:1px solid var(--line);border-radius:var(--r);padding:18px 16px;transition:transform .3s var(--ease),border-color .3s}
+.card:hover{transform:translateY(-3px);border-color:var(--line2)}
+.card h3{font-size:14.5px;margin-bottom:6px;color:var(--text)}
+.card p{font-size:13.5px;color:var(--muted);line-height:1.5}
+
+/* ACCORDION */
+.acc{background:var(--raised);border:1px solid var(--line);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
+.acc.open{border-color:var(--line2)}
+.acc-h{display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer;user-select:none}
+.acc-h .n{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--red);min-width:26px}
+.acc-h h3{font-size:15px;flex:1;color:var(--text);font-weight:500}
+.acc-h .ch{width:14px;height:14px;opacity:.5;transition:transform .3s;color:var(--muted)}
+.acc.open .ch{transform:rotate(180deg)}
+.acc-b{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
+.acc.open .acc-b{max-height:2000px}
+.acc-bi{padding:0 16px 18px 54px;font-size:14.5px;color:var(--text2);line-height:1.65}
+@media(max-width:500px){.acc-bi{padding-left:16px}}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:28px;margin:28px 0}
+.tl::before{content:'';position:absolute;left:6px;top:4px;bottom:4px;width:1px;background:var(--line2)}
+.tl-item{position:relative;margin-bottom:30px}
+.tl-item::before{content:'';position:absolute;left:-25px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--red);border:2px solid var(--bg);box-shadow:0 0 0 1px var(--red)}
+.tl-item .y{font-size:11px;font-weight:600;color:var(--red);margin-bottom:4px}
+.tl-item h4{font-size:15.5px;margin-bottom:5px;color:var(--text)}
+.tl-item p{font-size:14.5px;color:var(--text2);line-height:1.6}
+
+/* TABLE */
+.tbl{overflow-x:auto;margin:22px 0;border-radius:12px;border:1px solid var(--line);-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+th{background:var(--red);color:#fff;font-weight:600;text-align:left;padding:11px 13px;white-space:nowrap}
+td{padding:10px 13px;border-bottom:1px solid var(--line);color:var(--text2)}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+tr:last-child td{border-bottom:none}
+
+/* RECIPE */
+.recipe{background:var(--raised);border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.recipe-h{display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer}
+.recipe-h .ico{width:34px;height:34px;flex-shrink:0}
+.recipe-h h3{font-size:15px;flex:1;color:var(--text);font-weight:500}
+.recipe-h .tag{font-size:11px;color:var(--muted);background:rgba(255,255,255,.05);padding:3px 9px;border-radius:20px}
+.recipe-b{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
+.recipe.open .recipe-b{max-height:1600px}
+.recipe-bi{padding:0 16px 18px;font-size:14.5px;color:var(--text2)}
+.params{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.params span{background:var(--bg);padding:9px 11px;border-radius:9px;border:1px solid var(--line);font-size:13px}
+.params b{display:block;font-size:11px;color:var(--muted);margin-bottom:2px;font-weight:600}
+.steps{margin:10px 0 0 18px}
+.steps li{margin-bottom:6px}
+
+/* WIDGET */
+.widget{background:linear-gradient(165deg,#141210,#1c1916);border:1px solid var(--line);border-radius:16px;padding:24px 18px;margin:28px 0}
+.widget h3{font-size:17px;margin-bottom:4px}
+.widget .ws{font-size:13px;color:var(--muted);margin-bottom:16px}
+.wg{display:grid;gap:10px;margin-bottom:14px}
+@media(min-width:480px){.wg{grid-template-columns:1fr 1fr}}
+.wf label{display:block;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.wf select{width:100%;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;outline:none;-webkit-appearance:none}
+.wb{background:var(--red);border:none;color:#fff;font-family:inherit;font-size:13.5px;font-weight:600;padding:12px 22px;border-radius:980px;cursor:pointer;width:100%;transition:transform .2s,background .2s}
+.wb:hover{background:var(--red2);transform:scale(1.02)}
+@media(min-width:480px){.wb{width:auto}}
+.wr{display:none;margin-top:14px;padding:14px;border-radius:10px;background:rgba(196,30,58,.12);border:1px solid rgba(196,30,58,.3)}
+.wr h4{color:#ff8a9a;margin-bottom:4px;font-size:15px}
+.wr p{font-size:13.5px;color:var(--text2);margin:0}
+
+/* GAME */
+.gs{background:linear-gradient(180deg,#0c0b09,#141210);padding:70px 18px}
+.gc{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:24px;max-width:460px;margin:0 auto;text-align:center}
+.gt{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:500;margin:12px 0 16px;min-height:44px;display:flex;align-items:center;justify-content:center}
+.go{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.gb{background:rgba(255,255,255,.04);border:1px solid var(--line2);color:var(--text);font-size:13px;font-weight:500;padding:12px 6px;border-radius:9px;cursor:pointer;font-family:inherit;transition:.25s}
+.gb:hover{background:rgba(255,255,255,.07)}
+.gb.ok{background:rgba(52,199,89,.18);border-color:#34C759}
+.gb.bad{background:rgba(255,59,48,.14);border-color:#FF3B30}
+.gf{font-size:13px;min-height:18px;margin-top:6px;color:var(--muted)}
+.gn{margin-top:12px;background:var(--red);border:none;color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:980px;cursor:pointer;opacity:0;pointer-events:none;transition:.3s;font-family:inherit}
+.gn.show{opacity:1;pointer-events:auto}
+.gsc{font-size:12px;color:var(--muted);margin-top:5px}
+
+/* SVG graphic blocks */
+.g-block{display:flex;justify-content:center;margin:32px 0;opacity:.92}
+.g-block svg{max-width:100%;height:auto}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--out),transform .7s var(--out)}
+.reveal.vis{opacity:1;transform:none}
+
+/* FOOTER */
+footer{padding:56px 18px;text-align:center;border-top:1px solid var(--line)}
+footer .logo{font-size:12px;display:block;margin-bottom:6px}
+footer p{color:var(--muted);font-size:12.5px}
+
+/* FLOATY */
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.card:nth-child(2){animation:floaty 5.2s ease-in-out infinite}
+.card:nth-child(3){animation:floaty 5.8s ease-in-out infinite .5s}
+
+/* PROGRESS */
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--red);z-index:300;width:0;transition:width .1s linear}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav id="nav">
+  <a href="#" class="logo">A CUP</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Меню"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="#intro">Введение</a>
+    <a href="#history">История</a>
+    <a href="#physics">Физика</a>
+    <a href="#basics">Основы</a>
+    <a href="#recipes">Рецепты</a>
+    <a href="#taste">Вкус</a>
+    <a href="#cheats">Шпаргалки</a>
+    <a href="#widget">Подбор</a>
+    <a href="#game">Игра</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <canvas id="p-canvas"></canvas>
+  <div class="bean-wrap">
+    <svg class="bean-svg" id="beanSvg" viewBox="0 0 200 280" fill="none">
+      <g id="beanWhole">
+        <ellipse cx="100" cy="140" rx="70" ry="108" fill="#3a2216"/>
+        <ellipse cx="100" cy="140" rx="63" ry="99" fill="#5a3622"/>
+        <ellipse cx="100" cy="140" rx="55" ry="88" fill="#7a4a2c"/>
+        <path d="M100 48 C94 90 94 190 100 232 C106 190 106 90 100 48" stroke="#27170f" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="78" cy="104" rx="15" ry="26" fill="#a07040" opacity=".28"/>
+      </g>
+      <g id="beanLeft" opacity="0"><path d="M100 42 C52 52 32 100 36 150 C40 200 58 238 100 248 L100 42Z" fill="#5a3622"/><path d="M100 48 C56 58 40 105 44 150 C48 192 64 230 100 240" fill="#7a4a2c"/></g>
+      <g id="beanRight" opacity="0"><path d="M100 42 C148 52 168 100 164 150 C160 200 142 238 100 248 L100 42Z" fill="#5a3622"/><path d="M100 48 C144 58 160 105 156 150 C152 192 136 230 100 240" fill="#7a4a2c"/></g>
+    </svg>
+  </div>
+  <div class="letters" id="letters"></div>
+  <div class="hero-bottom" id="heroBottom">
+    <div class="ey">Полный гайд · A CUP</div>
+    <div class="sub">От нуля до specialty.<br>Физика · Вкус · Рецепты · Понимание</div>
+  </div>
+  <div class="cue" id="cue">Листай</div>
+</section>
+
+<main class="wrap">
+<div class="prose"><h4>Как пользоваться этим текстом</h4>
+<p>Это не «10 советов как заварить турку». Это системный путь от полного нуля до человека, который уверенно выбирает зерно, понимает, что происходит в чашке, умеет чинить вкус и не ведётся на маркетинг.</p>
+<p>Читай последовательно в первый раз. Потом возвращайся к отдельным главам как к справочнику. Рецепты и шпаргалки в конце можно выдирать и держать под рукой.</p>
+<p>Тон простой: без снобизма, без воды, без «давайте погрузимся в мир ароматов». Только то, что реально работает.</p>
+</section>
+<section id="intro" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">0. Введение. Зачем вообще разбираться</h2><div class="bar"></div>
+<p>Большинство людей пьют кофе как топливо. Горячее, горькое, бодрит — и ладно. Specialty начинается в тот момент, когда ты понимаешь, что кофе может быть разным не потому, что «добавили сироп», а потому что зерно выросло в другом месте, его иначе обработали, иначе пожарили и иначе заварили.</p>
+<p>Разница между обычным кофе и specialty примерно такая же, как между столовым вином из коробки и нормальным вином с этикеткой, где указан регион, год и сорт. Не обязательно всегда пить дорогое. Но понимать, за что ты платишь и что получаешь — полезно.</p>
+<p>Этот гайд закрывает разрыв между «я хожу в кофейни и иногда покупаю дрип-пакеты» и «я реально понимаю, что происходит».</p>
+<p>После него ты должен уметь:</p>
+<ul>
+<li>читать этикетку на пачке и понимать, что из этого важно;</li>
+<li>выбирать зерно под свой способ заваривания;</li>
+<li>хранить и молоть так, чтобы не убивать аромат;</li>
+<li>заваривать V60, аэропресс, френч и базовый эспрессо на приличном уровне;</li>
+<li>диагностировать вкус (кисло / горько / плоско / водянисто) и чинить его;</li>
+<li>понимать, почему один и тот же лот в фильтре и в молоке ведёт себя по-разному;</li>
+<li>не стесняться спрашивать бариста и обжарщика нормальные вопросы.</li>
+</ol>
+<p>Specialty — не религия и не клуб по интересам для избранных. Это просто способ пить нормальный кофе и понимать его.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="history" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">1. История. Откуда взялся кофе и почему слово specialty вообще существует</h2><div class="bar"></div>
+<p>Без истории легко поверить, что specialty придумали маркетологи в 2012 году вместе с крафтовым пивом и авокадо-тостами. На самом деле это длинная попытка вернуть кофе сложность, которую у него отняли промышленные объёмы.</p>
+<h3>1.1. Эфиопия, Йемен и суфии</h3>
+<p>Легенда о козепасе Калди красива и почти наверняка выдумана. Более достоверно другое: к XV веку кофе уже плотно сидит в Йемене. Его пьют суфийские ордена, чтобы не засыпать на ночных молитвах. То есть с самого начала кофе — инструмент концентрации и бодрости, а не просто «вкусный напиток».</p>
+<p>Йемен долго держит монополию. Вывозить зелёные саженцы запрещено. Кофейные зёрна становятся предметом торговли через порты Красного моря. Оттуда кофе уходит в Османскую империю, а потом и в Европу.</p>
+<h3>1.2. Кофейни как публичное пространство</h3>
+<p>В XVI–XVII веках кофейни появляются в Стамбуле, потом в Венеции, Лондоне, Париже. Это не просто места, где пьют. Это места, где разговаривают. В Османской империи кофейни периодически запрещают именно потому, что там слишком много политики и свободных разговоров. В Европе происходит почти то же самое.</p>
+<p>В Лондоне кофейни называют «penny universities» — за один пенни можно сидеть весь день, читать газеты и слушать дискуссии. Кофе с самого начала связан не только с вкусом, но и с тем, как люди думают и общаются.</p>
+<h3>1.3. Плантации, колонии и потеря характера</h3>
+<p>XVIII–XIX века — время, когда кофе становится глобальным товаром. Голландцы, французы, португальцы, британцы развозят саженцы по колониям. Бразилия, Центральная Америка, позже Африка и Азия. Объёмы растут. Качество часто приносится в жертву тоннажу.</p>
+<p>Это знакомая история. То же самое происходило с вином, пока не появились люди, которым стало стыдно за безликое пойло. К концу XIX — началу XX века большая часть кофе на рынке — commodity: дешёвый, стабильный, без выраженного характера. Растворимый кофе позже только закрепит эту логику.</p>
+<h3>1.4. Вторая волна и появление слова specialty</h3>
+<p>В 1966 году Alfred Peet открывает магазин в Беркли. Он жарит темнее и свежее, чем привыкли американцы после десятилетий массового commodity-кофе. Это то, что позже назовут второй волной: кофе как ритуал, как продукт с происхождением, а не просто банка на полке.</p>
+<p>Но сам термин «specialty coffee» появляется чуть позже. Erna Knutsen — норвежка, работавшая секретарём в импортной компании B.C. Ireland в Сан-Франциско — замечает, что мелкие обжарщики ищут зерно с характером, а крупные импортёры думают только контейнерами. Она начинает продавать небольшие партии. В 1973–1974 годах в интервью Tea & Coffee Trade Journal она использует слово «specialty».</p>
+<p>По сути Knutsen переопределяет сделку: не тоннаж для промышленных гигантов, а мешки для тех, кому важен вкус. Позже она выкупает компанию и называет её Knutsen Coffees. В 1982 году появляется Specialty Coffee Association of America (SCAA, позже SCA). Появляются протоколы каппинга, стандарты оценки. Идея простая и мощная: кофе можно оценивать системно, почти как вино.</p>
+<h3>1.5. Третья волна и откат от снобизма</h3>
+<p>В начале 2000-х Trish Rothgeb формулирует понятие «третьей волны». Прямые поставки, светлая обжарка, внимание к обработке, V60, рефрактометры, прозрачность происхождения, микролоты. Кофе начинают обсуждать языком дескрипторов: бергамот, жасмин, красная ягода, тростниковый сахар.</p>
+<p>Параллельно растёт усталость от снобизма. Когда каждая чашка превращается в экзамен, а любой, кто пьёт молоко, объявляется еретиком, культура начинает отталкивать. Здоровый подход сегодня выглядит так: уважать зерно и при этом не превращать утреннюю чашку в диссертацию. Можно любить светлый washed из Кении и иногда пить раф. Главное — понимать, что ты пьёшь и зачем.</p>
+<p>Specialty в 2020-е — это не «только чёрный фильтр и никаких компромиссов». Это зерно, у которого есть происхождение, дата обжарки и характер, плюс человек, который умеет с этим характером работать.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="2-россия-как-у-нас-появился-specialty-и-" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">2. Россия. Как у нас появился specialty и откуда взялся раф</h2><div class="bar"></div>
+<p>В СССР кофе в основном растворимый. Зерно — редкость, почти всегда тёмное, без даты, без указания происхождения. Культуры заваривания как таковой нет. Кофе — это либо «по-турецки» в турке, либо растворимый с молоком. Никакой сенсорики, никакого разговора о терруаре.</p>
+<p>В 90-е и начале 2000-х кофейни делают «итальянский» формат: тёмная обжарка, молоко, сиропы, иногда очень сладко. Это не плохо и не хорошо — это другая эпоха и другая задача. Люди хотели европейский ритуал и ощущение статуса, а не кислотность кенийского washed.</p>
+<p>Specialty в России собирается ближе к концу 2000-х — началу 2010-х. Появляются обжарщики, которые ставят дату на пачку. Каппинги. Фильтр. Люди вдруг понимают: кофе может быть ягодным и цветочным, и это не «недожарено». Параллельно растёт интерес к оборудованию — жерновые кофемолки, весы, чайники с тонким носиком.</p>
+<h3>2.1. Раф — наш локальный вклад</h3>
+<p>История устойчивая. Середина 90-х, Coffee Bean на Кузнецком Мосту — одна из первых кофеен американского типа в Москве. Постоянный гость Рафаэль Тимербаев просит что-то мягче и слаще обычного эспрессо с молоком. Бариста (Глеб Невейкин, Артём Берестов, Галина Самохина) экспериментируют: эспрессо + сливки + ванильный сахар, всё взбитое вместе. «Как Рафу» → «раф».</p>
+<p>Дальше напиток расползается по стране. К 2010-м он уже в каждой второй кофейне. Для specialty-сцены раф долго был антигероем: «это же не про зерно, это про сахар и сливки». Сейчас спокойнее. Раф — часть локальной культуры, как flat white для Австралии или cortado для Испании.</p>
+<p>Можно любить светлый washed из Кении и иногда пить раф. Главное — понимать, что ты пьёшь и зачем. Путь «от рафа к V60» у очень многих реален. И это нормально. Человек сначала привыкает к ритуалу и вкусу «не как растворимый», потом начинает интересоваться зерном. Так и работает культура.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="3-кофе-вино-и-чай-одна-семья-разные-хара" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">3. Кофе, вино и чай. Одна семья, разные характеры</h2><div class="bar"></div>
+<p>Если разложить по полочкам, становится проще не путаться в терминах и не ждать от кофе того, чего он дать не может.</p>
+<h3>3.1. Где кофе похож на вино</h3>
+<ul>
+<li>Терруар: почва, высота, климат, микроклимат.</li>
+<li>Обработка после сбора ≈ винификация.</li>
+<li>Сорт / купаж / микролот.</li>
+<li>Дескрипторы — это язык описания, а не «добавки в чашку».</li>
+<li>Каппинг ≈ слепая дегустация.</li>
+<li>Рядом с реальным качеством всегда живёт снобизм.</li>
+<li>Цена эксперимента заметно ниже, чем у хорошего вина.</li>
+</ol>
+<h3>3.2. Где кофе принципиально другой</h3>
+<ul>
+<li>Есть обжарка — ещё один мощный слой трансформации. В вине такого этапа нет.</li>
+<li>Ты сам «доделываешь» напиток дома: помол + заваривание. В вине ты открываешь бутылку.</li>
+<li>Жизнь после обжарки — недели, а не годы.</li>
+<li>Экстракция идёт через помол, время, температуру, турбулентность.</li>
+<li>Молоко — отдельная вселенная со своей физикой и химией.</li>
+<li>Кофеин работает иначе, чем алкоголь.</li>
+</ol>
+<h3>3.3. Чай как сосед по стимулятору</h3>
+<p>И кофе, и чай работают через кофеин. Но в чае почти всегда рядом есть L-теанин — аминокислота, которая сглаживает удар кофеина и даёт более ровную концентрацию без такого резкого пика и отката. Поэтому чай часто ощущается «мягче» по нервной системе, даже если кофеина там не мало.</p>
+<p>В кофе L-теанина почти нет. Зато есть целый букет кислот, маслянистых соединений и продуктов обжарки, которых в чае в таком виде нет. Отсюда разный вкус, разное тело и разное последействие.</p>
+<p>Кофеин из кофе усваивается быстрее, пик в крови раньше. Из чая — чуть медленнее, плюс теанин. Фраза «кофе резко разбудил, чай держал дольше» — не миф, а физиология.</p>
+<p>Энергетики — это кофеин + сахар + иногда таурин. Удар резче, откат жёстче, для вкуса и культуры напитка — почти ноль. Шоколад даёт немного теобромина и кофеина, но дозы смешные по сравнению с чашкой. Кофе остаётся самым «вкусным» способом доставить себе аденозиновый блокер — если его не испортить.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="physics" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">4. Физика экстракции. Почему помол, время и температура решают всё</h2><div class="bar"></div>
+<p>Заваривание — это не магия и не «рецепт с пачки». Это массообмен: вода вытаскивает из раздробленного зерна растворимые вещества. От того, как ты это устроишь, зависит, что именно попадёт в чашку.</p>
+<h3>4.1. Что такое экстракция простыми словами</h3>
+<p>Ты берёшь зерно, ломаешь его на куски (помол) и заливаешь водой. Вода проникает в частицы, растворяет часть соединений и уносит их с собой. Чем мельче помол — тем больше площадь поверхности — тем быстрее и «глубже» идёт извлечение. Чем дольше контакт — тем больше успевает раствориться. Чем горячее вода — тем активнее молекулы и тем лучше растворяются многие вещества (но не все одинаково).</p>
+<p>Проблема в том, что вещества выходят не одновременно и не с одинаковой «приятностью». Сначала относительно легко уходят кислоты и часть ароматики. Потом — сахара и то, что даёт сладость и плотность. Ещё позже — горечи, тяжёлые фенолы, то, что вяжет.</p>
+<p>Поэтому недоэкстракция часто кислая и пустая: ты забрал «верх», но не дошёл до сладости. Переэкстракция — горькая и плоская: забрал всё, включая то, что лучше бы оставить в жмыхе.</p>
+<h3>4.2. Помол — главный рычаг</h3>
+<p>Мельче → больше поверхность → быстрее экстракция. Крупнее → медленнее. Но есть важный нюанс: слишком много «пыли» (fines) в помоле даёт локальную переэкстракцию даже при нормальном среднем размере частиц. Отсюда требование к кофемолке: не просто «жернова», а относительно равномерный помол.</p>
+<p>Ножевая дробилка почти всегда сыпет пыль и крупные куски одновременно. Поэтому вкус гуляет от чашки к чашке, и ты никогда не понимаешь, виновато зерно или помол.</p>
+<p>Исследования (в том числе работы Christopher Hendon и коллег) показывают, что слишком тонкий помол может даже снижать общую экстракцию из-за каналов и неравномерности потока. Оптимум — не «максимально мелко», а достаточно мелко + равномерно.</p>
+<h3>4.3. Температура</h3>
+<p>Горячая вода ускоряет растворение. 92–96 °C — рабочий коридор для большинства фильтров. Кипяток (100 °C) не «убивает кофе» мгновенно, но часто делает вкус грубее. Для тёмной обжарки иногда прощают выше, для очень светлой — ниже или аккуратнее по времени.</p>
+<p>Scott Rao в последние годы всё чаще использует почти кипяток на светлых лотах при правильной технике (равномерный поток, правильный bloom), утверждая, что выигрыш в сладости и развитости перекрывает риск. Это не догма, а наблюдение человека, который много варил и много измерял.</p>
+<h3>4.4. Время, турбулентность и соотношение</h3>
+<p>Время — второй по силе рычаг после помола. Дольше контакт — выше экстракция. Размешивание, круговая заливка, давление (эспрессо, аэропресс) увеличивают скорость обмена. Поэтому «просто залил и ждал» и «лил тонкой струёй кругами» — разные процессы, даже при одном и том же помоле.</p>
+<p>Соотношение кофе и воды: меньше кофе на тот же объём → напиток слабее и часто кажется водянистым. Больше кофе → плотнее, но легче уйти в горечь, если не подстроить помол. Классические 1:15–1:17 для фильтра (15–16 г на 250 г) — не догма, а удобная точка старта, от которой двигаются.</p>
+<h3>4.5. Почему эспрессо — это другая физика</h3>
+<p>Там не просто «горячая вода», а давление около 9 бар. Вода продавливается через плотную таблетку за 25–35 секунд. Из-за давления и мелкого помола экстракция идёт совсем в другом режиме: больше тела, другая ароматика, крема (эмульсия масел и CO₂).</p>
+<p>Поэтому один и тот же светлый лот в V60 и в эспрессо — это два разных напитка, а не «тот же кофе, только крепче». Пытаться заваривать эспрессо «как крепкий американо» — путь к разочарованию.</p>
+<p><strong>Вывод из физики:</strong> управляешь площадью поверхности, градиентом концентрации, температурой и временем — управляешь тем, что окажется в чашке. Всё остальное — следствия.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="5-биохимия-что-именно-ты-пьёшь-на-уровне" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">5. Биохимия. Что именно ты пьёшь на уровне молекул</h2><div class="bar"></div>
+<p>В чашке не «вкус кофе». В чашке — раствор сотен соединений. Часть из них мы любим, часть — терпим, часть — лучше бы не извлекать.</p>
+<h3>5.1. Зелёное зерно уже сложно</h3>
+<p>До обжарки в зерне есть: кофеин, хлорогеновые кислоты (до 6–8 % сухого веса), сахара (сахароза и другие), белки, липиды, тригонеллин, минералы. Хлорогеновые кислоты дают часть «зелёной» горечи и участвуют в кислотности. Сахара — будущая сладость и основа реакций при обжарке. Липиды потом влияют на тело и крема.</p>
+<h3>5.2. Обжарка — химический реактор</h3>
+<p>При нагреве идут реакции Майяра (сахара + аминокислоты → коричневые меланоидины и куча ароматических молекул), карамелизация, распад хлорогеновых кислот, образование и разрушение кислот. Тригонеллин частично превращается в никотиновую кислоту и летучие пиридины. Появляется CO₂ — поэтому свежеобжаренному зерну нужно «выдохнуть» (дегазация).</p>
+<p>Светлая обжарка оставляет больше исходных кислот и сложной ароматики происхождения. Тёмная — больше продуктов глубокого пиролиза: горечь, дым, меньше узнаваемого терруара. Это не «лучше/хуже», а разный химический профиль.</p>
+<p>Хлорогеновые кислоты при обжарке частично разрушаются, частично превращаются в лактоны и другие соединения. Чем темнее обжарка — тем меньше исходных CGA. Это одна из причин, почему очень тёмный кофе кажется менее «кислым» и более «горьким».</p>
+<h3>5.3. Что экстрагируется в воду</h3>
+<p>Кофеин растворяется относительно охотно. Органические кислоты (лимонная, яблочная, уксусная, фосфорная и др.) — тоже, особенно на ранних стадиях. Сахара и часть меланоидинов дают сладость и плотность. Горечи приходят из продуктов распада кислот, из некоторых фенолов, из пережаренного.</p>
+<p>Масла в бумажном фильтре почти не проходят. В эспрессо и френч-прессе их больше — отсюда другое тело.</p>
+<p>Поэтому «кислый» кофе не всегда значит «плохое зерно». Часто это просто недоэкстракция: кислоты уже в чашке, сахара ещё нет. Или очень светлая обжарка + высокая высота + washed-обработка — там кислоты действительно много, и это фича, если ты к ней готов.</p>
+<h3>5.4. Вода как химический реагент</h3>
+<p>Дистиллированная вода плохо «забирает» вкус: не хватает ионов, которые участвуют в экстракции. Слишком жёсткая (много кальция и магния) может давать вяжущий привкус и осадок. Магний в умеренных количествах даже помогает извлекать часть вкусовых соединений.</p>
+<p>SCA рекомендует примерно:</p>
+<ul>
+<li>TDS 75–250 ppm (цель около 150),</li>
+<li>жёсткость 50–175 ppm (как CaCO₃),</li>
+<li>щёлочность около 40 ppm,</li>
+<li>pH 6.5–7.5.</li>
+</ul>
+<p>Это не эзотерика, а практическая химия раствора. Если твоя вода сильно выбивается из этих коридоров, вкус будет «плыть» независимо от того, насколько точно ты попал в помол и время.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="6-физиология-как-кофе-действует-на-орган" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">6. Физиология. Как кофе действует на организм</h2><div class="bar"></div>
+<p>Кофеин — не «энергия». Он блокирует сигнал усталости. Разница тонкая, но важная.</p>
+<h3>6.1. Аденозин</h3>
+<p>В течение дня в мозге накапливается аденозин. Он связывается с рецепторами (в основном A1 и A2A) и усиливает ощущение сонливости. Кофеин по форме похож на аденозин и занимает эти рецепторы, но не активирует их. Сигнал «я устал» не проходит.</p>
+<p>Ты не получил энергию извне — ты временно отключил датчик усталости. Поэтому после отхода кофеина откат может чувствоваться сильнее: аденозин всё это время копился.</p>
+<p>Блокада A2A особенно связана с бодрствованием и взаимодействием с дофаминовыми путями. Отсюда и эффект «настроения» после кофе у многих людей.</p>
+<h3>6.2. Фармакокинетика</h3>
+<p>Кофеин быстро всасывается из желудочно-кишечного тракта. Биодоступность почти 100 %. Пик в крови часто через 30–60 минут. Период полувыведения у взрослых обычно 3–6 часов, но сильно варьирует: от примерно 2,5 до 10–12 часов.</p>
+<p>Зависит от:</p>
+<ul>
+<li>генетики (особенно варианта CYP1A2),</li>
+<li>курения (ускоряет метаболизм),</li>
+<li>беременности (замедляет, особенно в третьем триместре),</li>
+<li>некоторых лекарств,</li>
+<li>состояния печени.</li>
+</ol>
+<p>У кого-то «одна чашка на ночь» — приговор сну. У кого-то — ерунда. Это не сила воли. Это фармакокинетика.</p>
+<h3>6.3. Толерантность</h3>
+<p>Мозг адаптируется: становится больше аденозиновых рецепторов. Та же доза начинает работать слабее. Перерыв в несколько дней частично сбрасывает чувствительность. Поэтому фраза «мне уже ничего не помогает» часто относится не к плохому зерну, а к тому, что человек пьёт кофеин непрерывно месяцами.</p>
+<h3>6.4. Кофе vs чай на уровне нервной системы</h3>
+<p>Чай: кофеин + L-теанин. Теанин сглаживает пик и добавляет ощущение «спокойной концентрации». Кофе: кофеин без этого буфера + более быстрый удар. Поэтому кому-то кофе «трясёт», а чай — нет, даже при сопоставимой дозе кофеина. Если ты чувствителен к тревожности, иногда разумнее не геройствовать с дозой, а сменить напиток или время приёма.</p>
+<h3>6.5. Кислотность и желудок</h3>
+<p>Кофе стимулирует секрецию. У части людей это провоцирует изжогу или дискомфорт — особенно натощак и на очень светлых, кислотных лотах. Тёмная обжарка и молоко иногда переносятся мягче. Это индивидуально: не «кофе вреден», а «твоему ЖКТ вот этот профиль сейчас тяжёл».</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="basics" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">7. Основы. Зерно, обработка, обжарка</h2><div class="bar"></div>
+<h3>7.1. Арабика и робуста</h3>
+<p>Арабика сложнее, кислотнее, ароматнее, капризнее в выращивании. Робуста даёт больше кофеина, проще, горче, плотнее. Почти весь specialty — арабика. Робуста бывает интересной (особенно хорошо обработанная), но это отдельный разговор и другая эстетика.</p>
+<h3>7.2. Обработка после сбора</h3>
+<p>Обработка — как винификация в вине. Она сильно влияет на то, каким зерно придёт к обжарщику.</p>
+<p><strong>Washed (мытая)</strong></p>
+<p>Мякоть снимают, зерно ферментируется, потом сушится. Чистый профиль, яркая кислота, прозрачность. Классика Кении, части Эфиопии, Колумбии, многих стран Центральной Америки. Если любишь «как чай, только кофе» — начинай отсюда. Легче читать дефекты и характер происхождения.</p>
+<p><strong>Natural (натуральная / сухая)</strong></p>
+<p>Сушат прямо в ягоде. Больше сладости и плотности, риск дефектов выше, если сушили плохо. Эфиопия natural часто даёт «ягодный джем». Бразилия natural — классика для эспрессо и молока. Если washed кажется тощим — пробуй natural.</p>
+<p><strong>Honey</strong></p>
+<p>Часть мякоти оставляют. Баланс между washed и natural.</p>
+<p><strong>Anaerobic и экспериментальные</strong></p>
+<p>Ферментация без воздуха или в контролируемой среде. Яркие «винные», фруктовые, иногда явно ферментированные ноты. Сначала освой базовые washed и natural, потом лезь в экспериментальные. Иначе не поймёшь, где характер зерна, а где косяк или избыток обработки.</p>
+<h3>7.3. Обжарка</h3>
+<p>Светлая сохраняет происхождение и кислоты. Тёмная прячет происхождение и добавляет горечь, дым, карамельные и жжёные ноты. Средняя — компромисс.</p>
+<p>Для фильтра чаще берут светлую и среднюю. Для молока иногда чуть развитее, чтобы зерно пробивалось через белок и жир молока.</p>
+<h3>7.4. Свежесть</h3>
+<p>Дата обжарки важнее красивых слов на этикетке. Для фильтра часто комфортный коридор — 5–40 дней после обжарки (зависит от зерна, обжарки и хранения). Слишком свежий может быть «газированным» из-за CO₂. Слишком старый — плоским.</p>
+<p>Нет даты обжарки — почти всегда плохой знак.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="8-выбор-и-покупка-как-не-купить-воздух" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">8. Выбор и покупка. Как не купить воздух</h2><div class="bar"></div>
+<h3>8.1. Что смотреть на пачке</h3>
+<ol>
+<li>**Дата обжарки** — главное.</li>
+<li>**Происхождение** — страна, регион, иногда станция обработки или фермер. Чем конкретнее, тем лучше.</li>
+<li>**Обработка** — washed / natural / honey / anaerobic.</li>
+<li>**Разновидность** (сорт) — не всегда указана, но полезно.</li>
+<li>**Дескрипторы** — ориентир, а не контракт. «Бергамот и жасмин» не гарантируют, что ты это почувствуешь, особенно если заварил криво.</li>
+<li>**Обжарщик** — репутация и прозрачность важнее красивого пакета.</li>
+</ol>
+<h3>8.2. Под что выбирать</h3>
+<ul>
+<li>Под фильтр (V60, аэропресс, френч, дрип) — чаще светлая и средняя обжарка, washed или qualitative natural.</li>
+<li>Под молоко — иногда чуть более развитая обжарка, чтобы зерно не терялось.</li>
+<li>Под эспрессо — зависит от твоей машины и вкуса. Светлые лоты в эспрессо требуют точности.</li>
+</ul>
+<p>Не гонись за самым редким и дорогим лотом. Хороший повседневный кофе полезнее для навыка, чем разовое «вау» за безумные деньги.</p>
+<h3>8.3. Где покупать</h3>
+<p>Нормальные обжарщики с датой на пачке, прозрачностью и возможностью задать вопрос. Specialty-кофейни, которые сами жарят или работают с понятными обжарщиками. Онлайн — тоже нормально, если есть дата и нормальная логистика.</p>
+<p>В кофейне можно и нужно спрашивать: когда обжарили, что сейчас хорошо заходит под твой способ, что из светлого/среднего сейчас нравится. Нормальный человек не обидится.</p>
+<h3>8.4. Хранение</h3>
+<p>После вскрытия — в герметичной упаковке или контейнере, вдали от тепла, света и влаги. Не хранить в холодильнике и морозилке без крайней необходимости (конденсат при открытии убивает). Лучше покупать столько, сколько выпьешь за 2–4 недели.</p>
+<p>Молоть лучше непосредственно перед завариванием. Предмолотый кофе теряет аромат очень быстро.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="9-оборудование-что-реально-нужно" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">9. Оборудование. Что реально нужно</h2><div class="bar"></div>
+<h3>9.1. Кофемолка — самый важный инструмент</h3>
+<p>Если бюджет ограничен, лучше взять нормальную жерновую кофемолку и пока заваривать в простой воронке или аэропрессе, чем купить дорогую кофемашину и молоть ножевой дробилкой.</p>
+<p>Равномерность помола важнее бренда. Ножевые кофемолки почти всегда дают смесь пыли и крупных кусков — вкус будет гулять.</p>
+<h3>9.2. Весы</h3>
+<p>С таймером. Без весов ты варишь «на глаз», а «на глаз» почти невозможно стабильно попадать в соотношение и время. Даже простые весы с точностью 0,1–1 г уже сильно меняют дело.</p>
+<h3>9.3. Чайник</h3>
+<p>Для пуровера удобен чайник с тонким носиком (gooseneck). Для аэропресса, френча и эспрессо обычный чайник тоже сойдёт, если умеешь контролировать температуру.</p>
+<h3>9.4. Температура воды</h3>
+<p>Можно обойтись термометром или просто кипятком, который чуть остыл. Для начала этого достаточно. Позже, если захочешь точности — электрический чайник с контролем температуры.</p>
+<h3>9.5. Что можно отложить</h3>
+<p>Дорогая эспрессо-машина, рефрактометр, куча аксессуаров. Сначала научись стабильно варить один-два метода на нормальном зерне. Потом наращивай.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="recipes" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">10. Методы заваривания и рабочие рецепты</h2><div class="bar"></div>
+<p>Ниже — стартовые рецепты. Это не догма. Точка, от которой двигаются. Подстраивай под конкретное зерно и свой вкус.</p>
+<p><strong>Главный принцип:</strong> меняй по одному параметру за раз. Иначе не поймёшь, что сработало.</p>
+<h3>10.1. V60 / пуровер</h3>
+<p><strong>Стартовые параметры:</strong></p>
+<ul>
+<li>Кофе: 15–16 г</li>
+<li>Вода: 250 г</li>
+<li>Помол: средний</li>
+<li>Температура: 93–96 °C</li>
+<li>Время: 2:30–3:15</li>
+<li>Соотношение: примерно 1:15,5–1:16,5</li>
+</ol>
+<p><strong>Как делать:</strong></p>
+<ol>
+<li>Прогрей воронку и фильтр, слей воду.</li>
+<li>Засыпь кофе, сделай небольшую лунку.</li>
+<li>Bloom: 40–50 г воды, 30–40 секунд. Можно слегка помешать.</li>
+<li>Лей тонкой струёй кругами до ~150 г.</li>
+<li>Небольшая пауза.</li>
+<li>Долей до 250 г.</li>
+<li>Дай стечь. Общее время 2:30–3:15.</li>
+</ol>
+<p><strong>Если кисло и пусто</strong> — сделай помол мельче или увеличь время / температуру.</p>
+<p><strong>Если горько и вяжуще</strong> — помол крупнее или короче / чуть холоднее.</p>
+<p>V60 любит равномерность и контроль. Это метод, который хорошо показывает чистоту и характер зерна.</p>
+<h3>10.2. Аэропресс</h3>
+<p><strong>Стартовые параметры:</strong></p>
+<ul>
+<li>Кофе: 15–17 г</li>
+<li>Вода: 230–250 г</li>
+<li>Помол: средний</li>
+<li>Температура: 85–93 °C</li>
+<li>Время: 1:30–2:30</li>
+</ol>
+<p>Аэропресс прощает ошибки. Можно использовать классический или inverted-метод. После залива можно помешать, дать постоять и медленно продавить.</p>
+<p>Хороший мост между фильтром и эспрессо-логикой. Удобен в поездках.</p>
+<h3>10.3. Френч-пресс</h3>
+<p><strong>Стартовые параметры:</strong></p>
+<ul>
+<li>Кофе: 15–18 г</li>
+<li>Вода: 250 г</li>
+<li>Помол: крупный</li>
+<li>Температура: 90–96 °C</li>
+<li>Время: 4 минуты</li>
+</ol>
+<p>Засыпал, залил, помешал, накрыл, подождал 4 минуты, медленно опустил поршень, сразу разлил. Не оставляй напиток стоять на гуще — он продолжает экстрагироваться и становится грубее.</p>
+<p>Френч даёт максимум тела и масел. Крупный помол критичен, иначе будет грязно и горько.</p>
+<h3>10.4. Эспрессо (база)</h3>
+<p><strong>Стартовые параметры:</strong></p>
+<ul>
+<li>Кофе: 18 г</li>
+<li>Выход: 36–40 г</li>
+<li>Помол: мелкий</li>
+<li>Время: 25–32 секунды</li>
+<li>Давление: около 9 бар</li>
+<li>Температура: 90–94 °C</li>
+</ol>
+<p>Сначала добейся стабильного шота с нормальным вкусом (не кислый, не горький, есть сладость). Потом уже занимайся молоком и рисунками.</p>
+<p>Молоко для капучино/латте: 55–65 °C. Слишком горячее убивает и молоко, и кофе.</p>
+<h3>10.5. Дрип-пакеты</h3>
+<p>Не стыдно. Можно выжать заметно больше, если:</p>
+<ul>
+<li>использовать воду 90–95 °C,</li>
+<li>заливать не всё сразу, а 3–4 порциями,</li>
+<li>давать пропитаться между порциями,</li>
+<li>в конце слегка покачать.</li>
+</ul>
+<h3>10.6. Молочные напитки</h3>
+<p>Сначала чини эспрессо. Плохой шот + идеальная пена = всё равно плохой напиток. Хороший шот прощает небольшие огрехи в молоке. Горячее молоко (выше 70 °C) часто делает вкус плоским и «варёным».</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="cheats" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">11. Диагностика вкуса. Шпаргалка по ремонту</h2><div class="bar"></div>
+<p>|---------------------------|-------------------------|-------------------------------------|</p>
+<div class="tbl"><table>
+<tr><th>Вкус в чашке</th><th>Частая причина</th><th>Что делать</th></tr>
+<tr><td>Кисло, пусто, «зелёное»</td><td>Недоэкстракция</td><td>Мельче / дольше / горячее</td></tr>
+<tr><td>Горько, вяжуще, пепельно</td><td>Переэкстракция</td><td>Крупнее / короче / чуть холоднее</td></tr>
+<tr><td>Водянисто, жидко</td><td>Мало кофе / слишком крупно</td><td>Больше граммов / мельче</td></tr>
+<tr><td>Плоско, нет характера</td><td>Старое зерно / плохая вода</td><td>Свежесть + проверить воду</td></tr>
+<tr><td>Молочный напиток «не то»</td><td>Слабый или горький шот</td><td>Сначала починить эспрессо</td></tr>
+</table></div>
+<p>Меняй <strong>один</strong> параметр за раз. Записывай, что изменил и что стало с вкусом. Через несколько циклов ты начнёшь чувствовать связь между действием и результатом.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="taste" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">12. Вкус и сенсорика. Как учиться пробовать</h2><div class="bar"></div>
+<p>Сначала чашка — потом этикетка. Иначе мозг дорисует бергамот, которого нет.</p>
+<h3>12.1. Базовые оси</h3>
+<ul>
+<li>**Кислотность** — живость, яркость. Не путать с «испорчено» или уксусом.</li>
+<li>**Сладость** — не сахар из пачки, а ощущение фруктов, карамели, мёда.</li>
+<li>**Горечь** — может быть приятной (какао, тёмный шоколад) или неприятной (пепел, жжёное).</li>
+<li>**Тело** — плотность, текстура (лёгкое / среднее / плотное, шелковистое / маслянистое).</li>
+<li>**Aftertaste** — что остаётся после глотка.</li>
+</ol>
+<h3>12.2. Как тренироваться дома</h3>
+<p>Возьми два-три разных кофе. Завари их одинаково (одинаковый помол, соотношение, время, температура). Пробуй рядом. Сначала горячими, потом остывшими. Температура сильно меняет восприятие.</p>
+<p>Записывай коротко: кислота / сладость / тело / что вспомнилось / понравилось или нет. Через несколько недель ты начнёшь замечать то, что раньше пролетало мимо.</p>
+<h3>12.3. Каппинг по-простому</h3>
+<p>SCA использует оси: аромат, вкус, aftertaste, кислота, тело, баланс, сладость, чистота, overall. Даже упрощённый домашний ритуал по этим осям уже качает навык. Не обязательно ставить 100 баллов. Достаточно научиться различать и описывать.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="13-продвинутый-уровень-куда-расти-дальше" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">13. Продвинутый уровень. Куда расти дальше</h2><div class="bar"></div>
+<h3>13.1. Экстракция как управление</h3>
+<p>Когда базовые рецепты уже стабильно получаются, начинай осознанно двигать переменные: помол, температура, соотношение, структура заливки, время bloom. Смотри, как меняется вкус. Это и есть управление экстракцией.</p>
+<h3>13.2. Вода</h3>
+<p>Если вкус постоянно «не такой», проверь воду. Иногда замена воды даёт больший скачок, чем новая кофемолка.</p>
+<h3>13.3. Общение с бариста и обжарщиками</h3>
+<p>Нормальные вопросы:</p>
+<ul>
+<li>Когда обжарили?</li>
+<li>Что сейчас хорошо заходит под фильтр / под молоко?</li>
+<li>Есть ли что-то похожее на тот лот, который мне нравился?</li>
+<li>Какая обработка и высота?</li>
+</ul>
+<p>Ненормальные вопросы — те, которые подразумевают, что тебе «должны» идеальный кофе без твоего участия.</p>
+<h3>13.4. Куда расти</h3>
+<ul>
+<li>Пробовать разные обработки и регионы осознанно.</li>
+<li>Вести простой дневник чашек.</li>
+<li>Один раз сходить на каппинг.</li>
+<li>Попробовать самому помолоть и заварить один и тот же лот разными методами.</li>
+<li>Разобраться со своей водой.</li>
+</ol>
+<p>После этого гайда ты уже не «новичок». Дальше — практика и любопытство.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="cheats" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">14. Практические шпаргалки (кратко)</h2><div class="bar"></div>
+<p><strong>При покупке:</strong></p>
+<ul>
+<li>Есть дата обжарки?</li>
+<li>Понятно происхождение и обработка?</li>
+<li>Есть смысл брать этот лот под мой метод?</li>
+</ul>
+<p><strong>При заваривании:</strong></p>
+<ul>
+<li>Один параметр за раз.</li>
+<li>Записывать изменения.</li>
+<li>Пробовать и горячим, и остывшим.</li>
+</ul>
+<p><strong>Диагностика:</strong></p>
+<ul>
+<li>Кисло/пусто → недоэкстракция → мельче/дольше/горячее.</li>
+<li>Горько/вяжуще → переэкстракция → крупнее/короче.</li>
+<li>Плоско → свежесть или вода.</li>
+</ul>
+<p><strong>Хранение:</strong></p>
+<ul>
+<li>Герметично, без тепла, света и влаги.</li>
+<li>Молоть перед завариванием.</li>
+<li>Не запасаться на месяцы.</li>
+</ul>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="заключение" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">Заключение</h2><div class="bar"></div>
+<p>Не надо превращать кофе в религию. Надо просто пить нормальный кофе и понимать, что происходит в чашке и в голове.</p>
+<p>Specialty — это не статус и не клуб. Это зерно с характером + человек, который умеет этот характер раскрыть. Всё остальное — маркетинг, привычки и шум.</p>
+<p>Если после этого текста ты стал увереннее выбирать, заваривать и чинить вкус — задача выполнена.</p>
+<div class="bar" style="margin:32px 0"></div>
+<p>*A CUP · акап.рф*</p>
+<p>*От нуля до specialty*</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="15-расширенная-история-specialty-движени" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">15. Расширенная история specialty-движения (детали)</h2><div class="bar"></div>
+<p>Чтобы понимать, почему сегодня на пачке пишут «Ethiopia Guji, washed, 2100 masl», нужно увидеть, откуда взялась сама идея оценивать кофе как нечто большее, чем просто товар.</p>
+<p>До середины XX века почти весь кофе покупался и продавался как commodity. Различия были грубыми: арабика или робуста, бразильский или центральноамериканский, «мягкий» или «жёсткий». Вкусовые нюансы интересовали единиц. Большие обжарщики смешивали всё в стабильные бленды, которые должны были год за годом давать один и тот же вкус. Стабильность важнее характера.</p>
+<p>Alfred Peet в 1960-х начал ломать эту логику. Он продавал свежеобжаренное зерно и говорил о происхождении. Люди впервые массово услышали, что кофе из разных стран может сильно отличаться. Это была вторая волна: кофе как продукт с географией и свежестью.</p>
+<p>Erna Knutsen пошла дальше. Работая с мелкими обжарщиками, она увидела спрос на лоты, которые крупные трейдеры считали слишком маленькими или странными. В 1974 году она публично использовала термин specialty coffee. Позже помогла сформировать ассоциацию, которая ввела протоколы каппинга. Появилась возможность сравнивать кофе не «нравится / не нравится», а по набору осей: чистота, сладость, кислота, тело, баланс, послевкусие.</p>
+<p>Третья волна (2000-е) добавила прямую торговлю, внимание к обработке на станции, светлую обжарку, которая не маскирует происхождение, и культуру фильтра. V60, Kalita, Chemex, AeroPress стали домашними инструментами, а не только профессиональными. Рефрактометры и TDS-метры позволили измерять экстракцию, а не только гадать.</p>
+<p>К 2015–2020 годам specialty столкнулся с собственной тенью: снобизм, завышенные ожидания, ощущение, что «настоящий» кофе существует только в чёрном фильтре и только если ты чувствуешь все дескрипторы с пачки. Сейчас происходит естественная коррекция. Specialty остаётся про качество и прозрачность, но перестаёт быть религией. Можно пить отличный фильтр по утрам и раф по вечерам — и это не противоречие.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="16-подробно-про-обработку-зерна" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">16. Подробно про обработку зерна</h2><div class="bar"></div>
+<p>Обработка — один из самых сильных рычагов вкуса после самого происхождения и обжарки.</p>
+<h3>Washed (fully washed)</h3>
+<p>Ягоды депульпируют (снимают кожицу и большую часть мякоти), затем зерно в пергаментной оболочке ферментируется в воде или без неё (в зависимости от станции), потом тщательно промывается и сушится.</p>
+<p>Результат: высокая чистота чашки, яркая и часто «высокая» кислотность, прозрачность, меньше риска фруктовых дефектов. Классика для Кении, Колумбии, многих лотов Эфиопии и Центральной Америки. Хорошо показывает терруар. Если хочешь понять, чем Гючи отличается от Сидамо или чем Слейп отличается от Ньери — начинай с washed.</p>
+<p>Минус: при плохой ферментации или сушке может получиться «пустой» или овощной профиль. Плюс: легче контролировать качество на станции.</p>
+<h3>Natural (dry process)</h3>
+<p>Ягоды сушат целиком. Мякоть остаётся на зерне долго, сахара и фруктовые соединения влияют на вкус сильнее.</p>
+<p>Результат: больше сладости, плотное тело, ягодные, иногда винные или «джем»-ноты. Риск: если сушка неравномерная или слишком долгая во влажном климате — появляются ферментированные, землистые, плесневелые дефекты. Хороший natural требует дисциплины.</p>
+<p>Эфиопские natural часто дают яркую ягоду и цветы. Бразильские natural — основу многих эспрессо-блендов: шоколад, орех, низкая кислота, удобство в молоке.</p>
+<h3>Honey (pulped natural)</h3>
+<p>Компромисс. Кожицу снимают, но часть клейкой мякоти (mucilage) оставляют. Чем больше оставляют — тем ближе к natural (yellow / red / black honey).</p>
+<p>Вкус обычно слаще washed и чище natural. Хороший вариант, когда хочется и сладости, и относительной чистоты.</p>
+<h3>Anaerobic / carbonic / experimental</h3>
+<p>Зерно ферментируют в закрытых ёмкостях с ограниченным доступом кислорода, иногда с добавлением конкретных культур или под контролем pH и температуры.</p>
+<p>Результат может быть впечатляющим: тропические фрукты, яркая сладость, сложные «винные» ноты. Может быть и перегруженным: излишняя ферментация, «компот», мыльные или странные оттенки.</p>
+<p>Рекомендация: сначала научись уверенно читать washed и natural. Потом пробуй экспериментальные лоты. Иначе сложно понять, где заканчивается характер зерна и начинается характер обработки.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="17-обжарка-глубже" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">17. Обжарка глубже</h2><div class="bar"></div>
+<p>Обжарка — это не просто «сделать зерно коричневым». Это контролируемая химическая трансформация.</p>
+<p>На ранних стадиях зерно теряет влагу. Потом начинаются реакции Майяра — те же, что дают цвет и аромат хлебу и жареному мясу. Появляются меланоидины. Сахара карамелизуются. Хлорогеновые кислоты разрушаются и превращаются в другие соединения. Тригонеллин частично распадается. Образуется CO₂.</p>
+<p><strong>Светлая обжарка</strong> останавливает процесс раньше. Больше сохраняется кислот и оригинальной ароматики происхождения. Чашка часто ярче, «выше», прозрачнее. Требует более точного заваривания: легче недоэкстрагировать или, наоборот, вытащить лишнюю резкость.</p>
+<p><strong>Средняя</strong> даёт баланс. Сладость развивается, кислота ещё жива, тело появляется. Самый универсальный профиль для дома.</p>
+<p><strong>Тёмная</strong> уходит глубоко в пиролиз. Появляются горечь, дым, жжёные и тяжёлые ноты. Происхождение маскируется. Такой кофе прощает больше ошибок в заваривании и часто лучше работает с молоком, но теряет тонкость.</p>
+<p>Важно: «тёмная обжарка» в specialty и «тёмная» в массовом сегменте — разные вещи. Specialty-тёмная всё равно обычно светлее, чем то, что продаётся в супермаркете как «итальянская сильная обжарка».</p>
+<p>Дата обжарки критична, потому что после обжарки зерно продолжает меняться. Сначала активно выделяет CO₂ (поэтому слишком свежий кофе может давать нестабильную экстракцию и «газированность»). Потом ароматика постепенно угасает. Для большинства фильтр-методов окно 7–30 дней часто самое комфортное, но это зависит от плотности зерна, степени обжарки и того, как его хранили.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="18-вода-самый-игнорируемый-фактор" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">18. Вода. Самый игнорируемый фактор</h2><div class="bar"></div>
+<p>Многие месяцами крутят помол и температуру, а вкус всё равно «не тот». Часто виновата вода.</p>
+<p>Вода — не нейтральный растворитель. Ионы кальция и магния участвуют в извлечении вкусовых соединений. Бикарбонаты буферизуют кислотность. Слишком мало минералов — чашка кажется пустой и резкой. Слишком много — плоской, меловой, иногда с неприятной вяжущестью. Хлор и хлорамины дают аптечные и бассейные ноты.</p>
+<p>Практические ориентиры SCA:</p>
+<ul>
+<li>Общая минерализация (TDS): 75–250 ppm, цель около 150.</li>
+<li>Жёсткость: 50–175 ppm (предпочтительно ближе к середине).</li>
+<li>Щёлочность: около 40 ppm.</li>
+<li>pH ближе к нейтральному.</li>
+<li>Без свободного хлора.</li>
+</ol>
+<p>Что делать дома:</p>
+<ul>
+<li>Если водопроводная вода сильно хлорированная — фильтр-кувшин с хорошим углем уже помогает.</li>
+<li>Если вода очень мягкая или дистиллированная — можно использовать готовые минеральные добавки для кофе (есть специализированные смеси).</li>
+<li>Если вода очень жёсткая — система умягчения или смесь с более мягкой водой.</li>
+<li>Бутилированная вода: смотри состав. Не все «горные» воды одинаково полезны для кофе.</li>
+</ul>
+<p>Иногда замена воды даёт больший скачок качества, чем переход на кофемолку в два раза дороже.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="19-кофемолка-и-помол-—-подробно" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">19. Кофемолка и помол — подробно</h2><div class="bar"></div>
+<p>Помол определяет площадь поверхности, с которой вода будет контактировать. Но важна не только «мелкость», а распределение частиц.</p>
+<p>Идеальный помол — относительно узкое распределение: большинство частиц близки по размеру. Плохой помол — много fines (пыли) + много крупных кусков. Fines быстро переэкстрагируются и дают горечь и вяжущесть. Крупные куски недоэкстрагируются и дают кислоту и пустоту. В сумме получается чашка, которая одновременно и кислая, и горькая — классический признак плохой кофемолки.</p>
+<p>Ножевые кофемолки работают ударом, а не разрезанием. Результат почти всегда плохой для specialty. Жерновые (особенно с хорошими жерновами и стабильной геометрией) дают гораздо более узкое распределение.</p>
+<p>Практические советы:</p>
+<ul>
+<li>Моли непосредственно перед завариванием.</li>
+<li>Не храни молотый кофе.</li>
+<li>Если переходишь на новое зерно — начни с помола, который работал на предыдущем, и корректируй по вкусу.</li>
+<li>Мелкие изменения помола (один клик или небольшой поворот кольца) часто важнее больших скачков температуры.</li>
+</ul>
+<p>Для V60 помол обычно заметно крупнее, чем для эспрессо. Для френч-пресса — ещё крупнее. Для аэропресса — в диапазоне фильтра, иногда чуть мельче.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="recipes" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">20. Расширенные рецепты и вариации</h2><div class="bar"></div>
+<h3>V60 — вариации</h3>
+<p><strong>Классика 15/250:</strong></p>
+<ul>
+<li>15 г кофе, 250 г воды, 93–95 °C, средний помол, общее время 2:45–3:15.</li>
+<li>Bloom 45 г на 35–40 сек.</li>
+<li>Две или три заливки.</li>
+</ul>
+<p><strong>Более концентрированный 16/250 или 18/300:</strong></p>
+<ul>
+<li>Даёт плотнее тело. Может потребовать чуть крупнее помол или короче время.</li>
+</ul>
+<p><strong>Светлый washed под высокую кислотность:</strong></p>
+<ul>
+<li>Иногда помогает чуть выше температура и очень равномерный поток без излишней турбулентности в конце.</li>
+</ul>
+<p><strong>Natural под сладость:</strong></p>
+<ul>
+<li>Можно чуть крупнее помол и не выжимать максимальное время, чтобы не утянуть лишнюю тяжесть.</li>
+</ul>
+<h3>Аэропресс — два подхода</h3>
+<p><strong>Стандартный:</strong> фильтр внизу, кофе, вода, перемешивание, настаивание, продавливание.</p>
+<p><strong>Inverted:</strong> всё происходит в перевёрнутом положении, потом переворачиваешь и давишь. Даёт больше контроля над временем контакта до начала давления.</p>
+<p>Время настаивания 1–2 минуты, температура можно ниже, чем на V60 (85–92 °C). Аэропресс хорошо работает с wide range помолов и прощает ошибки.</p>
+<h3>Френч-пресс — чистота</h3>
+<p>Многие недолюбливают френч из-за «грязи». Часто проблема в слишком мелком помоле и в том, что напиток оставляют на гуще. Решение: крупный помол, точное время 4 минуты, сразу разлить. Можно после продавливания подождать 30–60 секунд, чтобы крупные частицы осели, и аккуратно декантировать.</p>
+<h3>Эспрессо — база для дома</h3>
+<p>18 г в корзине → 36–40 г в чашке за 27–32 секунды — хороший старт для многих современных машин и корзин. Дальше:</p>
+<ul>
+<li>Если шот кислый и быстрый — помол мельче или доза чуть больше.</li>
+<li>Если шот горький и медленный — помол крупнее или доза чуть меньше / выход больше.</li>
+<li>Распределение и темпинг должны быть ровными. Каналы (channeling) дают одновременно кислоту и горечь.</li>
+</ul>
+<p>Молоко: взбивай до 55–65 °C. Микропена, а не крупные пузыри. Сначала научись стабильному шоту без молока.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="21-типичные-ошибки-новичков-(и-не-только" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">21. Типичные ошибки новичков (и не только)</h2><div class="bar"></div>
+<ol>
+<li>Покупка зерна без даты обжарки.</li>
+<li>Молоть заранее «на неделю».</li>
+<li>Варить «на глаз» без весов.</li>
+<li>Менять сразу три параметра и не понимать, что помогло.</li>
+<li>Ожидать от тёмной обжарки ягодной кислотности.</li>
+<li>Ожидать от очень светлого washed плотного шоколадного тела.</li>
+<li>Использовать кипяток на всём подряд без пробы.</li>
+<li>Хранить зерно на кухне рядом с плитой или на солнце.</li>
+<li>Считать, что дорогой лот автоматически будет вкусным при любой заварке.</li>
+</ul>
+<p>10. Стесняться спросить у бариста «а что у вас сейчас хорошо под фильтр?».</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="22-как-читать-вкус-практический-тренинг" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">22. Как читать вкус. Практический тренинг</h2><div class="bar"></div>
+<p>Возьми один washed и один natural примерно одной свежести. Завари оба одинаково в V60. Пробуй слепо (пусть кто-то другой нальёт или просто переставь чашки).</p>
+<p>Отмечай:</p>
+<ul>
+<li>Где больше кислоты?</li>
+<li>Где больше сладости?</li>
+<li>Где плотнее тело?</li>
+<li>Какой aftertaste длиннее?</li>
+<li>Что напоминает (ягода, цитрус, цветы, какао, орех, карамель)?</li>
+</ol>
+<p>Повтори через день с другим помолом. Потом с другой температурой. Ты быстро начнёшь чувствовать, как переменные двигают вкус.</p>
+<p>Ещё упражнение: один и тот же лот завари в V60 и во френче. Сравни тело и чистоту. Это наглядно показывает влияние метода.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="23-эспрессо-и-молоко-отдельная-вселенная" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">23. Эспрессо и молоко. Отдельная вселенная</h2><div class="bar"></div>
+<p>Эспрессо — не «крепкий кофе». Это метод под давлением с очень мелким помолом и коротким временем. Крема — эмульсия масел и CO₂, а не показатель качества сама по себе (на очень свежем зерне крема больше, на более выдержанном — меньше, и это нормально).</p>
+<p>Для молока важен баланс шота. Слишком кислый шот в молоке часто становится ещё более странным. Слишком горький — даёт «грязный» капучино. Плотный, сладкий, достаточно экстрагированный шот — основа хорошего молочного напитка.</p>
+<p>Температура молока критична. Выше 70 °C белки меняются, вкус становится «варёным», сладость падает. 55–65 °C — рабочий диапазон для большинства напитков.</p>
+<p>Раф исторически — эспрессо + сливки + ванильный сахар, взбитые вместе. Это не «неправильный кофе». Это локальный напиток со своей логикой. В specialty-контексте его можно воспринимать так же, как воспринимают flat white или piccolo: как часть культуры, а не как врага фильтра.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="24-как-говорить-с-обжарщиком-и-бариста" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">24. Как говорить с обжарщиком и бариста</h2><div class="bar"></div>
+<p>Хорошие вопросы:</p>
+<ul>
+<li>Когда этот лот обжарили?</li>
+<li>Что сейчас из светлого/среднего особенно нравится под фильтр?</li>
+<li>Есть ли что-то похожее на [тот лот, который тебе зашёл]?</li>
+<li>Какая обработка и высота у этого зерна?</li>
+<li>На что обратить внимание при заваривании дома?</li>
+</ol>
+<p>Плохие вопросы — те, что звучат как претензия («почему у вас всё кислое?») без желания разобраться. Большинство нормальных бариста и обжарщиков с удовольствием говорят о зерне, если видят интерес, а не конфликт.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="25-путь-развития-после-этого-гайда" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">25. Путь развития после этого гайда</h2><div class="bar"></div>
+<ol>
+<li>Выбери один основной метод (V60 или аэропресс) и доведи его до стабильности на 2–3 разных лотах.</li>
+<li>Заведи простой дневник: дата, лот, помол, время, температура, вкус.</li>
+<li>Один раз купи два лота одной страны, но разной обработки (washed и natural) и сравни.</li>
+<li>Проверь свою воду.</li>
+<li>Сходи на каппинг или хотя бы на дегустацию у обжарщика.</li>
+<li>Попробуй один и тот же лот в фильтре и в эспрессо (если есть доступ к машине).</li>
+<li>Начни различать регионы: Эфиопия, Кения, Колумбия, Бразилия, Центральная Америка — хотя бы на уровне «что я обычно от них жду».</li>
+</ol>
+<p>После этого ты уже не новичок. Дальше рост идёт через практику и любопытство, а не через новые гайды.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="cheats" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">26. Краткие шпаргалки для печати / телефона</h2><div class="bar"></div>
+<p><strong>Покупка</strong></p>
+<ul>
+<li>Дата обжарки обязательна.</li>
+<li>Происхождение + обработка.</li>
+<li>Под мой метод.</li>
+</ul>
+<p><strong>Хранение</strong></p>
+<ul>
+<li>Герметично, прохладно, темно.</li>
+<li>Молоть перед завариванием.</li>
+<li>2–4 недели запас максимум.</li>
+</ul>
+<p><strong>V60 старт</strong></p>
+<ul>
+<li>15 г / 250 г / 93–95 °C / 2:45–3:15</li>
+<li>Bloom 40–45 сек</li>
+<li>Кисло → мельче; горько → крупнее</li>
+</ul>
+<p><strong>Диагностика</strong></p>
+<ul>
+<li>Кисло/пусто = недоэкстракция</li>
+<li>Горько/вяжуще = переэкстракция</li>
+<li>Плоско = зерно или вода</li>
+<li>Один параметр за раз</li>
+</ul>
+<p><strong>Вода</strong></p>
+<ul>
+<li>TDS ~150</li>
+<li>Без хлора</li>
+<li>Не дистиллят</li>
+</ul>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="27-финальные-замечания" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">27. Финальные замечания</h2><div class="bar"></div>
+<p>Specialty-кофе не делает человека лучше. Он просто делает утро (или день) заметно приятнее, если к нему относиться с минимальным вниманием.</p>
+<p>Не нужно чувствовать все дескрипторы с пачки. Нужно научиться отличать чистое от грязного, сладкое от пустого, живое от плоского — и понимать, почему так вышло.</p>
+<p>Этот текст можно перечитывать кусками. Рецепты — использовать как стартовые точки. Шпаргалки — держать под рукой.</p>
+<p>Главное, что должно остаться: кофе — это продукт с историей, географией, химией и физикой. И ты можешь на всё это влиять. Не идеально. Но достаточно, чтобы пить нормальный кофе и понимать его.</p>
+<div class="bar" style="margin:32px 0"></div>
+<p>*Конец основного текста.*</p>
+<p>*A CUP · От нуля до specialty*</p>
+<p>*акап.рф*</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="28-полный-разбор-регионов-и-что-от-них-ж" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">28. Полный разбор регионов и что от них ждать</h2><div class="bar"></div>
+<p>Понимание регионов экономит деньги и разочарования. Ниже — рабочие ожидания, а не догмы. Внутри одной страны лоты могут отличаться радикально, но средние тенденции существуют.</p>
+<h3>Эфиопия</h3>
+<p>Родина кофе. Две большие ветки: washed и natural. Washed часто даёт цветы, бергамот, лимон, чайную прозрачность, высокую кислотность. Natural — ягоду (земляника, черника, малина), иногда персик, плотное тело, сладость. Гучи, Сидамо, Иргачеффе, Лиму — разные характеры, но общая «эфиопская» узнаваемость есть. Высота часто 1800–2200+ метров. Светлая и средняя обжарка раскрывает лучше всего. В эспрессо эфиопия может быть яркой и требовательной; в фильтре — один из самых благодарных вариантов для обучения сенсорике.</p>
+<h3>Кения</h3>
+<p>Почти всегда washed. Высокая, часто «электрическая» кислотность: чёрная смородина, крыжовник, томатная нота, грейпфрут, иногда цветы. Плотность и сладость при хорошей экстракции очень приятные. Кения хорошо учит отличать яркую кислотность от недоэкстракции. Требует свежести и аккуратного помола. В молоке кения работает выборочно — лучше искать лоты, которые обжарщик рекомендует под молоко.</p>
+<h3>Колумбия</h3>
+<p>Очень широкий диапазон. Классика — мытая, сбалансированная: карамель, орех, красное яблоко, цитрус, хорошая сладость, средняя кислота. Современные лоты могут быть и очень светлыми цветочными, и экспериментальными anaerobic с тропиками. Колумбия — отличный «повседневный» specialty: понятный, прощающий, вкусный. Хорошо работает и в фильтре, и в эспрессо, и с молоком.</p>
+<h3>Бразилия</h3>
+<p>Часто natural или pulped natural. Низкая или средняя кислота, шоколад, орех, карамель, плотное тело. Основа многих эспрессо-блендов. В фильтре может казаться простой, если ты уже привык к Эфиопии и Кении, но хороший бразильский лот даёт комфорт и сладость. Отлично под молоко.</p>
+<h3>Центральная Америка (Коста-Рика, Гватемала, Гондурас, Панама и др.)</h3>
+<p>Мытые лоты часто чистые, с яблочной или цитрусовой кислотностью, тростниковым сахаром, иногда лёгкими цветами. Гватемала может давать больше шоколада и ореха при средней обжарке. Панама знаменита гейшами — очень дорогими, цветочными, чайными, с жасмином и бергамотом. Для старта Центральная Америка — спокойный и понятный выбор.</p>
+<h3>Другие</h3>
+<p>Руанда и Бурунди — часто мытые, с «африканской» яркостью, иногда с характерной пряностью. Йемен — сложный, иногда винный, с сухофруктами (дорого и редко). Азия (Индонезия и др.) — часто более земльные, плотные, с низкой кислотностью, особенно при wet-hulled обработке; это отдельный вкус, не всем заходит сразу.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="29-как-устроена-этикетка-и-что-на-ней-ва" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">29. Как устроена этикетка и что на ней важно на самом деле</h2><div class="bar"></div>
+<p>Разберём типичную specialty-пачку по полям.</p>
+<p><strong>Название лота / станции / фермы</strong></p>
+<p>Чем конкретнее — тем лучше. «Ethiopia» — мало информации. «Ethiopia Guji, Uraga, washing station X» — уже можно что-то ожидать.</p>
+<p><strong>Разновидность (variety)</strong></p>
+<p>Heirloom, SL28, SL34, Bourbon, Caturra, Gesha/Geisha, Pacamara и т.д. Не обязательно знать все. Но если видишь Geisha — понимаешь, что лот скорее всего дорогой и цветочный. SL28/SL34 — кенийская классика.</p>
+<p><strong>Обработка</strong></p>
+<p>Washed / Natural / Honey / Anaerobic / Carbonic maceration и т.д. Читай и соотноси с тем, что любишь.</p>
+<p><strong>Высота (masl)</strong></p>
+<p>Выше часто (но не всегда) = плотнее структура зерна, больше потенциал сложности и кислоты. 1800+ для многих африканских лотов — норма.</p>
+<p><strong>Дата обжарки</strong></p>
+<p>Самое практическое поле. Без неё всё остальное теряет смысл.</p>
+<p><strong>Дескрипторы</strong></p>
+<p>«Jasmine, bergamot, white peach, cane sugar». Это ожидания обжарщика при правильном заваривании. Не контракт. Если ты не чувствуешь жасмин — это не значит, что ты «не умеешь». Возможно, помол, вода или свежесть сдвинули профиль.</p>
+<p><strong>Номер лота / score</strong></p>
+<p>Иногда указывают оценку каппинга (85+, 87, 90). Это ориентир внутри системы SCA, а не абсолютная истина. Лоты 86–88 часто дают лучшее соотношение цены и удовольствия, чем погоня за 90+.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="30-домашняя-сенсорика-упражнения-на-30-д" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">30. Домашняя сенсорика. Упражнения на 30 дней</h2><div class="bar"></div>
+<p><strong>Неделя 1.</strong> Каждый день заваривай один и тот же лот одним методом. Меняй только один параметр (помол или температуру). Записывай. Цель — почувствовать связь «действие → вкус».</p>
+<p><strong>Неделя 2.</strong> Два разных лота (желательно washed и natural). Заваривай одинаково. Сравнивай слепо. Цель — научиться отличать обработку.</p>
+<p><strong>Неделя 3.</strong> Один лот, два метода (V60 и френч или V60 и аэропресс). Цель — понять влияние метода на тело и чистоту.</p>
+<p><strong>Неделя 4.</strong> Пробуй остывший кофе. Многие дескрипторы и сладость раскрываются именно при остывании. Цель — не судить чашку только по первому горячему глотку.</p>
+<p>Дополнительно: раз в неделю заваривай «плохой» вариант специально (слишком мелкий помол или слишком горячая вода) и сравнивай с нормальным. Так быстрее запоминается, как выглядит дефект.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="31-оборудование:-что-покупать-в-каком-по" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">31. Оборудование: что покупать в каком порядке</h2><div class="bar"></div>
+<ol>
+<li>**Жерновая кофемолка** — приоритет номер один.</li>
+<li>**Весы с таймером**.</li>
+<li>**V60 (или аэропресс) + фильтры + сервер**.</li>
+<li>**Чайник с тонким носиком** (если выбран пуровер).</li>
+<li>**Нормальное зерно с датой**.</li>
+</ol>
+<p>Только после того, как эти вещи работают стабильно:</p>
+<ol>
+<li>Более продвинутая кофемолка.</li>
+<li>Эспрессо-машина (если нужен эспрессо и молоко).</li>
+<li>Контроль температуры воды.</li>
+<li>Рефрактометр (для одержимых).</li>
+</ol>
+<p>Покупка дорогой машины при ножевой кофемолке и зерне без даты — классический путь к разочарованию.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="32-хранение-и-дегазация-подробно" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">32. Хранение и дегазация подробно</h2><div class="bar"></div>
+<p>После обжарки зерно активно выделяет CO₂. В первые 3–7 дней (иногда дольше) это может мешать равномерной экстракции: «пыхтение» в bloom, нестабильный поток, иногда металлические или «газированные» ноты. Поэтому многие обжарщики рекомендуют подождать несколько дней после обжарки.</p>
+<p>Пик ароматики для большинства фильтр-профилей часто приходится на окно примерно 7–25 дней, но это сильно зависит от плотности зерна, степени обжарки и упаковки (клапан, материал, остаточный кислород).</p>
+<p>Дома:</p>
+<ul>
+<li>Держи зерно в оригинальном пакете с клапаном или в герметичном контейнере.</li>
+<li>Избегай тепла, света, влаги и постоянных перепадов температуры.</li>
+<li>Не замораживай без необходимости. Если замораживаешь — порционно, в полностью герметичной упаковке, и размораживай перед вскрытием, чтобы не было конденсата.</li>
+<li>Молотый кофе начинает терять яркость уже через минуты–часы. Моли перед завариванием.</li>
+</ul>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="physics" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">33. Молоко. Физика и практика</h2><div class="bar"></div>
+<p>Молоко — эмульсия жира, белки, сахар (лактоза). При взбивании ты вводишь воздух и одновременно нагреваешь. Белки стабилизируют пену. Жир даёт плотность и «сладкое» ощущение.</p>
+<p>Слишком холодное молоко плохо тянется. Слишком горячее (выше ~70 °C) — белки денатурируют сильнее, вкус становится плоским и варёным, сладкость падает. Рабочий диапазон 55–65 °C.</p>
+<p>Для капучино и латте нужна микропена — мелкие пузырьки, глянцевая текстура, а не крупная пена «для ложки». Техника: сначала ввод воздуха (шипение), потом вкручивание (воронка) без дополнительного набора воздуха.</p>
+<p>Растительные молока ведут себя иначе. Овсяное обычно проще всего. Миндальное и кокосовое часто менее стабильны. Бариста-версии растительных напитков специально заточены под взбивание.</p>
+<p>Главное правило: сначала хороший шот, потом молоко. Идеальная пена не спасёт кислый или горький эспрессо.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="34-частые-мифы" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">34. Частые мифы</h2><div class="bar"></div>
+<p><strong>«Кипяток убивает кофе».</strong></p>
+<p>Не убивает. Но на светлой обжарке часто делает вкус грубее. На средней и тёмной кипяток иногда допустим. Важнее равномерность и помол.</p>
+<p><strong>«Эспрессо — это просто очень крепкий кофе».</strong></p>
+<p>Нет. Это другой метод экстракции под давлением. Вкусовой профиль и тело другие.</p>
+<p><strong>«Чем дороже лот, тем вкуснее».</strong></p>
+<p>Не обязательно. Цена отражает редкость, сложность логистики, оценку на каппинге, маркетинг. Удовольствие зависит от твоего вкуса и от того, насколько хорошо ты попал в заваривание.</p>
+<p><strong>«Настоящий specialty только без молока».</strong></p>
+<p>Нет. Specialty — про качество зерна и прозрачность. Молоко — способ употребления. Плохой кофе с молоком остаётся плохим. Хороший кофе с молоком может быть отличным.</p>
+<p><strong>«Если не чувствую дескрипторы с пачки — у меня плохой вкус».</strong></p>
+<p>Нет. Дескрипторы — ориентир. Вода, помол, свежесть, температура, даже настроение влияют. Тренировка помогает, но никто не обязан слышать «белый персик» в каждой чашке.</p>
+<p><strong>«Растворимый кофе — всегда отстой».</strong></p>
+<p>Большинство — да. Но современные freeze-dried варианты из specialty-зерна существуют и бывают вполне приемлемыми в поездках. Это не замена нормальному зерну, а компромисс.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="35-как-выбирать-зерно-под-конкретный-сце" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">35. Как выбирать зерно под конкретный сценарий</h2><div class="bar"></div>
+<p><strong>Каждое утро, быстро, без заморочек</strong></p>
+<p>Средняя обжарка, Колумбия или Бразилия, washed или good natural. Аэропресс или френч. Прощающий профиль.</p>
+<p><strong>Хочу разобраться во вкусе и потренироваться</strong></p>
+<p>Светлый washed Эфиопия или Кения. V60. Весы обязательны.</p>
+<p><strong>Под молоко</strong></p>
+<p>Средняя обжарка, Бразилия, Колумбия, иногда Гватемала. Шоколад, орех, карамель, достаточная сладость.</p>
+<p><strong>Удивить гостей</strong></p>
+<p>Хороший natural Эфиопия или качественный anaerobic (если умеешь варить). Или просто идеально сваренный понятный лот — это впечатляет сильнее, чем редкий, но криво заваренный.</p>
+<p><strong>Бюджет ограничен</strong></p>
+<p>Лучше стабильный 85–87 лот от хорошего обжарщика, чем самый дешёвый «specialty» без даты и с сомнительной свежестью.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="36-работа-с-дефектами-вкуса-—-расширенна" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">36. Работа с дефектами вкуса — расширенная таблица</h2><div class="bar"></div>
+<p>|---------------|-------------------|--------------------------|</p>
+<div class="tbl"><table>
+<tr><th>Что чувствуешь</th><th>Возможные причины</th><th>Действия (по приоритету)</th></tr>
+<tr><td>Кисло, пусто, травянисто</td><td>Недоэкстракция, слишком крупный помол, низкая температура, короткое время, слишком светлое зерно без подстройки</td><td>Мельче помол → дольше контакт → выше температура → проверить свежесть</td></tr>
+<tr><td>Горько, пепел, вяжет</td><td>Переэкстракция, слишком мелкий помол, высокая температура, долгое время, много fines, тёмная обжарка</td><td>Крупнее помол → короче время → чуть ниже температура → проверить кофемолку</td></tr>
+<tr><td>Водянисто</td><td>Мало кофе, слишком крупный помол, много воды</td><td>Увеличить дозу, сделать помол мельче</td></tr>
+<tr><td>Плоско, «никакое»</td><td>Старое зерно, плохая вода, слишком тёмная обжарка, низкая минерализация</td><td>Свежее зерно, другая вода, другой лот</td></tr>
+<tr><td>Металлический / аптечный</td><td>Хлор в воде, очень свежее зерно (CO₂), иногда грязное оборудование</td><td>Фильтр для воды, подождать дегазацию, промыть инвентарь</td></tr>
+<tr><td>Земля / плесень / фенол</td><td>Дефект зерна или обработки</td><td>Другой лот, другой обжарщик</td></tr>
+<tr><td>Молочный напиток «травяной» или «грязный»</td><td>Кислый или недоэкстрагированный шот, горячее молоко</td><td>Сначала исправить эспрессо, снизить температуру молока</td></tr>
+</table></div>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="37-минимальный-набор-знаний-который-уже-" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">37. Минимальный набор знаний, который уже делает тебя «в теме»</h2><div class="bar"></div>
+<ul>
+<li>Дата обжарки важнее названия страны на пачке.</li>
+<li>Помол — главный рычаг.</li>
+<li>Недоэкстракция кислая и пустая, переэкстракция горькая и вяжущая.</li>
+<li>Washed обычно чище и кислотнее, natural слаще и плотнее.</li>
+<li>Вода влияет сильнее, чем кажется.</li>
+<li>Один параметр за раз.</li>
+<li>Молоть перед завариванием.</li>
+<li>Specialty — про прозрачность и характер, а не про запрет молока.</li>
+</ol>
+<p>Если эти восемь пунктов сидят в голове, ты уже обходишь большую часть случайных покупателей кофе.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="38-что-читать-и-смотреть-дальше-(без-фан" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">38. Что читать и смотреть дальше (без фанатизма)</h2><div class="bar"></div>
+<ul>
+<li>Материалы SCA по воде и протоколам каппинга.</li>
+<li>Книги и статьи Scott Rao (особенно про эспрессо и фильтр).</li>
+<li>Публичные каппинг-формы и разборы лотов от сильных обжарщиков.</li>
+<li>Собственный дневник чашек — полезнее любого блога.</li>
+</ul>
+<p>Не обязательно становиться экспертом. Достаточно стать человеком, который пьёт осознанно.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="39-заключительное-слово" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">39. Заключительное слово</h2><div class="bar"></div>
+<p>Кофе стоит того, чтобы к нему относиться чуть внимательнее, чем к кипятку с кофеином. Не потому что так «правильно», а потому что так просто вкуснее и интереснее.</p>
+<p>Этот гайд собрал в одном месте то, что обычно приходится собирать годами из разговоров, чужих ошибок и собственных попыток. Используй его как карту. Потом ты и сам сможешь её уточнять.</p>
+<p>Пить нормальный кофе и понимать его — достаточная цель. Всё, что сверх этого, — уже хобби, профессия или спорт.</p>
+<div class="bar" style="margin:32px 0"></div>
+<p>акап.рф</p>
+<p>«От нуля до specialty»</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="40-подробный-разбор-экстракции:-что-прои" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">40. Подробный разбор экстракции: что происходит минута за минутой</h2><div class="bar"></div>
+<p>Когда ты заливаешь воду на молотый кофе, процесс идёт не линейно. В первые секунды вода смачивает поверхность частиц и начинает растворять самые доступные вещества — часть кислот, кофеин, часть ароматических соединений. Это стадия, которую мы видим в bloom: зерно «пыхтит», выделяется CO₂, цвет меняется.</p>
+<p>Дальше, по мере того как вода проникает глубже и обновляется (при заливках), извлекаются сахара и соединения, дающие сладость и плотность. Если остановиться слишком рано, в чашке будет преобладать кислота без достаточной сладости — классическая недоэкстракция.</p>
+<p>Если продолжать слишком долго или сделать помол слишком мелким, начинают доминировать горькие и вяжущие соединения. Вкус становится плоским, появляется сухость на языке, иногда пепельность. Это переэкстракция.</p>
+<p>На практике ты почти никогда не извлекаешь «всё». Хорошая экстракция для фильтра обычно лежит в диапазоне примерно 18–22 % (по массе растворённых веществ от массы кофе), но цифра сама по себе ничего не гарантирует. Важнее баланс: чтобы кислота, сладость и горечь сложились в приятную чашку. Рефрактометр помогает измерять, но не заменяет язык.</p>
+<p>Турбулентность (размешивание, круговые движения струи) ускоряет обновление воды у поверхности частиц и делает экстракцию более равномерной — до определённого предела. Слишком агрессивное размешивание на мелком помоле может увеличить количество fines в потоке и ухудшить вкус.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="41-светлая-обжарка:-как-с-ней-жить" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">41. Светлая обжарка: как с ней жить</h2><div class="bar"></div>
+<p>Светлая обжарка пугает новичков. Кажется «кислым» и «недожаренным». На самом деле при правильном заваривании светлый лот даёт максимум информации о происхождении: цветы, фрукты, сложную кислотность, чистоту.</p>
+<p>Типичные ошибки со светлой обжаркой:</p>
+<ul>
+<li>Слишком крупный помол → пустая, травянистая кислота.</li>
+<li>Слишком низкая температура → недоразвитая сладость.</li>
+<li>Слишком короткое время → тот же эффект.</li>
+<li>Ожидание шоколадного профиля → разочарование.</li>
+</ul>
+<p>Что помогает:</p>
+<ul>
+<li>Помол чуть мельче, чем интуитивно хочется.</li>
+<li>Температура 94–96 °C (иногда ближе к кипятку при хорошем контроле потока).</li>
+<li>Достаточный bloom.</li>
+<li>Равномерные заливки без застойных зон.</li>
+</ul>
+<p>Светлая обжарка отлично учит. Если научился варить её вкусно, средняя и более развитая будут даваться легче.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="42-тёмная-обжарка-в-specialty-контексте" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">42. Тёмная обжарка в specialty-контексте</h2><div class="bar"></div>
+<p>Тёмная обжарка в specialty редко бывает такой же агрессивной, как в массовом сегменте. Тем не менее она сильнее маскирует происхождение и добавляет горечь, карамель, иногда дым.</p>
+<p>Когда она уместна:</p>
+<ul>
+<li>Под молоко (особенно если хочется «классический» шоколадный капучино).</li>
+<li>Если вода очень мягкая и светлые лоты получаются излишне резкими.</li>
+<li>Если просто любишь этот профиль.</li>
+</ul>
+<p>Когда она разочаровывает:</p>
+<ul>
+<li>Если ждал ягоды и цветы.</li>
+<li>Если варишь её как светлую (слишком мелко и долго) — горечь становится доминирующей.</li>
+</ul>
+<p>Тёмная обжарка прощает больше ошибок в помоле и времени, но забирает тонкость. Это инструмент, а не враг.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="43-как-вести-простой-дневник-кофе" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">43. Как вести простой дневник кофе</h2><div class="bar"></div>
+<p>Не нужно сложных приложений. Достаточно заметки в телефоне или тетради:</p>
+<ul>
+<li>Дата</li>
+<li>Лот (название, обжарщик, обработка, дата обжарки)</li>
+<li>Метод</li>
+<li>Доза / вода / помол (хотя бы «средний+» или клик кофемолки)</li>
+<li>Температура и время</li>
+<li>Короткий вкус: кислота / сладость / тело / горечь / общее впечатление</li>
+<li>Что бы изменил в следующий раз</li>
+</ol>
+<p>Через 20–30 записей ты увидишь закономерности: какие лоты тебе заходят, какие помолы на твоей кофемолке работают, как вода влияет. Это ценнее любого чужого рецепта.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="44-психология-и-привычка" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">44. Психология и привычка</h2><div class="bar"></div>
+<p>Кофеин создаёт привычку быстро. Толерантность растёт. Многие через полгода «уже ничего не чувствуют» от утренней чашки.</p>
+<p>Что помогает:</p>
+<ul>
+<li>Иногда делать дни с меньшим количеством кофеина или с чаем.</li>
+<li>Не пить кофе поздно, если у тебя длинный период полувыведения.</li>
+<li>Помнить, что удовольствие от вкуса и удовольствие от удара кофеина — разные вещи. Specialty особенно силён в первой.</li>
+</ul>
+<p>Если пьёшь кофе только ради бодрости, любой растворимый справится. Если ради вкуса — имеет смысл вложиться во внимание.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="45-что-делать-если-«ничего-не-получается" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">45. Что делать, если «ничего не получается»</h2><div class="bar"></div>
+<ol>
+<li>Проверь дату обжарки. Зерну больше 6–8 недель? Начни с более свежего.</li>
+<li>Проверь кофемолку. Ножевая? Смени на жерновую, даже простую.</li>
+<li>Возьми весы. Без них стабильность почти невозможна.</li>
+<li>Выбери один метод и один понятный лот (например, колумбийский washed средней обжарки).</li>
+<li>Вари 5–7 дней только его, меняя только помол.</li>
+<li>Записывай.</li>
+</ol>
+<p>Большинство «у меня не получается» решаются свежим зерном, нормальной кофемолкой и весами. Всё остальное — тонкая настройка.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="46-финальный-чеклист-перед-тем-как-счита" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">46. Финальный чеклист перед тем, как считать себя уверенным пользователем</h2><div class="bar"></div>
+<ul>
+<li>[ ] Покупаю зерно только с датой обжарки</li>
+<li>[ ] Молю непосредственно перед завариванием</li>
+<li>[ ] Использую весы</li>
+<li>[ ] Могу заварить V60 или аэропресс стабильно вкусно</li>
+<li>[ ] Умею отличить недоэкстракцию от переэкстракции</li>
+<li>[ ] Понимаю разницу washed / natural</li>
+<li>[ ] Проверил, как моя вода влияет на вкус</li>
+<li>[ ] Не стесняюсь спросить бариста о лоте</li>
+<li>[ ] Могу объяснить, почему один и тот же кофе в фильтре и в молоке разный</li>
+<li>[ ] Не превращаю кофе в источник стресса</li>
+</ol>
+<p>Если большинство пунктов закрыто — ты уже далеко от нуля.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="47-последнее" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">47. Последнее</h2><div class="bar"></div>
+<p>Текст получился длинным специально. В нём можно жить: возвращаться к рецептам, перечитывать разделы про воду и помол, сверяться со шпаргалками.</p>
+<p>Специальность кофе не в том, чтобы знать все термины. Специальность — в том, чтобы стабильно получать удовольствие от чашки и понимать, почему сегодня получилось лучше или хуже, чем вчера.</p>
+<p>Дальше — только практика.</p>
+<div class="bar" style="margin:32px 0"></div>
+<p>«От нуля до specialty»</p>
+<p>акап.рф</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="48-краткие-тезисы-для-быстрого-возврата" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">48. Краткие тезисы для быстрого возврата</h2><div class="bar"></div>
+<ul>
+<li>Specialty начинается с даты обжарки и прозрачности, а не с цены.</li>
+<li>Помол важнее температуры. Равномерность важнее «мелкости».</li>
+<li>Недоэкстракция = кисло + пусто. Переэкстракция = горько + вяжуще.</li>
+<li>Washed — чистота и кислота. Natural — сладость и тело.</li>
+<li>Вода — скрытый игрок. Иногда она важнее новой кофемолки.</li>
+<li>Один параметр за раз. Записывай.</li>
+<li>Светлая обжарка учит. Тёмная прощает.</li>
+<li>Молоко не враг specialty. Плохой шот — враг.</li>
+<li>Раф — часть нашей культуры. Можно любить и его, и V60.</li>
+<li>Цель — нормальный кофе каждый день, а не идеальная чашка раз в месяц.</li>
+</ol>
+<p>Эти десять пунктов — скелет всего гайда. Если они остаются с тобой, текст сделал свою работу.</p>
+<div class="bar" style="margin:32px 0"></div>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="приложение-расширенные-заметки-для-тех-к" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">Приложение. Расширенные заметки для тех, кто хочет копнуть ещё глубже</h2><div class="bar"></div>
+<h3>Про CO₂ и bloom</h3>
+<p>Свежеобжаренное зерно содержит много углекислого газа. При контакте с водой газ выходит — это и есть bloom. Если газа слишком много (очень свежий кофе), он мешает воде равномерно смачивать частицы. Поэтому на очень свежем зерне иногда увеличивают время bloom или слегка перемешивают. Через 5–10 дней после обжарки картина обычно стабилизируется.</p>
+<h3>Про fines и boulders</h3>
+<p>Fines — частицы размером существенно меньше среднего. Boulders — существенно больше. И те и другие вредят. Fines дают горечь и замедляют поток (особенно в эспрессо и пуровере). Boulders дают недоэкстракцию. Хорошая кофемолка минимизирует оба хвоста распределения. Поэтому апгрейд кофемолки почти всегда даёт больше, чем апгрейд воронки или чайника.</p>
+<h3>Про соотношение и «крепость»</h3>
+<p>Соотношение 1:15 — это 1 г кофе на 15 г воды. Оно влияет на концентрацию (strength), но не напрямую на процент экстракции. Можно сделать крепкую недоэкстрагированную чашку и слабую переэкстрагированную. Это разные оси. Люди часто путают «крепко» и «горько» или «крепко» и «вкусно». Крепость — про количество растворённого вещества в объёме. Вкус — про баланс извлечённых соединений.</p>
+<h3>Про рефрактометры</h3>
+<p>Рефрактометр измеряет TDS (total dissolved solids). Зная TDS и соотношение, можно приблизительно посчитать экстракцию. Это полезный инструмент для обучения и контроля, но не обязательный. Язык и стабильность результатов важнее. Многие отличные домашние пользователи никогда не пользуются рефрактометром.</p>
+<h3>Про обжарщиков</h3>
+<p>Хороший обжарщик:</p>
+<ul>
+<li>ставит дату;</li>
+<li>указывает обработку и происхождение;</li>
+<li>не боится говорить о свежести;</li>
+<li>даёт рекомендации по методу;</li>
+<li>жарит достаточно часто небольшими партиями.</li>
+</ol>
+<p>Плохой признак — красивый пакет без даты, общие фразы «премиальный вкус» без конкретики, зерно, которое месяцами лежит на полке.</p>
+<h3>Про ожидания</h3>
+<p>Самая частая причина разочарования — завышенные ожидания. Редкий лот за 3000 ₽ не гарантирует катарсис. Обычный хороший лот за разумные деньги, сваренный стабильно, часто приносит больше удовольствия в течение месяца.</p>
+<h3>Про развитие вкуса</h3>
+<p>Вкус тренируется. Через месяц осознанных завариваний ты будешь слышать больше, чем в первую неделю. Через полгода — ещё больше. Это не магия и не врождённый талант. Это внимание и повторение.</p>
+<p>На этом основной массив текста можно считать достаточным для продукта. Дальше — только практика за чашкой.</p>
+<div class="bar" style="margin:32px 0"></div>
+</section>
+<section id="ещё-раз-коротко-о-главном" class="reveal">
+<div class="lbl">Глава</div><h2 class="ttl">Ещё раз коротко о главном</h2><div class="bar"></div>
+<p>Ты дочитал длинный текст. Теперь самое важное — не запомнить всё, а начать делать.</p>
+<p>Купи зерно с датой. Возьми жерновую кофемолку и весы. Выбери один метод. Вари каждый день, меняя по одному параметру. Записывай. Через две недели ты уже будешь в другом месте.</p>
+<p>Specialty — это не статус. Это навык и внимание. Навык нарабатывается. Внимание возвращается каждый раз, когда ты выбираешь потратить лишние две минуты на помол и заваривание вместо автоматического кипятка.</p>
+<p>Если этот текст помог тебе сделать первый осознанный шаг — он сработал. Если помог выстроить систему на месяцы вперёд — тем лучше.</p>
+<p>Теперь иди и вари.</p>
+<div class="bar" style="margin:32px 0"></div>
+<p>От нуля до specialty</p>
+<p>акап.рф</p>
+</div>
+</section>
+
+<!-- RECIPES INTERACTIVE -->
+<section id="recipes-interactive" class="reveal">
+  <div class="lbl">Практика</div>
+  <h2 class="ttl">Рабочие рецепты</h2>
+  <div class="bar"></div>
+  <p class="lead">Нажми на любой — откроются точные параметры и шаги. Меняй по одному параметру.</p>
+
+  <div class="recipe" onclick="this.classList.toggle('open')">
+    <div class="recipe-h">
+      <svg class="ico" viewBox="0 0 36 36" fill="none"><path d="M8 8h20l-3 22H11L8 8z" stroke="var(--red)" stroke-width="1.5"/><path d="M12 14h12" stroke="var(--muted)" stroke-width="1"/></svg>
+      <h3>V60 / пуровер</h3><span class="tag">фильтр</span>
+    </div>
+    <div class="recipe-b"><div class="recipe-bi">
+      <div class="params">
+        <span><b>Кофе</b>15–16 г</span><span><b>Вода</b>250 г</span>
+        <span><b>Помол</b>средний</span><span><b>Темп.</b>93–96 °C</span>
+        <span><b>Время</b>2:30–3:15</span><span><b>Соотн.</b>1:15.5–1:16.5</span>
+      </div>
+      <ol class="steps">
+        <li>Прогрей воронку и фильтр, слей воду.</li>
+        <li>Засыпь кофе, сделай лунку.</li>
+        <li>Bloom 40–50 г, 30–40 сек.</li>
+        <li>Лей кругами до 150 г, пауза, долей до 250 г.</li>
+        <li>Общее время 2:30–3:15.</li>
+      </ol>
+      <p style="margin-top:10px"><strong>Кисло/пусто</strong> → мельче или дольше. <strong>Горько</strong> → крупнее или короче.</p>
+    </div></div>
+  </div>
+
+  <div class="recipe" onclick="this.classList.toggle('open')">
+    <div class="recipe-h">
+      <svg class="ico" viewBox="0 0 36 36" fill="none"><rect x="10" y="4" width="16" height="28" rx="3" stroke="var(--red)" stroke-width="1.5"/><circle cx="18" cy="22" r="4" stroke="var(--gold)" stroke-width="1.2"/></svg>
+      <h3>Аэропресс</h3><span class="tag">универсал</span>
+    </div>
+    <div class="recipe-b"><div class="recipe-bi">
+      <div class="params">
+        <span><b>Кофе</b>15–17 г</span><span><b>Вода</b>230–250 г</span>
+        <span><b>Помол</b>средний</span><span><b>Темп.</b>85–93 °C</span>
+        <span><b>Время</b>1:30–2:30</span><span><b>Давление</b>умеренное</span>
+      </div>
+      <ol class="steps">
+        <li>Классический или inverted.</li>
+        <li>Засыпь, залей, помешай 5–8 сек.</li>
+        <li>Настаивай 1–1:30.</li>
+        <li>Дави медленно 20–30 сек.</li>
+      </ol>
+    </div></div>
+  </div>
+
+  <div class="recipe" onclick="this.classList.toggle('open')">
+    <div class="recipe-h">
+      <svg class="ico" viewBox="0 0 36 36" fill="none"><rect x="9" y="6" width="18" height="24" rx="2" stroke="var(--red)" stroke-width="1.5"/><path d="M14 6v-2h8v2" stroke="var(--gold)" stroke-width="1.2"/></svg>
+      <h3>Френч-пресс</h3><span class="tag">тело</span>
+    </div>
+    <div class="recipe-b"><div class="recipe-bi">
+      <div class="params">
+        <span><b>Кофе</b>15–18 г</span><span><b>Вода</b>250 г</span>
+        <span><b>Помол</b>крупный</span><span><b>Темп.</b>90–96 °C</span>
+        <span><b>Время</b>4:00</span><span><b>Соотн.</b>1:14–1:16</span>
+      </div>
+      <ol class="steps">
+        <li>Засыпь, залей, помешай.</li>
+        <li>Накрой на 4 минуты.</li>
+        <li>Медленно опусти поршень.</li>
+        <li>Сразу разлей — не оставляй на гуще.</li>
+      </ol>
+    </div></div>
+  </div>
+
+  <div class="recipe" onclick="this.classList.toggle('open')">
+    <div class="recipe-h">
+      <svg class="ico" viewBox="0 0 36 36" fill="none"><path d="M8 14h20v12H8z" stroke="var(--red)" stroke-width="1.5"/><path d="M12 14v-4h12v4" stroke="var(--muted)" stroke-width="1.2"/><circle cx="18" cy="20" r="3" fill="var(--red)" opacity=".35"/></svg>
+      <h3>Эспрессо</h3><span class="tag">база</span>
+    </div>
+    <div class="recipe-b"><div class="recipe-bi">
+      <div class="params">
+        <span><b>Кофе</b>18 г</span><span><b>Выход</b>36–40 г</span>
+        <span><b>Помол</b>мелкий</span><span><b>Время</b>25–32 сек</span>
+        <span><b>Давление</b>~9 бар</span><span><b>Темп.</b>90–94 °C</span>
+      </div>
+      <ol class="steps">
+        <li>Равномерный помол и распределение.</li>
+        <li>Ровный темпинг.</li>
+        <li>Цель: 18 → 36–40 г за 25–32 сек.</li>
+        <li>Сначала шот, потом молоко (55–65 °C).</li>
+      </ol>
+    </div></div>
+  </div>
+</section>
+
+<!-- WIDGET -->
+<section id="widget" class="reveal">
+  <div class="lbl">Интерактив</div>
+  <h2 class="ttl">Подбор метода под зерно</h2>
+  <div class="bar"></div>
+  <div class="widget">
+    <h3 class="sg">Что за зерно?</h3>
+    <p class="ws">Обработка + обжарка + цель → рекомендация</p>
+    <div class="wg">
+      <div class="wf"><label>Обработка</label><select id="wP"><option value="washed">Washed</option><option value="natural">Natural</option><option value="honey">Honey</option><option value="anaerobic">Anaerobic</option></select></div>
+      <div class="wf"><label>Обжарка</label><select id="wR"><option value="light">Светлая</option><option value="medium">Средняя</option><option value="dark">Тёмная</option></select></div>
+      <div class="wf"><label>Цель</label><select id="wG"><option value="clean">Чистота</option><option value="sweet">Сладость</option><option value="body">Тело</option><option value="espresso">Эспрессо</option></select></div>
+      <div class="wf"><label>Опыт</label><select id="wL"><option value="beginner">Новичок</option><option value="medium">Средний</option><option value="advanced">Уверенный</option></select></div>
+    </div>
+    <button class="wb" id="wB">Подобрать</button>
+    <div class="wr" id="wRes"><h4 id="wT"></h4><p id="wD"></p></div>
+  </div>
+</section>
+
+</main>
+
+<!-- GAME -->
+<section id="game" class="gs">
+  <div class="wrap">
+    <div class="reveal"><div class="lbl" style="color:#ff6b7a">Игра</div><h2 class="ttl">Диагностика вкуса</h2><div class="bar" style="background:#ff6b7a"></div></div>
+    <div class="gc reveal">
+      <div class="gt" id="gT">…</div>
+      <div class="go" id="gO"></div>
+      <div class="gf" id="gF"></div>
+      <button class="gn" id="gN">Дальше</button>
+      <div class="gsc" id="gS">0 / 0</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- INTERVIEWS -->
+<section id="media" class="reveal" style="padding-top:48px">
+  <div class="lbl">Медиа</div>
+  <h2 class="ttl">Интервью про кофе</h2>
+  <div class="bar"></div>
+  <p class="lead">Если хочется услышать голос и живой разговор — вот материалы.</p>
+  <div class="cards" style="margin-top:20px">
+    <a href="https://акап.рф" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block">
+      <h3>Видеоинтервью</h3>
+      <p>Разговор про specialty, вкус и то, как пить нормальный кофе. Смотреть →</p>
+    </a>
+    <a href="https://акап.рф" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block">
+      <h3>Текстовое интервью</h3>
+      <p>Подробный разбор без камеры: подход, ошибки, что реально важно. Читать →</p>
+    </a>
+    <a href="https://акап.рф" target="_blank" rel="noopener" class="card" style="text-decoration:none;display:block">
+      <h3>Ещё материалы</h3>
+      <p>Другие разговоры и заметки про кофе на акап.рф</p>
+    </a>
+  </div>
+</section>
+
+<!-- SHOP CTA -->
+<section id="shop" class="reveal" style="padding:48px 0 64px">
+  <div style="background:linear-gradient(160deg,#1a1210,#14100e);border:1px solid rgba(196,30,58,.25);border-radius:16px;padding:28px 22px;text-align:center">
+    <div class="lbl" style="margin-bottom:8px">Акап.рф</div>
+    <h2 class="ttl" style="font-size:clamp(22px,3.5vw,30px);margin-bottom:10px">Свежие лоты specialty</h2>
+    <p style="color:var(--text2);font-size:15px;max-width:420px;margin:0 auto 22px;line-height:1.5">
+      Зерно с датой обжарки, понятным происхождением и характером. То, о чём этот гайд — можно сразу попробовать.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:18px">
+      <span style="background:rgba(255,255,255,.05);border:1px solid var(--line);padding:8px 14px;border-radius:980px;font-size:13px;color:var(--text2)">Washed · Natural</span>
+      <span style="background:rgba(255,255,255,.05);border:1px solid var(--line);padding:8px 14px;border-radius:980px;font-size:13px;color:var(--text2)">Светлая / средняя</span>
+      <span style="background:rgba(255,255,255,.05);border:1px solid var(--line);padding:8px 14px;border-radius:980px;font-size:13px;color:var(--text2)">С датой на пачке</span>
+    </div>
+    <a href="https://акап.рф" target="_blank" rel="noopener" style="display:inline-block;background:var(--red);color:#fff;font-family:inherit;font-size:14px;font-weight:600;padding:14px 28px;border-radius:980px;text-decoration:none;transition:transform .2s,background .2s">
+      Смотреть лоты и купить →
+    </a>
+    <p style="margin-top:14px;font-size:12.5px;color:var(--muted)">акап.рф · свежая обжарка · доставка</p>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="logo">A CUP</a>
+  <p>акап.рф · От нуля до specialty</p>
+  <p style="margin-top:8px;opacity:.6;font-size:12px">Полный гайд. Без снобизма. С фактами.</p>
+</footer>
+
+<script>
+// Progress bar
+const progress=document.getElementById('progress');
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const p=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+  progress.style.width=p+'%';
+  document.getElementById('nav').classList.toggle('on',scrollY>20);
+},{passive:true});
+
+// Nav toggle
+document.getElementById('navToggle').onclick=()=>document.getElementById('navLinks').classList.toggle('open');
+document.querySelectorAll('#navLinks a').forEach(a=>a.onclick=()=>document.getElementById('navLinks').classList.remove('open'));
+
+// Reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Hero
+(function(){
+  const T='От нуля до specialty';
+  const hero=document.getElementById('hero'),bw=document.getElementById('beanWhole'),bl=document.getElementById('beanLeft'),br=document.getElementById('beanRight'),svg=document.getElementById('beanSvg'),layer=document.getElementById('letters'),bottom=document.getElementById('heroBottom'),cue=document.getElementById('cue');
+  const canvas=document.getElementById('p-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,particles=[];
+  function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+  resize();addEventListener('resize',resize);
+  function spawn(n=20){for(let i=0;i<n;i++){particles.push({x:W/2+(Math.random()-.5)*55,y:H*.44+(Math.random()-.5)*35,vx:(Math.random()-.5)*5.5,vy:(Math.random()-.5)*4-1,r:Math.random()*1.7+.3,life:1,decay:.006+Math.random()*.012,hue:12+Math.random()*35})}}
+  const L=[];T.split('').forEach(c=>{const s=document.createElement('span');s.className='letter';s.textContent=c===' '?'\u00A0':c;layer.appendChild(s);L.push(s)});
+  function layout(){const cx=innerWidth/2,cy=innerHeight*.38;let tot=0;const ws=L.map(l=>{l.style.opacity='0';l.style.transform='none';l.style.position='relative';l.style.left=l.style.top='auto';const w=l.getBoundingClientRect().width;tot+=w;return w});L.forEach(l=>l.style.position='absolute');let x=cx-tot/2;L.forEach((l,i)=>{l.dataset.fx=x+ws[i]/2;l.dataset.fy=cy;x+=ws[i]})}
+  layout();addEventListener('resize',layout);
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>1-Math.pow(1-t,3);
+  let last=0;
+  function tick(){
+    const r=hero.getBoundingClientRect(),p=clamp(-r.top/(hero.offsetHeight*.5),0,1),t=ease(p);
+    const sc=lerp(1,.18,t),op=lerp(1,0,clamp((t-.08)/.42,0,1));
+    svg.style.transform=`scale(${sc})`;bw.style.opacity=op>0.25?op:0;
+    const co=op<=0.25?clamp((0.25-op)/0.25,0,1):0;
+    bl.setAttribute('opacity',co);br.setAttribute('opacity',co);
+    if(co>0){bl.setAttribute('transform',`translate(${-28*co},0)`);br.setAttribute('transform',`translate(${28*co},0)`)}
+    if(t>0.1&&t<0.85&&performance.now()-last>65){spawn(6);last=performance.now()}
+    ctx.clearRect(0,0,W,H);
+    particles=particles.filter(pt=>{pt.x+=pt.vx;pt.y+=pt.vy;pt.vy+=.016;pt.life-=pt.decay;if(pt.life<=0)return false;ctx.beginPath();ctx.arc(pt.x,pt.y,pt.r*pt.life,0,Math.PI*2);ctx.fillStyle=`hsla(${pt.hue},58%,${50+pt.life*22}%,${pt.life*.8})`;ctx.fill();return true});
+    const cx=innerWidth/2,cy=innerHeight*.42,lt0=clamp((t-.1)/.72,0,1);
+    L.forEach((l,i)=>{const st=i*.012,lt=clamp((lt0-st)/(1-st*.18),0,1),e=ease(lt);const ang=(i/L.length)*Math.PI*2+.4,rad=36+(i%5)*10;const sx=cx+Math.cos(ang)*rad,sy=cy+Math.sin(ang)*rad*.5;const x=lerp(sx,+l.dataset.fx,e),y=lerp(sy,+l.dataset.fy,e);l.style.opacity=clamp(e*1.5,0,1);l.style.transform=`translate(${x}px,${y}px) translate(-50%,-50%) rotate(${lerp(i%2?22:-22,0,e)}deg) scale(${lerp(.16,1,e)})`});
+    if(t>.7){bottom.classList.add('show');cue.style.opacity='0'}else{bottom.classList.remove('show');cue.style.opacity=String(Math.max(0,1-t*1.5))}
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// Widget
+document.getElementById('wB').onclick=()=>{
+  const p=document.getElementById('wP').value,r=document.getElementById('wR').value,g=document.getElementById('wG').value,l=document.getElementById('wL').value;
+  let m,pr,n;
+  if(g==='espresso'){m='Эспрессо';pr='18→36–40 г, 25–32 сек';n=r==='light'?'Светлая требует точности.':'Средняя/тёмная проще с молоком.'}
+  else if(g==='body'){m='Френч-пресс';pr='15–18/250, крупный, 4 мин';n='Максимум тела. Сразу разливай.'}
+  else if(g==='sweet'||p==='natural'||p==='honey'){m=l==='beginner'?'Аэропресс':'V60 / Аэропресс';pr='15–16 г / 240–250 г';n='Natural/honey хорошо отдают сладость.'}
+  else{m='V60';pr='15–16/250, 2:30–3:15, 93–96 °C';n='Washed показывает чистоту.'}
+  if(r==='dark'&&g!=='espresso')n+=' Тёмная прощает, происхождения мало.';
+  document.getElementById('wT').textContent=m;document.getElementById('wD').textContent=pr+'. '+n;document.getElementById('wRes').style.display='block';
+};
+
+// Game
+const Q=[{t:'Кисло, пусто',o:[{x:'Мельче / дольше',ok:1},{x:'Крупнее',ok:0},{x:'Меньше кофе',ok:0},{x:'Кипяток',ok:0}],e:'Недоэкстракция.'},{t:'Горько, вяжуще',o:[{x:'Мельче',ok:0},{x:'Крупнее / короче',ok:1},{x:'Больше кофе',ok:0},{x:'Холодная',ok:0}],e:'Переэкстракция.'},{t:'Водянистый',o:[{x:'Больше граммов',ok:1},{x:'Меньше',ok:0},{x:'Кипяток',ok:0},{x:'Молоть заранее',ok:0}],e:'Мало кофе.'},{t:'Плоско',o:[{x:'Свежесть и вода',ok:1},{x:'Кипяток',ok:0},{x:'Мельче',ok:0},{x:'Холодильник',ok:0}],e:'Зерно или вода.'},{t:'Молочный «не то»',o:[{x:'Проверить шот',ok:1},{x:'Жирнее молоко',ok:0},{x:'80°C',ok:0},{x:'Сироп',ok:0}],e:'Сначала эспрессо.'}];
+let qi=0,sc=0,an=0,lk=0;
+const gT=document.getElementById('gT'),gO=document.getElementById('gO'),gF=document.getElementById('gF'),gN=document.getElementById('gN'),gS=document.getElementById('gS');
+const sh=a=>[...a].sort(()=>Math.random()-.5);
+function rq(){lk=0;const q=Q[qi];gT.textContent=q.t;gF.textContent='';gN.classList.remove('show');gO.innerHTML='';sh(q.o).forEach(o=>{const b=document.createElement('button');b.className='gb';b.textContent=o.x;b.onclick=()=>sel(b,o,q);gO.appendChild(b)})}
+function sel(b,o,q){if(lk)return;lk=1;an++;document.querySelectorAll('.gb').forEach(x=>x.style.pointerEvents='none');if(o.ok){b.classList.add('ok');sc++;gF.textContent='✓ '+q.e;gF.style.color='#34C759'}else{b.classList.add('bad');document.querySelectorAll('.gb').forEach(x=>{if(q.o.find(z=>z.x===x.textContent&&z.ok))x.classList.add('ok')});gF.textContent='✗ '+q.e;gF.style.color='#FF6B7A'}gS.textContent=sc+' / '+an;gN.classList.add('show')}
+gN.onclick=()=>{qi=(qi+1)%Q.length;if(!qi){sc=0;an=0;gS.textContent='0 / 0'}rq()};rq();
+</script>
+</body>
+</html>
