@@ -73,7 +73,9 @@
       location.href = d.confirmation_url;
     } catch (e) {
       lockButtons(false);
-      showError(e && e.message ? e.message : undefined);
+      var msg = (e && e.message) ? e.message : undefined;
+      if (e && e.name === 'TypeError') msg = 'Нет соединения с платёжным сервисом. Проверьте интернет и попробуйте ещё раз.';
+      showError(msg);
     }
   }
   S.beginCheckout = beginCheckout;
